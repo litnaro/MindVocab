@@ -6,14 +6,47 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.mindvocab.R
+import com.example.mindvocab.databinding.FragmentSettingsBinding
+import com.example.mindvocab.screens.settings.account.SettingsAccountFragment
+import com.example.mindvocab.screens.settings.application.SettingsApplicationFragment
+import com.example.mindvocab.screens.settings.learn.SettingsLearnFragment
+import com.example.mindvocab.screens.settings.notifications.SettingsNotificationsFragment
+import com.example.mindvocab.screens.settings.repeat.SettingsRepeatFragment
 
 class SettingsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+    ): View {
+
+        val binding = FragmentSettingsBinding.inflate(inflater, container, false)
+
+        parentFragmentManager.beginTransaction()
+            .setReorderingAllowed(true)
+            .replace(binding.accountSettingsContainer.id, SettingsAccountFragment())
+            .commit()
+
+        parentFragmentManager.beginTransaction()
+            .setReorderingAllowed(true)
+            .replace(binding.applicationSettingsContainer.id, SettingsApplicationFragment())
+            .commit()
+
+        parentFragmentManager.beginTransaction()
+            .setReorderingAllowed(true)
+            .replace(binding.learnSettingsContainer.id, SettingsLearnFragment())
+            .commit()
+
+        parentFragmentManager.beginTransaction()
+            .setReorderingAllowed(true)
+            .replace(binding.repeatSettingsContainer.id, SettingsRepeatFragment())
+            .commit()
+
+        parentFragmentManager.beginTransaction()
+            .setReorderingAllowed(true)
+            .replace(binding.notificationSettingsContainer.id, SettingsNotificationsFragment())
+            .commit()
+
+        return binding.root
     }
 }

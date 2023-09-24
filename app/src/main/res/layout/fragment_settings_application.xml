@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:padding="@dimen/main_screen_padding"
+    tools:context=".screens.settings.application.SettingsApplicationFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Приложение"
+        android:textSize="@dimen/main_heading_size"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Тема приложения"
+            android:textSize="@dimen/secondary_heading_size"
+            android:layout_weight="1"/>
+
+        <Spinner
+            android:id="@+id/themeSpinner"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Язык интерфейса"
+            android:textSize="@dimen/secondary_heading_size"
+            android:layout_weight="1"/>
+
+        <Spinner
+            android:id="@+id/languageSpinner"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

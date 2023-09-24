@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/learn"
+        android:title="@string/title_learn"
+        android:icon="@drawable/ic_send_to_mobile"/>
+
+    <item
+        android:id="@+id/repeat"
+        android:title="@string/title_repeat"
+        android:icon="@drawable/ic_meditation"/>
+
+    <item
+        android:id="@+id/statistic"
+        android:title="@string/title_statistic"
+        android:icon="@drawable/ic_query_stats"/>
+
+    <item
+        android:id="@+id/browser"
+        android:title="@string/title_browser"
+        android:icon="@drawable/ic_browser_updated"/>
+
+    <item
+        android:id="@+id/settings"
+        android:title="@string/title_settings"
+        android:icon="@drawable/ic_settings"/>
+
+</menu>

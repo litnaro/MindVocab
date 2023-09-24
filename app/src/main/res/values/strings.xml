@@ -1,6 +1,42 @@
 <resources>
-    <string name="app_name">MindVocab</string>
     <string name="category_words">%1$d/%2$d</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--General-->
+    <string name="app_name">MindVocab</string>
+    <!--General-->
+
+    <!--    Learn graph-->
+    <string name="title_learn">Изучение</string>
+    <!--    Learn graph-->
+
+    <!--    Repeat graph-->
+    <string name="title_repeat">Повторение</string>
+    <!--    Repeat graph-->
+
+    <!--    Statistic graph-->
+    <string name="title_statistic">Статистика</string>
+    <!--    Statistic graph-->
+
+    <!--    Browser graph-->
+    <string name="title_browser">Браузер</string>
+    <!--    Browser graph-->
+
+    <!--    Settings graph-->
+    <string name="title_settings">Настройки</string>
+
+    <string-array name="setting_application_theme">
+        <item>По умолчанию</item>
+        <item>Темная</item>
+        <item>Светлая</item>
+    </string-array>
+
+    <string-array name="setting_application_language">
+        <item>Английский</item>
+        <item>Украинский</item>
+        <item>Русский</item>
+    </string-array>
+    <!--    Settings graph-->
+
 </resources>

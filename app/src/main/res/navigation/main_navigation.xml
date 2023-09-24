@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/learn">
+
+    <fragment
+        android:id="@+id/learn"
+        android:name="com.example.mindvocab.screens.learn.LearnWordFragment"
+        android:label="@string/title_learn"
+        tools:layout="@layout/fragment_learn_word" />
+    <fragment
+        android:id="@+id/repeat"
+        android:name="com.example.mindvocab.screens.repeat.RepeatWordFragment"
+        android:label="@string/title_repeat"
+        tools:layout="@layout/fragment_repeat_word" />
+    <fragment
+        android:id="@+id/statistic"
+        android:name="com.example.mindvocab.screens.statistic.StatisticFragment"
+        android:label="@string/title_statistic"
+        tools:layout="@layout/fragment_statistic" />
+    <fragment
+        android:id="@+id/browser"
+        android:name="com.example.mindvocab.screens.browser.BrowserFragment"
+        android:label="@string/title_browser"
+        tools:layout="@layout/fragment_browser" />
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.example.mindvocab.screens.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settings_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.mindvocab.screens.settings.account.password.ChangePasswordFragment"
+        android:label="Смена пароля"
+        tools:layout="@layout/fragment_change_password" />
+</navigation>
