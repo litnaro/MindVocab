@@ -12,65 +12,182 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/main_screen_padding">
 
-        <ProgressBar
-            android:id="@+id/wordsLearnedProgress"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/wordsProgressContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer"
+            app:cardCornerRadius="@dimen/default_card_corner_radius"
+            app:contentPadding="@dimen/default_card_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ProgressBar
+                    android:id="@+id/wordsLearnedProgress"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/wordsLearnedProgressText"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="100%"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/secondary_heading_size"
+                    app:layout_constraintBottom_toBottomOf="@+id/wordsLearnedProgress"
+                    app:layout_constraintEnd_toEndOf="@+id/wordsLearnedProgress"
+                    app:layout_constraintStart_toStartOf="@+id/wordsLearnedProgress"
+                    app:layout_constraintTop_toTopOf="@+id/wordsLearnedProgress" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Слова"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/simple_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/wordsLearnedProgress"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/wordsLearnedProgress" />
+
+                <TextView
+                    android:id="@+id/entireAmountOfWords"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Всего слов: 200"
+                    android:textSize="@dimen/third_heading_size"
+                    app:layout_constraintBottom_toTopOf="@+id/wordsKnownAmount"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/wordsLearnedProgress"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/wordsKnownAmount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Уже известно: 100"
+                    android:textSize="@dimen/third_heading_size"
+                    app:layout_constraintBottom_toTopOf="@+id/wordsLearnedAmount"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/wordsLearnedProgress"
+                    app:layout_constraintTop_toBottomOf="@+id/entireAmountOfWords" />
+
+                <TextView
+                    android:id="@+id/wordsLearnedAmount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Выучено: 100"
+                    android:textSize="@dimen/third_heading_size"
+                    app:layout_constraintBottom_toTopOf="@+id/wordsLeftAmount"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/wordsLearnedProgress"
+                    app:layout_constraintTop_toBottomOf="@+id/wordsKnownAmount" />
+
+                <TextView
+                    android:id="@+id/wordsLeftAmount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Осталось слов: 100"
+                    android:textSize="@dimen/third_heading_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/wordsLearnedProgress"
+                    app:layout_constraintTop_toBottomOf="@+id/wordsLearnedAmount" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/achievementsProgressContainer"
             android:layout_width="120dp"
-            android:layout_height="120dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-            android:id="@+id/wordsLearnedProgressText"
-            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:text="100%"
-            android:textAlignment="center"
-            android:textSize="@dimen/main_heading_size"
-            app:layout_constraintStart_toStartOf="@+id/wordsLearnedProgress"
-            app:layout_constraintEnd_toEndOf="@+id/wordsLearnedProgress"
-            app:layout_constraintTop_toTopOf="@+id/wordsLearnedProgress"
-            app:layout_constraintBottom_toBottomOf="@+id/wordsLearnedProgress"/>
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer"
+            app:contentPadding="@dimen/default_card_padding"
+            app:cardCornerRadius="@dimen/default_card_corner_radius"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wordsProgressContainer">
 
-        <TextView
-            android:id="@+id/entireAmountOfWords"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ProgressBar
+                    android:id="@+id/achievementsProgress"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/achievementsProgressText"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="100%"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/secondary_heading_size"
+                    app:layout_constraintStart_toStartOf="@+id/achievementsProgress"
+                    app:layout_constraintEnd_toEndOf="@+id/achievementsProgress"
+                    app:layout_constraintTop_toTopOf="@+id/achievementsProgress"
+                    app:layout_constraintBottom_toBottomOf="@+id/achievementsProgress"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Достижения"
+                    android:textSize="@dimen/simple_text_size"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/achievementsProgress"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/scheduleProgressContainer"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Всего слов: 200"
-            android:textSize="@dimen/secondary_heading_size"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer"
+            app:contentPadding="@dimen/default_card_padding"
+            app:cardCornerRadius="@dimen/default_card_corner_radius"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wordsLearnedProgress"/>
+            app:layout_constraintStart_toEndOf="@+id/achievementsProgressContainer"
+            app:layout_constraintTop_toTopOf="@+id/achievementsProgressContainer"
+            app:layout_constraintBottom_toBottomOf="@+id/achievementsProgressContainer">
 
-        <TextView
-            android:id="@+id/wordsKnownAmount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Уже известно: 100"
-            android:textSize="@dimen/secondary_heading_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/entireAmountOfWords"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/wordsLearnedAmount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Выучено: 100"
-            android:textSize="@dimen/secondary_heading_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wordsKnownAmount"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_query_stats"/>
 
-        <TextView
-            android:id="@+id/wordsLeftAmount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Осталось слов: 100"
-            android:textSize="@dimen/secondary_heading_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wordsLearnedAmount"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/achievementsHeadings"
@@ -81,9 +198,10 @@
             android:text="Достижения"
             android:textSize="@dimen/main_heading_size"
             android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/achievementsListType"
-            app:layout_constraintTop_toBottomOf="@+id/wordsLeftAmount"/>
+            app:layout_constraintTop_toBottomOf="@+id/achievementsProgressContainer"/>
 
         <ImageView
             android:id="@+id/achievementsListType"
@@ -91,6 +209,7 @@
             android:layout_height="24dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/ic_filter"
+            app:tint="?attr/colorOnSurface"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/achievementsHeadings"
             app:layout_constraintBottom_toBottomOf="@+id/achievementsHeadings"/>

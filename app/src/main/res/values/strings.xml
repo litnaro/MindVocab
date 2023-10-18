@@ -37,6 +37,32 @@
         <item>Украинский</item>
         <item>Русский</item>
     </string-array>
+
+    <string-array name="settings_learn_swipe_actions">
+        <item>Знаю</item>
+        <item>Учить</item>
+    </string-array>
+
+    <string-array name="settings_learn_words_order">
+        <item>Умный</item>
+        <item>Случайный</item>
+    </string-array>
+
+    <string-array name="settings_repeat_mode">
+        <item>Перевод</item>
+        <item>Правописание</item>
+    </string-array>
+
+    <string-array name="settings_repeat_show_first">
+        <item>Перевод</item>
+        <item>Слово</item>
+    </string-array>
+
+    <string-array name="settings_repeat_animation">
+        <item>Переворот</item>
+        <item>Появление</item>
+    </string-array>
+
     <!--    Settings graph-->
 
 </resources>

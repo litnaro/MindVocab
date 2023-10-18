@@ -23,24 +23,28 @@
             android:id="@+id/applicationSettingsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             tools:layout="@layout/fragment_settings_application"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/learnSettingsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             tools:layout="@layout/fragment_settings_learn"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/repeatSettingsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             tools:layout="@layout/fragment_settings_repeat"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/notificationSettingsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             tools:layout="@layout/fragment_settings_notifications"/>
 
     </LinearLayout>

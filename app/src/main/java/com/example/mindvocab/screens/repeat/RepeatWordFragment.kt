@@ -5,16 +5,32 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.example.mindvocab.R
+import com.example.mindvocab.core.BaseFragment
+import com.example.mindvocab.core.BaseViewModel
+import com.example.mindvocab.core.factory
+import com.example.mindvocab.databinding.FragmentRepeatWordBinding
 
-class RepeatWordFragment : Fragment() {
+class RepeatWordFragment : BaseFragment() {
+
+    // https://www.youtube.com/watch?v=XCvejwakoao
+
+    override val viewModel: RepeatWordViewModel by viewModels { factory() }
+
+    private var _binding: FragmentRepeatWordBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_repeat_word, container, false)
+    ): View {
+        _binding = FragmentRepeatWordBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

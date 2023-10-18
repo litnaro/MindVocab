@@ -6,63 +6,84 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:padding="@dimen/main_screen_padding"
     tools:context=".screens.settings.notifications.SettingsNotificationsFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Уведомления"
-        android:textSize="@dimen/main_heading_size"
+        android:textSize="@dimen/secondary_heading_size"
         android:textStyle="bold"/>
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/default_card_corner_radius"
+        app:contentPadding="10dp"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        app:cardBackgroundColor="?attr/colorPrimaryContainer">
 
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Включить уведомления"
-            android:textSize="@dimen/secondary_heading_size"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"/>
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:orientation="horizontal">
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/allowNotificationsSwitch"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="5dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Включить уведомления"
+                    android:textSize="@dimen/simple_text_size"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"/>
 
-    </LinearLayout>
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/allowNotificationsSwitch"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="5dp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+            </LinearLayout>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Напоминать об изучении"
-            android:textSize="@dimen/secondary_heading_size"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="?attr/colorOnPrimaryContainer"/>
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/allowRemindingSwitch"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="5dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:orientation="horizontal">
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Напоминать об изучении"
+                    android:textSize="@dimen/simple_text_size"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"/>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/allowRemindingSwitch"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="5dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 
 </LinearLayout>

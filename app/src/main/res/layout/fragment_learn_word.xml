@@ -10,13 +10,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp">
+        android:padding="@dimen/main_screen_padding">
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:contentPadding="20dp"
-            app:cardCornerRadius="12dp"
+            app:contentPaddingTop="10dp"
+            app:contentPaddingBottom="10dp"
+            app:cardCornerRadius="@dimen/default_card_corner_radius"
             app:cardBackgroundColor="?attr/colorPrimaryContainer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +39,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/listenWordButton"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/listenWordButton"
-                    android:text="Game" />
+                    tools:text="Game" />
 
                 <TextView
                     android:id="@+id/wordTranscription"
@@ -49,7 +51,7 @@
                     app:layout_constraintEnd_toEndOf="@+id/word"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/word"
-                    android:text="[fioi:de]" />
+                    tools:text="[fioi:de]" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/listenWordButton"
@@ -91,10 +93,10 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
-                    android:id="@+id/wordExplainingTitle"
+                    android:id="@+id/wordTranslationTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Explaining"
+                    android:text="Перевод"
                     android:textSize="@dimen/secondary_heading_size"
                     android:textColor="?attr/colorOnPrimaryContainer"
                     android:layout_marginHorizontal="5dp"
@@ -103,26 +105,55 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/wordImageContainer"/>
 
+                <TextView
+                    android:id="@+id/wordTranslation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    tools:text="This word is about taunting someone in real life."
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textSize="@dimen/simple_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/wordTranslationTitle" />
+
+                <TextView
+                    android:id="@+id/wordExplainingTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Объяснение"
+                    android:textSize="@dimen/secondary_heading_size"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/wordTranslation"/>
+
 
                 <TextView
                     android:id="@+id/wordExplaining"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="This word is about taunting someone in real life."
-                    android:textSize="@dimen/simple_text_size"
-                    android:textColor="?attr/colorOnPrimaryContainer"
                     android:layout_marginHorizontal="5dp"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="5dp"
+                    tools:text="This word is about taunting someone in real life."
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textSize="@dimen/simple_text_size"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/wordExplainingTitle"/>
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/wordExplainingTitle" />
 
                 <TextView
                     android:id="@+id/wordExamplesTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Examples"
+                    android:text="Примеры"
                     android:textSize="@dimen/secondary_heading_size"
                     android:textColor="?attr/colorOnPrimaryContainer"
                     android:layout_marginHorizontal="5dp"
@@ -146,7 +177,7 @@
                     android:id="@+id/examplesDivider"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="20dp"
                     android:background="?attr/colorOnPrimaryContainer"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -154,7 +185,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/examplesRv" />
 
                 <TextView
-                    android:id="@+id/textWordKnown"
+                    android:id="@+id/wordKnownButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:paddingVertical="20dp"
@@ -162,13 +193,13 @@
                     android:textColor="?attr/colorOnPrimaryContainer"
                     android:textAlignment="center"
                     android:textSize="@dimen/simple_text_size"
-                    app:layout_constraintEnd_toStartOf="@+id/textWordToLearn"
+                    app:layout_constraintEnd_toStartOf="@+id/wordToLearnButton"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/examplesDivider" />
 
                 <TextView
-                    android:id="@+id/textWordToLearn"
+                    android:id="@+id/wordToLearnButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:paddingVertical="20dp"
@@ -178,7 +209,7 @@
                     android:textSize="@dimen/simple_text_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/textWordKnown"
+                    app:layout_constraintStart_toEndOf="@+id/wordKnownButton"
                     app:layout_constraintTop_toBottomOf="@+id/examplesDivider" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

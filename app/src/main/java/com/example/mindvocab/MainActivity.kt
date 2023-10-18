@@ -2,11 +2,13 @@ package com.example.mindvocab
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.mindvocab.databinding.ActivityMainBinding
+import com.example.mindvocab.screens.learn.LearnWordFragmentDirections
 import java.util.regex.Pattern
 
 class MainActivity : AppCompatActivity() {
@@ -37,6 +39,10 @@ class MainActivity : AppCompatActivity() {
         setupWithNavController(binding.bottomNavigationView, navController)
 
         navController.addOnDestinationChangedListener(destinationListener)
+
+        binding.actionSelectWordSet.setOnClickListener {
+            navController.navigate(LearnWordFragmentDirections.actionLearnToWordSetsFragment())
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -46,6 +52,11 @@ class MainActivity : AppCompatActivity() {
     private val destinationListener = NavController.OnDestinationChangedListener { _, destination, arguments ->
         supportActionBar?.title = prepareTitle(destination.label, arguments)
         supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
+        if (destination.id == R.id.learn){
+            binding.actionSelectWordSet.visibility = View.VISIBLE
+        } else {
+            binding.actionSelectWordSet.visibility = View.GONE
+        }
     }
 
     private fun prepareTitle(label: CharSequence?, arguments: Bundle?): String {
@@ -60,7 +71,7 @@ class MainActivity : AppCompatActivity() {
             val argName = matcher.group(1)
             if (arguments != null && arguments.containsKey(argName)) {
                 matcher.appendReplacement(title, "")
-                title.append(arguments[argName].toString())
+                title.append(arguments.getString(argName))
             } else {
                 throw IllegalArgumentException(
                     "Could not find $argName in $arguments to fill label $label"

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:contentPadding="15dp"
+    app:cardCornerRadius="@dimen/default_card_corner_radius"
+    app:cardBackgroundColor="?attr/colorPrimaryContainer"
+    android:layout_marginBottom="7dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <ImageView
+            android:id="@+id/wordSetPhoto"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            tools:src="@drawable/ic_flip"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/wordSetTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textColor="?attr/colorOnPrimaryContainer"
+            android:textSize="@dimen/secondary_heading_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/wordSetIsSelected"
+            app:layout_constraintStart_toEndOf="@+id/wordSetPhoto"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Law" />
+
+        <ImageView
+            android:id="@+id/wordSetIsSelected"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_check_box_filled"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/wordSetProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="10/27"
+            android:textSize="@dimen/third_heading_size"
+            android:textColor="?attr/colorOnPrimaryContainer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

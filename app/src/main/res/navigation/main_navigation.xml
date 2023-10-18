@@ -9,7 +9,11 @@
         android:id="@+id/learn"
         android:name="com.example.mindvocab.screens.learn.LearnWordFragment"
         android:label="@string/title_learn"
-        tools:layout="@layout/fragment_learn_word" />
+        tools:layout="@layout/fragment_learn_word" >
+        <action
+            android:id="@+id/action_learn_to_wordSetsFragment"
+            app:destination="@id/wordSetsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/repeat"
         android:name="com.example.mindvocab.screens.repeat.RepeatWordFragment"
@@ -39,4 +43,9 @@
         android:name="com.example.mindvocab.screens.settings.account.password.ChangePasswordFragment"
         android:label="Смена пароля"
         tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/wordSetsFragment"
+        android:name="com.example.mindvocab.screens.learn.wordset.WordSetsFragment"
+        android:label="Выбор категории"
+        tools:layout="@layout/fragment_word_sets" />
 </navigation>

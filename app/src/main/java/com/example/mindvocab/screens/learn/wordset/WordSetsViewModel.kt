@@ -1,4 +1,4 @@
-package com.example.mindvocab.screens.learn
+package com.example.mindvocab.screens.learn.wordset
 
 import com.example.mindvocab.core.BaseViewModel
 
