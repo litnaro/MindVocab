@@ -12,22 +12,34 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/main_screen_padding">
 
-        <ProgressBar
+        <ir.mahozad.android.PieChart
             android:id="@+id/dailyProgressBar"
-            android:layout_width="190dp"
-            android:layout_height="190dp"
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            app:startAngle="-90"
+            app:holeRatio="0.9"
+            app:labelType="outside"
+            app:outsideLabelsMargin="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
+<!--        <ProgressBar-->
+<!--            android:id="@+id/dailyProgressBar"-->
+<!--            android:layout_width="190dp"-->
+<!--            android:layout_height="190dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"/>-->
 
         <TextView
             android:id="@+id/dailyProgressPercentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100%"
+            android:text="8"
             android:textSize="28sp"
             android:textStyle="bold"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="70dp"
             app:layout_constraintStart_toStartOf="@+id/dailyProgressBar"
             app:layout_constraintEnd_toEndOf="@+id/dailyProgressBar"
             app:layout_constraintTop_toTopOf="@+id/dailyProgressBar"
@@ -37,87 +49,11 @@
             android:id="@+id/dailyProgressDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="За сутки"
+            android:text="дней подряд"
             android:textSize="@dimen/simple_text_size"
             app:layout_constraintStart_toStartOf="@+id/dailyProgressBar"
             app:layout_constraintEnd_toEndOf="@+id/dailyProgressBar"
             app:layout_constraintTop_toBottomOf="@+id/dailyProgressPercentage"/>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/wordsProgressContainer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="?attr/colorPrimaryContainer"
-            app:cardCornerRadius="@dimen/default_card_corner_radius"
-            app:contentPaddingLeft="@dimen/default_card_padding"
-            app:contentPaddingRight="@dimen/default_card_padding"
-            app:contentPaddingTop="15dp"
-            app:contentPaddingBottom="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dailyProgressBar">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_gravity="center_vertical"
-                    app:cardBackgroundColor="@color/black"
-                    android:layout_marginTop="1dp"
-                    app:cardCornerRadius="5dp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Повторить"
-                    android:textColor="?attr/colorOnPrimaryContainer"
-                    android:textSize="@dimen/simple_text_size"
-                    android:layout_marginStart="10dp"/>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_gravity="center_vertical"
-                    app:cardBackgroundColor="@color/design_default_color_error"
-                    android:layout_marginTop="1dp"
-                    app:cardCornerRadius="5dp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Выучить"
-                    android:textColor="?attr/colorOnPrimaryContainer"
-                    android:textSize="@dimen/simple_text_size"
-                    android:layout_marginStart="10dp"/>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_gravity="center_vertical"
-                    app:cardBackgroundColor="@color/design_default_color_secondary"
-                    android:layout_marginTop="1dp"
-                    app:cardCornerRadius="5dp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Осталось"
-                    android:textColor="?attr/colorOnPrimaryContainer"
-                    android:textSize="@dimen/simple_text_size"
-                    android:layout_marginStart="10dp"/>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/monthlyHeading"
@@ -130,7 +66,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wordsProgressContainer"/>
+            app:layout_constraintTop_toBottomOf="@+id/dailyProgressBar"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/todayDateContainer"
@@ -184,14 +120,12 @@
             android:layout_marginTop="10dp"
             app:cardBackgroundColor="?attr/colorPrimaryContainer"
             app:cardCornerRadius="@dimen/default_card_corner_radius"
-            app:contentPadding="@dimen/big_card_padding"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/todayDateContainer">
-            <ImageView
+            <CalendarView
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:src="@drawable/calendar_placeholder"/>
+                android:layout_height="wrap_content" />
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -203,7 +137,6 @@
             android:text="Достижения"
             android:textSize="@dimen/secondary_heading_size"
             android:textStyle="bold"
-            android:textColor="?attr/colorOnSurface"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/calendarContainer"/>
@@ -228,7 +161,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginEnd="3dp"
-                    app:cardBackgroundColor="?attr/colorOnPrimaryContainer"
+                    app:cardBackgroundColor="?attr/colorSecondaryContainer"
                     app:cardCornerRadius="@dimen/default_card_corner_radius"
                     app:contentPadding="@dimen/big_card_padding"
                     app:cardElevation="0dp">
@@ -238,7 +171,7 @@
                         android:text="В процессе"
                         android:textSize="@dimen/secondary_heading_size"
                         android:textAlignment="center"
-                        android:textColor="?attr/colorOnPrimary"/>
+                        android:textColor="?attr/colorOnSecondaryContainer"/>
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView

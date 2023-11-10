@@ -3,6 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="ic_logo_background">#FFFFFF</color>
+
     <color name="seed">#005f8f</color>
     <color name="md_theme_light_primary">#fafafa</color>
     <color name="md_theme_light_onPrimary">#000000</color>

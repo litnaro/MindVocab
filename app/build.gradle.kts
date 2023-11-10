@@ -69,5 +69,8 @@ dependencies {
     //Image handling
     implementation("com.github.bumptech.glide:glide:4.12.0")
 
+    //Statistic diagram
+    implementation("ir.mahozad.android:pie-chart:0.7.0")
+
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
 }
