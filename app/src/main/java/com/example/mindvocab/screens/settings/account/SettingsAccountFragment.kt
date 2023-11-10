@@ -20,38 +20,38 @@ class SettingsAccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSettingsAccountBinding.inflate(inflater, container, false)
-        prepareAccountSettings(true)
+        //prepareAccountSettings(true)
 
         return binding.root
     }
 
-    private fun prepareAccountSettings(isUserLogin: Boolean) {
-        with(binding) {
-            if (isUserLogin) {
-                userFullName.visibility = View.VISIBLE
-                signUpSuggestion.visibility = View.GONE
-
-                changePasswordButton.visibility = View.VISIBLE
-                changePasswordButton.setOnClickListener {
-                    findNavController().navigate(SettingsFragmentDirections.actionSettingsToChangePasswordFragment())
-                }
-
-                editProfileButton.visibility = View.VISIBLE
-
-                signUpButton.visibility = View.GONE
-                signInButton.visibility = View.GONE
-            } else {
-                userFullName.visibility = View.GONE
-                signUpSuggestion.visibility = View.VISIBLE
-
-                changePasswordButton.visibility = View.GONE
-                editProfileButton.visibility = View.GONE
-
-                signUpButton.visibility = View.VISIBLE
-                signInButton.visibility = View.VISIBLE
-            }
-        }
-    }
+//    private fun prepareAccountSettings(isUserLogin: Boolean) {
+//        with(binding) {
+//            if (isUserLogin) {
+//                userFullName.visibility = View.VISIBLE
+//                signUpSuggestion.visibility = View.GONE
+//
+//                changePasswordButton.visibility = View.VISIBLE
+//                changePasswordButton.setOnClickListener {
+//                    findNavController().navigate(SettingsFragmentDirections.actionSettingsToChangePasswordFragment())
+//                }
+//
+//                editProfileButton.visibility = View.VISIBLE
+//
+//                signUpButton.visibility = View.GONE
+//                signInButton.visibility = View.GONE
+//            } else {
+//                userFullName.visibility = View.GONE
+//                signUpSuggestion.visibility = View.VISIBLE
+//
+//                changePasswordButton.visibility = View.GONE
+//                editProfileButton.visibility = View.GONE
+//
+//                signUpButton.visibility = View.VISIBLE
+//                signInButton.visibility = View.VISIBLE
+//            }
+//        }
+//    }
 
     private fun setUserData() {
 

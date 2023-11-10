@@ -18,7 +18,8 @@
             android:id="@+id/actionSelectWordSet"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_flip"
+            android:src="@drawable/ic_category"
+            app:tint="?attr/colorOnPrimary"
             android:layout_gravity="end"
             android:layout_marginEnd="20dp"/>
 

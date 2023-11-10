@@ -6,8 +6,6 @@ import kotlin.random.Random
 
 typealias LearningListener = (word: Word) -> Unit
 
-class NoMoreWordsToLearn() : Exception()
-
 class LearningRepository : LearningSource {
 
     private val random = Random(1)
@@ -28,6 +26,9 @@ class LearningRepository : LearningSource {
             explanation = "${faker.cat().name()}; ${faker.cat().name()}",
             translationList = listOf(faker.cat().name(), faker.cat().name(), faker.cat().name()),
             exampleList = listOf(
+                faker.lorem().sentence(5, 3),
+                faker.lorem().sentence(5, 3),
+                faker.lorem().sentence(5, 3),
                 faker.lorem().sentence(5, 3),
                 faker.lorem().sentence(5, 3)
             ),

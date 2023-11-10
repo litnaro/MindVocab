@@ -7,8 +7,8 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="7dp"
     app:cardCornerRadius="@dimen/default_card_corner_radius"
-    app:contentPadding="@dimen/default_card_padding"
-    app:cardBackgroundColor="?attr/colorSecondaryContainer">
+    app:contentPadding="@dimen/big_card_padding"
+    app:cardBackgroundColor="?attr/colorPrimaryContainer">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             tools:text="Быстрее света"
             android:textSize="@dimen/secondary_heading_size"
             android:textStyle="bold"
-            android:paddingHorizontal="10dp"
+            android:layout_marginEnd="10dp"
             android:textColor="?attr/colorOnPrimaryContainer"
             app:layout_constraintEnd_toStartOf="@+id/achievementPhotoContainer"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             tools:text="Выучить как минимум 1000 слов овар ваор варовао рваорваорвао рова авора"
             android:textSize="@dimen/simple_text_size"
-            android:paddingHorizontal="10dp"
+            android:layout_marginEnd="10dp"
             android:textColor="?attr/colorOnPrimaryContainer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/achievementName"
@@ -58,7 +58,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="5dp"
             tools:text="125/1000"
             android:textSize="@dimen/third_heading_size"
             android:textColor="?attr/colorOnPrimaryContainer"
@@ -70,7 +70,6 @@
             android:id="@+id/achievementProgress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
             android:progress="40"
             android:max="100"
             style="?android:attr/progressBarStyleHorizontal"

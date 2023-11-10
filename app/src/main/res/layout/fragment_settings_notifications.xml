@@ -1,25 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    app:cardCornerRadius="@dimen/default_card_corner_radius"
+    app:contentPadding="@dimen/default_card_padding"
+    app:cardBackgroundColor="?attr/colorPrimaryContainer"
     tools:context=".screens.settings.notifications.SettingsNotificationsFragment">
 
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Уведомления"
-        android:textSize="@dimen/secondary_heading_size"
-        android:textStyle="bold"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Уведомления"
+            android:textSize="@dimen/simple_text_size"
+            android:textColor="?attr/colorOnPrimaryContainer"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_notifications_active"
+                app:tint="?attr/colorOnPrimaryContainer"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Включить уведомления"
+                android:textSize="@dimen/simple_text_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_width="50dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_notification_important"
+                app:tint="?attr/colorOnPrimaryContainer"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Напоминать об изучении"
+                android:textSize="@dimen/simple_text_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_width="50dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/default_card_corner_radius"
         app:contentPadding="10dp"
+        android:visibility="gone"
         android:layout_marginTop="10dp"
         app:cardBackgroundColor="?attr/colorPrimaryContainer">
 
@@ -86,4 +161,4 @@
     </androidx.cardview.widget.CardView>
 
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>

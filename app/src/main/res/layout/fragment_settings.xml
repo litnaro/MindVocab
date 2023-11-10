@@ -13,6 +13,7 @@
         android:padding="@dimen/main_screen_padding"
         android:orientation="vertical">
 
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/accountSettingsContainer"
             android:layout_width="match_parent"

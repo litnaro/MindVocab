@@ -1,112 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/main_screen_padding"
     tools:context=".screens.repeat.RepeatWordFragment">
 
-    <androidx.cardview.widget.CardView
+
+
+    <LinearLayout
+        android:id="@+id/cardFrontContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:cardBackgroundColor="?attr/colorPrimaryContainer"
-        app:cardCornerRadius="@dimen/default_card_corner_radius"
-        app:contentPadding="@dimen/default_card_padding"
-        android:layout_marginBottom="70dp">
+        android:layout_marginBottom="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="230dp"
+            android:layout_gravity="center"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer"
+            app:cardCornerRadius="@dimen/default_card_corner_radius"
+            app:contentPadding="@dimen/default_card_padding">
 
-            <TextView
-                android:id="@+id/wordToRepeat"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:paddingHorizontal="10dp"
-                android:text="Game"
-                android:textAlignment="center"
-                android:textColor="?attr/colorOnPrimaryContainer"
-                android:textSize="@dimen/main_heading_size"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listenWordButton" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/listenWordButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                app:cardBackgroundColor="?attr/colorOnPrimaryContainer"
-                app:cardCornerRadius="12dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                <TextView
+                    android:id="@+id/wordToRepeat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:paddingHorizontal="10dp"
+                    android:text="Game"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textSize="@dimen/main_heading_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/listenWordButton" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/listenWordButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    app:cardBackgroundColor="?attr/colorOnPrimaryContainer"
+                    app:cardCornerRadius="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_play"
+                        app:tint="?attr/colorPrimaryContainer" />
+                </androidx.cardview.widget.CardView>
+
+                <View
+                    android:id="@+id/actionButtonsDivider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="40dp"
+                    android:background="?attr/colorOnPrimaryContainer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/wordToRepeat" />
+
+                <TextView
+                    android:id="@+id/textWordKnown"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="20dp"
+                    android:text="Вспомнил"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textSize="@dimen/simple_text_size"
+                    app:layout_constraintEnd_toStartOf="@+id/flipCardButton"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/actionButtonsDivider" />
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_play"
-                    app:tint="?attr/colorPrimaryContainer" />
-            </androidx.cardview.widget.CardView>
-
-            <View
-                android:id="@+id/actionButtonsDivider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="40dp"
-                android:background="?attr/colorOnPrimaryContainer"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/wordToRepeat" />
-
-            <TextView
-                android:id="@+id/textWordKnown"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:paddingVertical="20dp"
-                android:text="Вспомнил"
-                android:textAlignment="center"
-                android:textColor="?attr/colorOnPrimaryContainer"
-                android:textSize="@dimen/simple_text_size"
-                app:layout_constraintEnd_toStartOf="@+id/flipCardButton"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/actionButtonsDivider" />
-
-            <ImageView
-                android:id="@+id/flipCardButton"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:padding="10dp"
-                android:src="@drawable/ic_flip"
-                app:tint="?attr/colorOnPrimaryContainer"
-                app:layout_constraintEnd_toStartOf="@+id/textWordToLearn"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textWordKnown"
-                app:layout_constraintTop_toTopOf="@+id/textWordKnown" />
+                    android:id="@+id/flipCardButton"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_flip"
+                    app:tint="?attr/colorOnPrimaryContainer"
+                    app:layout_constraintEnd_toStartOf="@+id/textWordToLearn"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textWordKnown"
+                    app:layout_constraintTop_toTopOf="@+id/textWordKnown" />
 
 
-            <TextView
-                android:id="@+id/textWordToLearn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:paddingVertical="20dp"
-                android:text="Забыл"
-                android:textAlignment="center"
-                android:textColor="?attr/colorOnPrimaryContainer"
-                android:textSize="@dimen/simple_text_size"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/flipCardButton"
-                app:layout_constraintTop_toTopOf="@+id/textWordKnown" />
+                <TextView
+                    android:id="@+id/textWordToLearn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="20dp"
+                    android:text="Забыл"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textSize="@dimen/simple_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/flipCardButton"
+                    app:layout_constraintTop_toTopOf="@+id/textWordKnown" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/cardBackContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:layout_gravity="center"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer"
+            app:cardCornerRadius="@dimen/default_card_corner_radius"
+            app:contentPadding="@dimen/default_card_padding">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/translationWordToRepeat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:paddingHorizontal="10dp"
+                    android:text="Игра"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textSize="@dimen/main_heading_size"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
