@@ -161,7 +161,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginEnd="3dp"
-                    app:cardBackgroundColor="?attr/colorSecondaryContainer"
+                    app:cardBackgroundColor="?attr/colorPrimaryContainer"
                     app:cardCornerRadius="@dimen/default_card_corner_radius"
                     app:contentPadding="@dimen/big_card_padding"
                     app:cardElevation="0dp">
@@ -171,7 +171,7 @@
                         android:text="В процессе"
                         android:textSize="@dimen/secondary_heading_size"
                         android:textAlignment="center"
-                        android:textColor="?attr/colorOnSecondaryContainer"/>
+                        android:textColor="?attr/colorOnPrimaryContainer"/>
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView

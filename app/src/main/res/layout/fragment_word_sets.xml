@@ -36,6 +36,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:chipIcon="@drawable/ic_check_box_filled"
+                app:chipIconTint="?attr/colorOnPrimaryContainer"
+                app:chipBackgroundColor="?attr/colorPrimaryContainer"
+                android:checkable="true"
                 app:textStartPadding="0dp"
                 app:textEndPadding="0dp"
                 app:iconStartPadding="8dp"
@@ -45,24 +48,36 @@
                 android:id="@+id/chipAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checkable="true"
+                app:chipBackgroundColor="?attr/colorPrimaryContainer"
+                android:textColor="?attr/colorOnPrimaryContainer"
                 android:text="Все" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipPlatform"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checkable="true"
+                app:chipBackgroundColor="?attr/colorPrimaryContainer"
+                android:textColor="?attr/colorOnPrimaryContainer"
                 android:text="Платформа"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipYour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checkable="true"
+                app:chipBackgroundColor="?attr/colorPrimaryContainer"
+                android:textColor="?attr/colorOnPrimaryContainer"
                 android:text="Ваши"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipPublic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checkable="true"
+                app:chipBackgroundColor="?attr/colorPrimaryContainer"
+                android:textColor="?attr/colorOnPrimaryContainer"
                 android:text="Публичные"/>
 
         </com.google.android.material.chip.ChipGroup>

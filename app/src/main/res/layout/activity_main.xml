@@ -23,6 +23,15 @@
             android:layout_gravity="end"
             android:layout_marginEnd="20dp"/>
 
+        <ImageView
+            android:id="@+id/actionConfirmWordSets"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_check"
+            app:tint="?attr/colorOnPrimary"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"/>
+
     </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.fragment.app.FragmentContainerView

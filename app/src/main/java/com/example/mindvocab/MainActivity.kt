@@ -52,11 +52,20 @@ class MainActivity : AppCompatActivity() {
     private val destinationListener = NavController.OnDestinationChangedListener { _, destination, arguments ->
         supportActionBar?.title = prepareTitle(destination.label, arguments)
         supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
+
+        //TODO replace with when and collection maybe
         if (destination.id == R.id.learn){
             binding.actionSelectWordSet.visibility = View.VISIBLE
         } else {
             binding.actionSelectWordSet.visibility = View.GONE
         }
+
+        if (destination.id == R.id.wordSetsFragment){
+            binding.actionConfirmWordSets.visibility = View.VISIBLE
+        } else {
+            binding.actionConfirmWordSets.visibility = View.GONE
+        }
+
     }
 
     private fun prepareTitle(label: CharSequence?, arguments: Bundle?): String {

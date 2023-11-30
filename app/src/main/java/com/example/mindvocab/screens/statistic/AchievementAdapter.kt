@@ -32,8 +32,8 @@ class AchievementAdapter : ListAdapter<Achievement, AchievementAdapter.ViewHolde
             Glide.with(achievementPhoto.context)
                 .load(item.icon)
                 .circleCrop()
-                .placeholder(R.drawable.ic_placeholder)
-                .error(R.drawable.ic_placeholder)
+                .placeholder(R.drawable.ic_meditation)
+                .error(R.drawable.ic_meditation)
                 .into(achievementPhoto)
 
             achievementProgressBarText.text = "0/${item.progress}"

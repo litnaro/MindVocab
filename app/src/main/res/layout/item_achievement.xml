@@ -32,11 +32,12 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             app:cardCornerRadius="@dimen/default_card_corner_radius"
-            android:background="?attr/colorOnPrimaryContainer"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
             <ImageView
                 android:id="@+id/achievementPhoto"
+                app:tint="?attr/colorOnPrimaryContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 

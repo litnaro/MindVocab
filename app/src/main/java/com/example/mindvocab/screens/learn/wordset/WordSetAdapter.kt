@@ -52,8 +52,8 @@ class WordSetAdapter(
             Glide.with(wordSetPhoto.context)
                 .load(item.photo)
                 .circleCrop()
-                .placeholder(R.drawable.ic_placeholder)
-                .error(R.drawable.ic_placeholder)
+                .placeholder(R.drawable.ic_article)
+                .error(R.drawable.ic_article)
                 .into(wordSetPhoto)
 
         }

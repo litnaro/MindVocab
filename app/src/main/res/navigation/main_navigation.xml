@@ -47,5 +47,14 @@
         android:id="@+id/wordSetsFragment"
         android:name="com.example.mindvocab.screens.learn.wordset.WordSetsFragment"
         android:label="Выбор категории"
-        tools:layout="@layout/fragment_word_sets" />
+        tools:layout="@layout/fragment_word_sets" >
+        <action
+            android:id="@+id/action_wordSetsFragment_to_wordsFragment"
+            app:destination="@id/wordsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/wordsFragment"
+        android:name="com.example.mindvocab.screens.word.WordsFragment"
+        android:label="fragment_words"
+        tools:layout="@layout/fragment_words" />
 </navigation>

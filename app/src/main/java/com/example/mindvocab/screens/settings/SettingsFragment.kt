@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.example.mindvocab.R
 import com.example.mindvocab.databinding.FragmentSettingsBinding
 import com.example.mindvocab.screens.settings.account.SettingsAccountFragment
+import com.example.mindvocab.screens.settings.additional.SettingsAdditionalFragment
 import com.example.mindvocab.screens.settings.application.SettingsApplicationFragment
 import com.example.mindvocab.screens.settings.learn.SettingsLearnFragment
 import com.example.mindvocab.screens.settings.notifications.SettingsNotificationsFragment
@@ -45,6 +46,11 @@ class SettingsFragment : Fragment() {
         parentFragmentManager.beginTransaction()
             .setReorderingAllowed(true)
             .replace(binding.notificationSettingsContainer.id, SettingsNotificationsFragment())
+            .commit()
+
+        parentFragmentManager.beginTransaction()
+            .setReorderingAllowed(true)
+            .replace(binding.additionalSettingsContainer.id, SettingsAdditionalFragment())
             .commit()
 
         return binding.root

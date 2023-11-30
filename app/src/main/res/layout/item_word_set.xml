@@ -17,6 +17,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             tools:src="@drawable/ic_flip"
+            app:tint="?attr/colorOnPrimaryContainer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
@@ -42,6 +43,7 @@
             android:padding="10dp"
             android:src="@drawable/ic_check_box_filled"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/wordSetProgress"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

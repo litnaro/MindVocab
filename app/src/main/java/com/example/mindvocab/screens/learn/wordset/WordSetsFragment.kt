@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mindvocab.R
 import com.example.mindvocab.databinding.FragmentWordSetsBinding
@@ -66,6 +67,7 @@ class WordSetsFragment : Fragment() {
 
             override fun onWordSetDetail(wordSet: WordSet) {
                 Toast.makeText(requireContext(), "detail ${wordSet.name}", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(WordSetsFragmentDirections.actionWordSetsFragmentToWordsFragment())
             }
         })
 

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/default_card_padding"
+    android:layout_marginTop="@dimen/default_card_padding"
+    android:layout_marginBottom="5dp">
+
+    <View
+        android:id="@+id/wordIndicator"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:background="?attr/colorOnPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/wordStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Новое слово"
+        android:textSize="@dimen/simple_text_size"
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintStart_toEndOf="@+id/wordIndicator"
+        app:layout_constraintTop_toTopOf="@+id/wordIndicator"
+        app:layout_constraintBottom_toBottomOf="@+id/wordIndicator"
+        app:layout_constraintEnd_toStartOf="@+id/wordProgress"/>
+
+    <TextView
+        android:id="@+id/word"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Color"
+        android:textSize="@dimen/third_heading_size"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toStartOf="@+id/wordStatus"
+        app:layout_constraintEnd_toEndOf="@+id/wordStatus"
+        app:layout_constraintTop_toBottomOf="@+id/wordStatus"/>
+
+    <TextView
+        android:id="@+id/wordTranslation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="5dp"
+        tools:text="Цвет, раздел, категория"
+        android:textSize="@dimen/simple_text_size"
+        app:layout_constraintEnd_toEndOf="@+id/wordStatus"
+        app:layout_constraintStart_toStartOf="@+id/wordStatus"
+        app:layout_constraintTop_toBottomOf="@+id/word"/>
+
+    <ProgressBar
+        android:id="@+id/wordProgress"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="?attr/colorOnPrimary"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@+id/wordStatus"
+        app:layout_constraintEnd_toEndOf="@+id/wordProgress"
+        app:layout_constraintTop_toBottomOf="@+id/wordTranslation"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
