@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    tools:context=".screens.statistic.diagram.StatisticDiagramFragment">
+
+    <ir.mahozad.android.PieChart
+        android:id="@+id/progressDiagram"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:startAngle="-90"
+        app:holeRatio="0.9"
+        app:labelType="outside"
+        app:outsideLabelsMargin="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/daysInRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="8"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="110dp"
+        app:layout_constraintStart_toStartOf="@+id/progressDiagram"
+        app:layout_constraintEnd_toEndOf="@+id/progressDiagram"
+        app:layout_constraintTop_toTopOf="@+id/progressDiagram"
+        app:layout_constraintBottom_toBottomOf="@+id/progressDiagram"/>
+
+    <TextView
+        android:id="@+id/daysInRowDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="дней подряд"
+        android:textSize="@dimen/simple_text_size"
+        app:layout_constraintStart_toStartOf="@+id/daysInRow"
+        app:layout_constraintEnd_toEndOf="@+id/daysInRow"
+        app:layout_constraintTop_toBottomOf="@+id/daysInRow"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

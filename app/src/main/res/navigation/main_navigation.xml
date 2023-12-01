@@ -23,7 +23,11 @@
         android:id="@+id/statistic"
         android:name="com.example.mindvocab.screens.statistic.StatisticFragment"
         android:label="@string/title_statistic"
-        tools:layout="@layout/fragment_statistic" />
+        tools:layout="@layout/fragment_statistic" >
+        <action
+            android:id="@+id/action_statistic_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/browser"
         android:name="com.example.mindvocab.screens.browser.BrowserFragment"
@@ -55,6 +59,11 @@
     <fragment
         android:id="@+id/wordsFragment"
         android:name="com.example.mindvocab.screens.word.WordsFragment"
-        android:label="fragment_words"
+        android:label="Слова"
         tools:layout="@layout/fragment_words" />
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.example.mindvocab.screens.statistic.notifications.NotificationsFragment"
+        android:label="Уведомления"
+        tools:layout="@layout/fragment_notifications" />
 </navigation>

@@ -1,83 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="7dp"
-    app:cardCornerRadius="@dimen/default_card_corner_radius"
-    app:contentPadding="@dimen/big_card_padding"
-    app:cardBackgroundColor="?attr/colorPrimaryContainer">
+    android:layout_marginBottom="7dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <ProgressBar
+        android:id="@+id/achievementProgress"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:id="@+id/achievementName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            tools:text="Быстрее света"
-            android:textSize="@dimen/secondary_heading_size"
-            android:textStyle="bold"
-            android:layout_marginEnd="10dp"
-            android:textColor="?attr/colorOnPrimaryContainer"
-            app:layout_constraintEnd_toStartOf="@+id/achievementPhotoContainer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/achievementPhotoContainer" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        app:cardCornerRadius="43dp"
+        app:layout_constraintStart_toStartOf="@+id/achievementProgress"
+        app:layout_constraintEnd_toEndOf="@+id/achievementProgress"
+        app:layout_constraintTop_toTopOf="@+id/achievementProgress"
+        app:layout_constraintBottom_toBottomOf="@+id/achievementProgress">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/achievementPhotoContainer"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            app:cardCornerRadius="@dimen/default_card_corner_radius"
-            app:cardBackgroundColor="?attr/colorPrimaryContainer"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <ImageView
-                android:id="@+id/achievementPhoto"
-                app:tint="?attr/colorOnPrimaryContainer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+        <ImageView
+            android:id="@+id/achievementPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_meditation"/>
+    </androidx.cardview.widget.CardView>
 
-        </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/achievementName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Соник"
+        android:textSize="@dimen/simple_text_size"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/achievementProgress"/>
 
-        <TextView
-            android:id="@+id/achievementDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            tools:text="Выучить как минимум 1000 слов овар ваор варовао рваорваорвао рова авора"
-            android:textSize="@dimen/simple_text_size"
-            android:layout_marginEnd="10dp"
-            android:textColor="?attr/colorOnPrimaryContainer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/achievementName"
-            app:layout_constraintEnd_toStartOf="@+id/achievementPhotoContainer"/>
-
-        <TextView
-            android:id="@+id/achievementProgressBarText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingHorizontal="5dp"
-            tools:text="125/1000"
-            android:textSize="@dimen/third_heading_size"
-            android:textColor="?attr/colorOnPrimaryContainer"
-            app:layout_constraintEnd_toStartOf="@+id/achievementPhotoContainer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/achievementDescription" />
-
-        <ProgressBar
-            android:id="@+id/achievementProgress"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:progress="40"
-            android:max="100"
-            style="?android:attr/progressBarStyleHorizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/achievementProgressBarText"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

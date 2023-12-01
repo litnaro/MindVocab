@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.mindvocab.databinding.ActivityMainBinding
 import com.example.mindvocab.screens.learn.LearnWordFragmentDirections
+import com.example.mindvocab.screens.statistic.StatisticFragmentDirections
 import java.util.regex.Pattern
 
 class MainActivity : AppCompatActivity() {
@@ -43,6 +44,10 @@ class MainActivity : AppCompatActivity() {
         binding.actionSelectWordSet.setOnClickListener {
             navController.navigate(LearnWordFragmentDirections.actionLearnToWordSetsFragment())
         }
+
+        binding.actionNotification.setOnClickListener {
+            navController.navigate(StatisticFragmentDirections.actionStatisticToNotificationsFragment())
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -58,6 +63,12 @@ class MainActivity : AppCompatActivity() {
             binding.actionSelectWordSet.visibility = View.VISIBLE
         } else {
             binding.actionSelectWordSet.visibility = View.GONE
+        }
+
+        if (destination.id == R.id.statistic){
+            binding.actionNotification.visibility = View.VISIBLE
+        } else {
+            binding.actionNotification.visibility = View.GONE
         }
 
         if (destination.id == R.id.wordSetsFragment){

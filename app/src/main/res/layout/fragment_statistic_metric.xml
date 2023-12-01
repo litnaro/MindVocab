@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".screens.statistic.metric.StatisticMetricFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:text="Всего слов: 278"
+        android:textStyle="bold"
+        android:textSize="@dimen/secondary_heading_size"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:text="Выучено: 20"
+        android:textStyle="bold"
+        android:textSize="@dimen/secondary_heading_size"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:text="Знаю: 20"
+        android:textStyle="bold"
+        android:textSize="@dimen/secondary_heading_size"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:text="Осталось: 20"
+        android:textStyle="bold"
+        android:textSize="@dimen/secondary_heading_size"/>
+
+</LinearLayout>

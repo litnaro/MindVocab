@@ -72,5 +72,8 @@ dependencies {
     //Statistic diagram
     implementation("ir.mahozad.android:pie-chart:0.7.0")
 
+    //Indicator dots for ViewPager
+    implementation("com.tbuonomo:dotsindicator:5.0")
+
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
 }

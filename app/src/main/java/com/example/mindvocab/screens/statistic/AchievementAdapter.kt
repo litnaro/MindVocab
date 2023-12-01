@@ -1,8 +1,7 @@
 package com.example.mindvocab.screens.statistic
 
-import android.graphics.text.LineBreaker
-import android.os.Build
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,22 +11,30 @@ import com.example.mindvocab.R
 import com.example.mindvocab.databinding.ItemAchievementBinding
 import com.example.mindvocab.model.achievement.Achievement
 
-class AchievementAdapter : ListAdapter<Achievement, AchievementAdapter.ViewHolder>(ItemCallback) {
+class AchievementAdapter (
+    private val listener: Listener
+) : ListAdapter<Achievement, AchievementAdapter.ViewHolder>(ItemCallback), View.OnClickListener {
+
+    interface Listener {
+        fun onAchievementDetail(achievement: Achievement)
+    }
+
+    override fun onClick(view: View) {
+        val achievement = view.tag as Achievement
+        listener.onAchievementDetail(achievement)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemAchievementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding.root.setOnClickListener(this)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         with(holder.binding) {
+            root.tag = item
             achievementName.text = item.title
-
-            achievementDescription.text = item.description
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                achievementDescription.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
-            }
 
             Glide.with(achievementPhoto.context)
                 .load(item.icon)
@@ -36,7 +43,6 @@ class AchievementAdapter : ListAdapter<Achievement, AchievementAdapter.ViewHolde
                 .error(R.drawable.ic_meditation)
                 .into(achievementPhoto)
 
-            achievementProgressBarText.text = "0/${item.progress}"
             achievementProgress.max = item.progress
             achievementProgress.progress = item.progress / 2
         }
