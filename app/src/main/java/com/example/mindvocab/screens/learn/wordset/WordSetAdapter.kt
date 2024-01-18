@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.databinding.ItemWordSetBinding
-import com.example.mindvocab.model.sets.WordSet
+import com.example.mindvocab.model.sets.entity.WordSet
 
 class WordSetAdapter(
     private val listener: Listener
@@ -46,8 +46,14 @@ class WordSetAdapter(
             root.tag = item
             wordSetIsSelected.tag = item
 
+            if (item.isSelected) {
+                wordSetIsSelected.setImageResource(R.drawable.ic_check_box_filled)
+            } else {
+                wordSetIsSelected.setImageResource(R.drawable.ic_check_box_empty)
+            }
+
             wordSetTitle.text = item.name
-            wordSetProgress.text = "0/${item.wordsList.size}"
+            wordSetProgress.text = "${item.accountCompletedWordsCount}/${item.wordsCount}"
 
             Glide.with(wordSetPhoto.context)
                 .load(item.photo)

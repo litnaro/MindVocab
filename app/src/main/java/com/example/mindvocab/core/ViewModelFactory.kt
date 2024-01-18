@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mindvocab.App
 import com.example.mindvocab.screens.learn.LearnWordViewModel
+import com.example.mindvocab.screens.learn.wordset.WordSetsViewModel
 
 class ViewModelFactory(
     private val app: App
@@ -14,7 +15,10 @@ class ViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         val viewModel = when(modelClass) {
             LearnWordViewModel::class.java -> {
-                LearnWordViewModel(app.learningSource)
+                LearnWordViewModel(app.learningRepository)
+            }
+            WordSetsViewModel::class.java -> {
+                WordSetsViewModel(app.wordSetRepository)
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModelClass")

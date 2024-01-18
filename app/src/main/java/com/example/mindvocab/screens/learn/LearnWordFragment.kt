@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,8 +14,12 @@ import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.databinding.FragmentLearnWordBinding
-import com.example.mindvocab.model.word.Word
+import com.example.mindvocab.model.word.learning.entities.WordToLearn
 import com.example.mindvocab.core.factory
+import com.example.mindvocab.model.ErrorResult
+import com.example.mindvocab.model.PendingResult
+import com.example.mindvocab.model.SuccessResult
+import com.example.mindvocab.model.WordsEndedException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -97,7 +100,24 @@ class LearnWordFragment : BaseFragment() {
         _binding = FragmentLearnWordBinding.inflate(inflater, container, false)
 
         viewModel.word.observe(viewLifecycleOwner) {
-            setWordData(it)
+            binding.learnEmptyWordSetsBlock.visibility = View.GONE
+            binding.learnWordBlock.visibility = View.GONE
+            binding.learnPendingProgressBar.visibility = View.GONE
+
+            when(it) {
+                is ErrorResult -> {
+                    if (it.exception is WordsEndedException) {
+                        binding.learnEmptyWordSetsBlock.visibility = View.VISIBLE
+                    }
+                }
+                is PendingResult -> {
+                    binding.learnPendingProgressBar.visibility = View.VISIBLE
+                }
+                is SuccessResult -> {
+                    setWordData(it.data)
+                    binding.learnWordBlock.visibility = View.VISIBLE
+                }
+            }
         }
 
         binding.wordKnownButton.setOnClickListener {
@@ -106,6 +126,10 @@ class LearnWordFragment : BaseFragment() {
 
         binding.wordToLearnButton.setOnClickListener {
             viewModel.onWordLearn()
+        }
+
+        binding.listenWordButton.setOnClickListener {
+            viewModel.onWordListen()
         }
 
         binding.learnWordContainer.setOnTouchListener(onTouchListener)
@@ -117,13 +141,13 @@ class LearnWordFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun setWordData(word: Word) {
+    private fun setWordData(word: WordToLearn) {
         with(binding) {
             binding.word.text = word.word
             wordTranscription.text = word.transcription
 
             Glide.with(wordImage.context)
-                .load(word.photo)
+                .load(word.image)
                 .centerCrop()
                 .placeholder(R.drawable.image_placeholder)
                 .error(R.drawable.image_placeholder)
@@ -135,7 +159,7 @@ class LearnWordFragment : BaseFragment() {
             examplesRv.apply {
                 adapter = ExampleAdapter(word.exampleList, object : ExampleAdapter.Listener {
                     override fun onSentenceListen(sentence: String) {
-                        Toast.makeText(requireContext(), sentence, Toast.LENGTH_SHORT).show()
+                        viewModel.onSentenceListen(sentence)
                     }
                 })
                 layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

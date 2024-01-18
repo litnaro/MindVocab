@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.databinding.ItemAchievementBinding
-import com.example.mindvocab.model.achievement.Achievement
+import com.example.mindvocab.model.achievement.entities.Achievement
 
 class AchievementAdapter (
     private val listener: Listener

@@ -3,30 +3,18 @@ package com.example.mindvocab.model.account
 import com.example.mindvocab.model.account.etities.Account
 import com.example.mindvocab.model.account.etities.SignUpData
 
-class AccountRepository : AccountSource{
+interface AccountRepository {
 
-    override fun signIn(email: String, password: String): String {
-        TODO("Not yet implemented")
-    }
+    fun signIn(email: String, password: String) : String
 
-    override fun signUp(signUpData: SignUpData) {
-        TODO("Not yet implemented")
-    }
+    fun signUp(signUpData: SignUpData)
 
-    override fun getAccount(): Account {
-        TODO("Not yet implemented")
-    }
+    fun getAccount() : Account
 
-    override fun setUsername(username: String) {
-        TODO("Not yet implemented")
-    }
+    fun setUsername(username: String)
 
-    override fun changePassword(password: String, repeatPassword: String) {
-        TODO("Not yet implemented")
-    }
+    fun changePassword(password: String, repeatPassword: String)
 
-    override fun setAccountPhoto(photo: String) {
-        TODO("Not yet implemented")
-    }
+    fun setAccountPhoto(photo: String)
 
 }

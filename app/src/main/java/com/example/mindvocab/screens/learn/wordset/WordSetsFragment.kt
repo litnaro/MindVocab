@@ -5,54 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mindvocab.R
+import com.example.mindvocab.core.factory
 import com.example.mindvocab.databinding.FragmentWordSetsBinding
-import com.example.mindvocab.model.sets.WordSet
-import com.example.mindvocab.model.word.Word
+import com.example.mindvocab.model.ErrorResult
+import com.example.mindvocab.model.PendingResult
+import com.example.mindvocab.model.SuccessResult
+import com.example.mindvocab.model.sets.entity.WordSet
 
 class WordSetsFragment : Fragment() {
 
-    private val list = listOf(
-        WordSet(
-            id = 0,
-            name = "Law",
-            photo = "",
-            wordsList = emptyList()
-        ),
-        WordSet(
-            id = 1,
-            name = "Science",
-            photo = "",
-            wordsList = emptyList()
-        ),
-        WordSet(
-            id = 2,
-            name = "Bad",
-            photo = "",
-            wordsList = emptyList()
-        ),
-        WordSet(
-            id = 3,
-            name = "Layout inflater",
-            photo = "",
-            wordsList = emptyList()
-        ),
-        WordSet(
-            id = 4,
-            name = "Verbs",
-            photo = "",
-            wordsList = emptyList()
-        ),
-        WordSet(
-            id = 5,
-            name = "Personality",
-            photo = "",
-            wordsList = emptyList()
-        )
-    )
+    private val viewModel: WordSetsViewModel by viewModels { factory() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,11 +27,10 @@ class WordSetsFragment : Fragment() {
 
         val wordSetAdapter = WordSetAdapter(object : WordSetAdapter.Listener {
             override fun addWordSetToLearning(wordSet: WordSet) {
-                Toast.makeText(requireContext(), "added ${wordSet.name}", Toast.LENGTH_SHORT).show()
+                viewModel.selectWordSet(wordSet)
             }
 
             override fun onWordSetDetail(wordSet: WordSet) {
-                Toast.makeText(requireContext(), "detail ${wordSet.name}", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(WordSetsFragmentDirections.actionWordSetsFragmentToWordsFragment())
             }
         })
@@ -76,7 +40,23 @@ class WordSetsFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
 
-        wordSetAdapter.submitList(list)
+        viewModel.wordSetList.observe(viewLifecycleOwner) {
+            when(it) {
+                is PendingResult -> {
+                    // TODO create view for pending result
+                }
+                is ErrorResult -> {
+                    // TODO create view for error result
+                }
+                is SuccessResult -> {
+                    wordSetAdapter.submitList(it.data)
+                }
+            }
+        }
+
+        binding.createWordSet.setOnClickListener {
+            viewModel.createWordSet()
+        }
 
         return binding.root
     }

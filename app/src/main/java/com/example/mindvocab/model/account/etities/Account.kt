@@ -1,11 +1,12 @@
 package com.example.mindvocab.model.account.etities
 
-import com.example.mindvocab.model.sets.WordSet
-
 data class Account(
-    val id: Int,
+    val id: Long,
+    val name: String,
+    val surname: String,
     val username: String,
     val photo: String,
-    val activeWordSets: List<WordSet>,
-    val statistic: AccountStatistic
+    val email: String,
+    val password: String,
+    val createdAt: Long
 )

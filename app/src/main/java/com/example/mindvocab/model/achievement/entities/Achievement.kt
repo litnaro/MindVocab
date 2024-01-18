@@ -1,4 +1,4 @@
-package com.example.mindvocab.model.achievement
+package com.example.mindvocab.model.achievement.entities
 
 data class Achievement(
     val id: Int,

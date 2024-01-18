@@ -11,6 +11,8 @@
         android:id="@+id/achievementProgress"
         android:layout_width="110dp"
         android:layout_height="110dp"
+        android:max="100"
+        android:progress="65"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

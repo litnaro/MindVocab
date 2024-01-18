@@ -42,6 +42,7 @@
             android:layout_height="44dp"
             android:padding="10dp"
             android:src="@drawable/ic_check_box_filled"
+            app:tint="?attr/colorOnPrimaryContainer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/wordSetProgress"
             app:layout_constraintTop_toTopOf="parent" />

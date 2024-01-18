@@ -6,13 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.databinding.DialogAchievementDetailBinding
 import com.example.mindvocab.databinding.FragmentStatisticBinding
-import com.example.mindvocab.model.achievement.Achievement
+import com.example.mindvocab.model.achievement.entities.Achievement
 import com.github.javafaker.Faker
 import kotlin.random.Random
 

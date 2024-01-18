@@ -1,53 +1,18 @@
 package com.example.mindvocab.model.sets
 
-import com.github.javafaker.Faker
-import kotlin.random.Random
+import com.example.mindvocab.model.Repository
+import com.example.mindvocab.model.sets.entity.WordSet
+import com.example.mindvocab.model.sets.room.entity.WordSetDbEntity
+import kotlinx.coroutines.flow.Flow
 
-typealias WordSetListener = (wordSet: List<WordSet>) -> Unit
+interface WordSetRepository : Repository {
 
-class WordSetRepository : WordSetSource {
+    suspend fun getWordSets() : Flow<List<WordSet>>
 
-    private val random = Random(1)
-    private val faker = Faker.instance()
+    suspend fun createWordSet(wordSet: WordSetDbEntity) : Boolean
 
-    private val listeners = mutableSetOf<WordSetListener>()
+    fun selectWordSetToLearn(wordSet: WordSet) : Boolean
 
-    private val wordSets = MutableList(20) {
-        WordSet(
-            id = it + 1,
-            name = faker.cat().name(),
-            photo = "https://source.unsplash.com/random?cat&iddqd=${random.nextInt()}",
-            wordsList = emptyList()
-        )
-    }
-
-    override fun getPlatformWordSets(): List<WordSet> {
-        return wordSets
-    }
-
-    override fun createWordSet(wordSet: WordSet): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun selectWordSetToLearn(wordSet: WordSet): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun removeWordSetFromLearning(wordSet: WordSet): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun addListener(listener: WordSetListener) {
-        listeners.add(listener)
-        listener.invoke(getPlatformWordSets())
-    }
-
-    override fun removeListener(listener: WordSetListener) {
-        listeners.remove(listener)
-    }
-
-    override fun notifyUpdates() {
-        listeners.forEach { it.invoke(getPlatformWordSets()) }
-    }
+    fun removeWordSetFromLearning(wordSet: WordSet) : Boolean
 
 }

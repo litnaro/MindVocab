@@ -1,17 +1,15 @@
-package com.example.mindvocab.model.word
+package com.example.mindvocab.model.word.learning.entities
 
-data class Word(
-    val id: Int,
+data class WordToLearn(
+    val id: Long,
 
     val word: String,
     val audio: String,
-    val photo: String,
+    val image: String,
     val transcription: String,
     val explanation: String,
 
     val translationList: List<String>,
     val exampleList: List<String>,
 
-    val progress: Byte,
-    val lastRepeated: Int,
 )

@@ -47,6 +47,17 @@
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"/>
 
+            <TextView
+                android:id="@+id/themeSettingValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Dark"
+                android:textSize="@dimen/simple_text_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="6dp"/>
+
             <ImageView
                 android:layout_width="26dp"
                 android:layout_height="26dp"
@@ -78,6 +89,17 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/languageSettingValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="English"
+                android:textSize="@dimen/simple_text_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="6dp"/>
 
             <ImageView
                 android:layout_width="26dp"

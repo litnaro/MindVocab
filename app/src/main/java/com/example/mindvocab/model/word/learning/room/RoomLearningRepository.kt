@@ -1,27 +1,31 @@
-package com.example.mindvocab.model.studing
+package com.example.mindvocab.model.word.learning.room
 
-import com.example.mindvocab.model.word.Word
+import com.example.mindvocab.model.Result
+import com.example.mindvocab.model.SuccessResult
+import com.example.mindvocab.model.WordsEndedException
+import com.example.mindvocab.model.word.learning.entities.WordToLearn
+import com.example.mindvocab.model.word.learning.LearningRepository
 import com.github.javafaker.Faker
 import kotlin.random.Random
 
-typealias LearningListener = (word: Word) -> Unit
+typealias LearningListener = (word: Result<WordToLearn>) -> Unit
 
-class LearningRepository : LearningSource {
+class RoomLearningRepository : LearningRepository {
 
     private val random = Random(1)
     private val faker = Faker.instance()
 
     private val listeners = mutableSetOf<LearningListener>()
 
-    private var currentWord: Word? = null
+    private var currentWord: WordToLearn? = null
 
-    private val wordSet = MutableList(10) {
-        val id = it + 1
-        Word(
+    private val wordSet = MutableList(3) {
+        val id = (it + 1).toLong()
+        WordToLearn(
             id = id,
             word = faker.cat().name(),
             audio = "",
-            photo = "https://source.unsplash.com/random?cat&iddqd=${random.nextInt()}",
+            image = "https://source.unsplash.com/random?cat&iddqd=${random.nextInt()}",
             transcription = "[${faker.cat().name()}]",
             explanation = "${faker.cat().name()}; ${faker.cat().name()}",
             translationList = listOf(faker.cat().name(), faker.cat().name(), faker.cat().name()),
@@ -32,14 +36,12 @@ class LearningRepository : LearningSource {
                 faker.lorem().sentence(5, 3),
                 faker.lorem().sentence(5, 3)
             ),
-            progress = 0,
-            lastRepeated = 0
         )
     }
 
-    override fun getWordForLearning(): Word {
+    private fun getWordForLearning(): WordToLearn {
         if (wordSet.isEmpty()) {
-            throw IllegalArgumentException("No elements")
+            throw WordsEndedException("No elements")
         }
         return wordSet.removeAt(Random.nextInt(wordSet.size))
     }
@@ -54,10 +56,19 @@ class LearningRepository : LearningSource {
         notifyUpdates()
     }
 
+    override fun onWordListen() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onSentenceListen(sentence: String) {
+        TODO("Not yet implemented")
+    }
+
     override fun addListener(listener: LearningListener) {
         listeners.add(listener)
-        if (currentWord == null) {
-            currentWord = getWordForLearning().also { listener.invoke(it) }
+
+        currentWord = getWordForLearning().also {
+            listener.invoke(SuccessResult(it))
         }
     }
 
@@ -66,7 +77,7 @@ class LearningRepository : LearningSource {
     }
 
     override fun notifyUpdates() {
-        listeners.forEach { it.invoke(currentWord!!) }
+        listeners.forEach { it.invoke(SuccessResult(currentWord!!)) }
     }
 
 }

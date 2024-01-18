@@ -90,4 +90,11 @@
         android:layout_marginTop="10dp"
         tools:listitem="@layout/item_word_set"/>
 
+    <Button
+        android:id="@+id/createWordSet"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="Создать"/>
+
+
 </LinearLayout>

@@ -1,42 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    tools:padding="@dimen/main_screen_padding"
     tools:context=".screens.statistic.metric.StatisticMetricFragment">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:text="Всего слов: 278"
-        android:textStyle="bold"
-        android:textSize="@dimen/secondary_heading_size"/>
+        android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:text="Выучено: 20"
-        android:textStyle="bold"
-        android:textSize="@dimen/secondary_heading_size"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="5dp"
+            app:cardCornerRadius="@dimen/small_card_corner_radius"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:id="@+id/allWordsIndicator"
+                    android:layout_width="3dp"
+                    android:layout_height="0dp"
+                    android:background="?attr/colorError"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/allWordsTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/allWordsTitle"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:text="Знаю: 20"
-        android:textStyle="bold"
-        android:textSize="@dimen/secondary_heading_size"/>
+                <TextView
+                    android:id="@+id/allWordsTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="15dp"
+                    android:text="Всего слов"
+                    android:textStyle="bold"
+                    android:paddingVertical="10dp"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textSize="@dimen/third_heading_size"
+                    app:layout_constraintStart_toEndOf="@+id/allWordsIndicator"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
-    <TextView
+                <TextView
+                    android:id="@+id/allWordsMetrics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="278"
+                    android:paddingVertical="20dp"
+                    android:textSize="@dimen/secondary_heading_size"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/allWordsTitle"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            app:cardCornerRadius="@dimen/small_card_corner_radius"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:id="@+id/learnedWordsIndicator"
+                    android:layout_width="3dp"
+                    android:layout_height="0dp"
+                    android:background="?attr/colorError"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/learnedWordsTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/learnedWordsTitle"/>
+
+                <TextView
+                    android:id="@+id/learnedWordsTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="15dp"
+                    android:text="Выучено"
+                    android:textStyle="bold"
+                    android:paddingVertical="10dp"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textSize="@dimen/third_heading_size"
+                    app:layout_constraintStart_toEndOf="@+id/learnedWordsIndicator"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/learnedWordsMetrics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="20"
+                    android:paddingVertical="20dp"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textSize="@dimen/secondary_heading_size"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/learnedWordsTitle"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:text="Осталось: 20"
-        android:textStyle="bold"
-        android:textSize="@dimen/secondary_heading_size"/>
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="5dp"
+            app:cardCornerRadius="@dimen/small_card_corner_radius"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:id="@+id/knownWordsIndicator"
+                    android:layout_width="3dp"
+                    android:layout_height="0dp"
+                    android:background="?attr/colorError"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/knownWordsTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/knownWordsTitle"/>
+
+                <TextView
+                    android:id="@+id/knownWordsTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="15dp"
+                    android:text="Знаю"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:paddingVertical="10dp"
+                    android:textSize="@dimen/third_heading_size"
+                    app:layout_constraintStart_toEndOf="@+id/knownWordsIndicator"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/knownWordsMetrics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="20"
+                    android:paddingVertical="20dp"
+                    android:textSize="@dimen/secondary_heading_size"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/knownWordsTitle"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            app:cardCornerRadius="@dimen/small_card_corner_radius"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:id="@+id/leftWordsIndicator"
+                    android:layout_width="3dp"
+                    android:layout_height="0dp"
+                    android:background="?attr/colorError"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/leftWordsTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/leftWordsTitle"/>
+
+                <TextView
+                    android:id="@+id/leftWordsTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="15dp"
+                    android:text="Осталось"
+                    android:textStyle="bold"
+                    android:paddingVertical="10dp"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textSize="@dimen/third_heading_size"
+                    app:layout_constraintStart_toEndOf="@+id/leftWordsIndicator"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/leftWordsMetrics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="20"
+                    android:paddingVertical="20dp"
+                    android:textSize="@dimen/secondary_heading_size"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/leftWordsTitle"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 </LinearLayout>

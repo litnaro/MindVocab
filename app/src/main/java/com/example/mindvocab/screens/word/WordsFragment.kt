@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mindvocab.R
 import com.example.mindvocab.databinding.FragmentWordsBinding
-import com.example.mindvocab.model.word.Word
+import com.example.mindvocab.model.word.learning.entities.WordToLearn
 import com.github.javafaker.Faker
 import kotlin.random.Random
 
@@ -18,12 +17,12 @@ class WordsFragment : Fragment() {
     private val faker = Faker.instance()
 
     private val wordList = MutableList(7) {
-        val id = it + 1
-        Word(
+        val id = (it + 1).toLong()
+        WordToLearn(
             id = id,
             word = faker.cat().name(),
             audio = "",
-            photo = "https://source.unsplash.com/random?cat&iddqd=${random.nextInt()}",
+            image = "https://source.unsplash.com/random?cat&iddqd=${random.nextInt()}",
             transcription = "[${faker.cat().name()}]",
             explanation = "${faker.cat().name()}; ${faker.cat().name()}",
             translationList = listOf(faker.cat().name(), faker.cat().name(), faker.cat().name()),
@@ -34,8 +33,6 @@ class WordsFragment : Fragment() {
                 faker.lorem().sentence(5, 3),
                 faker.lorem().sentence(5, 3)
             ),
-            progress = 6,
-            lastRepeated = 0
         )
     }
 

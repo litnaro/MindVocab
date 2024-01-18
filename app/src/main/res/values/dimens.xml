@@ -4,6 +4,7 @@
 
     <!--    Card-->
     <dimen name="default_card_corner_radius">12dp</dimen>
+    <dimen name="small_card_corner_radius">8dp</dimen>
     <dimen name="default_card_padding">10dp</dimen>
     <dimen name="big_card_padding">15dp</dimen>
 

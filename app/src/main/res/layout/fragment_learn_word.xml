@@ -252,7 +252,6 @@
                 android:layout_height="wrap_content"
                 android:text="Go to the word sets and choose smthing"
                 android:textSize="@dimen/main_heading_size"
-                android:textStyle="bold"
                 android:elevation="2dp"
                 android:textAlignment="center"
                 android:textColor="?attr/colorOnPrimaryContainer"
@@ -260,9 +259,13 @@
                 app:layout_constraintEnd_toEndOf="@+id/emptyWordSetsImage"
                 app:layout_constraintTop_toBottomOf="@+id/emptyWordSetsImage"/>
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <ProgressBar
+            android:id="@+id/learnPendingProgressBar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"/>
 
     </androidx.cardview.widget.CardView>
 
