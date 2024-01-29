@@ -14,12 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/userImageContainer"
+        <ImageView
+            android:id="@+id/userPhoto"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            app:cardCornerRadius="30dp"
-            app:cardBackgroundColor="?attr/colorOnPrimaryContainer"
+            tools:src="@drawable/ic_person"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
@@ -31,24 +30,24 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
-            android:text="Andriy Litnarovych"
+            tools:text="Andriy Litnarovych"
             android:textStyle="bold"
             android:textSize="@dimen/simple_text_size"
             android:textColor="?attr/colorOnPrimaryContainer"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/userImageContainer"
+            app:layout_constraintStart_toEndOf="@+id/userPhoto"
             app:layout_constraintEnd_toStartOf="@+id/userEditButton"/>
 
         <TextView
             android:id="@+id/userEmail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="andriy.litnarovych@gmail.com"
+            tools:text="andriy.litnarovych@gmail.com"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="2dp"
             android:textColor="?attr/colorOnPrimaryContainer"
-            app:layout_constraintStart_toEndOf="@+id/userImageContainer"
+            app:layout_constraintStart_toEndOf="@+id/userPhoto"
             app:layout_constraintEnd_toStartOf="@+id/userEditButton"
             app:layout_constraintTop_toBottomOf="@+id/userFullName"/>
 

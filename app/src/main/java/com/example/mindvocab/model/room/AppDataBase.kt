@@ -2,17 +2,19 @@ package com.example.mindvocab.model.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.example.mindvocab.model.account.room.AccountsDao
 import com.example.mindvocab.model.account.room.entities.AccountDbEntity
 import com.example.mindvocab.model.achievement.room.entities.AccountAchievementProgressDbEntity
 import com.example.mindvocab.model.achievement.room.entities.AchievementDbEntity
 import com.example.mindvocab.model.sets.room.WordSetsDao
 import com.example.mindvocab.model.sets.room.entity.AccountWordSetDbEntity
 import com.example.mindvocab.model.sets.room.entity.WordSetDbEntity
-import com.example.mindvocab.model.word.AccountWordProgressDbEntity
-import com.example.mindvocab.model.word.ExampleDbEntity
-import com.example.mindvocab.model.word.LanguageDbEntity
-import com.example.mindvocab.model.word.TranslationDbEntity
-import com.example.mindvocab.model.word.WordDbEntity
+import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
+import com.example.mindvocab.model.word.room.entities.ExampleDbEntity
+import com.example.mindvocab.model.word.room.entities.LanguageDbEntity
+import com.example.mindvocab.model.word.room.entities.TranslationDbEntity
+import com.example.mindvocab.model.word.room.entities.WordDbEntity
+import com.example.mindvocab.model.word.room.WordsDao
 
 @Database(
     version = 1,
@@ -32,5 +34,9 @@ import com.example.mindvocab.model.word.WordDbEntity
 abstract class AppDataBase : RoomDatabase() {
 
     abstract fun getWordSetsDao() : WordSetsDao
+
+    abstract fun getWordsDao() : WordsDao
+
+    abstract fun getAccountsDao() : AccountsDao
 
 }

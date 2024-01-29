@@ -1,6 +1,5 @@
 package com.example.mindvocab.model.achievement.room.entities
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -11,7 +10,7 @@ data class AchievementDbEntity(
     @PrimaryKey(autoGenerate = true) val id: Long,
     val title: String,
     val description: String,
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB) val image: ByteArray
+    val image: String
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -1,20 +1,26 @@
 package com.example.mindvocab.model.account
 
+import com.example.mindvocab.model.Repository
 import com.example.mindvocab.model.account.etities.Account
 import com.example.mindvocab.model.account.etities.SignUpData
+import kotlinx.coroutines.flow.Flow
 
-interface AccountRepository {
+interface AccountRepository : Repository {
 
-    fun signIn(email: String, password: String) : String
+    suspend fun isSignedIn(): Boolean
 
-    fun signUp(signUpData: SignUpData)
+    suspend fun signIn(email: String, password: String) : String
 
-    fun getAccount() : Account
+    suspend fun signUp(signUpData: SignUpData)
 
-    fun setUsername(username: String)
+    suspend fun logout()
 
-    fun changePassword(password: String, repeatPassword: String)
+    suspend fun getAccount() : Flow<Account?>
 
-    fun setAccountPhoto(photo: String)
+    suspend fun updateUsername(username: String)
+
+    suspend fun changePassword(password: String, repeatPassword: String)
+
+    suspend fun setAccountPhoto(photo: String)
 
 }

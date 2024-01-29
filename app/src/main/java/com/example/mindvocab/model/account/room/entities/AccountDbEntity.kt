@@ -18,7 +18,7 @@ data class AccountDbEntity(
     val surname: String,
     val username: String,
     @ColumnInfo(name = "email", collate = ColumnInfo.NOCASE) val email: String,
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB) val photo: ByteArray,
+    val photo: String,
     val password: String,
     @ColumnInfo(name = "created_at") val createdAt: Long
 ) {

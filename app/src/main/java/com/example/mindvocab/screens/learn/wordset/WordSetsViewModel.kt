@@ -8,13 +8,12 @@ import com.example.mindvocab.model.sets.entity.WordSet
 import com.example.mindvocab.model.sets.WordSetFilter
 import com.example.mindvocab.model.Result
 import com.example.mindvocab.model.SuccessResult
-import com.example.mindvocab.model.sets.WordSetRepository
+import com.example.mindvocab.model.sets.WordSetsRepository
 import com.example.mindvocab.model.sets.room.entity.WordSetDbEntity
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class WordSetsViewModel(
-    private val wordSetRepository: WordSetRepository
+    private val wordSetsRepository: WordSetsRepository
 ) : BaseViewModel() {
 
 
@@ -23,7 +22,7 @@ class WordSetsViewModel(
 
     init {
         viewModelScope.launch {
-            wordSetRepository.getWordSets().collect {
+            wordSetsRepository.getWordSets().collect {
                 _wordSetList.value = SuccessResult(it)
             }
         }
@@ -39,11 +38,11 @@ class WordSetsViewModel(
 
     fun createWordSet() {
         viewModelScope.launch {
-            wordSetRepository.createWordSet(
+            wordSetsRepository.createWordSet(
                 WordSetDbEntity(
                     id = 0,
                     name = "Okay",
-                    image = ByteArray(1)
+                    image = "ByteArray(1)"
                 )
             )
         }

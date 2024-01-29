@@ -1,13 +1,13 @@
 package com.example.mindvocab.screens.learn.wordset
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.factory
 import com.example.mindvocab.databinding.FragmentWordSetsBinding
 import com.example.mindvocab.model.ErrorResult
@@ -15,9 +15,9 @@ import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.sets.entity.WordSet
 
-class WordSetsFragment : Fragment() {
+class WordSetsFragment : BaseFragment() {
 
-    private val viewModel: WordSetsViewModel by viewModels { factory() }
+    override val viewModel: WordSetsViewModel by viewModels { factory() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +31,7 @@ class WordSetsFragment : Fragment() {
             }
 
             override fun onWordSetDetail(wordSet: WordSet) {
-                findNavController().navigate(WordSetsFragmentDirections.actionWordSetsFragmentToWordsFragment())
+                findNavController().navigate(WordSetsFragmentDirections.actionWordSetsFragmentToWordsFragment(wordSet.id))
             }
         })
 
@@ -49,6 +49,7 @@ class WordSetsFragment : Fragment() {
                     // TODO create view for error result
                 }
                 is SuccessResult -> {
+                    // TODO create view for empty result
                     wordSetAdapter.submitList(it.data)
                 }
             }

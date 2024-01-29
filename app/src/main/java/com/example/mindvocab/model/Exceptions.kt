@@ -1,13 +1,15 @@
 package com.example.mindvocab.model
 
-open class AppException : RuntimeException {
-    constructor() : super()
-    constructor(message: String) : super(message)
-    constructor(cause: Throwable) : super(cause)
-}
+open class AppException : RuntimeException()
 
-class UnableToLoadWordException(message: String) : AppException(message = message)
+class StorageException : AppException()
 
-class UnableToListenInformationException(message: String) : AppException(message = message)
+// Word set exception
+class WordSetAlreadyExistsException : AppException()
 
-class WordsEndedException(message: String) : AppException(message = message)
+class UnableToLoadWordException(message: String) : AppException()
+
+class UnableToListenInformationException(message: String) : AppException()
+
+class WordsEndedException(message: String) : AppException()
+

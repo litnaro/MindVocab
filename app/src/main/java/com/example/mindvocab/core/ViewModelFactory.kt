@@ -4,8 +4,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mindvocab.App
+import com.example.mindvocab.model.room.Repositories
 import com.example.mindvocab.screens.learn.LearnWordViewModel
 import com.example.mindvocab.screens.learn.wordset.WordSetsViewModel
+import com.example.mindvocab.screens.settings.account.SettingsAccountViewModel
+import com.example.mindvocab.screens.word.WordsViewModel
 
 class ViewModelFactory(
     private val app: App
@@ -15,10 +18,16 @@ class ViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         val viewModel = when(modelClass) {
             LearnWordViewModel::class.java -> {
-                LearnWordViewModel(app.learningRepository)
+                LearnWordViewModel(Repositories.wordsRepository)
             }
             WordSetsViewModel::class.java -> {
-                WordSetsViewModel(app.wordSetRepository)
+                WordSetsViewModel(Repositories.wordSetsRepository)
+            }
+            WordsViewModel::class.java -> {
+                WordsViewModel(Repositories.wordsRepository)
+            }
+            SettingsAccountViewModel::class.java -> {
+                SettingsAccountViewModel(Repositories.accountsRepository)
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModelClass")

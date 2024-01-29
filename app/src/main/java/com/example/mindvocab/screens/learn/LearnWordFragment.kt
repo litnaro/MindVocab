@@ -14,12 +14,12 @@ import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.databinding.FragmentLearnWordBinding
-import com.example.mindvocab.model.word.learning.entities.WordToLearn
 import com.example.mindvocab.core.factory
 import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.WordsEndedException
+import com.example.mindvocab.model.word.entities.Word
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -120,14 +120,6 @@ class LearnWordFragment : BaseFragment() {
             }
         }
 
-        binding.wordKnownButton.setOnClickListener {
-            viewModel.onWordKnown()
-        }
-
-        binding.wordToLearnButton.setOnClickListener {
-            viewModel.onWordLearn()
-        }
-
         binding.listenWordButton.setOnClickListener {
             viewModel.onWordListen()
         }
@@ -141,7 +133,7 @@ class LearnWordFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun setWordData(word: WordToLearn) {
+    private fun setWordData(word: Word) {
         with(binding) {
             binding.word.text = word.word
             wordTranscription.text = word.transcription
@@ -153,7 +145,7 @@ class LearnWordFragment : BaseFragment() {
                 .error(R.drawable.image_placeholder)
                 .into(wordImage)
 
-            wordTranslation.text = word.translationList.toString()
+            wordTranslation.text = word.translation
             wordExplaining.text = word.explanation
 
             examplesRv.apply {
@@ -163,6 +155,14 @@ class LearnWordFragment : BaseFragment() {
                     }
                 })
                 layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            }
+
+            binding.wordKnownButton.setOnClickListener {
+                viewModel.onWordKnown(word)
+            }
+
+            binding.wordToLearnButton.setOnClickListener {
+                viewModel.onWordToLearn(word)
             }
         }
     }

@@ -1,5 +1,7 @@
 package com.example.mindvocab.model.achievement
 
-interface AchievementRepository {
+import com.example.mindvocab.model.Repository
+
+interface AchievementRepository : Repository {
 
 }

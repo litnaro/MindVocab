@@ -1,6 +1,5 @@
 package com.example.mindvocab.model.sets.room.entity
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.mindvocab.model.sets.entity.WordSet
@@ -11,7 +10,7 @@ import com.example.mindvocab.model.sets.entity.WordSet
 data class WordSetDbEntity(
     @PrimaryKey(autoGenerate = true) val id: Long,
     val name: String,
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB) val image: ByteArray
+    val image: String
 ) {
 
     fun toWordSet() : WordSet = WordSet(

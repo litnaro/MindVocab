@@ -60,7 +60,11 @@
         android:id="@+id/wordsFragment"
         android:name="com.example.mindvocab.screens.word.WordsFragment"
         android:label="Слова"
-        tools:layout="@layout/fragment_words" />
+        tools:layout="@layout/fragment_words" >
+        <argument
+            android:name="wordSetId"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/notificationsFragment"
         android:name="com.example.mindvocab.screens.statistic.notifications.NotificationsFragment"

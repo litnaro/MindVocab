@@ -1,4 +1,4 @@
-package com.example.mindvocab.model.word
+package com.example.mindvocab.model.word.room.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

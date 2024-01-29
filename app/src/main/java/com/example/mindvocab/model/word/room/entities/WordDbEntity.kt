@@ -1,4 +1,4 @@
-package com.example.mindvocab.model.word
+package com.example.mindvocab.model.word.room.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.example.mindvocab.model.sets.room.entity.WordSetDbEntity
-import com.example.mindvocab.model.word.learning.entities.WordToLearn
+import com.example.mindvocab.model.word.entities.Word
 
 @Entity(
     tableName = "words",
@@ -26,21 +26,21 @@ import com.example.mindvocab.model.word.learning.entities.WordToLearn
 data class WordDbEntity(
     @PrimaryKey(autoGenerate = true) val id: Long,
     val word: String,
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB) val image: ByteArray,
+    val image: String,
     val audio: String,
     val transcription: String,
     val explanation: String,
     @ColumnInfo(name = "word_set_id") val wordSetId: Long
 ) {
-    fun toWord() : WordToLearn = WordToLearn(
+    fun toWord() : Word = Word(
         id = id,
         word = word,
-        image = "image",
+        image = image,
         audio = audio,
         transcription = transcription,
         explanation = explanation,
-        exampleList = emptyList(),
-        translationList = emptyList()
+        translation = "",
+        exampleList = emptyList()
     )
 
     override fun equals(other: Any?): Boolean {

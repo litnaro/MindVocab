@@ -1,16 +1,23 @@
 package com.example.mindvocab.screens.settings.account
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.example.mindvocab.R
+import com.example.mindvocab.core.BaseFragment
+import com.example.mindvocab.core.factory
 import com.example.mindvocab.databinding.FragmentSettingsAccountBinding
-import com.example.mindvocab.screens.settings.SettingsFragmentDirections
+import com.example.mindvocab.model.ErrorResult
+import com.example.mindvocab.model.PendingResult
+import com.example.mindvocab.model.SuccessResult
+import com.example.mindvocab.model.account.etities.Account
 
-class SettingsAccountFragment : Fragment() {
+class SettingsAccountFragment : BaseFragment() {
+
+    override val viewModel: SettingsAccountViewModel by viewModels { factory() }
 
     private var _binding: FragmentSettingsAccountBinding? = null
     private val binding get() = _binding!!
@@ -20,41 +27,34 @@ class SettingsAccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSettingsAccountBinding.inflate(inflater, container, false)
-        //prepareAccountSettings(true)
+
+        viewModel.account.observe(viewLifecycleOwner) {
+            when(it) {
+                is PendingResult -> {
+
+                }
+                is ErrorResult -> {
+
+                }
+                is SuccessResult -> {
+                    setAccountData(it.data)
+                }
+            }
+        }
 
         return binding.root
     }
 
-//    private fun prepareAccountSettings(isUserLogin: Boolean) {
-//        with(binding) {
-//            if (isUserLogin) {
-//                userFullName.visibility = View.VISIBLE
-//                signUpSuggestion.visibility = View.GONE
-//
-//                changePasswordButton.visibility = View.VISIBLE
-//                changePasswordButton.setOnClickListener {
-//                    findNavController().navigate(SettingsFragmentDirections.actionSettingsToChangePasswordFragment())
-//                }
-//
-//                editProfileButton.visibility = View.VISIBLE
-//
-//                signUpButton.visibility = View.GONE
-//                signInButton.visibility = View.GONE
-//            } else {
-//                userFullName.visibility = View.GONE
-//                signUpSuggestion.visibility = View.VISIBLE
-//
-//                changePasswordButton.visibility = View.GONE
-//                editProfileButton.visibility = View.GONE
-//
-//                signUpButton.visibility = View.VISIBLE
-//                signInButton.visibility = View.VISIBLE
-//            }
-//        }
-//    }
+    private fun setAccountData(account: Account) {
+        binding.userFullName.text = "${account.name} ${account.surname}"
+        binding.userEmail.text = account.email
 
-    private fun setUserData() {
-
+        Glide.with(binding.userPhoto.context)
+            .load(account.photo)
+            .circleCrop()
+            .placeholder(R.drawable.ic_person)
+            .error(R.drawable.ic_person)
+            .into(binding.userPhoto)
     }
 
     override fun onDestroyView() {

@@ -1,10 +1,9 @@
-package com.example.mindvocab.model.word
+package com.example.mindvocab.model.word.room.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
-import androidx.room.util.TableInfo
 import com.example.mindvocab.model.account.room.entities.AccountDbEntity
 
 @Entity(
