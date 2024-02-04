@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import com.example.mindvocab.databinding.FragmentWordSetsBinding
 import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
+import com.example.mindvocab.model.sets.WordSetFilter
 import com.example.mindvocab.model.sets.entity.WordSet
 
 class WordSetsFragment : BaseFragment() {
@@ -26,12 +28,17 @@ class WordSetsFragment : BaseFragment() {
         val binding = FragmentWordSetsBinding.inflate(inflater, container, false)
 
         val wordSetAdapter = WordSetAdapter(object : WordSetAdapter.Listener {
-            override fun addWordSetToLearning(wordSet: WordSet) {
-                viewModel.selectWordSet(wordSet)
-            }
 
             override fun onWordSetDetail(wordSet: WordSet) {
                 findNavController().navigate(WordSetsFragmentDirections.actionWordSetsFragmentToWordsFragment(wordSet.id))
+            }
+
+            override fun selectWordSet(wordSet: WordSet) {
+                viewModel.selectWordSet(wordSet)
+            }
+
+            override fun unselectWordSet(wordSet: WordSet) {
+                viewModel.unselectWordSet(wordSet)
             }
         })
 
@@ -53,10 +60,6 @@ class WordSetsFragment : BaseFragment() {
                     wordSetAdapter.submitList(it.data)
                 }
             }
-        }
-
-        binding.createWordSet.setOnClickListener {
-            viewModel.createWordSet()
         }
 
         return binding.root

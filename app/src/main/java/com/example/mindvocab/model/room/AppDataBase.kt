@@ -9,6 +9,7 @@ import com.example.mindvocab.model.achievement.room.entities.AchievementDbEntity
 import com.example.mindvocab.model.sets.room.WordSetsDao
 import com.example.mindvocab.model.sets.room.entity.AccountWordSetDbEntity
 import com.example.mindvocab.model.sets.room.entity.WordSetDbEntity
+import com.example.mindvocab.model.sets.room.entity.WordSetsWithStatisticDbView
 import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
 import com.example.mindvocab.model.word.room.entities.ExampleDbEntity
 import com.example.mindvocab.model.word.room.entities.LanguageDbEntity
@@ -29,6 +30,9 @@ import com.example.mindvocab.model.word.room.WordsDao
         WordDbEntity::class,
         AccountWordSetDbEntity::class,
         AccountWordProgressDbEntity::class
+    ],
+    views = [
+        WordSetsWithStatisticDbView::class
     ]
 )
 abstract class AppDataBase : RoomDatabase() {

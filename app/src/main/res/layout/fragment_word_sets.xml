@@ -27,12 +27,23 @@
         android:layout_marginTop="5dp"
         android:scrollbars="none">
         <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:singleSelection="true"
             app:singleLine="true">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chipChosen"
+                android:id="@+id/chipAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                app:chipBackgroundColor="?attr/colorPrimaryContainer"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:text="Все" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipOnlySelected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:chipIcon="@drawable/ic_check_box_filled"
@@ -45,40 +56,17 @@
                 app:iconEndPadding="8dp"/>
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chipAll"
+                android:id="@+id/chipOnlyUnelected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checkable="true"
+                app:chipIcon="@drawable/ic_check_box_empty"
+                app:chipIconTint="?attr/colorOnPrimaryContainer"
                 app:chipBackgroundColor="?attr/colorPrimaryContainer"
-                android:textColor="?attr/colorOnPrimaryContainer"
-                android:text="Все" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipPlatform"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:checkable="true"
-                app:chipBackgroundColor="?attr/colorPrimaryContainer"
-                android:textColor="?attr/colorOnPrimaryContainer"
-                android:text="Платформа"/>
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipYour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                app:chipBackgroundColor="?attr/colorPrimaryContainer"
-                android:textColor="?attr/colorOnPrimaryContainer"
-                android:text="Ваши"/>
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipPublic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                app:chipBackgroundColor="?attr/colorPrimaryContainer"
-                android:textColor="?attr/colorOnPrimaryContainer"
-                android:text="Публичные"/>
+                app:textStartPadding="0dp"
+                app:textEndPadding="0dp"
+                app:iconStartPadding="8dp"
+                app:iconEndPadding="8dp"/>
 
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
@@ -89,12 +77,4 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         tools:listitem="@layout/item_word_set"/>
-
-    <Button
-        android:id="@+id/createWordSet"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="Создать"/>
-
-
 </LinearLayout>

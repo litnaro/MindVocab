@@ -27,16 +27,16 @@ object Repositories {
 
     // Repositories
 
+    val accountsRepository: AccountRepository by lazy {
+        RoomAccountRepository(database.getAccountsDao())
+    }
+
     val wordSetsRepository: WordSetsRepository by lazy {
-        RoomWordSetsRepository(database.getWordSetsDao())
+        RoomWordSetsRepository(database.getWordSetsDao(), accountsRepository)
     }
 
     val wordsRepository: WordRepository by lazy {
         RoomWordRepository(database.getWordsDao())
-    }
-
-    val accountsRepository: AccountRepository by lazy {
-        RoomAccountRepository(database.getAccountsDao())
     }
 
     // Entrance point in MainActivity onCreate

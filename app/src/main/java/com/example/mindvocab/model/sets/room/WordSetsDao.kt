@@ -3,16 +3,23 @@ package com.example.mindvocab.model.sets.room
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.example.mindvocab.model.sets.room.entity.AccountWordSetDbEntity
 import com.example.mindvocab.model.sets.room.entity.WordSetDbEntity
+import com.example.mindvocab.model.sets.room.entity.WordSetsWithStatisticDbView
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WordSetsDao {
 
-    @Query("SELECT * FROM word_sets")
-    fun getWordSets() : Flow<List<WordSetDbEntity>>
+    @Query("SELECT * FROM word_sets_statistic WHERE account_id = :accountId")
+    fun getWordSets(accountId: Long) : Flow<List<WordSetsWithStatisticDbView>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun setSelectedFlagForWordSet(accountWordSetSelection: AccountWordSetDbEntity)
+
 
     //TODO: decide about strategy
 

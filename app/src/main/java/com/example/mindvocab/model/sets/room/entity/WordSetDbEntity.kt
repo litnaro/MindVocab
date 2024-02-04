@@ -12,16 +12,6 @@ data class WordSetDbEntity(
     val name: String,
     val image: String
 ) {
-
-    fun toWordSet() : WordSet = WordSet(
-        id = id,
-        name = name,
-        photo = "photo",
-        isSelected = false,
-        wordsCount = 100,
-        accountCompletedWordsCount = 50
-    )
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

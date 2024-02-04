@@ -16,15 +16,20 @@ class WordSetAdapter(
 ) : ListAdapter<WordSet, WordSetAdapter.ViewHolder>(ItemCallback), View.OnClickListener {
 
     interface Listener {
-        fun addWordSetToLearning(wordSet: WordSet)
         fun onWordSetDetail(wordSet: WordSet)
+        fun selectWordSet(wordSet: WordSet)
+        fun unselectWordSet(wordSet: WordSet)
     }
 
     override fun onClick(view: View) {
         val wordSet = view.tag as WordSet
         when(view.id) {
             R.id.wordSetIsSelected -> {
-                listener.addWordSetToLearning(wordSet)
+                if (wordSet.isSelected) {
+                    listener.unselectWordSet(wordSet)
+                } else {
+                    listener.selectWordSet(wordSet)
+                }
             }
             else -> {
                 listener.onWordSetDetail(wordSet)
@@ -53,10 +58,10 @@ class WordSetAdapter(
             }
 
             wordSetTitle.text = item.name
-            wordSetProgress.text = "${item.accountCompletedWordsCount}/${item.wordsCount}"
+            wordSetProgress.text = "${item.wordsCompleted}/${item.wordsCount}"
 
             Glide.with(wordSetPhoto.context)
-                .load(item.photo)
+                .load(item.image)
                 .circleCrop()
                 .placeholder(R.drawable.ic_article)
                 .error(R.drawable.ic_article)

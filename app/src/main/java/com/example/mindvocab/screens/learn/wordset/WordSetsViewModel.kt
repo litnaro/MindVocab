@@ -16,11 +16,14 @@ class WordSetsViewModel(
     private val wordSetsRepository: WordSetsRepository
 ) : BaseViewModel() {
 
-
     private val _wordSetList = MutableLiveData<Result<List<WordSet>>>()
     val wordSetList: LiveData<Result<List<WordSet>>> = _wordSetList
 
     init {
+        getWordSets()
+    }
+
+    fun getWordSets(filter: WordSetFilter = WordSetFilter.ALL) {
         viewModelScope.launch {
             wordSetsRepository.getWordSets().collect {
                 _wordSetList.value = SuccessResult(it)
@@ -28,23 +31,16 @@ class WordSetsViewModel(
         }
     }
 
-    fun getWordSetList(filter: WordSetFilter = WordSetFilter.ALL) {
-
-    }
-
     fun selectWordSet(wordSet: WordSet) {
-
-    }
-
-    fun createWordSet() {
         viewModelScope.launch {
-            wordSetsRepository.createWordSet(
-                WordSetDbEntity(
-                    id = 0,
-                    name = "Okay",
-                    image = "ByteArray(1)"
-                )
-            )
+            wordSetsRepository.selectWordSet(wordSet)
         }
     }
+
+    fun unselectWordSet(wordSet: WordSet) {
+        viewModelScope.launch {
+            wordSetsRepository.unselectWordSet(wordSet)
+        }
+    }
+
 }

@@ -19,14 +19,14 @@ interface WordSetsRepository : Repository {
      * @throws StorageException
      * @throws WordSetAlreadyExistsException
      */
-    suspend fun createWordSet(wordSet: WordSetDbEntity) : Boolean
+    suspend fun createWordSet(wordSet: WordSetDbEntity)
 
     /**
      *  Delete a custom user word set.
      *  Platform word sets can not be deleted.
      *  @throws StorageException
      */
-    suspend fun deleteWordSet(wordSet: WordSetDbEntity) : Boolean
+    suspend fun deleteWordSet(wordSet: WordSetDbEntity)
 
     /**
      *  Mark the specified word set as selected.
@@ -34,13 +34,13 @@ interface WordSetsRepository : Repository {
      *  After selection those words are displayed in learning screen.
      *  @throws StorageException
      */
-    fun selectWordSet(wordSet: WordSet) : Boolean
+    suspend fun selectWordSet(wordSet: WordSet)
 
     /**
      *  Mark the specified word set as unselected.
      *  Removing all word set words but save their progress.
      *  @throws StorageException
      */
-    fun unselectWordSet(wordSet: WordSet) : Boolean
+    suspend fun unselectWordSet(wordSet: WordSet)
 
 }
