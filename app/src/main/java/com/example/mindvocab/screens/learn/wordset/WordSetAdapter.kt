@@ -46,6 +46,7 @@ class WordSetAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
+        val context = holder.binding.root.context
 
         with(holder.binding) {
             root.tag = item
@@ -58,7 +59,7 @@ class WordSetAdapter(
             }
 
             wordSetTitle.text = item.name
-            wordSetProgress.text = "${item.wordsCompleted}/${item.wordsCount}"
+            wordSetProgress.text = context.getString(R.string.word_set_learned_words, item.wordsCompleted, item.wordsCount)
 
             Glide.with(wordSetPhoto.context)
                 .load(item.image)

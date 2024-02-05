@@ -7,7 +7,7 @@ import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.model.Result
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.word.WordRepository
-import com.example.mindvocab.model.word.entities.Word
+import com.example.mindvocab.model.word.entities.WordStatistic
 import kotlinx.coroutines.launch
 
 class WordsViewModel(
@@ -15,8 +15,8 @@ class WordsViewModel(
 ) : BaseViewModel() {
 
 
-    private val _wordsList = MutableLiveData<Result<List<Word>>>()
-    val wordsList: LiveData<Result<List<Word>>> = _wordsList
+    private val _wordsList = MutableLiveData<Result<List<WordStatistic>>>()
+    val wordsList: LiveData<Result<List<WordStatistic>>> = _wordsList
 
     fun getWordsByWordSetId(wordSetId: Long) {
         viewModelScope.launch {

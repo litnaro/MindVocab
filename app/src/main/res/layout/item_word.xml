@@ -27,11 +27,11 @@
         app:layout_constraintStart_toEndOf="@+id/wordIndicator"
         app:layout_constraintTop_toTopOf="@+id/wordIndicator"
         app:layout_constraintBottom_toBottomOf="@+id/wordIndicator"
-        app:layout_constraintEnd_toStartOf="@+id/wordProgress"/>
+        app:layout_constraintEnd_toStartOf="@+id/wordProgressContainer"/>
 
     <TextView
         android:id="@+id/word"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Color"
         android:textSize="@dimen/third_heading_size"
@@ -39,8 +39,19 @@
         android:layout_marginTop="8dp"
         android:layout_marginStart="5dp"
         app:layout_constraintStart_toStartOf="@+id/wordStatus"
-        app:layout_constraintEnd_toEndOf="@+id/wordStatus"
         app:layout_constraintTop_toBottomOf="@+id/wordStatus"/>
+
+    <TextView
+        android:id="@+id/wordTranscription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="[color]"
+        android:textSize="@dimen/simple_text_size"
+        android:layout_marginStart="7dp"
+        app:layout_constraintStart_toEndOf="@+id/word"
+        app:layout_constraintEnd_toEndOf="@+id/wordStatus"
+        app:layout_constraintTop_toTopOf="@+id/word"
+        app:layout_constraintBottom_toBottomOf="@+id/word"/>
 
     <TextView
         android:id="@+id/wordTranslation"
@@ -54,14 +65,45 @@
         app:layout_constraintStart_toStartOf="@+id/wordStatus"
         app:layout_constraintTop_toBottomOf="@+id/word"/>
 
-    <ProgressBar
-        android:id="@+id/wordProgress"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/wordProgressContainer"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        app:cardCornerRadius="25dp"
         android:layout_marginEnd="10dp"
+        app:cardElevation="0dp"
+        tools:cardBackgroundColor="@color/word_in_progress_status"
+        app:contentPadding="3dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toTopOf="@+id/word"
+        app:layout_constraintBottom_toBottomOf="@+id/word">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:visibility="gone"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="?android:attr/colorBackground"
+            app:cardCornerRadius="27dp">
+            <TextView
+                android:id="@+id/wordTextProgress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:text="99%"
+                android:gravity="center"/>
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/wordImageStatus"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:elevation="1dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_check"/>
+
+
+    </androidx.cardview.widget.CardView>
 
     <View
         android:layout_width="0dp"
@@ -69,8 +111,7 @@
         android:background="?attr/colorOnPrimary"
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="@+id/wordStatus"
-        app:layout_constraintEnd_toEndOf="@+id/wordProgress"
+        app:layout_constraintEnd_toEndOf="@+id/wordProgressContainer"
         app:layout_constraintTop_toBottomOf="@+id/wordTranslation"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

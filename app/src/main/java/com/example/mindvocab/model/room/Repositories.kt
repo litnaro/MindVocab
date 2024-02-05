@@ -2,8 +2,8 @@ package com.example.mindvocab.model.room
 
 import android.content.Context
 import androidx.room.Room
-import com.example.mindvocab.model.account.AccountRepository
-import com.example.mindvocab.model.account.room.RoomAccountRepository
+import com.example.mindvocab.model.account.AccountsRepository
+import com.example.mindvocab.model.account.room.RoomAccountsRepository
 import com.example.mindvocab.model.sets.WordSetsRepository
 import com.example.mindvocab.model.sets.room.RoomWordSetsRepository
 import com.example.mindvocab.model.word.WordRepository
@@ -27,8 +27,8 @@ object Repositories {
 
     // Repositories
 
-    val accountsRepository: AccountRepository by lazy {
-        RoomAccountRepository(database.getAccountsDao())
+    val accountsRepository: AccountsRepository by lazy {
+        RoomAccountsRepository(database.getAccountsDao())
     }
 
     val wordSetsRepository: WordSetsRepository by lazy {
@@ -36,7 +36,7 @@ object Repositories {
     }
 
     val wordsRepository: WordRepository by lazy {
-        RoomWordRepository(database.getWordsDao())
+        RoomWordRepository(database.getWordsDao(), accountsRepository)
     }
 
     // Entrance point in MainActivity onCreate

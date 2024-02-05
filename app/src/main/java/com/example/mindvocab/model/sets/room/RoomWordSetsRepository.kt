@@ -2,7 +2,7 @@ package com.example.mindvocab.model.sets.room
 
 import com.example.mindvocab.model.AuthException
 import com.example.mindvocab.model.StorageException
-import com.example.mindvocab.model.account.AccountRepository
+import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.sets.WordSetFilter
 import com.example.mindvocab.model.sets.WordSetsRepository
 import com.example.mindvocab.model.sets.entity.WordSet
@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.mapLatest
 
 class RoomWordSetsRepository(
     private val wordSetsDao: WordSetsDao,
-    private val accountsRepository: AccountRepository
+    private val accountsRepository: AccountsRepository
 ) : WordSetsRepository {
 
     override suspend fun getWordSets(filter: WordSetFilter): Flow<List<WordSet>> {

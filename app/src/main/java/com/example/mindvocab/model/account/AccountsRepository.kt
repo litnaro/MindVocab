@@ -5,7 +5,7 @@ import com.example.mindvocab.model.account.etities.Account
 import com.example.mindvocab.model.account.etities.SignUpData
 import kotlinx.coroutines.flow.Flow
 
-interface AccountRepository : Repository {
+interface AccountsRepository : Repository {
 
     suspend fun isSignedIn(): Boolean
 

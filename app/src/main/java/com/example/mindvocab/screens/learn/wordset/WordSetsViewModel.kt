@@ -9,7 +9,6 @@ import com.example.mindvocab.model.sets.WordSetFilter
 import com.example.mindvocab.model.Result
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.sets.WordSetsRepository
-import com.example.mindvocab.model.sets.room.entity.WordSetDbEntity
 import kotlinx.coroutines.launch
 
 class WordSetsViewModel(

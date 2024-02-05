@@ -1,14 +1,14 @@
 package com.example.mindvocab.model.account.room
 
-import com.example.mindvocab.model.account.AccountRepository
+import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.account.etities.Account
 import com.example.mindvocab.model.account.etities.SignUpData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class RoomAccountRepository(
+class RoomAccountsRepository(
     private val accountsDao: AccountsDao
-) : AccountRepository {
+) : AccountsRepository {
 
     override suspend fun isSignedIn(): Boolean {
         return true
@@ -27,7 +27,7 @@ class RoomAccountRepository(
     }
 
     override suspend fun getAccount(): Flow<Account?> {
-        return accountsDao.getAccountById(1).map {
+        return accountsDao.getAccountById(2).map {
             it.toAccount()
         }
     }

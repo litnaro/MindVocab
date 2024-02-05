@@ -1,6 +1,5 @@
 package com.example.mindvocab.screens.statistic.diagram
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -20,10 +19,10 @@ class StatisticDiagramFragment : Fragment() {
 
         binding.progressDiagram.apply {
             slices = listOf(
-                PieChart.Slice(0.4f, Color.rgb(120, 181, 0), legend = "Знаю", label = "40%"),
-                PieChart.Slice(0.2f, Color.rgb(0, 162, 216), legend = "Учу", label = "20%"),
-                PieChart.Slice(0.2f, Color.rgb(204, 168, 0), legend = "Выучено", label = "20%"),
-                PieChart.Slice(0.2f, Color.rgb(255, 4, 4), legend = "Осталось", label = "20%"),
+                PieChart.Slice(0.4f, requireContext().getColor(R.color.word_known_status), legend = "Знаю", label = "40%"),
+                PieChart.Slice(0.2f, requireContext().getColor(R.color.word_learned_status), legend = "Выучено", label = "20%"),
+                PieChart.Slice(0.2f, requireContext().getColor(R.color.word_in_progress_status), legend = "Учу", label = "20%"),
+                PieChart.Slice(0.2f, requireContext().getColor(R.color.word_new_status), legend = "Осталось", label = "20%"),
             )
             isCenterLabelEnabled = true
             isLegendEnabled = true

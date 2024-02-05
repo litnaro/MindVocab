@@ -5,6 +5,14 @@
 
     <color name="ic_logo_background">#FFFFFF</color>
 
+    <!--    Words status colors-->
+    <color name="word_new_status">#e76f51</color>
+    <color name="word_in_progress_status">#e9c46a</color>
+    <color name="word_known_status">#264653</color>
+    <color name="word_learned_status">#2a9d8f</color>
+
+
+    <!--    Theme colors-->
     <color name="seed">#005f8f</color>
     <color name="md_theme_light_primary">#fafafa</color>
     <color name="md_theme_light_onPrimary">#000000</color>

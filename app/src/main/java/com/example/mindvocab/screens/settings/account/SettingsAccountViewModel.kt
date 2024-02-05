@@ -6,12 +6,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.Result
-import com.example.mindvocab.model.account.AccountRepository
+import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.account.etities.Account
 import kotlinx.coroutines.launch
 
 class SettingsAccountViewModel(
-    private val accountRepository: AccountRepository
+    private val accountsRepository: AccountsRepository
 ) : BaseViewModel() {
 
     private val _account = MutableLiveData<Result<Account>>()
@@ -19,7 +19,7 @@ class SettingsAccountViewModel(
 
     init {
         viewModelScope.launch {
-            accountRepository.getAccount().collect {
+            accountsRepository.getAccount().collect {
                 if (it != null) {
                     _account.value = SuccessResult(it)
                 }
