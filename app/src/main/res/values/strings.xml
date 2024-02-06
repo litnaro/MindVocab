@@ -6,6 +6,10 @@
     <!--General-->
     <string name="app_name">MindVocab</string>
     <string name="percentage">%d%%</string>
+
+    <string name="select_category_content_description">Select category</string>
+    <string name="confirm_categories_content_description">Confirm categories</string>
+    <string name="notifications_content_description">Notifications</string>
     <!--General-->
 
     <!--    Learn graph-->
@@ -20,22 +24,113 @@
     <string name="word_status_known">Известное</string>
     <string name="word_status_learned">Выученное</string>
 
+    <string name="listen_word_content_description">Listen word</string>
+    <string name="word_image_content_description">Word image</string>
+    <string name="word_translation">Перевод</string>
+    <string name="word_explanation">Объяснение</string>
+    <string name="word_examples">Примеры</string>
+    <string name="word_known">Знаю слово</string>
+    <string name="word_to_learn">Учить слово</string>
+    <string name="return_to_previous_word_content_description">Return to previous word</string>
+    <string name="exception_image_content_description">Exception image</string>
+    <string name="exception_text_content_description">Go to the word sets and choose smthing</string>
+
+    <string name="all_words_filter">Все</string>
+
+    <string name="word_status_icon_content_description">Word status icon</string>
+    <string name="word_set_image_content_description">Word set image</string>
+    <string name="is_word_set_selected_icon_content_description">Is word set selected icon</string>
     <!--    Learn graph-->
 
     <!--    Repeat graph-->
     <string name="title_repeat">Повторение</string>
+
+    <string name="listen_the_word_content_description">Listen the word</string>
+    <string name="word_remember">Вспомнил</string>
+    <string name="return_to_previous_repeat_word__content_description">Return to previous word</string>
+    <string name="word_forgot">Забыл</string>
     <!--    Repeat graph-->
 
     <!--    Statistic graph-->
     <string name="title_statistic">Статистика</string>
+
+    <string name="notifications_screen_title">Уведомления</string>
+
+    <string name="share">Поделиться</string>
+    <string name="achievement_image_content_description">Achievement image</string>
+    <string name="close_achievement_dialog_content_description">Close achievement dialog</string>
+
+    <string name="achievements_statistic_title">Достижения</string>
+
+    <string name="all_word_count_statistic">Всего слов</string>
+    <string name="words_left_statistic">Осталось</string>
+    <string name="words_known_statistic">Знаю</string>
+    <string name="words_learned_statistic">Выучено</string>
+
     <!--    Statistic graph-->
 
     <!--    Browser graph-->
     <string name="title_browser">Браузер</string>
+
+    <string name="browser_not_available_image_content_description">Browser not available image</string>
+    <string name="browser_not_available_text">Пока что данная функция отсутствует</string>
     <!--    Browser graph-->
 
     <!--    Settings graph-->
     <string name="title_settings">Настройки</string>
+    <string name="button_to_change_settings_content_description">Button to change settings</string>
+
+    <string name="old_password_hint">Старый пароль</string>
+    <string name="new_password_hint">Новый пароль</string>
+    <string name="repeat_new_password_hint">Повторите новый пароль</string>
+    <string name="change_password">Сменить пароль</string>
+
+    <string name="account_photo_content_description">Account photo</string>
+    <string name="account_settings_content_description">Account settings</string>
+
+    <string name="additional_settings_title">Дополнительно</string>
+    <string name="share_application_settings">Поделиться приложением</string>
+    <string name="share_application_settings_content_description">Share application icon</string>
+    <string name="support_settings">Поддержка</string>
+    <string name="support_settings_content_description">Support</string>
+    <string name="about_us_settings">О нас</string>
+    <string name="about_us_settings_content_description">About us icon</string>
+    <string name="rate_application_settings">Оценить приложение</string>
+    <string name="rate_application_settings_content_description">Rate application icon</string>
+
+    <string name="application_settings_title">Приложение</string>
+    <string name="interface_language_settings">Язык интерфейса</string>
+    <string name="interface_language_settings_content_description">Interface language icon</string>
+    <string name="application_theme_settings">Тема приложения</string>
+    <string name="application_theme_settings_content_description">Application theme icon</string>
+
+    <string name="word_learning_settings_title">Изучение слов</string>
+    <string name="word_order_settings">Порядок слов</string>
+    <string name="word_order_content_description">Word order</string>
+    <string name="left_swipe_settings">Свайп влево</string>
+    <string name="left_swipe_settings_content_description">Left swipe settings icon</string>
+    <string name="right_swipe_setting">Свайп вправо</string>
+    <string name="right_swipe_setting_content_description">Right swipe setting icon</string>
+    <string name="words_a_day_settings">Слов в день</string>
+    <string name="words_a_day_settings_content_description">Words a day settings icon</string>
+    <string name="listen_word_at_the_start_settings">Озвучивать при появлении</string>
+    <string name="listen_word_at_the_start_settings_content_description">Listen word at the start icon</string>
+
+    <string name="notifications_setting_title">Уведомления</string>
+    <string name="enable_notification_settings">Включить уведомления</string>
+    <string name="enable_notifications_icon_content_description">Enable notifications icon</string>
+    <string name="remind_me_about_learning_settings">Напоминать об изучении</string>
+    <string name="remind_me_about_learning_content_description">Remind me about learning icon</string>
+
+    <string name="repeating_setting_title">Повторение слов</string>
+    <string name="repeating_variant_settings">Вариант повторения</string>
+    <string name="repeating_variant_content_description">Repeating variant icon</string>
+    <string name="first_show_settings">Сначала показывать</string>
+    <string name="first_show_settings_content_description">First show icon</string>
+    <string name="turning_animation_settings">Анимация поворота</string>
+    <string name="turning_animation_settings_content_description">Turning animation icon</string>
+
+    <string name="new_strings">New strings</string>
 
     <string-array name="setting_application_theme">
         <item>По умолчанию</item>

@@ -40,7 +40,7 @@
                 android:checkable="true"
                 app:chipBackgroundColor="?attr/colorPrimaryContainer"
                 android:textColor="?attr/colorOnPrimaryContainer"
-                android:text="Все" />
+                android:text="@string/all_words_filter" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipOnlySelected"

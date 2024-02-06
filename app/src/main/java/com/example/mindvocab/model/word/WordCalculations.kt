@@ -11,17 +11,17 @@ object WordCalculations {
         LEARNED
     }
 
-    const val TIMES_REPEATED_TO_LEARN = 6
+    private const val TIMES_REPEATED_TO_LEARN = 6
 
     fun getWordStatusByStatistic(wordWithStatistic: WordWithStatisticTuple) : WordStatus {
         if (wordWithStatistic.startedAt == 0L) {
             return WordStatus.NEW
         }
 
-        if (wordWithStatistic.timesRepeated != 6) {
+        if (wordWithStatistic.timesRepeated < TIMES_REPEATED_TO_LEARN
+            || wordWithStatistic.timesRepeated != TIMES_REPEATED_TO_LEARN) {
             return WordStatus.IN_PROGRESS
         }
-
 
         if (wordWithStatistic.startedAt == wordWithStatistic.lastRepeatedAt) {
             return WordStatus.KNOWN

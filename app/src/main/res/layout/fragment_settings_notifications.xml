@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Уведомления"
+            android:text="@string/notifications_setting_title"
             android:textSize="@dimen/simple_text_size"
             android:textColor="?attr/colorOnPrimaryContainer"
             android:textStyle="bold"/>
@@ -37,12 +37,13 @@
                 android:layout_height="28dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_notifications_active"
-                app:tint="?attr/colorOnPrimaryContainer"/>
+                app:tint="?attr/colorOnPrimaryContainer"
+                android:contentDescription="@string/enable_notifications_icon_content_description" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Включить уведомления"
+                android:text="@string/enable_notification_settings"
                 android:textSize="@dimen/simple_text_size"
                 android:textColor="?attr/colorOnPrimaryContainer"
                 android:layout_gravity="center_vertical"
@@ -68,12 +69,13 @@
                 android:layout_height="28dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_notification_important"
-                app:tint="?attr/colorOnPrimaryContainer"/>
+                app:tint="?attr/colorOnPrimaryContainer"
+                android:contentDescription="@string/remind_me_about_learning_content_description" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Напоминать об изучении"
+                android:text="@string/remind_me_about_learning_settings"
                 android:textSize="@dimen/simple_text_size"
                 android:textColor="?attr/colorOnPrimaryContainer"
                 android:layout_gravity="center_vertical"
@@ -85,80 +87,5 @@
                 android:layout_height="28dp"
                 android:layout_gravity="center" />
         </LinearLayout>
-
     </LinearLayout>
-
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/default_card_corner_radius"
-        app:contentPadding="10dp"
-        android:visibility="gone"
-        android:layout_marginTop="10dp"
-        app:cardBackgroundColor="?attr/colorPrimaryContainer">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Включить уведомления"
-                    android:textSize="@dimen/simple_text_size"
-                    android:textColor="?attr/colorOnPrimaryContainer"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"/>
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/allowNotificationsSwitch"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="5dp"/>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="10dp"
-                android:background="?attr/colorOnPrimaryContainer"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Напоминать об изучении"
-                    android:textSize="@dimen/simple_text_size"
-                    android:textColor="?attr/colorOnPrimaryContainer"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"/>
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/allowRemindingSwitch"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="5dp"/>
-
-            </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-
 </androidx.cardview.widget.CardView>

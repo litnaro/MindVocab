@@ -15,7 +15,8 @@
         android:src="@drawable/ic_close"
         app:tint="?attr/colorOnPrimaryContainer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/close_achievement_dialog_content_description" />
 
     <ProgressBar
         android:id="@+id/achievementProgress"
@@ -40,7 +41,8 @@
             android:id="@+id/achievementPhoto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_meditation"/>
+            android:src="@drawable/ic_meditation"
+            android:contentDescription="@string/achievement_image_content_description" />
 
     </androidx.cardview.widget.CardView>
 
@@ -75,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
         android:layout_marginBottom="40dp"
-        android:text="Поделиться"
+        android:text="@string/share"
         app:backgroundTint="?attr/colorErrorContainer"
         android:textColor="?attr/colorOnErrorContainer"
         app:layout_constraintStart_toStartOf="parent"

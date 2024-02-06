@@ -8,8 +8,6 @@
     android:padding="@dimen/main_screen_padding"
     tools:context=".screens.repeat.RepeatWordFragment">
 
-
-
     <LinearLayout
         android:id="@+id/cardFrontContainer"
         android:layout_width="match_parent"
@@ -38,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:paddingHorizontal="10dp"
-                    android:text="Game"
+                    tools:text="Game"
                     android:textAlignment="center"
                     android:textColor="?attr/colorOnPrimaryContainer"
                     android:textSize="@dimen/main_heading_size"
@@ -62,7 +60,8 @@
                         android:layout_height="24dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_play"
-                        app:tint="?attr/colorPrimaryContainer" />
+                        app:tint="?attr/colorPrimaryContainer"
+                        android:contentDescription="@string/listen_the_word_content_description" />
                 </androidx.cardview.widget.CardView>
 
                 <View
@@ -81,7 +80,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:paddingVertical="20dp"
-                    android:text="Вспомнил"
+                    android:text="@string/word_remember"
                     android:textAlignment="center"
                     android:textColor="?attr/colorOnPrimaryContainer"
                     android:textSize="@dimen/simple_text_size"
@@ -100,7 +99,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/textWordToLearn"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/textWordKnown"
-                    app:layout_constraintTop_toTopOf="@+id/textWordKnown" />
+                    app:layout_constraintTop_toTopOf="@+id/textWordKnown"
+                    android:contentDescription="@string/return_to_previous_repeat_word__content_description" />
 
 
                 <TextView
@@ -108,7 +108,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:paddingVertical="20dp"
-                    android:text="Забыл"
+                    android:text="@string/word_forgot"
                     android:textAlignment="center"
                     android:textColor="?attr/colorOnPrimaryContainer"
                     android:textSize="@dimen/simple_text_size"
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:paddingHorizontal="10dp"
-                    android:text="Игра"
+                    tools:text="Игра"
                     android:textAlignment="center"
                     android:textColor="?attr/colorOnPrimaryContainer"
                     android:textSize="@dimen/main_heading_size"

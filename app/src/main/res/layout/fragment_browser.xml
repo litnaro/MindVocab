@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,7 +8,7 @@
     tools:context=".screens.browser.BrowserFragment">
 
     <ImageView
-        android:id="@+id/browserSos"
+        android:id="@+id/browserNotAvailable"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:src="@drawable/ic_sos"
@@ -15,17 +16,18 @@
         android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/browser_not_available_image_content_description" />
 
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Пока что данная функция отсутствует"
+        android:text="@string/browser_not_available_text"
         android:textSize="@dimen/main_heading_size"
         android:layout_marginHorizontal="20dp"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/browserSos"/>
+        app:layout_constraintTop_toBottomOf="@+id/browserNotAvailable"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

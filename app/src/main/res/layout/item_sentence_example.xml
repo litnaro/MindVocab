@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="7dp"
@@ -34,7 +35,8 @@
             android:layout_height="24dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_play"
-            app:tint="?attr/colorPrimaryContainer" />
+            app:tint="?attr/colorPrimaryContainer"
+            android:contentDescription="@string/listen_the_word_content_description" />
 
     </androidx.cardview.widget.CardView>
 

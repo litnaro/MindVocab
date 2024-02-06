@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Дополнительно"
+            android:text="@string/additional_settings_title"
             android:textSize="@dimen/simple_text_size"
             android:textColor="?attr/colorOnPrimaryContainer"
             android:textStyle="bold"/>
@@ -36,12 +36,13 @@
                 android:layout_height="28dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_share"
-                app:tint="?attr/colorOnPrimaryContainer"/>
+                app:tint="?attr/colorOnPrimaryContainer"
+                android:contentDescription="@string/share_application_settings_content_description" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Поделиться приложением"
+                android:text="@string/share_application_settings"
                 android:textSize="@dimen/simple_text_size"
                 android:textColor="?attr/colorOnPrimaryContainer"
                 android:layout_gravity="center_vertical"
@@ -53,7 +54,8 @@
                 android:layout_height="26dp"
                 android:src="@drawable/ic_arrow_right"
                 app:tint="?attr/colorOnPrimaryContainer"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/button_to_change_settings_content_description" />
         </LinearLayout>
 
         <LinearLayout
@@ -69,12 +71,13 @@
                 android:layout_height="28dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_contact_support"
-                app:tint="?attr/colorOnPrimaryContainer"/>
+                app:tint="?attr/colorOnPrimaryContainer"
+                android:contentDescription="@string/support_settings_content_description" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Поддержка"
+                android:text="@string/support_settings"
                 android:textSize="@dimen/simple_text_size"
                 android:textColor="?attr/colorOnPrimaryContainer"
                 android:layout_gravity="center_vertical"
@@ -86,7 +89,8 @@
                 android:layout_height="26dp"
                 android:src="@drawable/ic_arrow_right"
                 app:tint="?attr/colorOnPrimaryContainer"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/button_to_change_settings_content_description"/>
         </LinearLayout>
 
         <LinearLayout
@@ -102,12 +106,13 @@
                 android:layout_height="28dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_star_half"
-                app:tint="?attr/colorOnPrimaryContainer"/>
+                app:tint="?attr/colorOnPrimaryContainer"
+                android:contentDescription="@string/rate_application_settings_content_description" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Оценить приложение"
+                android:text="@string/rate_application_settings"
                 android:textSize="@dimen/simple_text_size"
                 android:textColor="?attr/colorOnPrimaryContainer"
                 android:layout_gravity="center_vertical"
@@ -119,7 +124,8 @@
                 android:layout_height="26dp"
                 android:src="@drawable/ic_arrow_right"
                 app:tint="?attr/colorOnPrimaryContainer"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/button_to_change_settings_content_description"/>
         </LinearLayout>
 
         <LinearLayout
@@ -135,12 +141,13 @@
                 android:layout_height="28dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_info"
-                app:tint="?attr/colorOnPrimaryContainer"/>
+                app:tint="?attr/colorOnPrimaryContainer"
+                android:contentDescription="@string/about_us_settings_content_description" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="О нас"
+                android:text="@string/about_us_settings"
                 android:textSize="@dimen/simple_text_size"
                 android:textColor="?attr/colorOnPrimaryContainer"
                 android:layout_gravity="center_vertical"
@@ -152,7 +159,8 @@
                 android:layout_height="26dp"
                 android:src="@drawable/ic_arrow_right"
                 app:tint="?attr/colorOnPrimaryContainer"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/button_to_change_settings_content_description"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
