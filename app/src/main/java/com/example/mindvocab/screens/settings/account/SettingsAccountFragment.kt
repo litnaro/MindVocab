@@ -46,7 +46,7 @@ class SettingsAccountFragment : BaseFragment() {
     }
 
     private fun setAccountData(account: Account) {
-        binding.userFullName.text = "${account.name} ${account.surname}"
+        binding.userFullName.text = requireContext().getString(R.string.account_full_name, account.name, account.surname)
         binding.userEmail.text = account.email
 
         Glide.with(binding.userPhoto.context)

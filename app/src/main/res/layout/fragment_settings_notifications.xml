@@ -51,6 +51,7 @@
                 android:layout_weight="1"/>
 
             <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/notificationsSwitch"
                 android:layout_width="50dp"
                 android:layout_height="28dp"
                 android:layout_gravity="center" />
@@ -83,6 +84,7 @@
                 android:layout_weight="1"/>
 
             <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/reminderSwitch"
                 android:layout_width="50dp"
                 android:layout_height="28dp"
                 android:layout_gravity="center" />

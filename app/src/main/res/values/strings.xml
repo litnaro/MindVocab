@@ -80,6 +80,8 @@
     <string name="title_settings">Настройки</string>
     <string name="button_to_change_settings_content_description">Button to change settings</string>
 
+    <string name="account_full_name">%1$s %2$s</string>
+
     <string name="old_password_hint">Старый пароль</string>
     <string name="new_password_hint">Новый пароль</string>
     <string name="repeat_new_password_hint">Повторите новый пароль</string>

@@ -8,6 +8,8 @@ import com.example.mindvocab.model.room.Repositories
 import com.example.mindvocab.screens.learn.LearnWordViewModel
 import com.example.mindvocab.screens.learn.wordset.WordSetsViewModel
 import com.example.mindvocab.screens.settings.account.SettingsAccountViewModel
+import com.example.mindvocab.screens.settings.application.SettingsApplicationViewModel
+import com.example.mindvocab.screens.settings.notifications.SettingsNotificationsViewModel
 import com.example.mindvocab.screens.word.WordsViewModel
 
 class ViewModelFactory(
@@ -28,6 +30,12 @@ class ViewModelFactory(
             }
             SettingsAccountViewModel::class.java -> {
                 SettingsAccountViewModel(Repositories.accountsRepository)
+            }
+            SettingsApplicationViewModel::class.java -> {
+                SettingsApplicationViewModel(Repositories.appSettings.getApplicationSettings())
+            }
+            SettingsNotificationsViewModel::class.java -> {
+                SettingsNotificationsViewModel(Repositories.appSettings.getNotificationSettings())
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModelClass")

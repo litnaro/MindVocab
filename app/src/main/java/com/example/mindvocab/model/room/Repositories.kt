@@ -6,6 +6,11 @@ import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.account.room.RoomAccountsRepository
 import com.example.mindvocab.model.sets.WordSetsRepository
 import com.example.mindvocab.model.sets.room.RoomWordSetsRepository
+import com.example.mindvocab.model.settings.AppSettings
+import com.example.mindvocab.model.settings.SharedPreferencesAppSettings
+import com.example.mindvocab.model.settings.account.SharedPreferencesAccountSettings
+import com.example.mindvocab.model.settings.application.SharedPreferencesApplicationSettings
+import com.example.mindvocab.model.settings.notifications.SharedPreferencesNotificationSettings
 import com.example.mindvocab.model.word.WordRepository
 import com.example.mindvocab.model.word.room.RoomWordRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -24,6 +29,16 @@ object Repositories {
     }
 
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+
+    //Settings
+
+    val appSettings: AppSettings by lazy {
+        SharedPreferencesAppSettings(
+            SharedPreferencesAccountSettings(applicationContext),
+            SharedPreferencesApplicationSettings(applicationContext),
+            SharedPreferencesNotificationSettings(applicationContext)
+        )
+    }
 
     // Repositories
 
