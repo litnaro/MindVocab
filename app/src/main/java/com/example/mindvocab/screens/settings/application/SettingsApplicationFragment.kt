@@ -20,11 +20,11 @@ class SettingsApplicationFragment : BaseFragment() {
         val binding = FragmentSettingsApplicationBinding.inflate(inflater, container, false)
 
         viewModel.themeSetting.observe(viewLifecycleOwner) {
-            it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
+            binding.themeSettingValue.text = it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
         }
 
         viewModel.languageSetting.observe(viewLifecycleOwner) {
-            it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
+            binding.languageSettingValue.text = it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
         }
 
         return binding.root

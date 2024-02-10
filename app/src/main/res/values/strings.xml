@@ -14,6 +14,8 @@
 
     <!--    Learn graph-->
     <string name="title_learn">Изучение</string>
+    <string name="words_title">Слова</string>
+    <string name="word_set_choose_title">Выбор категории</string>
 
     <string name="transcription">[%s]</string>
 
@@ -87,7 +89,18 @@
     <string name="repeat_new_password_hint">Повторите новый пароль</string>
     <string name="change_password">Сменить пароль</string>
 
+    <string name="account_edit_settings">Редактирование</string>
+    <string name="account_edit_main_info_title">Основная информация</string>
+    <string name="account_edit_email_hint">Email</string>
+    <string name="account_edit_username_hint">Username</string>
+    <string name="account_edit_name_hint">Name</string>
+    <string name="account_edit_surname_hint">Surname</string>
+    <string name="account_edit_password_change_title">Замена пароля</string>
+    <string name="account_edit_account_actions_title">Действия с аккаунтом</string>
+    <string name="account_edit_reset_account_progress_button">Сбросить прогресс аккаунта</string>
+    <string name="account_edit_delete_account_button">Удалить аккаунт</string>
     <string name="account_photo_content_description">Account photo</string>
+    <string name="account_add_photo_content_description">Add account photo</string>
     <string name="account_settings_content_description">Account settings</string>
 
     <string name="additional_settings_title">Дополнительно</string>
@@ -118,6 +131,7 @@
     <string name="listen_word_at_the_start_settings">Озвучивать при появлении</string>
     <string name="listen_word_at_the_start_settings_content_description">Listen word at the start icon</string>
 
+    <string name="notifications_title">Уведомления</string>
     <string name="notifications_setting_title">Уведомления</string>
     <string name="enable_notification_settings">Включить уведомления</string>
     <string name="enable_notifications_icon_content_description">Enable notifications icon</string>

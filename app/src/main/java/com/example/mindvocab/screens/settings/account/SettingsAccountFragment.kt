@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
@@ -14,6 +15,7 @@ import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.account.etities.Account
+import com.example.mindvocab.screens.settings.SettingsFragmentDirections
 
 class SettingsAccountFragment : BaseFragment() {
 
@@ -42,19 +44,23 @@ class SettingsAccountFragment : BaseFragment() {
             }
         }
 
+        binding.accountEditButton.setOnClickListener {
+            findNavController().navigate(SettingsFragmentDirections.actionSettingsToAccountEditFragment())
+        }
+
         return binding.root
     }
 
     private fun setAccountData(account: Account) {
-        binding.userFullName.text = requireContext().getString(R.string.account_full_name, account.name, account.surname)
-        binding.userEmail.text = account.email
+        binding.accountFullName.text = requireContext().getString(R.string.account_full_name, account.name, account.surname)
+        binding.accountEmail.text = account.email
 
-        Glide.with(binding.userPhoto.context)
+        Glide.with(binding.accountPhoto.context)
             .load(account.photo)
             .circleCrop()
-            .placeholder(R.drawable.ic_person)
-            .error(R.drawable.ic_person)
-            .into(binding.userPhoto)
+            .placeholder(R.drawable.ic_face)
+            .error(R.drawable.ic_face)
+            .into(binding.accountPhoto)
     }
 
     override fun onDestroyView() {

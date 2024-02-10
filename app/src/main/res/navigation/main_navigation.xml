@@ -39,18 +39,13 @@
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" >
         <action
-            android:id="@+id/action_settings_to_changePasswordFragment"
-            app:destination="@id/changePasswordFragment" />
+            android:id="@+id/action_settings_to_accountEditFragment"
+            app:destination="@id/accountEditFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/changePasswordFragment"
-        android:name="com.example.mindvocab.screens.settings.account.password.ChangePasswordFragment"
-        android:label="Смена пароля"
-        tools:layout="@layout/fragment_change_password" />
     <fragment
         android:id="@+id/wordSetsFragment"
         android:name="com.example.mindvocab.screens.learn.wordset.WordSetsFragment"
-        android:label="Выбор категории"
+        android:label="@string/word_set_choose_title"
         tools:layout="@layout/fragment_word_sets" >
         <action
             android:id="@+id/action_wordSetsFragment_to_wordsFragment"
@@ -59,7 +54,7 @@
     <fragment
         android:id="@+id/wordsFragment"
         android:name="com.example.mindvocab.screens.word.WordsFragment"
-        android:label="Слова"
+        android:label="@string/words_title"
         tools:layout="@layout/fragment_words" >
         <argument
             android:name="wordSetId"
@@ -68,6 +63,11 @@
     <fragment
         android:id="@+id/notificationsFragment"
         android:name="com.example.mindvocab.screens.statistic.notifications.NotificationsFragment"
-        android:label="Уведомления"
+        android:label="@string/notifications_title"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/accountEditFragment"
+        android:name="com.example.mindvocab.screens.settings.account.edit.AccountEditFragment"
+        android:label="@string/account_edit_settings"
+        tools:layout="@layout/fragment_account_edit" />
 </navigation>

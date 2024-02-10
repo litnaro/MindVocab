@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/userPhoto"
+            android:id="@+id/accountPhoto"
             android:layout_width="60dp"
             android:layout_height="60dp"
             tools:src="@drawable/ic_person"
@@ -25,7 +25,7 @@
             android:contentDescription="@string/account_photo_content_description" />
 
         <TextView
-            android:id="@+id/userFullName"
+            android:id="@+id/accountFullName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -36,11 +36,11 @@
             android:textSize="@dimen/simple_text_size"
             android:textColor="?attr/colorOnPrimaryContainer"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/userPhoto"
-            app:layout_constraintEnd_toStartOf="@+id/userEditButton"/>
+            app:layout_constraintStart_toEndOf="@+id/accountPhoto"
+            app:layout_constraintEnd_toStartOf="@+id/accountEditButton"/>
 
         <TextView
-            android:id="@+id/userEmail"
+            android:id="@+id/accountEmail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="andriy.litnarovych@gmail.com"
@@ -48,12 +48,12 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="2dp"
             android:textColor="?attr/colorOnPrimaryContainer"
-            app:layout_constraintStart_toEndOf="@+id/userPhoto"
-            app:layout_constraintEnd_toStartOf="@+id/userEditButton"
-            app:layout_constraintTop_toBottomOf="@+id/userFullName"/>
+            app:layout_constraintStart_toEndOf="@+id/accountPhoto"
+            app:layout_constraintEnd_toStartOf="@+id/accountEditButton"
+            app:layout_constraintTop_toBottomOf="@+id/accountFullName"/>
 
         <ImageView
-            android:id="@+id/userEditButton"
+            android:id="@+id/accountEditButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="5dp"
