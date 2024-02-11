@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/settings_dialog_background">
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_remove_black"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center|top"
+        app:tint="?attr/colorOnPrimaryContainer"
+        android:contentDescription="@string/settings_dialog_drag_icon_content_description" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:id="@+id/dialogTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            tools:text="Тема приложения"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnPrimaryContainer"
+            android:textSize="@dimen/secondary_heading_size"/>
+        
+        <ImageView
+            android:id="@+id/dialogCloseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close"
+            app:tint="?attr/colorOnPrimaryContainer"
+            android:padding="7dp"
+            android:contentDescription="@string/dismiss_settings_dialog_content_description" />
+    </LinearLayout>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/dialogChipGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:singleSelection="true"
+        app:selectionRequired="true"/>
+
+    <TextView
+        android:id="@+id/dialogHelpingText"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        tools:text="Вспомогательный текст"
+        android:textColor="?attr/colorOnPrimaryContainer"
+        android:textSize="@dimen/simple_text_size"/>
+
+</LinearLayout>

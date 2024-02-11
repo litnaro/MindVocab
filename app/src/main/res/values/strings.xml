@@ -82,6 +82,9 @@
     <string name="title_settings">Настройки</string>
     <string name="button_to_change_settings_content_description">Button to change settings</string>
 
+    <string name="dismiss_settings_dialog_content_description">Dismiss settings dialog</string>
+    <string name="settings_dialog_drag_icon_content_description">Settings dialog drag icon</string>
+
     <string name="account_full_name">%1$s %2$s</string>
 
     <string name="old_password_hint">Старый пароль</string>
@@ -117,6 +120,7 @@
     <string name="interface_language_settings">Язык интерфейса</string>
     <string name="interface_language_settings_content_description">Interface language icon</string>
     <string name="application_theme_settings">Тема приложения</string>
+    <string name="application_theme_settings_helping_text">Возможно потребуется перезапустить прилжение для изменения результата</string>
     <string name="application_theme_settings_content_description">Application theme icon</string>
 
     <string name="word_learning_settings_title">Изучение слов</string>
