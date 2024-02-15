@@ -19,17 +19,27 @@ class SettingsApplicationViewModel(
 
     init {
         viewModelScope.launch {
-            _themeSetting.value = applicationSettings.getApplicationTheme()
-            _languageSetting.value = applicationSettings.getApplicationLanguage()
+            applicationSettings.applicationTheme.collect {
+                _themeSetting.value = it
+            }
+        }
+        viewModelScope.launch {
+            applicationSettings.applicationLanguage.collect {
+                _languageSetting.value = it
+            }
         }
     }
 
     fun setTheme(theme: ApplicationSettings.ApplicationTheme) {
-
+        viewModelScope.launch {
+            applicationSettings.setApplicationTheme(theme)
+        }
     }
 
     fun setLanguage(language: ApplicationSettings.ApplicationLanguage) {
-
+        viewModelScope.launch {
+            applicationSettings.setApplicationLanguage(language)
+        }
     }
 
 }

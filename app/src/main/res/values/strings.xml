@@ -118,9 +118,10 @@
 
     <string name="application_settings_title">Приложение</string>
     <string name="interface_language_settings">Язык интерфейса</string>
+    <string name="application_language_settings_helping_text">Возможно потребуется перезапустить приложение для изменения результата</string>
     <string name="interface_language_settings_content_description">Interface language icon</string>
     <string name="application_theme_settings">Тема приложения</string>
-    <string name="application_theme_settings_helping_text">Возможно потребуется перезапустить прилжение для изменения результата</string>
+    <string name="application_theme_settings_helping_text">Возможно потребуется перезапустить приложение для изменения результата</string>
     <string name="application_theme_settings_content_description">Application theme icon</string>
 
     <string name="word_learning_settings_title">Изучение слов</string>

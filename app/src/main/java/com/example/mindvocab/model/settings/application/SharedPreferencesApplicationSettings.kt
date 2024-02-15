@@ -1,6 +1,7 @@
 package com.example.mindvocab.model.settings.application
 
 import android.content.Context
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class SharedPreferencesApplicationSettings(
     appContext: Context
@@ -8,30 +9,39 @@ class SharedPreferencesApplicationSettings(
 
     private val sharedPreferences = appContext.getSharedPreferences("settings", Context.MODE_PRIVATE)
 
+
     // Application theme
-    override fun getApplicationTheme(): ApplicationSettings.ApplicationTheme {
+    override val applicationTheme = MutableStateFlow(getApplicationTheme())
+
+    override suspend fun setApplicationTheme(theme: ApplicationSettings.ApplicationTheme) {
+        if (getApplicationTheme() == theme) return
+        sharedPreferences.edit()
+            .putInt(PREF_CURRENT_APPLICATION_THEME, theme.value)
+            .apply()
+        applicationTheme.emit(getApplicationTheme())
+    }
+
+    private fun getApplicationTheme(): ApplicationSettings.ApplicationTheme {
         return ApplicationSettings.ApplicationTheme.fromValue(
             sharedPreferences.getInt(PREF_CURRENT_APPLICATION_THEME, ApplicationSettings.ApplicationTheme.DEFAULT.value)
         )
     }
 
-    override fun setApplicationTheme(theme: ApplicationSettings.ApplicationTheme) {
-        sharedPreferences.edit()
-            .putInt(PREF_CURRENT_APPLICATION_THEME, theme.value)
-            .apply()
-    }
-
     // Application language
-    override fun getApplicationLanguage(): ApplicationSettings.ApplicationLanguage {
-        return ApplicationSettings.ApplicationLanguage.fromValue(
-            sharedPreferences.getInt(PREF_CURRENT_APPLICATION_LANGUAGE, ApplicationSettings.ApplicationLanguage.DEFAULT.value)
-        )
-    }
+    override val applicationLanguage = MutableStateFlow(getApplicationLanguage())
 
-    override fun setApplicationLanguage(language: ApplicationSettings.ApplicationLanguage) {
+    override suspend fun setApplicationLanguage(language: ApplicationSettings.ApplicationLanguage) {
+        if (getApplicationLanguage() == language) return
         sharedPreferences.edit()
             .putInt(PREF_CURRENT_APPLICATION_LANGUAGE, language.value)
             .apply()
+        applicationLanguage.emit(language)
+    }
+
+    private fun getApplicationLanguage(): ApplicationSettings.ApplicationLanguage {
+        return ApplicationSettings.ApplicationLanguage.fromValue(
+            sharedPreferences.getInt(PREF_CURRENT_APPLICATION_LANGUAGE, ApplicationSettings.ApplicationLanguage.DEFAULT.value)
+        )
     }
 
     companion object {

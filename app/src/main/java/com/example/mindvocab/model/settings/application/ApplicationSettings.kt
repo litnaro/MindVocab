@@ -1,5 +1,7 @@
 package com.example.mindvocab.model.settings.application
 
+import kotlinx.coroutines.flow.MutableStateFlow
+
 interface ApplicationSettings {
 
     // Application theme
@@ -15,9 +17,9 @@ interface ApplicationSettings {
         }
     }
 
-    fun getApplicationTheme() : ApplicationTheme
+    val applicationTheme: MutableStateFlow<ApplicationTheme>
 
-    fun setApplicationTheme(theme: ApplicationTheme)
+    suspend fun setApplicationTheme(theme: ApplicationTheme)
 
     // Application language
     enum class ApplicationLanguage(val value: Int) {
@@ -33,8 +35,8 @@ interface ApplicationSettings {
         }
     }
 
-    fun getApplicationLanguage() : ApplicationLanguage
+    val applicationLanguage: MutableStateFlow<ApplicationLanguage>
 
-    fun setApplicationLanguage(language: ApplicationLanguage)
+    suspend fun setApplicationLanguage(language: ApplicationLanguage)
 
 }
