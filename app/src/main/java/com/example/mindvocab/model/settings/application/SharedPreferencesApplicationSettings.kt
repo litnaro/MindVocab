@@ -9,7 +9,6 @@ class SharedPreferencesApplicationSettings(
 
     private val sharedPreferences = appContext.getSharedPreferences("settings", Context.MODE_PRIVATE)
 
-
     // Application theme
     override val applicationTheme = MutableStateFlow(getApplicationTheme())
 

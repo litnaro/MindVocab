@@ -24,6 +24,7 @@
             android:textStyle="bold"/>
 
         <LinearLayout
+            android:id="@+id/answeringVariantSettingContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -48,6 +49,17 @@
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"/>
 
+            <TextView
+                android:id="@+id/answeringVariantSettingValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Word"
+                android:textSize="@dimen/simple_text_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="6dp"/>
+
             <ImageView
                 android:layout_width="26dp"
                 android:layout_height="26dp"
@@ -58,6 +70,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/questionVariantSettingContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -82,6 +95,17 @@
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"/>
 
+            <TextView
+                android:id="@+id/questionVariantSettingValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Translation"
+                android:textSize="@dimen/simple_text_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="6dp"/>
+
             <ImageView
                 android:layout_width="26dp"
                 android:layout_height="26dp"
@@ -92,6 +116,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/cardAnimationSettingContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -115,6 +140,17 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/cardAnimationSettingValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Flip"
+                android:textSize="@dimen/simple_text_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="6dp"/>
 
             <ImageView
                 android:layout_width="26dp"

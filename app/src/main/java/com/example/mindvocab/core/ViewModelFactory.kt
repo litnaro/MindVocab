@@ -11,6 +11,7 @@ import com.example.mindvocab.screens.settings.account.SettingsAccountViewModel
 import com.example.mindvocab.screens.settings.account.edit.AccountEditViewModel
 import com.example.mindvocab.screens.settings.application.SettingsApplicationViewModel
 import com.example.mindvocab.screens.settings.notifications.SettingsNotificationsViewModel
+import com.example.mindvocab.screens.settings.repeat.SettingsRepeatViewModel
 import com.example.mindvocab.screens.word.WordsViewModel
 
 class ViewModelFactory(
@@ -40,6 +41,9 @@ class ViewModelFactory(
             }
             AccountEditViewModel::class.java -> {
                 AccountEditViewModel(Repositories.accountsRepository)
+            }
+            SettingsRepeatViewModel::class.java -> {
+                SettingsRepeatViewModel(Repositories.appSettings.getRepeatSettings())
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModelClass")

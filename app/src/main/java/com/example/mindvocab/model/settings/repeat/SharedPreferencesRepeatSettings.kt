@@ -1,0 +1,70 @@
+package com.example.mindvocab.model.settings.repeat
+
+import android.content.Context
+import kotlinx.coroutines.flow.MutableStateFlow
+
+class SharedPreferencesRepeatSettings(
+    appContext: Context
+) : RepeatSettings {
+
+    private val sharedPreferences = appContext.getSharedPreferences("settings", Context.MODE_PRIVATE)
+
+    // Answering variants settings
+
+    override val answeringVariantSetting = MutableStateFlow(getAnsweringVariantSetting())
+
+    override suspend fun setAnsweringVariantSetting(setting: RepeatSettings.AnsweringVariantSetting) {
+        if (getAnsweringVariantSetting() == setting) return
+        sharedPreferences.edit()
+            .putInt(PREF_CURRENT_ANSWERING_VARIANT_SETTING, setting.value)
+            .apply()
+        answeringVariantSetting.emit(getAnsweringVariantSetting())
+    }
+
+    private fun getAnsweringVariantSetting() : RepeatSettings.AnsweringVariantSetting {
+        return RepeatSettings.AnsweringVariantSetting.fromValue(
+            sharedPreferences.getInt(PREF_CURRENT_ANSWERING_VARIANT_SETTING, RepeatSettings.AnsweringVariantSetting.TRANSLATION.value)
+        )
+    }
+
+    // Question variant settings
+
+    override val questionVariantSetting = MutableStateFlow(getQuestionVariantSetting())
+
+    override suspend fun setQuestionVariantSetting(setting: RepeatSettings.QuestionVariantSetting) {
+        if (getQuestionVariantSetting() == setting) return
+        sharedPreferences.edit()
+            .putInt(PREF_CURRENT_QUESTION_VARIANT_SETTING, setting.value)
+            .apply()
+        questionVariantSetting.emit(getQuestionVariantSetting())
+    }
+
+    private fun getQuestionVariantSetting() : RepeatSettings.QuestionVariantSetting {
+        return RepeatSettings.QuestionVariantSetting.fromValue(
+            sharedPreferences.getInt(PREF_CURRENT_QUESTION_VARIANT_SETTING, RepeatSettings.QuestionVariantSetting.WORD.value)
+        )
+    }
+
+    // Card animation settings
+    override val cardAnimationSetting = MutableStateFlow(getCardAnimationSetting())
+
+    override suspend fun setCardAnimationSetting(setting: RepeatSettings.CardAnimationSetting) {
+        if (getCardAnimationSetting() == setting) return
+        sharedPreferences.edit()
+            .putInt(PREF_CURRENT_CARD_ANIMATION_SETTING, setting.value)
+            .apply()
+        cardAnimationSetting.emit(getCardAnimationSetting())
+    }
+
+    private fun getCardAnimationSetting() : RepeatSettings.CardAnimationSetting {
+        return RepeatSettings.CardAnimationSetting.fromValue(
+            sharedPreferences.getInt(PREF_CURRENT_CARD_ANIMATION_SETTING, RepeatSettings.CardAnimationSetting.FLIP.value)
+        )
+    }
+
+    companion object {
+        private const val PREF_CURRENT_ANSWERING_VARIANT_SETTING = "currentAnsweringVariantSetting"
+        private const val PREF_CURRENT_QUESTION_VARIANT_SETTING = "currentQuestionVariantSetting"
+        private const val PREF_CURRENT_CARD_ANIMATION_SETTING = "currentCardAnimationSetting"
+    }
+}

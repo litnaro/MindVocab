@@ -11,6 +11,7 @@ import com.example.mindvocab.model.settings.SharedPreferencesAppSettings
 import com.example.mindvocab.model.settings.account.SharedPreferencesAccountSettings
 import com.example.mindvocab.model.settings.application.SharedPreferencesApplicationSettings
 import com.example.mindvocab.model.settings.notifications.SharedPreferencesNotificationSettings
+import com.example.mindvocab.model.settings.repeat.SharedPreferencesRepeatSettings
 import com.example.mindvocab.model.word.WordRepository
 import com.example.mindvocab.model.word.room.RoomWordRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -36,7 +37,8 @@ object Repositories {
         SharedPreferencesAppSettings(
             SharedPreferencesAccountSettings(applicationContext),
             SharedPreferencesApplicationSettings(applicationContext),
-            SharedPreferencesNotificationSettings(applicationContext)
+            SharedPreferencesNotificationSettings(applicationContext),
+            SharedPreferencesRepeatSettings(applicationContext)
         )
     }
 

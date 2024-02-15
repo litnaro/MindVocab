@@ -145,10 +145,13 @@
 
     <string name="repeating_setting_title">Повторение слов</string>
     <string name="repeating_variant_settings">Вариант повторения</string>
+    <string name="repeating_variant_settings_helping_text">Возможно потребуется перезапустить приложение для изменения результата</string>
     <string name="repeating_variant_content_description">Repeating variant icon</string>
     <string name="first_show_settings">Сначала показывать</string>
+    <string name="first_show_settings_helping_text">Возможно потребуется перезапустить приложение для изменения результата</string>
     <string name="first_show_settings_content_description">First show icon</string>
     <string name="turning_animation_settings">Анимация поворота</string>
+    <string name="turning_animation_settings_helping_text">Возможно потребуется перезапустить приложение для изменения результата</string>
     <string name="turning_animation_settings_content_description">Turning animation icon</string>
 
     <string name="new_strings">New strings</string>
