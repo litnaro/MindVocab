@@ -1,13 +1,12 @@
 package com.example.mindvocab.model.settings.learn
 
 import android.content.Context
+import com.example.mindvocab.model.settings.AppSettings
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class SharedPreferencesLearnSettings(
     appContext: Context
-) : LearnSettings {
-
-    private val sharedPreferences = appContext.getSharedPreferences("settings", Context.MODE_PRIVATE)
+) : LearnSettings, AppSettings(appContext) {
 
     // Listen after appearance
 

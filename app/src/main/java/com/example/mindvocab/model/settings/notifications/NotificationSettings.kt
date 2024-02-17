@@ -1,13 +1,15 @@
 package com.example.mindvocab.model.settings.notifications
 
+import kotlinx.coroutines.flow.MutableStateFlow
+
 interface NotificationSettings {
 
-    fun getIsNotificationsEnabled() : Boolean
+    val isNotificationsEnabledSetting: MutableStateFlow<Boolean>
 
-    fun setIsNotificationsEnabled(enabled: Boolean)
+    suspend fun setIsNotificationsEnabled(setting: Boolean)
 
-    fun getIsReminderEnabled() : Boolean
+    val isReminderEnabledSetting: MutableStateFlow<Boolean>
 
-    fun setIsReminderEnabled(enabled: Boolean)
+    suspend fun setIsReminderEnabled(setting: Boolean)
 
 }

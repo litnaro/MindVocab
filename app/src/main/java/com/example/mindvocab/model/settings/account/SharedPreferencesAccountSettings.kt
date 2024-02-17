@@ -1,17 +1,17 @@
 package com.example.mindvocab.model.settings.account
 
 import android.content.Context
+import com.example.mindvocab.model.settings.AppSettings
 
 class SharedPreferencesAccountSettings(
     appContext: Context
-) : AccountSettings {
-    private val sharedPreferences = appContext.getSharedPreferences("settings", Context.MODE_PRIVATE)
+) : AccountSettings, AppSettings(appContext) {
 
-    override fun getCurrentAccountId(): Long = sharedPreferences.getLong(PREF_CURRENT_ACCOUNT_ID,
+    override suspend fun getCurrentAccountId(): Long = sharedPreferences.getLong(PREF_CURRENT_ACCOUNT_ID,
         AccountSettings.NO_ACCOUNT_ID
     )
 
-    override fun setCurrentAccountId(accountId: Long) {
+    override suspend fun setCurrentAccountId(accountId: Long) {
         sharedPreferences.edit()
             .putLong(PREF_CURRENT_ACCOUNT_ID, accountId)
             .apply()

@@ -23,10 +23,19 @@ class SettingsNotificationsFragment : BaseFragment() {
             binding.notificationsSwitch.isChecked = it
         }
 
+        binding.notificationsSwitch.setOnCheckedChangeListener {
+                _, state ->
+            viewModel.setNotifications(state)
+        }
+
         viewModel.isReminderEnabled.observe(viewLifecycleOwner) {
             binding.reminderSwitch.isChecked = it
         }
 
+        binding.reminderSwitch.setOnCheckedChangeListener {
+                _, state ->
+            viewModel.setReminder(state)
+        }
 
         return binding.root
     }

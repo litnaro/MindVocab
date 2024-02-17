@@ -18,18 +18,36 @@ class SettingsNotificationsViewModel(
     val isReminderEnabled: LiveData<Boolean> get() = _isReminderEnabled
 
     init {
+        getNotifications()
+        getReminder()
+    }
+
+    private fun getNotifications() {
         viewModelScope.launch {
-            _isNotificationsEnabled.value = notificationSettings.getIsNotificationsEnabled()
-            _isReminderEnabled.value = notificationSettings.getIsReminderEnabled()
+            notificationSettings.isNotificationsEnabledSetting.collect {
+                _isNotificationsEnabled.value = it
+            }
         }
     }
 
-    fun setReminder(enabled: Boolean) {
-
+    fun setNotifications(setting: Boolean) {
+        viewModelScope.launch {
+            notificationSettings.setIsNotificationsEnabled(setting)
+        }
     }
 
-    fun setNotifications(enabled: Boolean) {
+    private fun getReminder() {
+        viewModelScope.launch {
+            notificationSettings.isReminderEnabledSetting.collect {
+                _isReminderEnabled.value = it
+            }
+        }
+    }
 
+    fun setReminder(setting: Boolean) {
+        viewModelScope.launch {
+            notificationSettings.setIsReminderEnabled(setting)
+        }
     }
 
 }

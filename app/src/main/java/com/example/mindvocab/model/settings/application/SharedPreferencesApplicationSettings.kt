@@ -1,13 +1,12 @@
 package com.example.mindvocab.model.settings.application
 
 import android.content.Context
+import com.example.mindvocab.model.settings.AppSettings
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class SharedPreferencesApplicationSettings(
     appContext: Context
-) : ApplicationSettings {
-
-    private val sharedPreferences = appContext.getSharedPreferences("settings", Context.MODE_PRIVATE)
+) : ApplicationSettings, AppSettings(appContext) {
 
     // Application theme
     override val applicationTheme = MutableStateFlow(getApplicationTheme())

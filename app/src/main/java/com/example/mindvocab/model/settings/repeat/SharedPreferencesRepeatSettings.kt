@@ -1,13 +1,12 @@
 package com.example.mindvocab.model.settings.repeat
 
 import android.content.Context
+import com.example.mindvocab.model.settings.AppSettings
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class SharedPreferencesRepeatSettings(
     appContext: Context
-) : RepeatSettings {
-
-    private val sharedPreferences = appContext.getSharedPreferences("settings", Context.MODE_PRIVATE)
+) : RepeatSettings, AppSettings(appContext) {
 
     // Answering variants settings
 
