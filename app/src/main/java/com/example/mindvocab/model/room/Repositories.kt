@@ -6,10 +6,11 @@ import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.account.room.RoomAccountsRepository
 import com.example.mindvocab.model.sets.WordSetsRepository
 import com.example.mindvocab.model.sets.room.RoomWordSetsRepository
-import com.example.mindvocab.model.settings.AppSettings
-import com.example.mindvocab.model.settings.SharedPreferencesAppSettings
+import com.example.mindvocab.model.settings.AppSettingsManager
+import com.example.mindvocab.model.settings.SharedPreferencesAppSettingsManager
 import com.example.mindvocab.model.settings.account.SharedPreferencesAccountSettings
 import com.example.mindvocab.model.settings.application.SharedPreferencesApplicationSettings
+import com.example.mindvocab.model.settings.learn.SharedPreferencesLearnSettings
 import com.example.mindvocab.model.settings.notifications.SharedPreferencesNotificationSettings
 import com.example.mindvocab.model.settings.repeat.SharedPreferencesRepeatSettings
 import com.example.mindvocab.model.word.WordRepository
@@ -33,11 +34,12 @@ object Repositories {
 
     //Settings
 
-    val appSettings: AppSettings by lazy {
-        SharedPreferencesAppSettings(
+    val appSettingsManager: AppSettingsManager by lazy {
+        SharedPreferencesAppSettingsManager(
             SharedPreferencesAccountSettings(applicationContext),
             SharedPreferencesApplicationSettings(applicationContext),
             SharedPreferencesNotificationSettings(applicationContext),
+            SharedPreferencesLearnSettings(applicationContext),
             SharedPreferencesRepeatSettings(applicationContext)
         )
     }

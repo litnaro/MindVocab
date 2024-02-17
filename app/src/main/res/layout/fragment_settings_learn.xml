@@ -50,12 +50,14 @@
                 android:layout_weight="1"/>
 
             <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/listenAfterAppearanceSettingSwitch"
                 android:layout_width="50dp"
                 android:layout_height="28dp"
                 android:layout_gravity="center" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/wordsADaySettingsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -80,50 +82,28 @@
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"/>
 
-            <ImageView
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_arrow_right"
-                app:tint="?attr/colorOnPrimaryContainer"
-                android:contentDescription="@string/button_to_change_settings_content_description"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:paddingVertical="5dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/ic_swipe_right"
-                app:tint="?attr/colorOnPrimaryContainer"
-                android:contentDescription="@string/right_swipe_setting_content_description" />
-
             <TextView
-                android:layout_width="0dp"
+                android:id="@+id/wordsADaySettingsValue"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/right_swipe_setting"
+                tools:text="5"
                 android:textSize="@dimen/simple_text_size"
                 android:textColor="?attr/colorOnPrimaryContainer"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="12dp"
-                android:layout_weight="1"/>
+                android:layout_marginEnd="6dp"/>
 
             <ImageView
                 android:layout_width="26dp"
                 android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_arrow_right"
                 app:tint="?attr/colorOnPrimaryContainer"
-                android:layout_gravity="center_vertical"
                 android:contentDescription="@string/button_to_change_settings_content_description"/>
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/leftActionSettingsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -148,6 +128,17 @@
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"/>
 
+            <TextView
+                android:id="@+id/leftActionSettingsValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Know"
+                android:textSize="@dimen/simple_text_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="6dp"/>
+
             <ImageView
                 android:layout_width="26dp"
                 android:layout_height="26dp"
@@ -158,6 +149,53 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/rightActionSettingsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:paddingVertical="5dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_swipe_right"
+                app:tint="?attr/colorOnPrimaryContainer"
+                android:contentDescription="@string/right_swipe_setting_content_description" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/right_swipe_setting"
+                android:textSize="@dimen/simple_text_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/rightActionSettingsValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Learn"
+                android:textSize="@dimen/simple_text_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="6dp"/>
+
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:src="@drawable/ic_arrow_right"
+                app:tint="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/button_to_change_settings_content_description"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/wordsOrderSettingsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -181,6 +219,17 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/wordsOrderSettingsValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Smart"
+                android:textSize="@dimen/simple_text_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="6dp"/>
 
             <ImageView
                 android:layout_width="26dp"

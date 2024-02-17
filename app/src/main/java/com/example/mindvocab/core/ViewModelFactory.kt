@@ -10,6 +10,7 @@ import com.example.mindvocab.screens.learn.wordset.WordSetsViewModel
 import com.example.mindvocab.screens.settings.account.SettingsAccountViewModel
 import com.example.mindvocab.screens.settings.account.edit.AccountEditViewModel
 import com.example.mindvocab.screens.settings.application.SettingsApplicationViewModel
+import com.example.mindvocab.screens.settings.learn.SettingsLearnViewModel
 import com.example.mindvocab.screens.settings.notifications.SettingsNotificationsViewModel
 import com.example.mindvocab.screens.settings.repeat.SettingsRepeatViewModel
 import com.example.mindvocab.screens.word.WordsViewModel
@@ -34,16 +35,19 @@ class ViewModelFactory(
                 SettingsAccountViewModel(Repositories.accountsRepository)
             }
             SettingsApplicationViewModel::class.java -> {
-                SettingsApplicationViewModel(Repositories.appSettings.getApplicationSettings())
+                SettingsApplicationViewModel(Repositories.appSettingsManager.getApplicationSettings())
             }
             SettingsNotificationsViewModel::class.java -> {
-                SettingsNotificationsViewModel(Repositories.appSettings.getNotificationSettings())
+                SettingsNotificationsViewModel(Repositories.appSettingsManager.getNotificationSettings())
             }
             AccountEditViewModel::class.java -> {
                 AccountEditViewModel(Repositories.accountsRepository)
             }
             SettingsRepeatViewModel::class.java -> {
-                SettingsRepeatViewModel(Repositories.appSettings.getRepeatSettings())
+                SettingsRepeatViewModel(Repositories.appSettingsManager.getRepeatSettings())
+            }
+            SettingsLearnViewModel::class.java -> {
+                SettingsLearnViewModel(Repositories.appSettingsManager.getLearnSettings())
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModelClass")

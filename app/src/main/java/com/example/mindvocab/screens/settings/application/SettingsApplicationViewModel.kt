@@ -18,14 +18,14 @@ class SettingsApplicationViewModel(
     val languageSetting: LiveData<ApplicationSettings.ApplicationLanguage> get() = _languageSetting
 
     init {
+        getTheme()
+        getLanguage()
+    }
+
+    private fun getTheme() {
         viewModelScope.launch {
             applicationSettings.applicationTheme.collect {
                 _themeSetting.value = it
-            }
-        }
-        viewModelScope.launch {
-            applicationSettings.applicationLanguage.collect {
-                _languageSetting.value = it
             }
         }
     }
@@ -33,6 +33,14 @@ class SettingsApplicationViewModel(
     fun setTheme(theme: ApplicationSettings.ApplicationTheme) {
         viewModelScope.launch {
             applicationSettings.setApplicationTheme(theme)
+        }
+    }
+
+    private fun getLanguage() {
+        viewModelScope.launch {
+            applicationSettings.applicationLanguage.collect {
+                _languageSetting.value = it
+            }
         }
     }
 

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.Window
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
-import com.example.mindvocab.databinding.SettingsBottomSheetDialogBinding
+import com.example.mindvocab.databinding.DialogSettingsBottomSheetBinding
 import com.google.android.material.chip.Chip
 
 abstract class BaseSettingsFragment : BaseFragment() {
@@ -22,7 +22,7 @@ abstract class BaseSettingsFragment : BaseFragment() {
         onSelect: (T) -> Unit
     ) {
 
-        val dialogBinding = SettingsBottomSheetDialogBinding.inflate(layoutInflater)
+        val dialogBinding = DialogSettingsBottomSheetBinding.inflate(layoutInflater)
         val dialog = Dialog(requireContext()).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             setContentView(dialogBinding.root)
