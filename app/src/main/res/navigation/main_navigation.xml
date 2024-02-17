@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/learn"
         android:name="com.example.mindvocab.screens.learn.LearnWordFragment"
-        android:label="@string/title_learn"
+        android:label="@string/learn_title"
         tools:layout="@layout/fragment_learn_word" >
         <action
             android:id="@+id/action_learn_to_wordSetsFragment"
@@ -17,12 +17,12 @@
     <fragment
         android:id="@+id/repeat"
         android:name="com.example.mindvocab.screens.repeat.RepeatWordFragment"
-        android:label="@string/title_repeat"
+        android:label="@string/repeat_title"
         tools:layout="@layout/fragment_repeat_word" />
     <fragment
         android:id="@+id/statistic"
         android:name="com.example.mindvocab.screens.statistic.StatisticFragment"
-        android:label="@string/title_statistic"
+        android:label="@string/statistic_title"
         tools:layout="@layout/fragment_statistic" >
         <action
             android:id="@+id/action_statistic_to_notificationsFragment"

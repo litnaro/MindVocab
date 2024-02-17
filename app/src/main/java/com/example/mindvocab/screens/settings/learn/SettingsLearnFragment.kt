@@ -35,7 +35,7 @@ class SettingsLearnFragment : BaseSettingsFragment() {
             binding.wordsADaySettingsContainer.setOnClickListener {  _ ->
                 showMultipleChoiceSettingsDialog(
                     title = requireContext().getString(R.string.words_a_day_settings),
-                    subtitle = requireContext().getString(R.string.words_a_day_settings),
+                    subtitle = requireContext().getString(R.string.words_a_day_settings_helping_text),
                     setting = it,
                     settingClass = LearnSettings.WordsADaySetting::class.java,
                 ) { selectedSetting ->
@@ -49,7 +49,7 @@ class SettingsLearnFragment : BaseSettingsFragment() {
             binding.leftActionSettingsContainer.setOnClickListener {  _ ->
                 showMultipleChoiceSettingsDialog(
                     title = requireContext().getString(R.string.left_swipe_settings),
-                    subtitle = requireContext().getString(R.string.left_swipe_settings),
+                    subtitle = requireContext().getString(R.string.left_swipe_settings_helping_text),
                     setting = it,
                     settingClass = LearnSettings.SwipeActionsSetting::class.java,
                 ) { selectedSetting ->
@@ -63,7 +63,7 @@ class SettingsLearnFragment : BaseSettingsFragment() {
             binding.rightActionSettingsContainer.setOnClickListener {  _ ->
                 showMultipleChoiceSettingsDialog(
                     title = requireContext().getString(R.string.right_swipe_setting),
-                    subtitle = requireContext().getString(R.string.right_swipe_setting),
+                    subtitle = requireContext().getString(R.string.right_swipe_setting_helping_text),
                     setting = it,
                     settingClass = LearnSettings.SwipeActionsSetting::class.java,
                 ) { selectedSetting ->
@@ -77,7 +77,7 @@ class SettingsLearnFragment : BaseSettingsFragment() {
             binding.wordsOrderSettingsContainer.setOnClickListener {  _ ->
                 showMultipleChoiceSettingsDialog(
                     title = requireContext().getString(R.string.word_order_settings),
-                    subtitle = requireContext().getString(R.string.word_order_settings),
+                    subtitle = requireContext().getString(R.string.word_order_settings_helping_text),
                     setting = it,
                     settingClass = LearnSettings.WordsOrderSetting::class.java,
                 ) { selectedSetting ->

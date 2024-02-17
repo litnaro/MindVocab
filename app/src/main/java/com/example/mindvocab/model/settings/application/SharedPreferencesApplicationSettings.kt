@@ -9,6 +9,7 @@ class SharedPreferencesApplicationSettings(
 ) : ApplicationSettings, AppSettings(appContext) {
 
     // Application theme
+
     override val applicationTheme = MutableStateFlow(getApplicationTheme())
 
     override suspend fun setApplicationTheme(theme: ApplicationSettings.ApplicationTheme) {
@@ -26,6 +27,7 @@ class SharedPreferencesApplicationSettings(
     }
 
     // Application language
+
     override val applicationLanguage = MutableStateFlow(getApplicationLanguage())
 
     override suspend fun setApplicationLanguage(language: ApplicationSettings.ApplicationLanguage) {

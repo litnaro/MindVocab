@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/learn"
-        android:title="@string/title_learn"
+        android:title="@string/learn_title"
         android:icon="@drawable/ic_send_to_mobile"/>
 
     <item
         android:id="@+id/repeat"
-        android:title="@string/title_repeat"
+        android:title="@string/repeat_title"
         android:icon="@drawable/ic_meditation"/>
 
     <item
         android:id="@+id/statistic"
-        android:title="@string/title_statistic"
+        android:title="@string/statistic_title"
         android:icon="@drawable/ic_query_stats"/>
 
     <item

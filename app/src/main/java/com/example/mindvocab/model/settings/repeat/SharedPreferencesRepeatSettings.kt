@@ -14,10 +14,25 @@ class SharedPreferencesRepeatSettings(
 
     override suspend fun setAnsweringVariantSetting(setting: RepeatSettings.AnsweringVariantSetting) {
         if (getAnsweringVariantSetting() == setting) return
+
         sharedPreferences.edit()
             .putInt(PREF_CURRENT_ANSWERING_VARIANT_SETTING, setting.value)
             .apply()
         answeringVariantSetting.emit(getAnsweringVariantSetting())
+
+        when(setting) {
+            RepeatSettings.AnsweringVariantSetting.TRANSLATION -> {
+                sharedPreferences.edit()
+                    .putInt(PREF_CURRENT_QUESTION_VARIANT_SETTING, RepeatSettings.QuestionVariantSetting.WORD.value)
+                    .apply()
+            }
+            RepeatSettings.AnsweringVariantSetting.GRAMMAR -> {
+                sharedPreferences.edit()
+                    .putInt(PREF_CURRENT_QUESTION_VARIANT_SETTING, RepeatSettings.QuestionVariantSetting.TRANSLATION.value)
+                    .apply()
+            }
+        }
+        questionVariantSetting.emit(getQuestionVariantSetting())
     }
 
     private fun getAnsweringVariantSetting() : RepeatSettings.AnsweringVariantSetting {
@@ -32,10 +47,25 @@ class SharedPreferencesRepeatSettings(
 
     override suspend fun setQuestionVariantSetting(setting: RepeatSettings.QuestionVariantSetting) {
         if (getQuestionVariantSetting() == setting) return
+
         sharedPreferences.edit()
             .putInt(PREF_CURRENT_QUESTION_VARIANT_SETTING, setting.value)
             .apply()
         questionVariantSetting.emit(getQuestionVariantSetting())
+
+        when(setting) {
+            RepeatSettings.QuestionVariantSetting.WORD -> {
+                sharedPreferences.edit()
+                    .putInt(PREF_CURRENT_ANSWERING_VARIANT_SETTING, RepeatSettings.AnsweringVariantSetting.TRANSLATION.value)
+                    .apply()
+            }
+            RepeatSettings.QuestionVariantSetting.TRANSLATION -> {
+                sharedPreferences.edit()
+                    .putInt(PREF_CURRENT_ANSWERING_VARIANT_SETTING, RepeatSettings.AnsweringVariantSetting.GRAMMAR.value)
+                    .apply()
+            }
+        }
+        answeringVariantSetting.emit(getAnsweringVariantSetting())
     }
 
     private fun getQuestionVariantSetting() : RepeatSettings.QuestionVariantSetting {
@@ -45,6 +75,7 @@ class SharedPreferencesRepeatSettings(
     }
 
     // Card animation settings
+
     override val cardAnimationSetting = MutableStateFlow(getCardAnimationSetting())
 
     override suspend fun setCardAnimationSetting(setting: RepeatSettings.CardAnimationSetting) {

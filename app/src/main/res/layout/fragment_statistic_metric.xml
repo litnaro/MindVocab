@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="15dp"
-                    android:text="@string/all_word_count_statistic"
+                    android:text="@string/total_words_statistic"
                     android:textStyle="bold"
                     android:paddingVertical="10dp"
                     android:textColor="?attr/colorOnPrimaryContainer"
