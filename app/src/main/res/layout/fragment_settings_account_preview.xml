@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/default_card_corner_radius"
+    app:contentPadding="@dimen/default_card_padding"
+    app:cardBackgroundColor="?attr/colorPrimaryContainer"
+    tools:context=".screens.settings.account.SettingsAccountFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/accountPhoto"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            tools:src="@drawable/ic_person"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/account_photo_content_description" />
+
+        <TextView
+            android:id="@+id/accountFullName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            tools:text="Andriy Litnarovych"
+            android:textStyle="bold"
+            android:textSize="@dimen/simple_text_size"
+            android:textColor="?attr/colorOnPrimaryContainer"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/accountPhoto"
+            app:layout_constraintEnd_toStartOf="@+id/accountEditButton"/>
+
+        <TextView
+            android:id="@+id/accountEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="andriy.litnarovych@gmail.com"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="2dp"
+            android:textColor="?attr/colorOnPrimaryContainer"
+            app:layout_constraintStart_toEndOf="@+id/accountPhoto"
+            app:layout_constraintEnd_toStartOf="@+id/accountEditButton"
+            app:layout_constraintTop_toBottomOf="@+id/accountFullName"/>
+
+        <ImageView
+            android:id="@+id/accountEditButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_build_circle"
+            app:tint="?attr/colorOnPrimaryContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/account_settings_content_description" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

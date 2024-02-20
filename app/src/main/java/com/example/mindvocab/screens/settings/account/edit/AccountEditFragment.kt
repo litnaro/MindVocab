@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.factory
-import com.example.mindvocab.databinding.FragmentAccountEditBinding
+import com.example.mindvocab.databinding.FragmentSettingsAccountBinding
 import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
@@ -19,14 +19,14 @@ class AccountEditFragment : BaseFragment() {
 
     override val viewModel: AccountEditViewModel by viewModels { factory() }
 
-    private var _binding: FragmentAccountEditBinding? = null
+    private var _binding: FragmentSettingsAccountBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAccountEditBinding.inflate(inflater, container, false)
+        _binding = FragmentSettingsAccountBinding.inflate(inflater, container, false)
 
         viewModel.account.observe(viewLifecycleOwner) {
             when(it) {
@@ -43,10 +43,9 @@ class AccountEditFragment : BaseFragment() {
 
     private fun setAccountData(account: Account) {
         with(binding) {
-            accountEmail.setText(account.email)
-            accountUsername.setText(account.username)
-            accountName.setText(account.name)
-            accountSurname.setText(account.surname)
+            accountUsernameSettingValue.text = account.username
+            accountEmailSettingValue.text = account.email
+            accountFullNameSettingValue.text = requireContext().getString(R.string.account_full_name, account.name, account.surname)
 
             Glide.with(accountPhoto.context)
                 .load(account.photo)

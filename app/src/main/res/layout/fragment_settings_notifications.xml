@@ -50,11 +50,11 @@
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"/>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/notificationsSwitch"
-                android:layout_width="50dp"
-                android:layout_height="28dp"
-                android:layout_gravity="center" />
+                android:layout_width="wrap_content"
+                android:layout_height="29dp"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
@@ -83,10 +83,10 @@
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"/>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/reminderSwitch"
-                android:layout_width="50dp"
-                android:layout_height="28dp"
+                android:layout_width="wrap_content"
+                android:layout_height="29dp"
                 android:layout_gravity="center" />
         </LinearLayout>
     </LinearLayout>

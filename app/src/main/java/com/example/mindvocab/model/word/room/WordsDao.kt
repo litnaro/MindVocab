@@ -14,7 +14,6 @@ interface WordsDao {
     @Query("SELECT * FROM words WHERE word_set_id = :wordSetId")
     fun getWordsByWordSetId(wordSetId: Long): Flow<List<WordDbEntity>>
 
-
     @Query("SELECT\n" +
             "    words.id,\n" +
             "    words.word,\n" +

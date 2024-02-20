@@ -91,10 +91,10 @@
 
     <string name="account_edit_settings">Editing</string>
     <string name="account_edit_main_info_title">Main information</string>
-    <string name="account_edit_email_hint">Email</string>
-    <string name="account_edit_username_hint">Username</string>
-    <string name="account_edit_name_hint">Name</string>
-    <string name="account_edit_surname_hint">Surname</string>
+    <string name="account_edit_email_subtitle">Email</string>
+    <string name="account_edit_username_subtitle">Username</string>
+    <string name="account_edit_full_name_subtitle">Full name</string>
+    <string name="account_edit_password_subtitle">Password</string>
     <string name="account_edit_password_change_title">Password change</string>
     <string name="account_edit_account_actions_title">Account actions</string>
     <string name="account_edit_reset_account_progress_button">Reset account progress</string>

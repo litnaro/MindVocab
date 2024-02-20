@@ -35,7 +35,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_phonelink_ring"
+                android:src="@drawable/ic_phone_link_ring"
                 app:tint="?attr/colorOnPrimaryContainer"
                 android:contentDescription="@string/listen_word_at_the_start_settings_content_description" />
 
@@ -49,11 +49,11 @@
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"/>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/listenAfterAppearanceSettingSwitch"
-                android:layout_width="50dp"
-                android:layout_height="28dp"
-                android:layout_gravity="center" />
+                android:layout_width="wrap_content"
+                android:layout_height="29dp"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
         <LinearLayout

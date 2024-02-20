@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.factory
-import com.example.mindvocab.databinding.FragmentSettingsAccountBinding
+import com.example.mindvocab.databinding.FragmentSettingsAccountPreviewBinding
 import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
@@ -21,14 +21,14 @@ class SettingsAccountFragment : BaseFragment() {
 
     override val viewModel: SettingsAccountViewModel by viewModels { factory() }
 
-    private var _binding: FragmentSettingsAccountBinding? = null
+    private var _binding: FragmentSettingsAccountPreviewBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSettingsAccountBinding.inflate(inflater, container, false)
+        _binding = FragmentSettingsAccountPreviewBinding.inflate(inflater, container, false)
 
         viewModel.account.observe(viewLifecycleOwner) {
             when(it) {

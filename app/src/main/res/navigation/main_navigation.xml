@@ -69,5 +69,5 @@
         android:id="@+id/accountEditFragment"
         android:name="com.example.mindvocab.screens.settings.account.edit.AccountEditFragment"
         android:label="@string/account_edit_settings"
-        tools:layout="@layout/fragment_account_edit" />
+        tools:layout="@layout/fragment_settings_account" />
 </navigation>
