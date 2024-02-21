@@ -114,5 +114,51 @@
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@string/button_to_change_settings_content_description"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nativeLanguageSettingsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:paddingVertical="5dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_language"
+                app:tint="?attr/colorOnPrimaryContainer"
+                android:contentDescription="@string/interface_native_language_settings_content_description" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/interface_native_language_settings"
+                android:textSize="@dimen/simple_text_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/nativeLanguageSettingValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="English"
+                android:textSize="@dimen/simple_text_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="6dp"/>
+
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:src="@drawable/ic_arrow_right"
+                app:tint="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/button_to_change_settings_content_description"/>
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

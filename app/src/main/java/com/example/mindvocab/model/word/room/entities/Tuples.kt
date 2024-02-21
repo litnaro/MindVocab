@@ -4,23 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.example.mindvocab.model.word.WordCalculations
+import com.example.mindvocab.model.word.entities.Word
 import com.example.mindvocab.model.word.entities.WordStatistic
-
-data class WordWithExamplesAndTranslationsTuple(
-    @Embedded val word: WordDbEntity,
-
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "word_id"
-    )
-    val example: List<ExampleDbEntity>,
-
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "word_id"
-    )
-    val translation: List<TranslationDbEntity>,
-)
 
 data class WordWithStatisticTuple(
     val id: Long,
@@ -41,4 +26,42 @@ data class WordWithStatisticTuple(
         learnProgress = WordCalculations.getProgressOfWord(this),
         wordStatus = WordCalculations.getWordStatusByStatistic(this)
     )
+}
+
+data class WordForLearningTuple(
+    @Embedded val word: WordDbEntity,
+
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "word_id"
+    )
+    val example: List<ExampleDbEntity>,
+
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "word_id"
+    )
+    val translation: List<TranslationDbEntity>,
+) {
+    fun toWord() = Word(
+        id = word.id,
+        word = word.word,
+        audio = word.audio,
+        image = word.image,
+        exampleList = example.map { entity -> entity.sentence },
+        explanation = word.explanation,
+        transcription = word.transcription,
+        translation = translation.map { entity -> entity.translation }.toString()
+    )
+
+//    fun toWord() = Word(
+//        id = this.id,
+//        word = this.word,
+//        audio = "",
+//        image = this.image,
+//        exampleList = emptyList(),
+//        explanation = this.explanation,
+//        transcription = this.transcription,
+//        translation = ""
+//    )
 }

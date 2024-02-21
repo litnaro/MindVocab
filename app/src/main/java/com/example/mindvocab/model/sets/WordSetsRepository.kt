@@ -30,7 +30,7 @@ interface WordSetsRepository : Repository {
 
     /**
      *  Mark the specified word set as selected.
-     *  Adding all words selected from word set to user learning words.
+     *  Adding all words selected from word set to account words progress.
      *  After selection those words are displayed in learning screen.
      *  @throws StorageException
      */
@@ -38,7 +38,7 @@ interface WordSetsRepository : Repository {
 
     /**
      *  Mark the specified word set as unselected.
-     *  Removing all word set words but save their progress.
+     *  Removing all word set words but save their progress in account progress.
      *  @throws StorageException
      */
     suspend fun unselectWordSet(wordSet: WordSet)

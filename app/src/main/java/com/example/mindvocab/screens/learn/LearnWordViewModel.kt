@@ -7,6 +7,7 @@ import com.example.mindvocab.model.Result
 import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.model.AppException
 import com.example.mindvocab.model.ErrorResult
+import com.example.mindvocab.model.NoWordsToLearnException
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.word.WordRepository
@@ -21,9 +22,24 @@ class LearnWordViewModel(
     val word: LiveData<Result<Word>> = _word
 
     init {
+        listenWordToLearn()
+        getWordToLearn()
+    }
+
+    private fun listenWordToLearn() {
         viewModelScope.launch {
-            wordRepository.getWordToLearn().collect {
+            wordRepository.listenWordToLearn().collect {
                 _word.value = SuccessResult(it)
+            }
+        }
+    }
+
+    private fun getWordToLearn() {
+        viewModelScope.launch {
+            try {
+                wordRepository.getWordToLearn()
+            } catch (e: NoWordsToLearnException) {
+                _word.value = ErrorResult(e)
             }
         }
     }

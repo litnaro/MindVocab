@@ -20,7 +20,6 @@ interface WordSetsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun setSelectedFlagForWordSet(accountWordSetSelection: AccountWordSetDbEntity)
 
-
     //TODO: decide about strategy
 
     @Update

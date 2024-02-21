@@ -17,9 +17,13 @@ class SettingsApplicationViewModel(
     private val _languageSetting = MutableLiveData<ApplicationSettings.ApplicationLanguage>()
     val languageSetting: LiveData<ApplicationSettings.ApplicationLanguage> get() = _languageSetting
 
+    private val _nativeLanguageSetting = MutableLiveData<ApplicationSettings.NativeLanguage>()
+    val nativeLanguageSetting: LiveData<ApplicationSettings.NativeLanguage> get() = _nativeLanguageSetting
+
     init {
         getTheme()
         getLanguage()
+        getNativeLanguage()
     }
 
     private fun getTheme() {
@@ -47,6 +51,23 @@ class SettingsApplicationViewModel(
     fun setLanguage(language: ApplicationSettings.ApplicationLanguage) {
         viewModelScope.launch {
             applicationSettings.setApplicationLanguage(language)
+        }
+    }
+
+    private fun getNativeLanguage() {
+        viewModelScope.launch {
+            applicationSettings.listenApplicationNativeLanguage().collect {
+                _nativeLanguageSetting.value = it
+            }
+        }
+        viewModelScope.launch {
+            applicationSettings.getApplicationNativeLanguage()
+        }
+    }
+
+    fun setNativeLanguage(language: ApplicationSettings.NativeLanguage) {
+        viewModelScope.launch {
+            applicationSettings.setApplicationNativeLanguage(language)
         }
     }
 

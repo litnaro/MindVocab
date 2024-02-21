@@ -1,11 +1,13 @@
 package com.example.mindvocab.model.settings.application
 
+import com.example.mindvocab.model.settings.AppSettingsEnum
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
 interface ApplicationSettings {
 
     // Application theme
-    enum class ApplicationTheme(val value: Int) {
+    enum class ApplicationTheme(val value: Int) : AppSettingsEnum {
         DEFAULT(0),
         LIGHT(1),
         DARK(2);
@@ -21,8 +23,8 @@ interface ApplicationSettings {
 
     suspend fun setApplicationTheme(theme: ApplicationTheme)
 
-    // Application language
-    enum class ApplicationLanguage(val value: Int) {
+    // Application  interface language
+    enum class ApplicationLanguage(val value: Int) : AppSettingsEnum {
         DEFAULT(0),
         ENGLISH(1),
         UKRAINIAN(2),
@@ -39,4 +41,22 @@ interface ApplicationSettings {
 
     suspend fun setApplicationLanguage(language: ApplicationLanguage)
 
+    // User native language for learning purposes
+    enum class NativeLanguage(val value: Int) : AppSettingsEnum {
+        ENGLISH(0),
+        RUSSIAN(1),
+        UKRAINIAN(2);
+
+        companion object {
+            fun fromValue(value: Int): NativeLanguage {
+                return NativeLanguage.entries.firstOrNull { it.value == value } ?: RUSSIAN
+            }
+        }
+    }
+
+    fun listenApplicationNativeLanguage(): Flow<NativeLanguage>
+
+    suspend fun getApplicationNativeLanguage() : NativeLanguage
+
+    suspend fun setApplicationNativeLanguage(language: NativeLanguage)
 }

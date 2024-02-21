@@ -1,14 +1,10 @@
 package com.example.mindvocab.screens.learn
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.mindvocab.R
@@ -16,14 +12,10 @@ import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.databinding.FragmentLearnWordBinding
 import com.example.mindvocab.core.factory
 import com.example.mindvocab.model.ErrorResult
+import com.example.mindvocab.model.NoWordsToLearnException
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
-import com.example.mindvocab.model.WordsEndedException
 import com.example.mindvocab.model.word.entities.Word
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.lang.Float.min
 
 class LearnWordFragment : BaseFragment() {
 
@@ -42,7 +34,7 @@ class LearnWordFragment : BaseFragment() {
 
             when(it) {
                 is ErrorResult -> {
-                    if (it.exception is WordsEndedException) {
+                    if (it.exception is NoWordsToLearnException) {
                         binding.learnEmptyWordSetsBlock.visibility = View.VISIBLE
                     }
                 }

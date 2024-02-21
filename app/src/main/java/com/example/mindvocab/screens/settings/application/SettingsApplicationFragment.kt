@@ -39,12 +39,26 @@ class SettingsApplicationFragment : BaseSettingsFragment() {
             binding.languageSettingValue.text = it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
             binding.languageSettingsContainer.setOnClickListener { _ ->
                 showMultipleChoiceSettingsDialog(
-                    settingClass = ApplicationSettings.ApplicationLanguage::class.java,
-                    setting = it,
                     title = requireContext().getString(R.string.interface_language_settings),
-                    subtitle = requireContext().getString(R.string.application_language_settings_helping_text)
+                    subtitle = requireContext().getString(R.string.application_language_settings_helping_text),
+                    setting = it,
+                    settingClass = ApplicationSettings.ApplicationLanguage::class.java
                 ) { onSelectSettings ->
                     viewModel.setLanguage(onSelectSettings)
+                }
+            }
+        }
+
+        viewModel.nativeLanguageSetting.observe(viewLifecycleOwner) {
+            binding.nativeLanguageSettingValue.text = it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
+            binding.nativeLanguageSettingsContainer.setOnClickListener { _ ->
+                showMultipleChoiceSettingsDialog(
+                    title = requireContext().getString(R.string.interface_native_language_settings),
+                    subtitle = requireContext().getString(R.string.application_native_language_settings_helping_text),
+                    setting = it,
+                    settingClass = ApplicationSettings.NativeLanguage::class.java
+                ) { onSelectSettings ->
+                    viewModel.setNativeLanguage(onSelectSettings)
                 }
             }
         }

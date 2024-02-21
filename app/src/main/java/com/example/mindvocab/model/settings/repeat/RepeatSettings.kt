@@ -1,11 +1,12 @@
 package com.example.mindvocab.model.settings.repeat
 
+import com.example.mindvocab.model.settings.AppSettingsEnum
 import kotlinx.coroutines.flow.MutableStateFlow
 
 interface RepeatSettings {
 
     // Answering variants settings
-    enum class AnsweringVariantSetting(val value: Int) {
+    enum class AnsweringVariantSetting(val value: Int) : AppSettingsEnum {
         TRANSLATION(0),
         GRAMMAR(1);
 
@@ -21,7 +22,7 @@ interface RepeatSettings {
     suspend fun setAnsweringVariantSetting(setting: AnsweringVariantSetting)
 
     // Question variant settings
-    enum class QuestionVariantSetting(val value: Int) {
+    enum class QuestionVariantSetting(val value: Int) : AppSettingsEnum{
         WORD(0),
         TRANSLATION(1);
 
@@ -37,7 +38,7 @@ interface RepeatSettings {
     suspend fun setQuestionVariantSetting(setting: QuestionVariantSetting)
 
     // Card animation settings
-    enum class CardAnimationSetting(val value: Int) {
+    enum class CardAnimationSetting(val value: Int) : AppSettingsEnum{
         FLIP(0),
         EXPAND(1);
 

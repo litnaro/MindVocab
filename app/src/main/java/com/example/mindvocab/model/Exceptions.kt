@@ -13,6 +13,8 @@ class UnableToListenInformationException(message: String) : AppException()
 
 class WordsEndedException(message: String) : AppException()
 
+class NoWordsToLearnException : AppException()
+
 //Account exception
 class AuthException : AppException()
 

@@ -55,7 +55,7 @@ object Repositories {
     }
 
     val wordsRepository: WordRepository by lazy {
-        RoomWordRepository(database.getWordsDao(), accountsRepository)
+        RoomWordRepository(database.getWordsDao(), accountsRepository, appSettingsManager.getApplicationSettings())
     }
 
     // Entrance point in MainActivity onCreate

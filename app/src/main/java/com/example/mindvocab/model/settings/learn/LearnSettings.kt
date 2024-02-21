@@ -1,5 +1,6 @@
 package com.example.mindvocab.model.settings.learn
 
+import com.example.mindvocab.model.settings.AppSettingsEnum
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -13,7 +14,7 @@ interface LearnSettings {
 
     // Words a day
 
-    enum class WordsADaySetting(val value: Int) {
+    enum class WordsADaySetting(val value: Int) : AppSettingsEnum {
         EASY(3),
         MEDIUM(5),
         HARD(7),
@@ -33,7 +34,7 @@ interface LearnSettings {
 
     //Swipe action settings
 
-    enum class SwipeActionsSetting(val value: Int) {
+    enum class SwipeActionsSetting(val value: Int) : AppSettingsEnum{
         KNOW(0),
         LEARN(1);
 
@@ -54,7 +55,7 @@ interface LearnSettings {
 
     // Words order
 
-    enum class WordsOrderSetting(val value: Int) {
+    enum class WordsOrderSetting(val value: Int) : AppSettingsEnum{
         SMART(0),
         RANDOM(1);
 

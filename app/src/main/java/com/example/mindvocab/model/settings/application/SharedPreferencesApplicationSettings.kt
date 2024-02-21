@@ -2,6 +2,8 @@ package com.example.mindvocab.model.settings.application
 
 import android.content.Context
 import com.example.mindvocab.model.settings.AppSettings
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class SharedPreferencesApplicationSettings(
@@ -26,7 +28,7 @@ class SharedPreferencesApplicationSettings(
         )
     }
 
-    // Application language
+    // Application interface language
 
     override val applicationLanguage = MutableStateFlow(getApplicationLanguage())
 
@@ -44,8 +46,35 @@ class SharedPreferencesApplicationSettings(
         )
     }
 
+    // User native language
+
+    private val applicationNativeLanguageFlow = MutableSharedFlow<ApplicationSettings.NativeLanguage>(
+        replay = 0,
+        extraBufferCapacity = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
+
+    override suspend fun setApplicationNativeLanguage(language: ApplicationSettings.NativeLanguage) {
+        if (getApplicationNativeLanguage() == language) return
+        sharedPreferences.edit()
+            .putInt(PREF_CURRENT_APPLICATION_NATIVE_LANGUAGE, language.value)
+            .apply()
+        applicationNativeLanguageFlow.emit(language)
+    }
+
+    override suspend fun getApplicationNativeLanguage(): ApplicationSettings.NativeLanguage {
+        val setting = ApplicationSettings.NativeLanguage.fromValue(
+            sharedPreferences.getInt(PREF_CURRENT_APPLICATION_NATIVE_LANGUAGE, ApplicationSettings.NativeLanguage.RUSSIAN.value)
+        )
+        applicationNativeLanguageFlow.emit(setting)
+        return setting
+    }
+
+    override fun listenApplicationNativeLanguage() = applicationNativeLanguageFlow
+
     companion object {
         private const val PREF_CURRENT_APPLICATION_THEME = "currentApplicationTheme"
         private const val PREF_CURRENT_APPLICATION_LANGUAGE = "currentApplicationLanguage"
+        private const val PREF_CURRENT_APPLICATION_NATIVE_LANGUAGE = "currentApplicationNativeLanguage"
     }
 }
