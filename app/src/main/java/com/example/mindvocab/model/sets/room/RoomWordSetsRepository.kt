@@ -8,6 +8,8 @@ import com.example.mindvocab.model.sets.WordSetsRepository
 import com.example.mindvocab.model.sets.entity.WordSet
 import com.example.mindvocab.model.sets.room.entity.AccountWordSetDbEntity
 import com.example.mindvocab.model.sets.room.entity.WordSetDbEntity
+import com.example.mindvocab.model.word.room.WordsDao
+import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
@@ -17,6 +19,7 @@ import kotlinx.coroutines.flow.mapLatest
 
 class RoomWordSetsRepository(
     private val wordSetsDao: WordSetsDao,
+    private val wordsDao: WordsDao,
     private val accountsRepository: AccountsRepository
 ) : WordSetsRepository {
 
@@ -78,6 +81,19 @@ class RoomWordSetsRepository(
                 isSelected = isSelected
             )
         )
+        if (isSelected) {
+            val accountWordsProgress = wordsDao.getWordsByWordSetId(wordSet.id).first().map {
+                AccountWordProgressDbEntity(
+                    accountId = account.id,
+                    wordId = it.id,
+                    isSelected = true,
+                    timesRepeated = 0,
+                    lastRepeatedAt = 0,
+                    startedAt = 0
+                )
+            }
+            wordsDao.addWordToAccountProgress(accountWordsProgress)
+        }
     }
 
 }

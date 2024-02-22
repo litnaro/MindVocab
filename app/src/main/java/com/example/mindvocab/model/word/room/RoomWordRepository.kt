@@ -39,7 +39,7 @@ class RoomWordRepository(
     }
 
     override suspend fun getWordToLearn() {
-        //TODO live updates with nativr language settings. Now works only with application restart
+        //TODO live updates with native language settings. Now works only with application restart
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
             val word = wordsDao.getWordToLearn(account.id) ?: throw NoWordsToLearnException()

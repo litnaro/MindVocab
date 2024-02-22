@@ -1,8 +1,11 @@
 package com.example.mindvocab.model.word.room
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
 import com.example.mindvocab.model.word.room.entities.WordDbEntity
 import com.example.mindvocab.model.word.room.entities.WordForLearningTuple
 import com.example.mindvocab.model.word.room.entities.WordWithStatisticTuple
@@ -51,12 +54,15 @@ interface WordsDao {
             "LEFT JOIN\n" +
             "    account_word_set ON account_word_set.word_set_id = word_sets.id AND account_word_set.account_id = :accountId\n" +
             "LEFT JOIN\n" +
-            "    account_word_progress ON account_word_progress.word_id = words.id\n" +
+            "    account_word_progress ON account_word_progress.word_id = words.id AND account_word_progress.account_id = :accountId\n" +
             "WHERE\n" +
             "    account_word_set.is_selected = 1 AND account_word_progress.started_at = 0\n" +
             "GROUP BY\n" +
             "    words.id\n" +
             "LIMIT 1;")
     suspend fun getWordToLearn(accountId: Long): WordForLearningTuple?
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addWordToAccountProgress(words: List<AccountWordProgressDbEntity>)
 
 }

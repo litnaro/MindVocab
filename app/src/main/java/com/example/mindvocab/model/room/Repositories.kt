@@ -51,7 +51,7 @@ object Repositories {
     }
 
     val wordSetsRepository: WordSetsRepository by lazy {
-        RoomWordSetsRepository(database.getWordSetsDao(), accountsRepository)
+        RoomWordSetsRepository(database.getWordSetsDao(), database.getWordsDao(), accountsRepository)
     }
 
     val wordsRepository: WordRepository by lazy {

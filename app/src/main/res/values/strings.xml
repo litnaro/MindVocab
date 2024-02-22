@@ -118,8 +118,11 @@
     <string name="application_theme_settings_helping_text">\t\t\t\tYou may need to restart the application to see the result.</string>
     <string name="application_theme_settings_content_description">Application theme icon</string>
     <string name="interface_language_settings">Language</string>
-    <string name="application_language_settings_helping_text">\t\t\t\tAlso affects the Translation section when learning and repeating words.</string>
+    <string name="application_language_settings_helping_text">\t\t\t\tNot affects the Translation section when learning and repeating words.</string>
     <string name="interface_language_settings_content_description">Interface language icon</string>
+    <string name="interface_native_language_settings">Native Language</string>
+    <string name="application_native_language_settings_helping_text">\t\t\t\tAffects the Translation section when learning and repeating words.</string>
+    <string name="interface_native_language_settings_content_description">User native language icon</string>
 
     <string name="word_learning_settings_title">Learning words</string>
     <string name="listen_word_at_the_start_settings">Listen when appearing</string>

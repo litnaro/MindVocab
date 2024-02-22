@@ -15,6 +15,9 @@ class WordSetsViewModel(
     private val wordSetsRepository: WordSetsRepository
 ) : BaseViewModel() {
 
+    private val _wordSetFilter = MutableLiveData(WordSetFilter.ALL)
+    val wordSetFilter: LiveData<WordSetFilter> = _wordSetFilter
+
     private val _wordSetList = MutableLiveData<Result<List<WordSet>>>()
     val wordSetList: LiveData<Result<List<WordSet>>> = _wordSetList
 
@@ -24,7 +27,7 @@ class WordSetsViewModel(
 
     fun getWordSets(filter: WordSetFilter = WordSetFilter.ALL) {
         viewModelScope.launch {
-            wordSetsRepository.getWordSets().collect {
+            wordSetsRepository.getWordSets(filter).collect {
                 _wordSetList.value = SuccessResult(it)
             }
         }

@@ -13,6 +13,7 @@ import com.example.mindvocab.databinding.FragmentWordSetsBinding
 import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
+import com.example.mindvocab.model.sets.WordSetFilter
 import com.example.mindvocab.model.sets.entity.WordSet
 
 class WordSetsFragment : BaseFragment() {
@@ -24,6 +25,31 @@ class WordSetsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentWordSetsBinding.inflate(inflater, container, false)
+
+        viewModel.wordSetFilter.observe(viewLifecycleOwner) {
+            when(it) {
+                WordSetFilter.ALL -> {
+                    binding.chipAll.isChecked = true
+                }
+                WordSetFilter.SELECTED -> {
+                    binding.chipOnlySelected.isChecked = true
+                }
+                WordSetFilter.UNSELECTED -> {
+                    binding.chipOnlyUnelected.isChecked = true
+                }
+                else -> {
+                    binding.chipAll.isChecked = true
+                }
+            }
+        }
+
+        binding.chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+            when(checkedIds[0]) {
+                binding.chipAll.id -> viewModel.getWordSets(WordSetFilter.ALL)
+                binding.chipOnlySelected.id -> viewModel.getWordSets(WordSetFilter.SELECTED)
+                binding.chipOnlyUnelected.id -> viewModel.getWordSets(WordSetFilter.UNSELECTED)
+            }
+        }
 
         val wordSetAdapter = WordSetAdapter(object : WordSetAdapter.Listener {
 

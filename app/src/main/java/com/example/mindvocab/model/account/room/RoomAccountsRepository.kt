@@ -27,7 +27,7 @@ class RoomAccountsRepository(
     }
 
     override suspend fun getAccount(): Flow<Account?> {
-        return accountsDao.getAccountById(1).map {
+        return accountsDao.getAccountById(3).map {
             it.toAccount()
         }
     }
