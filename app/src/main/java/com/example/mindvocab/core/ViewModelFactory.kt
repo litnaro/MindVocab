@@ -23,7 +23,7 @@ class ViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         val viewModel = when(modelClass) {
             LearnWordViewModel::class.java -> {
-                LearnWordViewModel(Repositories.wordsRepository)
+                LearnWordViewModel(Repositories.learningRepository)
             }
             WordSetsViewModel::class.java -> {
                 WordSetsViewModel(Repositories.wordSetsRepository)

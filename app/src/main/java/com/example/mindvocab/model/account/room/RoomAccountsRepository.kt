@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class RoomAccountsRepository(
-    private val accountsDao: AccountsDao
+    private val accountsDao: AccountsDao,
 ) : AccountsRepository {
 
     override suspend fun isSignedIn(): Boolean {

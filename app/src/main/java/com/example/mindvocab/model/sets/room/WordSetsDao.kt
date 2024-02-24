@@ -20,8 +20,6 @@ interface WordSetsDao {
     @Upsert
     suspend fun setSelectedFlagForWordSet(accountWordSetSelection: AccountWordSetDbEntity)
 
-    //TODO: decide about strategy
-
     @Update
     suspend fun updateWordSet(wordSetDbEntity: WordSetDbEntity)
 

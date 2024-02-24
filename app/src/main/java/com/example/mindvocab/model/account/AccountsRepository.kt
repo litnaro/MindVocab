@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface AccountsRepository : Repository {
 
+    suspend fun getAccount() : Flow<Account?>
+
     suspend fun isSignedIn(): Boolean
 
     suspend fun signIn(email: String, password: String) : String
@@ -14,8 +16,6 @@ interface AccountsRepository : Repository {
     suspend fun signUp(signUpData: SignUpData)
 
     suspend fun logout()
-
-    suspend fun getAccount() : Flow<Account?>
 
     suspend fun updateUsername(username: String)
 

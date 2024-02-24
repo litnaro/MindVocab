@@ -6,7 +6,7 @@ open class AppException : RuntimeException()
 class StorageException : AppException()
 
 // Word set exception
-
+class WordSetAlreadyExistsException : AppException()
 
 //Learn exceptions
 class NoWordsToLearnException : AppException()

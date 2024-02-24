@@ -10,12 +10,12 @@ import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.NoWordsToLearnException
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
-import com.example.mindvocab.model.word.WordRepository
+import com.example.mindvocab.model.learning.LearningRepository
 import com.example.mindvocab.model.word.entities.Word
 import kotlinx.coroutines.launch
 
 class LearnWordViewModel(
-    private val wordRepository: WordRepository
+    private val learningRepository: LearningRepository
 ) : BaseViewModel() {
 
     private val _word = MutableLiveData<Result<Word>>(PendingResult())
@@ -28,7 +28,7 @@ class LearnWordViewModel(
 
     private fun listenWordToLearn() {
         viewModelScope.launch {
-            wordRepository.listenWordToLearn().collect {
+            learningRepository.listenWordToLearn().collect {
                 _word.value = SuccessResult(it)
             }
         }
@@ -37,7 +37,7 @@ class LearnWordViewModel(
     private fun getWordToLearn() {
         viewModelScope.launch {
             try {
-                wordRepository.getWordToLearn()
+                learningRepository.getWordToLearn()
             } catch (e: NoWordsToLearnException) {
                 _word.value = ErrorResult(e)
             }
@@ -47,7 +47,7 @@ class LearnWordViewModel(
     fun onWordKnown(word: Word) {
         viewModelScope.launch {
             try {
-                wordRepository.onWordKnown(word)
+                learningRepository.onWordKnown(word)
             } catch (e: AppException) {
                 _word.value = ErrorResult(e)
             }
@@ -57,7 +57,7 @@ class LearnWordViewModel(
     fun onWordToLearn(word: Word) {
         viewModelScope.launch {
             try {
-                wordRepository.onWordToLearn(word)
+                learningRepository.onWordToLearn(word)
             } catch (e: AppException) {
                 _word.value = ErrorResult(e)
             }
