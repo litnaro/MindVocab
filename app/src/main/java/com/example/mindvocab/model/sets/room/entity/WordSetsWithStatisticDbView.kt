@@ -5,6 +5,7 @@ import androidx.room.DatabaseView
 import androidx.room.Embedded
 import com.example.mindvocab.model.sets.entity.WordSet
 
+//TODO: remove hardcoded times_repeated = 6 and replace with Learning settings constant
 /**
  * DatabaseView select every combination of accounts and word sets.
  * Sets whether the account has selected a word set to learn or not.

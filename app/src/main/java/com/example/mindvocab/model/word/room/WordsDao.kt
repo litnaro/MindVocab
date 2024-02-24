@@ -5,7 +5,9 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
 import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
+import com.example.mindvocab.model.word.room.entities.UpdateWordProgressAsLearningTuple
 import com.example.mindvocab.model.word.room.entities.WordDbEntity
 import com.example.mindvocab.model.word.room.entities.WordForLearningTuple
 import com.example.mindvocab.model.word.room.entities.WordWithStatisticTuple
@@ -64,5 +66,11 @@ interface WordsDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addWordToAccountProgress(words: List<AccountWordProgressDbEntity>)
+
+    @Update(entity = AccountWordProgressDbEntity::class)
+    suspend fun updateWordProgressAsLearning(accountWordProgress: UpdateWordProgressAsLearningTuple)
+
+    @Update(entity = AccountWordProgressDbEntity::class)
+    suspend fun updateWordProgressAsKnown(accountWordProgress: AccountWordProgressDbEntity)
 
 }

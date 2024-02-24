@@ -3,6 +3,7 @@ package com.example.mindvocab.model.word.room.entities
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.example.mindvocab.model.settings.application.ApplicationSettings
 import com.example.mindvocab.model.word.WordCalculations
 import com.example.mindvocab.model.word.entities.Word
 import com.example.mindvocab.model.word.entities.WordStatistic
@@ -43,25 +44,28 @@ data class WordForLearningTuple(
     )
     val translation: List<TranslationDbEntity>,
 ) {
-    fun toWord() = Word(
+    fun toWord(languageSetting: ApplicationSettings.NativeLanguage) = Word(
         id = word.id,
         word = word.word,
         audio = word.audio,
         image = word.image,
-        exampleList = example.map { entity -> entity.sentence },
+        exampleList = example.map { it.sentence },
         explanation = word.explanation,
         transcription = word.transcription,
-        translation = translation.map { entity -> entity.translation }.toString()
+        translation = if (languageSetting != ApplicationSettings.NativeLanguage.ENGLISH) {
+            try {
+                translation.first { it.languageId.toInt() == languageSetting.value }.translation
+            } catch (e: NoSuchElementException) {
+                ""
+            }
+        } else {
+            ""
+        }
     )
-
-//    fun toWord() = Word(
-//        id = this.id,
-//        word = this.word,
-//        audio = "",
-//        image = this.image,
-//        exampleList = emptyList(),
-//        explanation = this.explanation,
-//        transcription = this.transcription,
-//        translation = ""
-//    )
 }
+
+data class UpdateWordProgressAsLearningTuple(
+    @ColumnInfo(name = "account_id") val accountId: Long,
+    @ColumnInfo(name = "word_id") val wordId: Long,
+    @ColumnInfo(name = "started_at") val startedAt: Long
+)

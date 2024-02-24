@@ -57,10 +57,6 @@ class LearnWordFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
     private fun setWordData(word: Word) {
         with(binding) {
             binding.word.text = word.word

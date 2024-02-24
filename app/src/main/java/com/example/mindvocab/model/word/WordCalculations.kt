@@ -18,6 +18,7 @@ object WordCalculations {
             return WordStatus.NEW
         }
 
+        // TODO set comment or rewrite it
         if (wordWithStatistic.timesRepeated < TIMES_REPEATED_TO_LEARN
             || wordWithStatistic.timesRepeated != TIMES_REPEATED_TO_LEARN) {
             return WordStatus.IN_PROGRESS
@@ -33,5 +34,7 @@ object WordCalculations {
     fun getProgressOfWord(wordWithStatistic: WordWithStatisticTuple) : Int {
         return ((wordWithStatistic.timesRepeated / TIMES_REPEATED_TO_LEARN.toFloat()) * 100).toInt()
     }
+
+    fun getWordTimesRepeatedToLearn() = TIMES_REPEATED_TO_LEARN
 
 }
