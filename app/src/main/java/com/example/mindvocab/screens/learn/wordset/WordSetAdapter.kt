@@ -59,7 +59,7 @@ class WordSetAdapter(
             }
 
             wordSetTitle.text = item.name
-            wordSetProgress.text = context.getString(R.string.word_set_learned_words, item.wordsCompleted, item.wordsCount)
+            wordSetProgress.text = context.getString(R.string.amount_of, item.wordsCompleted, item.wordsCount)
 
             Glide.with(wordSetPhoto.context)
                 .load(item.image)

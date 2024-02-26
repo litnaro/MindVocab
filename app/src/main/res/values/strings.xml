@@ -3,10 +3,12 @@
     <string name="app_name">MindVocab</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="percentage">%d%%</string>
+    <string name="amount_of">%1$d/%2$d</string>
 
-    <string name="select_category_content_description">Select category</string>
-    <string name="confirm_categories_content_description">Confirm categories</string>
-    <string name="notifications_content_description">Notifications</string>
+    <string name="select_category_content_description">Select category icon</string>
+    <string name="confirm_categories_content_description">Confirm categories icon</string>
+    <string name="notifications_content_description">Notifications icon</string>
+    <string name="show_list_for_words_content_description">Show list of words icon</string>
     <!--General-->
 
     <!--    Learn graph-->
@@ -15,8 +17,6 @@
     <string name="word_set_choose_title">Word set selection</string>
 
     <string name="transcription">[%s]</string>
-
-    <string name="word_set_learned_words">%1$d/%2$d</string>
 
     <string name="word_status_new">New word</string>
     <string name="word_status_in_progress">Learning</string>
@@ -32,7 +32,7 @@
     <string name="word_to_learn">To learn</string>
     <string name="return_to_previous_word_content_description">Return to previous word icon</string>
     <string name="exception_image_content_description">Exception image</string>
-    <string name="exception_text_content_description">Go to the word sets and choose something</string>
+    <string name="exception_text_content_description">Choose which words you will learn. Click on the word set (category) icon on the screen or in the upper right corner.</string>
 
     <string name="all_words_filter">All</string>
 

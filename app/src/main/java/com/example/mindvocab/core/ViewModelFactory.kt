@@ -7,6 +7,7 @@ import com.example.mindvocab.App
 import com.example.mindvocab.model.room.Repositories
 import com.example.mindvocab.screens.learn.LearnWordViewModel
 import com.example.mindvocab.screens.learn.wordset.WordSetsViewModel
+import com.example.mindvocab.screens.repeat.RepeatWordViewModel
 import com.example.mindvocab.screens.settings.account.SettingsAccountViewModel
 import com.example.mindvocab.screens.settings.account.edit.AccountEditViewModel
 import com.example.mindvocab.screens.settings.application.SettingsApplicationViewModel
@@ -48,6 +49,9 @@ class ViewModelFactory(
             }
             SettingsLearnViewModel::class.java -> {
                 SettingsLearnViewModel(Repositories.appSettingsManager.getLearnSettings())
+            }
+            RepeatWordViewModel::class.java -> {
+                RepeatWordViewModel(Repositories.repeatingRepository)
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModelClass")

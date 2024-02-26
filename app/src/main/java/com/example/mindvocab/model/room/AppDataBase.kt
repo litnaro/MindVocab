@@ -7,6 +7,7 @@ import com.example.mindvocab.model.account.room.entities.AccountDbEntity
 import com.example.mindvocab.model.achievement.room.entities.AccountAchievementProgressDbEntity
 import com.example.mindvocab.model.achievement.room.entities.AchievementDbEntity
 import com.example.mindvocab.model.learning.room.LearningDao
+import com.example.mindvocab.model.repeating.room.RepeatingDao
 import com.example.mindvocab.model.sets.room.WordSetsDao
 import com.example.mindvocab.model.sets.room.entity.AccountWordSetDbEntity
 import com.example.mindvocab.model.sets.room.entity.WordSetDbEntity
@@ -45,5 +46,7 @@ abstract class AppDataBase : RoomDatabase() {
     abstract fun getAccountsDao() : AccountsDao
 
     abstract fun getLearningDao() : LearningDao
+
+    abstract fun getRepeatingDao() : RepeatingDao
 
 }

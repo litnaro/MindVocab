@@ -3,6 +3,7 @@ package com.example.mindvocab
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.children
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
@@ -60,31 +61,29 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = prepareTitle(destination.label, arguments)
         supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
 
-        //TODO replace with when and collection maybe
-        if (destination.id == R.id.learn){
-            binding.actionSelectWordSet.visibility = View.VISIBLE
-        } else {
-            binding.actionSelectWordSet.visibility = View.GONE
+        binding.actionButtonsContainer.children.forEach {
+            it.visibility = View.GONE
         }
 
-        if (destination.id == R.id.statistic){
-            binding.actionNotification.visibility = View.VISIBLE
-        } else {
-            binding.actionNotification.visibility = View.GONE
-        }
-
-        if (destination.id == R.id.wordSetsFragment){
-            binding.actionConfirmWordSets.visibility = View.VISIBLE
-        } else {
-            binding.actionConfirmWordSets.visibility = View.GONE
+        when(destination.id) {
+            R.id.learn -> {
+                binding.actionShowListOfWords.visibility = View.VISIBLE
+                binding.actionSelectWordSet.visibility = View.VISIBLE
+            }
+            R.id.repeat -> {
+                binding.actionShowListOfWords.visibility = View.VISIBLE
+            }
+            R.id.statistic -> {
+                binding.actionNotification.visibility = View.VISIBLE
+            }
+            R.id.wordSetsFragment -> {
+                binding.actionConfirmWordSets.visibility = View.VISIBLE
+            }
         }
 
     }
 
     private fun prepareTitle(label: CharSequence?, arguments: Bundle?): String {
-
-        // code for this method has been copied from Google sources :)
-
         if (label == null) return ""
         val title = StringBuffer()
         val fillInPattern = Pattern.compile("\\{(.+?)\\}")

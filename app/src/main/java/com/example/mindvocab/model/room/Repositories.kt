@@ -6,6 +6,8 @@ import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.account.room.RoomAccountsRepository
 import com.example.mindvocab.model.learning.LearningRepository
 import com.example.mindvocab.model.learning.room.RoomLearningRepository
+import com.example.mindvocab.model.repeating.RepeatingRepository
+import com.example.mindvocab.model.repeating.room.RoomRepeatingRepository
 import com.example.mindvocab.model.sets.WordSetsRepository
 import com.example.mindvocab.model.sets.room.RoomWordSetsRepository
 import com.example.mindvocab.model.settings.AppSettingsManager
@@ -62,6 +64,10 @@ object Repositories {
 
     val learningRepository: LearningRepository by lazy {
         RoomLearningRepository(database.getLearningDao(), accountsRepository, appSettingsManager.getApplicationSettings(), ioDispatcher)
+    }
+
+    val repeatingRepository: RepeatingRepository by lazy {
+        RoomRepeatingRepository(database.getRepeatingDao(), accountsRepository, ioDispatcher)
     }
 
     // Entrance point in MainActivity onCreate

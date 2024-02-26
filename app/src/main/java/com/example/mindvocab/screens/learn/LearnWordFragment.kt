@@ -57,6 +57,11 @@ class LearnWordFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getWordToLearn()
+    }
+
     private fun setWordData(word: Word) {
         with(binding) {
             binding.word.text = word.word

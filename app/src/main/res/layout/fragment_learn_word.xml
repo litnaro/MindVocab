@@ -5,12 +5,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="@dimen/main_screen_padding">
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:progress="50"
+        style="?android:attr/progressBarStyleHorizontal"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/learnWordContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
         app:contentPadding="20dp"
         app:contentPaddingTop="10dp"
         app:contentPaddingBottom="10dp"
@@ -239,11 +248,11 @@
 
             <ImageView
                 android:id="@+id/emptyWordSetsImage"
-                android:layout_width="300dp"
-                android:layout_height="200dp"
-                android:src="@drawable/ic_sos"
+                android:layout_width="250dp"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_category"
                 app:tint="?attr/colorOnPrimaryContainer"
-                app:layout_constraintVertical_bias="0.3"
+                app:layout_constraintVertical_bias="0.25"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -255,12 +264,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/exception_text_content_description"
-                android:textSize="@dimen/main_heading_size"
+                android:textSize="@dimen/secondary_heading_size"
                 android:elevation="2dp"
+                android:layout_marginTop="35dp"
                 android:textAlignment="center"
                 android:textColor="?attr/colorOnPrimaryContainer"
-                app:layout_constraintStart_toStartOf="@+id/emptyWordSetsImage"
-                app:layout_constraintEnd_toEndOf="@+id/emptyWordSetsImage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/emptyWordSetsImage"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,7 +34,7 @@ class LearnWordViewModel(
         }
     }
 
-    private fun getWordToLearn() {
+    fun getWordToLearn() {
         viewModelScope.launch {
             try {
                 learningRepository.getWordToLearn()
