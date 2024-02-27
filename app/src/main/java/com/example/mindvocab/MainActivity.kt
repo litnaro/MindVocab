@@ -11,6 +11,7 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.mindvocab.databinding.ActivityMainBinding
 import com.example.mindvocab.model.room.Repositories
 import com.example.mindvocab.screens.learn.LearnWordFragmentDirections
+import com.example.mindvocab.screens.repeat.RepeatWordFragmentDirections
 import com.example.mindvocab.screens.statistic.StatisticFragmentDirections
 import java.util.regex.Pattern
 
@@ -51,6 +52,10 @@ class MainActivity : AppCompatActivity() {
         binding.actionNotification.setOnClickListener {
             navController.navigate(StatisticFragmentDirections.actionStatisticToNotificationsFragment())
         }
+
+        binding.actionShowListOfRepeatingWords.setOnClickListener {
+            navController.navigate(RepeatWordFragmentDirections.actionRepeatToRepeatingWordsFragment())
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -67,11 +72,10 @@ class MainActivity : AppCompatActivity() {
 
         when(destination.id) {
             R.id.learn -> {
-                binding.actionShowListOfWords.visibility = View.VISIBLE
                 binding.actionSelectWordSet.visibility = View.VISIBLE
             }
             R.id.repeat -> {
-                binding.actionShowListOfWords.visibility = View.VISIBLE
+                binding.actionShowListOfRepeatingWords.visibility = View.VISIBLE
             }
             R.id.statistic -> {
                 binding.actionNotification.visibility = View.VISIBLE

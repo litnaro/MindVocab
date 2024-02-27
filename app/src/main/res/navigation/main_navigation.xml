@@ -18,7 +18,11 @@
         android:id="@+id/repeat"
         android:name="com.example.mindvocab.screens.repeat.RepeatWordFragment"
         android:label="@string/repeat_title"
-        tools:layout="@layout/fragment_repeat_word" />
+        tools:layout="@layout/fragment_repeat_word" >
+        <action
+            android:id="@+id/action_repeat_to_repeatingWordsFragment"
+            app:destination="@id/repeatingWordsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/statistic"
         android:name="com.example.mindvocab.screens.statistic.StatisticFragment"
@@ -70,4 +74,9 @@
         android:name="com.example.mindvocab.screens.settings.account.edit.AccountEditFragment"
         android:label="@string/account_edit_settings"
         tools:layout="@layout/fragment_settings_account" />
+    <fragment
+        android:id="@+id/repeatingWordsFragment"
+        android:name="com.example.mindvocab.screens.repeat.list.RepeatingWordsFragment"
+        android:label="@string/repeating_words_title"
+        tools:layout="@layout/fragment_repeating_words" />
 </navigation>

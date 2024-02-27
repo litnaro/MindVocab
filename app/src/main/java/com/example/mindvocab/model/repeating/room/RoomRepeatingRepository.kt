@@ -13,6 +13,8 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.withContext
 
 class RoomRepeatingRepository(
@@ -27,6 +29,12 @@ class RoomRepeatingRepository(
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
+    override suspend fun getWordsToRepeat(): Flow<List<WordToRepeat>> {
+        val account = accountsRepository.getAccount().first() ?: throw AuthException()
+        val list = repeatingDao.getAllWordsForRepeating(account.id, WordCalculations.getWordTimesRepeatedToLearn(), 1) ?: throw NoWordsToRepeatException()
+        return flowOf(list.map { it.toRepeatingWord() })
+    }
+
     override suspend fun listenWordToRepeat(): Flow<WordToRepeat> {
         return currentWordToRepeat
     }
@@ -34,7 +42,7 @@ class RoomRepeatingRepository(
     override suspend fun getWordToRepeat() = withContext(ioDispatcher) {
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
-            val wordToRepeat = repeatingDao.getWordForRepeating(account.id, 6, 1, WordCalculations.getStartOfTodayInMillis()) ?: throw NoWordsToRepeatException()
+            val wordToRepeat = repeatingDao.getWordForRepeating(account.id, WordCalculations.getWordTimesRepeatedToLearn(), 1, WordCalculations.getStartOfTodayInMillis()) ?: throw NoWordsToRepeatException()
             currentWordToRepeat.emit(wordToRepeat.toRepeatingWord())
         }
     }

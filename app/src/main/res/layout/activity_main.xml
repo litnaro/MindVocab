@@ -23,7 +23,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/actionShowListOfWords"
+                android:id="@+id/actionShowListOfRepeatingWords"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_list"

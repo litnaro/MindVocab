@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface RepeatingRepository : Repository {
 
+    suspend fun getWordsToRepeat() : Flow<List<WordToRepeat>>
+
     suspend fun listenWordToRepeat() : Flow<WordToRepeat>
 
     suspend fun getWordToRepeat()

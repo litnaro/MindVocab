@@ -48,6 +48,11 @@
     <string name="word_remember">Remembered</string>
     <string name="return_to_previous_repeat_word__content_description">Return to previous word</string>
     <string name="word_forgot">Forgot</string>
+
+    <string name="repeating_word_started_at">Started at</string>
+    <string name="repeating_word_last_repeated_at">Last repeated at</string>
+    <string name="repeating_word_progress">Progress</string>
+    <string name="repeating_word_drop_down_icon_content_description">Repeating word additional information icon</string>
     <!--    Repeat graph-->
 
     <!--    Statistic graph-->
@@ -61,6 +66,7 @@
 
     <string name="achievements_statistic_title">Achievements</string>
 
+    <string name="repeating_words_title">Repeating words</string>
     <string name="total_words_statistic">Total words</string>
     <string name="words_left_statistic">Left</string>
     <string name="words_known_statistic">Known</string>

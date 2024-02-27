@@ -1,0 +1,31 @@
+package com.example.mindvocab.screens.repeat.list
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.mindvocab.core.BaseViewModel
+import com.example.mindvocab.model.repeating.RepeatingRepository
+import com.example.mindvocab.model.word.entities.WordToRepeat
+import com.example.mindvocab.model.Result
+import com.example.mindvocab.model.SuccessResult
+import kotlinx.coroutines.launch
+
+class RepeatingWordsViewModel(
+    private val repeatingRepository: RepeatingRepository
+) : BaseViewModel() {
+
+    private val _repeatingWords = MutableLiveData<Result<List<WordToRepeat>>>()
+    val repeatingWords: LiveData<Result<List<WordToRepeat>>> = _repeatingWords
+
+    init {
+        getRepeatingWords()
+    }
+
+    private fun getRepeatingWords() {
+        viewModelScope.launch {
+            repeatingRepository.getWordsToRepeat().collect {
+                _repeatingWords.value = SuccessResult(it)
+            }
+        }
+    }
+}

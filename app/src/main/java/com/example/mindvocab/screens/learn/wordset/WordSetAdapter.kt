@@ -81,6 +81,5 @@ class WordSetAdapter(
         override fun areContentsTheSame(oldItem: WordSet, newItem: WordSet): Boolean {
             return oldItem == newItem
         }
-
     }
 }

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    app:contentPadding="@dimen/big_card_padding"
+    app:cardCornerRadius="@dimen/default_card_corner_radius"
+    app:cardBackgroundColor="?attr/colorPrimaryContainer">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/mainWordContainer"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/wordWordSetImage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                tools:src="@drawable/ic_category"
+                app:tint="?attr/colorOnPrimaryContainer"
+                android:contentDescription="@string/word_set_image_content_description"/>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="7dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="?attr/colorOnPrimaryContainer"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/word"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Pink"
+                    android:textSize="@dimen/third_heading_size"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnPrimaryContainer"/>
+
+                <TextView
+                    android:id="@+id/wordTranscription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="[pink]"
+                    android:textSize="@dimen/simple_text_size"
+                    android:textColor="?attr/colorOnPrimaryContainer"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:padding="8dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ic_keyboard_arrow_down"
+                app:tint="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center"
+                android:contentDescription="@string/repeating_word_drop_down_icon_content_description" />
+
+        </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/additionalWordContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/wordStartedAtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/repeating_word_started_at"
+            android:textStyle="bold"
+            android:textSize="@dimen/simple_text_size"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/wordStartedAtValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            tools:text="16/02/2001"
+            android:textSize="@dimen/simple_text_size"
+            android:textAlignment="textEnd"
+            app:layout_constraintTop_toTopOf="@+id/wordStartedAtTitle"
+            app:layout_constraintStart_toEndOf="@+id/wordStartedAtTitle"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/wordLastRepeatedAtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/repeating_word_last_repeated_at"
+            android:textStyle="bold"
+            android:textSize="@dimen/simple_text_size"
+            app:layout_constraintTop_toBottomOf="@+id/wordStartedAtTitle"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/wordLastRepeatedAtValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            tools:text="16/02/2001"
+            android:textSize="@dimen/simple_text_size"
+            android:textAlignment="textEnd"
+            app:layout_constraintTop_toTopOf="@+id/wordLastRepeatedAtTitle"
+            app:layout_constraintStart_toEndOf="@+id/wordLastRepeatedAtTitle"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/wordTimesRepeatedTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/repeating_word_progress"
+            android:textStyle="bold"
+            android:textSize="@dimen/simple_text_size"
+            app:layout_constraintTop_toBottomOf="@+id/wordLastRepeatedAtTitle"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/wordTimesRepeatedValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            tools:text="1 of 6"
+            android:textSize="@dimen/simple_text_size"
+            android:textAlignment="textEnd"
+            app:layout_constraintTop_toTopOf="@+id/wordTimesRepeatedTitle"
+            app:layout_constraintStart_toEndOf="@+id/wordTimesRepeatedTitle"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
