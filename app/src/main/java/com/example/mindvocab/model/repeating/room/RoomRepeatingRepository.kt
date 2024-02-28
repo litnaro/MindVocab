@@ -9,6 +9,7 @@ import com.example.mindvocab.model.repeating.room.entities.UpdateWordProgressAsF
 import com.example.mindvocab.model.repeating.room.entities.UpdateWordProgressAsRememberedTuple
 import com.example.mindvocab.model.word.WordCalculations
 import com.example.mindvocab.model.word.entities.WordToRepeat
+import com.example.mindvocab.model.word.entities.WordToRepeatDetail
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
@@ -29,10 +30,10 @@ class RoomRepeatingRepository(
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    override suspend fun getWordsToRepeat(): Flow<List<WordToRepeat>> {
+    override suspend fun getWordsToRepeat(): Flow<List<WordToRepeatDetail>> {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
         val list = repeatingDao.getAllWordsForRepeating(account.id, WordCalculations.getWordTimesRepeatedToLearn(), 1) ?: throw NoWordsToRepeatException()
-        return flowOf(list.map { it.toRepeatingWord() })
+        return flowOf(list.map { it.toRepeatingWordDetail() })
     }
 
     override suspend fun listenWordToRepeat(): Flow<WordToRepeat> {
@@ -43,7 +44,7 @@ class RoomRepeatingRepository(
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
             val wordToRepeat = repeatingDao.getWordForRepeating(account.id, WordCalculations.getWordTimesRepeatedToLearn(), 1, WordCalculations.getStartOfTodayInMillis()) ?: throw NoWordsToRepeatException()
-            currentWordToRepeat.emit(wordToRepeat.toRepeatingWord())
+            currentWordToRepeat.emit(wordToRepeat.toWordToRepeat())
         }
     }
 

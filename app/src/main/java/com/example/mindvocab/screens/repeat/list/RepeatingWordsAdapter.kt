@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.databinding.ItemRepeatingWordBinding
-import com.example.mindvocab.model.word.entities.WordToRepeat
+import com.example.mindvocab.model.word.WordCalculations
+import com.example.mindvocab.model.word.entities.WordToRepeatDetail
 
-class RepeatingWordsAdapter : ListAdapter<WordToRepeat, RepeatingWordsAdapter.ViewHolder>(ItemCallback) {
+class RepeatingWordsAdapter : ListAdapter<WordToRepeatDetail, RepeatingWordsAdapter.ViewHolder>(ItemCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemRepeatingWordBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,17 +20,18 @@ class RepeatingWordsAdapter : ListAdapter<WordToRepeat, RepeatingWordsAdapter.Vi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
+        val context = holder.binding.root.context
 
         with(holder.binding) {
             word.text = item.word
             wordTranscription.text = item.transcription
 
-            wordStartedAtValue.text = ""
-            wordLastRepeatedAtValue.text = item.lastRepeatedAt.toString()
-            wordTimesRepeatedValue.text = item.timesRepeated.toString()
+            wordStartedAtValue.text = item.startedAt
+            wordLastRepeatedAtValue.text = item.lastRepeatedAt
+            wordTimesRepeatedValue.text = context.getString(R.string.amount_of_words, item.timesRepeated, WordCalculations.getWordTimesRepeatedToLearn())
 
             Glide.with(wordWordSetImage.context)
-                .load(item.word)
+                .load(item.wordSetImage)
                 .circleCrop()
                 .placeholder(R.drawable.ic_category)
                 .error(R.drawable.ic_category)
@@ -39,12 +41,12 @@ class RepeatingWordsAdapter : ListAdapter<WordToRepeat, RepeatingWordsAdapter.Vi
 
     class ViewHolder(val binding: ItemRepeatingWordBinding) : RecyclerView.ViewHolder(binding.root)
 
-    object ItemCallback : DiffUtil.ItemCallback<WordToRepeat>() {
-        override fun areItemsTheSame(oldItem: WordToRepeat, newItem: WordToRepeat): Boolean {
+    object ItemCallback : DiffUtil.ItemCallback<WordToRepeatDetail>() {
+        override fun areItemsTheSame(oldItem: WordToRepeatDetail, newItem: WordToRepeatDetail): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: WordToRepeat, newItem: WordToRepeat): Boolean {
+        override fun areContentsTheSame(oldItem: WordToRepeatDetail, newItem: WordToRepeatDetail): Boolean {
             return oldItem == newItem
         }
     }

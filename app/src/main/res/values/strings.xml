@@ -4,6 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="percentage">%d%%</string>
     <string name="amount_of">%1$d/%2$d</string>
+    <string name="amount_of_words">%1$d of %2$d</string>
 
     <string name="select_category_content_description">Select category icon</string>
     <string name="confirm_categories_content_description">Confirm categories icon</string>
@@ -52,7 +53,6 @@
     <string name="repeating_word_started_at">Started at</string>
     <string name="repeating_word_last_repeated_at">Last repeated at</string>
     <string name="repeating_word_progress">Progress</string>
-    <string name="repeating_word_drop_down_icon_content_description">Repeating word additional information icon</string>
     <!--    Repeat graph-->
 
     <!--    Statistic graph-->
@@ -123,7 +123,7 @@
     <string name="application_theme_settings">Theme</string>
     <string name="application_theme_settings_helping_text">\t\t\t\tYou may need to restart the application to see the result.</string>
     <string name="application_theme_settings_content_description">Application theme icon</string>
-    <string name="interface_language_settings">Language</string>
+    <string name="interface_language_settings">Interface Language</string>
     <string name="application_language_settings_helping_text">\t\t\t\tNot affects the Translation section when learning and repeating words.</string>
     <string name="interface_language_settings_content_description">Interface language icon</string>
     <string name="interface_native_language_settings">Native Language</string>
