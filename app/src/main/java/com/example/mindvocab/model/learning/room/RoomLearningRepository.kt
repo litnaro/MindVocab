@@ -54,7 +54,6 @@ class RoomLearningRepository(
                 AccountWordProgressDbEntity(
                     accountId = account.id,
                     wordId = word.id,
-                    isSelected = false,
                     timesRepeated = WordCalculations.getWordTimesRepeatedToLearn().toByte(),
                     lastRepeatedAt = currentTimeMillis,
                     startedAt = currentTimeMillis

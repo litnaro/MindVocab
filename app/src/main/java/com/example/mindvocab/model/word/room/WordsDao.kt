@@ -20,14 +20,13 @@ interface WordsDao {
             "    words.word,\n" +
             "    words.transcription,\n" +
             "    IFNULL(translations.translation, \"\") AS translation,\n" +
-            "    IFNULL(account_word_progress.is_selected, 0) AS is_selected,\n" +
-            "    IFNULL(account_word_progress.times_repeated, 0) AS times_repeated,\n" +
-            "    IFNULL(account_word_progress.started_at, 0) AS started_at,\n" +
-            "    IFNULL(account_word_progress.last_repeated_at, 0) AS last_repeated_at\n" +
+            "    IFNULL(accounts_words_progress.started_at, 0) AS started_at,\n" +
+            "    IFNULL(accounts_words_progress.last_repeated_at, 0) AS last_repeated_at,\n" +
+            "    IFNULL(accounts_words_progress.times_repeated, 0) AS times_repeated\n" +
             "FROM\n" +
             "    words\n" +
             "LEFT JOIN\n" +
-            "    account_word_progress ON words.id = account_word_progress.word_id AND account_word_progress.account_id = :accountId\n" +
+            "    accounts_words_progress ON words.id = accounts_words_progress.word_id AND accounts_words_progress.account_id = :accountId\n" +
             "LEFT JOIN\n" +
             "    translations ON words.id = translations.word_id AND translations.language_id = 1\n" +
             "WHERE\n" +

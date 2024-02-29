@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a9b35d27b0e7bc4136609c7ef5cc6568",
+    "identityHash": "b65c04ee37ef2a48daf04c8ff95991c4",
     "entities": [
       {
         "tableName": "accounts",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `surname` TEXT NOT NULL, `username` TEXT NOT NULL, `email` TEXT NOT NULL COLLATE NOCASE, `photo` BLOB NOT NULL, `password` TEXT NOT NULL, `created_at` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `surname` TEXT, `username` TEXT NOT NULL, `email` TEXT NOT NULL COLLATE NOCASE, `photo` TEXT, `password` TEXT NOT NULL, `created_at` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -18,13 +18,13 @@
             "fieldPath": "name",
             "columnName": "name",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "surname",
             "columnName": "surname",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "username",
@@ -41,8 +41,8 @@
           {
             "fieldPath": "photo",
             "columnName": "photo",
-            "affinity": "BLOB",
-            "notNull": true
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "password",
@@ -77,8 +77,150 @@
         "foreignKeys": []
       },
       {
+        "tableName": "word_sets",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `image` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "image",
+            "columnName": "image",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "accounts_word_sets",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`account_id` INTEGER NOT NULL, `word_set_id` INTEGER NOT NULL, `is_selected` INTEGER NOT NULL, PRIMARY KEY(`account_id`, `word_set_id`), FOREIGN KEY(`account_id`) REFERENCES `accounts`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`word_set_id`) REFERENCES `word_sets`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "accountId",
+            "columnName": "account_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wordSetId",
+            "columnName": "word_set_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isSelected",
+            "columnName": "is_selected",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "account_id",
+            "word_set_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_accounts_word_sets_word_set_id",
+            "unique": false,
+            "columnNames": [
+              "word_set_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_accounts_word_sets_word_set_id` ON `${TABLE_NAME}` (`word_set_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "accounts",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "account_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "word_sets",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "word_set_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "achievements",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `image` TEXT NOT NULL, `progress_to_achieve` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "image",
+            "columnName": "image",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "progressToAchieve",
+            "columnName": "progress_to_achieve",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
         "tableName": "accounts_achievements_progress",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`account_id` INTEGER NOT NULL, `achievement_id` INTEGER NOT NULL, `date_achieved` INTEGER NOT NULL, `is_checked` INTEGER NOT NULL, PRIMARY KEY(`account_id`, `achievement_id`), FOREIGN KEY(`account_id`) REFERENCES `accounts`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`achievement_id`) REFERENCES `achievements`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`account_id` INTEGER NOT NULL, `achievement_id` INTEGER NOT NULL, `achievement_type_id` INTEGER NOT NULL, `progress` INTEGER NOT NULL, `date_achieved` INTEGER NOT NULL, `is_checked` INTEGER NOT NULL, PRIMARY KEY(`account_id`, `achievement_id`), FOREIGN KEY(`account_id`) REFERENCES `accounts`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`achievement_id`) REFERENCES `achievements`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`achievement_type_id`) REFERENCES `achievements_types`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "accountId",
@@ -89,6 +231,18 @@
           {
             "fieldPath": "achievementId",
             "columnName": "achievement_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "achievementTypeId",
+            "columnName": "achievement_type_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "progress",
+            "columnName": "progress",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -145,12 +299,23 @@
             "referencedColumns": [
               "id"
             ]
+          },
+          {
+            "table": "achievements_types",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "achievement_type_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
           }
         ]
       },
       {
-        "tableName": "achievements",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `image` BLOB NOT NULL)",
+        "tableName": "achievements_types",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `type` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -159,21 +324,9 @@
             "notNull": true
           },
           {
-            "fieldPath": "title",
-            "columnName": "title",
+            "fieldPath": "type",
+            "columnName": "type",
             "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "description",
-            "columnName": "description",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "image",
-            "columnName": "image",
-            "affinity": "BLOB",
             "notNull": true
           }
         ],
@@ -187,8 +340,8 @@
         "foreignKeys": []
       },
       {
-        "tableName": "word_sets",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `image` BLOB NOT NULL)",
+        "tableName": "words",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `word` TEXT NOT NULL, `image` TEXT NOT NULL, `audio` TEXT NOT NULL, `transcription` TEXT NOT NULL, `explanation` TEXT NOT NULL, `word_set_id` INTEGER NOT NULL, FOREIGN KEY(`word_set_id`) REFERENCES `word_sets`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -197,15 +350,39 @@
             "notNull": true
           },
           {
-            "fieldPath": "name",
-            "columnName": "name",
+            "fieldPath": "word",
+            "columnName": "word",
             "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "image",
             "columnName": "image",
-            "affinity": "BLOB",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "audio",
+            "columnName": "audio",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transcription",
+            "columnName": "transcription",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "explanation",
+            "columnName": "explanation",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wordSetId",
+            "columnName": "word_set_id",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -215,8 +392,108 @@
             "id"
           ]
         },
-        "indices": [],
-        "foreignKeys": []
+        "indices": [
+          {
+            "name": "index_words_word_set_id",
+            "unique": false,
+            "columnNames": [
+              "word_set_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_words_word_set_id` ON `${TABLE_NAME}` (`word_set_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "word_sets",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "word_set_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "accounts_words_progress",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`account_id` INTEGER NOT NULL, `word_id` INTEGER NOT NULL, `started_at` INTEGER NOT NULL, `last_repeated_at` INTEGER NOT NULL, `times_repeated` INTEGER NOT NULL, PRIMARY KEY(`account_id`, `word_id`), FOREIGN KEY(`account_id`) REFERENCES `accounts`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`word_id`) REFERENCES `words`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "accountId",
+            "columnName": "account_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wordId",
+            "columnName": "word_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startedAt",
+            "columnName": "started_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastRepeatedAt",
+            "columnName": "last_repeated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timesRepeated",
+            "columnName": "times_repeated",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "account_id",
+            "word_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_accounts_words_progress_word_id",
+            "unique": false,
+            "columnNames": [
+              "word_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_accounts_words_progress_word_id` ON `${TABLE_NAME}` (`word_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "accounts",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "account_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "words",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "word_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
       },
       {
         "tableName": "examples",
@@ -374,8 +651,8 @@
         ]
       },
       {
-        "tableName": "words",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `word` TEXT NOT NULL, `image` BLOB NOT NULL, `audio` TEXT NOT NULL, `transcription` TEXT NOT NULL, `explanation` TEXT NOT NULL, `word_set_id` INTEGER NOT NULL, FOREIGN KEY(`word_set_id`) REFERENCES `word_sets`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "tableName": "words_logs",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `account_id` INTEGER NOT NULL, `word_id` INTEGER NOT NULL, `action_type_id` INTEGER NOT NULL, `date` INTEGER NOT NULL, FOREIGN KEY(`account_id`) REFERENCES `accounts`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`word_id`) REFERENCES `words`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`action_type_id`) REFERENCES `words_logs_types`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -383,144 +660,6 @@
             "affinity": "INTEGER",
             "notNull": true
           },
-          {
-            "fieldPath": "word",
-            "columnName": "word",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "image",
-            "columnName": "image",
-            "affinity": "BLOB",
-            "notNull": true
-          },
-          {
-            "fieldPath": "audio",
-            "columnName": "audio",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "transcription",
-            "columnName": "transcription",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "explanation",
-            "columnName": "explanation",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "wordSetId",
-            "columnName": "word_set_id",
-            "affinity": "INTEGER",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": true,
-          "columnNames": [
-            "id"
-          ]
-        },
-        "indices": [
-          {
-            "name": "index_words_word_set_id",
-            "unique": false,
-            "columnNames": [
-              "word_set_id"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_words_word_set_id` ON `${TABLE_NAME}` (`word_set_id`)"
-          }
-        ],
-        "foreignKeys": [
-          {
-            "table": "word_sets",
-            "onDelete": "CASCADE",
-            "onUpdate": "CASCADE",
-            "columns": [
-              "word_set_id"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          }
-        ]
-      },
-      {
-        "tableName": "account_word_set",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`account_id` INTEGER NOT NULL, `word_set_id` INTEGER NOT NULL, `is_selected` INTEGER NOT NULL, PRIMARY KEY(`account_id`, `word_set_id`), FOREIGN KEY(`account_id`) REFERENCES `accounts`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`word_set_id`) REFERENCES `word_sets`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
-        "fields": [
-          {
-            "fieldPath": "accountId",
-            "columnName": "account_id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "wordSetId",
-            "columnName": "word_set_id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "isSelected",
-            "columnName": "is_selected",
-            "affinity": "INTEGER",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": false,
-          "columnNames": [
-            "account_id",
-            "word_set_id"
-          ]
-        },
-        "indices": [
-          {
-            "name": "index_account_word_set_word_set_id",
-            "unique": false,
-            "columnNames": [
-              "word_set_id"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_account_word_set_word_set_id` ON `${TABLE_NAME}` (`word_set_id`)"
-          }
-        ],
-        "foreignKeys": [
-          {
-            "table": "accounts",
-            "onDelete": "CASCADE",
-            "onUpdate": "CASCADE",
-            "columns": [
-              "account_id"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          },
-          {
-            "table": "word_sets",
-            "onDelete": "CASCADE",
-            "onUpdate": "CASCADE",
-            "columns": [
-              "word_set_id"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          }
-        ]
-      },
-      {
-        "tableName": "account_word_progress",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`account_id` INTEGER NOT NULL, `word_id` INTEGER NOT NULL, `is_selected` INTEGER NOT NULL, `times_repeated` INTEGER NOT NULL, `last_repeated_at` INTEGER NOT NULL, `started_at` INTEGER NOT NULL, PRIMARY KEY(`account_id`, `word_id`), FOREIGN KEY(`account_id`) REFERENCES `accounts`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`word_id`) REFERENCES `words`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
-        "fields": [
           {
             "fieldPath": "accountId",
             "columnName": "account_id",
@@ -534,48 +673,25 @@
             "notNull": true
           },
           {
-            "fieldPath": "isSelected",
-            "columnName": "is_selected",
+            "fieldPath": "actionTypeId",
+            "columnName": "action_type_id",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "timesRepeated",
-            "columnName": "times_repeated",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastRepeatedAt",
-            "columnName": "last_repeated_at",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "startedAt",
-            "columnName": "started_at",
+            "fieldPath": "date",
+            "columnName": "date",
             "affinity": "INTEGER",
             "notNull": true
           }
         ],
         "primaryKey": {
-          "autoGenerate": false,
+          "autoGenerate": true,
           "columnNames": [
-            "account_id",
-            "word_id"
+            "id"
           ]
         },
-        "indices": [
-          {
-            "name": "index_account_word_progress_word_id",
-            "unique": false,
-            "columnNames": [
-              "word_id"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_account_word_progress_word_id` ON `${TABLE_NAME}` (`word_id`)"
-          }
-        ],
+        "indices": [],
         "foreignKeys": [
           {
             "table": "accounts",
@@ -598,14 +714,56 @@
             "referencedColumns": [
               "id"
             ]
+          },
+          {
+            "table": "words_logs_types",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "action_type_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
           }
         ]
+      },
+      {
+        "tableName": "words_logs_types",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `description` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
-    "views": [],
+    "views": [
+      {
+        "viewName": "word_sets_statistic",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT\n    accounts.id AS account_id,\n    word_sets.id,\n    word_sets.name,\n    word_sets.image,\n    IFNULL(accounts_word_sets.is_selected, 0) AS is_selected,\n    (SELECT COUNT(*) FROM words WHERE words.word_set_id = word_sets.id) AS words_count,\n    (SELECT COUNT(*)\n        FROM (\n            SELECT words.id\n            FROM words, accounts_words_progress\n            WHERE words.word_set_id = word_sets.id\n                AND accounts_words_progress.word_id = words.id\n                AND accounts_words_progress.times_repeated = 6\n                AND accounts_words_progress.account_id = accounts.id\n            GROUP BY words.id)\n    ) AS words_completed\nFROM\n    accounts\nJOIN\n    word_sets\nLEFT JOIN\n    accounts_word_sets ON accounts_word_sets.account_id = accounts.id\n                        AND accounts_word_sets.word_set_id = word_sets.id"
+      }
+    ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a9b35d27b0e7bc4136609c7ef5cc6568')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b65c04ee37ef2a48daf04c8ff95991c4')"
     ]
   }
 }

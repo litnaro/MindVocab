@@ -24,7 +24,7 @@ class WordAdapter : ListAdapter<WordStatistic, WordAdapter.ViewHolder>(ItemCallb
 
         with(holder.binding) {
             word.text = item.word
-            wordTranscription.text = context.getString(R.string.transcription, item.transcription)
+            wordTranscription.text = item.transcription
             wordTranslation.text = item.translation
 
             when(item.wordStatus) {

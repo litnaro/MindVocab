@@ -6,6 +6,7 @@ import com.example.mindvocab.model.account.room.AccountsDao
 import com.example.mindvocab.model.account.room.entities.AccountDbEntity
 import com.example.mindvocab.model.achievement.room.entities.AccountAchievementProgressDbEntity
 import com.example.mindvocab.model.achievement.room.entities.AchievementDbEntity
+import com.example.mindvocab.model.achievement.room.entities.AchievementTypesDbEntity
 import com.example.mindvocab.model.learning.room.LearningDao
 import com.example.mindvocab.model.repeating.room.RepeatingDao
 import com.example.mindvocab.model.sets.room.WordSetsDao
@@ -18,20 +19,29 @@ import com.example.mindvocab.model.word.room.entities.LanguageDbEntity
 import com.example.mindvocab.model.word.room.entities.TranslationDbEntity
 import com.example.mindvocab.model.word.room.entities.WordDbEntity
 import com.example.mindvocab.model.word.room.WordsDao
+import com.example.mindvocab.model.word.room.entities.WordLogDbEntity
+import com.example.mindvocab.model.word.room.entities.WordLogTypesDbEntity
 
 @Database(
     version = 1,
     entities = [
         AccountDbEntity::class,
-        AccountAchievementProgressDbEntity::class,
-        AchievementDbEntity::class,
+
         WordSetDbEntity::class,
+        AccountWordSetDbEntity::class,
+
+        AchievementDbEntity::class,
+        AccountAchievementProgressDbEntity::class,
+        AchievementTypesDbEntity::class,
+
+        WordDbEntity::class,
+        AccountWordProgressDbEntity::class,
         ExampleDbEntity::class,
         LanguageDbEntity::class,
         TranslationDbEntity::class,
-        WordDbEntity::class,
-        AccountWordSetDbEntity::class,
-        AccountWordProgressDbEntity::class
+
+        WordLogDbEntity::class,
+        WordLogTypesDbEntity::class
     ],
     views = [
         WordSetsWithStatisticDbView::class

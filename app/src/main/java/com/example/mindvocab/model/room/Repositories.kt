@@ -30,7 +30,7 @@ object Repositories {
 
     private val database: AppDataBase by lazy {
         Room.databaseBuilder( applicationContext, AppDataBase::class.java, "database.db")
-            .createFromAsset("MindVocabData.db")
+            .createFromAsset("MindVocabDb.db")
             .build()
     }
 

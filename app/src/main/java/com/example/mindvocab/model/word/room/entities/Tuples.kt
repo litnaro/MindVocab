@@ -9,17 +9,16 @@ data class WordWithStatisticTuple(
     val word: String,
     val transcription: String,
     val translation: String,
-    @ColumnInfo(name = "is_selected") val isSelected: Boolean,
-    @ColumnInfo(name = "times_repeated") val timesRepeated: Int,
     @ColumnInfo(name = "started_at") val startedAt: Long,
-    @ColumnInfo(name = "last_repeated_at") val lastRepeatedAt: Long
+    @ColumnInfo(name = "last_repeated_at") val lastRepeatedAt: Long,
+    @ColumnInfo(name = "times_repeated") val timesRepeated: Int
 ) {
     fun toWordStatistic() = WordStatistic(
         id = id,
         word = word,
         transcription = transcription,
         translation = translation,
-        isSelected = isSelected,
+        isSelected = false,
         learnProgress = WordCalculations.getProgressOfWord(this),
         wordStatus = WordCalculations.getWordStatusByStatistic(this)
     )

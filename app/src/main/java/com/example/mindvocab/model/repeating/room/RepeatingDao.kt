@@ -19,19 +19,19 @@ interface RepeatingDao {
             "    words.explanation,\n" +
             "    IFNULL(translations.translation, \"\") AS translation,\n" +
             "    word_sets.image AS word_set_image,\n" +
-            "    account_word_progress.started_at,\n" +
-            "    account_word_progress.last_repeated_at,\n" +
-            "    account_word_progress.times_repeated\n" +
+            "    accounts_words_progress.started_at,\n" +
+            "    accounts_words_progress.last_repeated_at,\n" +
+            "    accounts_words_progress.times_repeated\n" +
             "FROM\n" +
             "    words\n" +
             "JOIN\n" +
-            "    account_word_progress ON account_word_progress.word_id = words.id AND account_word_progress.account_id = :accountId\n" +
+            "    accounts_words_progress ON accounts_words_progress.word_id = words.id AND accounts_words_progress.account_id = :accountId\n" +
             "LEFT JOIN\n" +
             "    translations ON translations.word_id = words.id AND translations.language_id = :translationId\n" +
             "LEFT JOIN\n" +
             "    word_sets ON word_sets.id = words.word_set_id\n" +
             "WHERE\n" +
-            "    account_word_progress.times_repeated < :timesRepeatedToLearn AND account_word_progress.started_at != 0;")
+            "    accounts_words_progress.times_repeated < :timesRepeatedToLearn AND accounts_words_progress.started_at != 0;")
     suspend fun getAllWordsForRepeating(accountId: Long, timesRepeatedToLearn: Int, translationId: Long) : List<RepeatingWordDetailTuple>?
 
     @Query("SELECT\n" +
@@ -40,15 +40,15 @@ interface RepeatingDao {
             "    words.transcription,\n" +
             "    words.explanation,\n" +
             "    IFNULL(translations.translation, \"\") AS translation,\n" +
-            "    account_word_progress.times_repeated\n" +
+            "    accounts_words_progress.times_repeated\n" +
             "FROM\n" +
             "    words\n" +
             "JOIN\n" +
-            "    account_word_progress ON account_word_progress.word_id = words.id AND account_word_progress.account_id = :accountId\n" +
+            "    accounts_words_progress ON accounts_words_progress.word_id = words.id AND accounts_words_progress.account_id = :accountId\n" +
             "LEFT JOIN\n" +
             "    translations ON translations.word_id = words.id AND translations.language_id = :translationId\n" +
             "WHERE\n" +
-            "    account_word_progress.times_repeated < :timesRepeatedToLearn AND account_word_progress.started_at != 0 AND last_repeated_at < :todayInMillis\n" +
+            "    accounts_words_progress.times_repeated < :timesRepeatedToLearn AND accounts_words_progress.started_at != 0 AND last_repeated_at < :todayInMillis\n" +
             "LIMIT 1;")
     suspend fun getWordForRepeating(accountId: Long, timesRepeatedToLearn: Int, translationId: Long, todayInMillis: Long) : RepeatingWordTuple?
 

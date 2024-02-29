@@ -7,7 +7,7 @@ import androidx.room.Index
 import com.example.mindvocab.model.account.room.entities.AccountDbEntity
 
 @Entity(
-    tableName = "account_word_set",
+    tableName = "accounts_word_sets",
     foreignKeys = [
         ForeignKey(
             entity = AccountDbEntity::class,

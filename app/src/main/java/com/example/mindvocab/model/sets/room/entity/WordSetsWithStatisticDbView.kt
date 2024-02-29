@@ -20,16 +20,16 @@ import com.example.mindvocab.model.sets.entity.WordSet
             "    word_sets.id,\n" +
             "    word_sets.name,\n" +
             "    word_sets.image,\n" +
-            "    IFNULL(account_word_set.is_selected, 0) AS is_selected,\n" +
+            "    IFNULL(accounts_word_sets.is_selected, 0) AS is_selected,\n" +
             "    (SELECT COUNT(*) FROM words WHERE words.word_set_id = word_sets.id) AS words_count,\n" +
             "    (SELECT COUNT(*)\n" +
             "        FROM (\n" +
             "            SELECT words.id\n" +
-            "            FROM words, account_word_progress\n" +
+            "            FROM words, accounts_words_progress\n" +
             "            WHERE words.word_set_id = word_sets.id\n" +
-            "                AND account_word_progress.word_id = words.id\n" +
-            "                AND account_word_progress.times_repeated = 6\n" +
-            "                AND account_word_progress.account_id = accounts.id\n" +
+            "                AND accounts_words_progress.word_id = words.id\n" +
+            "                AND accounts_words_progress.times_repeated = 6\n" +
+            "                AND accounts_words_progress.account_id = accounts.id\n" +
             "            GROUP BY words.id)\n" +
             "    ) AS words_completed\n" +
             "FROM\n" +
@@ -37,8 +37,8 @@ import com.example.mindvocab.model.sets.entity.WordSet
             "JOIN\n" +
             "    word_sets\n" +
             "LEFT JOIN\n" +
-            "    account_word_set ON account_word_set.account_id = accounts.id\n" +
-            "                        AND account_word_set.word_set_id = word_sets.id"
+            "    accounts_word_sets ON accounts_word_sets.account_id = accounts.id\n" +
+            "                        AND accounts_word_sets.word_set_id = word_sets.id"
 )
 data class WordSetsWithStatisticDbView(
     @ColumnInfo(name = "account_id") val accountId: Long,

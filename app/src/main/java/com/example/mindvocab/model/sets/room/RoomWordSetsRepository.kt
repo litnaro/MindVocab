@@ -89,7 +89,6 @@ class RoomWordSetsRepository(
                 AccountWordProgressDbEntity(
                     accountId = account.id,
                     wordId = it.id,
-                    isSelected = true,
                     timesRepeated = 0,
                     lastRepeatedAt = 0,
                     startedAt = 0

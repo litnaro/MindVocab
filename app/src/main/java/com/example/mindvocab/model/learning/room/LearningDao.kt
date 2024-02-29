@@ -25,11 +25,11 @@ interface LearningDao {
             "LEFT JOIN\n" +
             "    word_sets ON words.word_set_id = word_sets.id\n" +
             "LEFT JOIN\n" +
-            "    account_word_set ON account_word_set.word_set_id = word_sets.id AND account_word_set.account_id = :accountId\n" +
+            "    accounts_word_sets ON accounts_word_sets.word_set_id = word_sets.id AND accounts_word_sets.account_id = :accountId\n" +
             "LEFT JOIN\n" +
-            "    account_word_progress ON account_word_progress.word_id = words.id AND account_word_progress.account_id = :accountId\n" +
+            "    accounts_words_progress ON accounts_words_progress.word_id = words.id AND accounts_words_progress.account_id = :accountId\n" +
             "WHERE\n" +
-            "    account_word_set.is_selected = 1 AND account_word_progress.started_at = 0\n" +
+            "    accounts_word_sets.is_selected = 1 AND accounts_words_progress.started_at = 0\n" +
             "GROUP BY\n" +
             "    words.id\n" +
             "LIMIT 1;")

@@ -44,12 +44,12 @@ interface ApplicationSettings {
     // User native language for learning purposes
     enum class NativeLanguage(val value: Int) : AppSettingsEnum {
         ENGLISH(0),
-        RUSSIAN(1),
-        UKRAINIAN(2);
+        UKRAINIAN(1),
+        RUSSIAN(2);
 
         companion object {
             fun fromValue(value: Int): NativeLanguage {
-                return NativeLanguage.entries.firstOrNull { it.value == value } ?: RUSSIAN
+                return NativeLanguage.entries.firstOrNull { it.value == value } ?: UKRAINIAN
             }
         }
     }
