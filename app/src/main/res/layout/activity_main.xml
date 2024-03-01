@@ -33,7 +33,7 @@
 
             <ImageView
                 android:id="@+id/actionSelectWordSet"
-                android:layout_width="24dp"
+                android:layout_width="26dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_category"
                 app:tint="?attr/colorOnPrimary"

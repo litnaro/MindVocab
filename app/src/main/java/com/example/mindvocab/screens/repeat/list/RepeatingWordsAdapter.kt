@@ -32,7 +32,7 @@ class RepeatingWordsAdapter : ListAdapter<WordToRepeatDetail, RepeatingWordsAdap
 
             Glide.with(wordWordSetImage.context)
                 .load(item.wordSetImage)
-                .circleCrop()
+                .centerCrop()
                 .placeholder(R.drawable.ic_category)
                 .error(R.drawable.ic_category)
                 .into(wordWordSetImage)

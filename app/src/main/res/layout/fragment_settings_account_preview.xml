@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/default_card_corner_radius"
-    app:contentPadding="@dimen/default_card_padding"
+    app:contentPadding="@dimen/big_card_padding"
     app:cardBackgroundColor="?attr/colorPrimaryContainer"
     tools:context=".screens.settings.account.SettingsAccountFragment">
 
@@ -16,9 +16,10 @@
 
         <ImageView
             android:id="@+id/accountPhoto"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            tools:src="@drawable/ic_person"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            tools:src="@drawable/ic_face"
+            app:tint="?attr/colorOnPrimaryContainer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -30,7 +31,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
             tools:text="Andriy Litnarovych"
             android:textStyle="bold"
             android:textSize="@dimen/simple_text_size"

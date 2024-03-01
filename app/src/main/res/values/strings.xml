@@ -31,7 +31,8 @@
     <string name="word_to_learn">To learn</string>
     <string name="return_to_previous_word_content_description">Return to previous word icon</string>
     <string name="exception_image_content_description">Exception image</string>
-    <string name="exception_text_content_description">Choose which words you will learn. Click on the word set (category) icon on the screen or in the upper right corner.</string>
+    <string name="no_learning_words_exception_text_title">Nothing!</string>
+    <string name="no_learning_words_exception_text">Choose which words you will learn. Click on the word set (category) icon on the screen or in the upper right corner.</string>
 
     <string name="all_words_filter">All</string>
 

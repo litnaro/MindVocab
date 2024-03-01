@@ -1,5 +1,7 @@
 package com.example.mindvocab.screens.learn
 
+import android.graphics.text.LineBreaker
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +33,7 @@ class LearnWordFragment : BaseFragment() {
             binding.learnEmptyWordSetsBlock.visibility = View.GONE
             binding.learnWordBlock.visibility = View.GONE
             binding.learnPendingProgressBar.visibility = View.GONE
+            binding.accountLearningProgress.visibility = View.GONE
 
             when(it) {
                 is ErrorResult -> {
@@ -44,6 +47,7 @@ class LearnWordFragment : BaseFragment() {
                 is SuccessResult -> {
                     setWordData(it.data)
                     binding.learnWordBlock.visibility = View.VISIBLE
+                    binding.accountLearningProgress.visibility = View.VISIBLE
                 }
             }
         }
@@ -70,12 +74,16 @@ class LearnWordFragment : BaseFragment() {
             Glide.with(wordImage.context)
                 .load(word.image)
                 .centerCrop()
-                .placeholder(R.drawable.image_placeholder)
-                .error(R.drawable.image_placeholder)
+                .placeholder(R.drawable.ic_image_simple_placeholder)
+                .error(R.drawable.ic_image_simple_placeholder)
                 .into(wordImage)
 
             wordTranslation.text = word.translation
             wordExplaining.text = word.explanation
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                wordExplaining.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
+            }
 
             examplesRv.apply {
                 adapter = ExampleAdapter(word.exampleList, object : ExampleAdapter.Listener {

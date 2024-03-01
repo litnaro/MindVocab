@@ -44,13 +44,21 @@ class RepeatWordViewModel(
 
     fun onWordRemember(word: WordToRepeat) {
         viewModelScope.launch {
-            repeatingRepository.onWordRemember(word)
+            try {
+                repeatingRepository.onWordRemember(word)
+            } catch (e: NoWordsToRepeatException) {
+                _wordToRepeat.value = ErrorResult(e)
+            }
         }
     }
 
     fun onWordForgot(word: WordToRepeat) {
         viewModelScope.launch {
-            repeatingRepository.onWordForgot(word)
+            try {
+                repeatingRepository.onWordForgot(word)
+            } catch (e: NoWordsToRepeatException) {
+                _wordToRepeat.value = ErrorResult(e)
+            }
         }
     }
 }
