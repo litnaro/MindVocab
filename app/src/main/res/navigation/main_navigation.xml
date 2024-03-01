@@ -54,6 +54,9 @@
         <action
             android:id="@+id/action_wordSetsFragment_to_wordsFragment"
             app:destination="@id/wordsFragment" />
+        <action
+            android:id="@+id/action_wordSetsFragment_to_learn"
+            app:destination="@id/learn" />
     </fragment>
     <fragment
         android:id="@+id/wordsFragment"

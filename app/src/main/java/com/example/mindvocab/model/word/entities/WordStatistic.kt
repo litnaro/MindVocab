@@ -7,7 +7,6 @@ data class WordStatistic(
     val word: String,
     val transcription: String,
     val translation: String,
-    val isSelected: Boolean,
     val learnProgress: Int,
     val wordStatus: WordCalculations.WordStatus
 )

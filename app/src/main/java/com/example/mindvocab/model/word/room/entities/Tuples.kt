@@ -18,7 +18,6 @@ data class WordWithStatisticTuple(
         word = word,
         transcription = transcription,
         translation = translation,
-        isSelected = false,
         learnProgress = WordCalculations.getProgressOfWord(this),
         wordStatus = WordCalculations.getWordStatusByStatistic(this)
     )

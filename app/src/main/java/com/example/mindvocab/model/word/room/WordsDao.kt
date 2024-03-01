@@ -1,10 +1,7 @@
 package com.example.mindvocab.model.word.room
 
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
 import com.example.mindvocab.model.word.room.entities.WordDbEntity
 import com.example.mindvocab.model.word.room.entities.WordWithStatisticTuple
 import kotlinx.coroutines.flow.Flow
@@ -34,8 +31,5 @@ interface WordsDao {
             "GROUP BY\n" +
             "    words.id;\n")
     fun getWordsWithStatisticByWordSetId(wordSetId: Long, accountId: Long): Flow<List<WordWithStatisticTuple>>
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addWordToAccountProgress(words: List<AccountWordProgressDbEntity>)
 
 }

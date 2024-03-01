@@ -77,13 +77,12 @@ class RoomWordSetsRepository(
 
     private suspend fun setSelectedFlagForWordSet(wordSet: WordSet, isSelected: Boolean) = withContext(ioDispatcher) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        wordSetsDao.setSelectedFlagForWordSet(
-            AccountWordSetDbEntity(
-                accountId = account.id,
-                wordSetId = wordSet.id,
-                isSelected = isSelected
-            )
+        val wordSetDbEntity = AccountWordSetDbEntity(
+            accountId = account.id,
+            wordSetId = wordSet.id,
+            isSelected = isSelected
         )
+
         if (isSelected) {
             val accountWordsProgress = wordsDao.getWordsByWordSetId(wordSet.id).first().map {
                 AccountWordProgressDbEntity(
@@ -94,7 +93,12 @@ class RoomWordSetsRepository(
                     startedAt = 0
                 )
             }
-            wordsDao.addWordToAccountProgress(accountWordsProgress)
+            wordSetsDao.upsertWordSetSelection(
+                wordSetDbEntity,
+                accountWordsProgress
+            )
+        } else {
+            wordSetsDao.upsertWordSetSelection(wordSetDbEntity)
         }
     }
 
