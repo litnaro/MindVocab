@@ -49,6 +49,11 @@
     <string name="return_to_previous_repeat_word__content_description">Return to previous word</string>
     <string name="word_forgot">Forgot</string>
 
+    <string name="no_words_to_repeat_exception_title">No words to repeat</string>
+    <string name="no_words_to_repeat_exception_subtitle">But you could go to learning screen to select one! (if they are available)</string>
+    <string name="words_to_repeat_in_timeout_exception_title">Let`s wait until tomorrow!</string>
+    <string name="words_to_repeat_in_timeout_exception_subtitle">You could watch list of words to see when they will be available.</string>
+
     <string name="repeating_word_started_at">Started at</string>
     <string name="repeating_word_last_repeated_at">Last repeated at</string>
     <string name="repeating_word_progress">Progress</string>
@@ -56,6 +61,7 @@
 
     <!--    Statistic graph-->
     <string name="statistic_title">Statistic</string>
+    <string name="days_in_a_row">days in a row</string>
 
     <string name="notifications_screen_title">Notifications</string>
 
@@ -68,6 +74,7 @@
     <string name="repeating_words_title">Repeating words</string>
     <string name="total_words_statistic">Total words</string>
     <string name="words_left_statistic">Left</string>
+    <string name="words_in_progress_statistic">In progress</string>
     <string name="words_known_statistic">Known</string>
     <string name="words_learned_statistic">Learned</string>
 

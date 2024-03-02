@@ -4,6 +4,9 @@ data class Achievement(
     val id: Int,
     val title: String,
     val description: String,
-    val icon: String,
-    val progress: Int
+    val image: String,
+    val progress: Int,
+    val maxProgress: Int,
+    val dateAchieved: Long,
+    val isChecked: Boolean
 )

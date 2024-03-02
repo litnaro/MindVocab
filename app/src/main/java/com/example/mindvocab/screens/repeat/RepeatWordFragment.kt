@@ -6,12 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.factory
 import com.example.mindvocab.databinding.FragmentRepeatWordBinding
 import com.example.mindvocab.model.ErrorResult
+import com.example.mindvocab.model.NoWordsToRepeatException
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
+import com.example.mindvocab.model.WordsToRepeatCurrentlyInTimeout
 import com.example.mindvocab.model.word.entities.WordToRepeat
 
 class RepeatWordFragment : BaseFragment() {
@@ -35,18 +38,35 @@ class RepeatWordFragment : BaseFragment() {
         _binding = FragmentRepeatWordBinding.inflate(inflater, container, false)
 
         viewModel.wordToRepeat.observe(viewLifecycleOwner) {
+            binding.repeatingContainer.visibility = View.INVISIBLE
+            binding.repeatingExceptionContainer.visibility = View.GONE
+            binding.repeatPendingProgressBar.visibility = View.GONE
+
             when(it) {
                 is PendingResult -> {
-
+                    binding.repeatPendingProgressBar.visibility = View.VISIBLE
                 }
                 is ErrorResult -> {
+                    val context = binding.root.context
+                    binding.repeatingContainer.visibility = View.INVISIBLE
+                    binding.repeatingExceptionContainer.visibility = View.VISIBLE
 
+                    when(it.exception) {
+                        is NoWordsToRepeatException -> {
+                            binding.repeatingExceptionImage.setImageResource(R.drawable.ic_remember)
+                            binding.repeatingExceptionText.text = context.getString(R.string.no_words_to_repeat_exception_title)
+                            binding.repeatingExceptionSubtext.text = context.getString(R.string.no_words_to_repeat_exception_subtitle)
+                        }
+                        is WordsToRepeatCurrentlyInTimeout -> {
+                            binding.repeatingExceptionImage.setImageResource(R.drawable.ic_timeout)
+                            binding.repeatingExceptionText.text = context.getString(R.string.words_to_repeat_in_timeout_exception_title)
+                            binding.repeatingExceptionSubtext.text = context.getString(R.string.words_to_repeat_in_timeout_exception_subtitle)
+                        }
+                    }
                 }
                 is SuccessResult -> {
+                    binding.repeatingContainer.visibility = View.VISIBLE
                     setWordData(it.data)
-                }
-                else -> {
-
                 }
             }
         }

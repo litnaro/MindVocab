@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.account.room.RoomAccountsRepository
+import com.example.mindvocab.model.achievement.AchievementRepository
+import com.example.mindvocab.model.achievement.room.RoomAchievementRepository
 import com.example.mindvocab.model.learning.LearningRepository
 import com.example.mindvocab.model.learning.room.RoomLearningRepository
 import com.example.mindvocab.model.repeating.RepeatingRepository
@@ -17,6 +19,8 @@ import com.example.mindvocab.model.settings.application.SharedPreferencesApplica
 import com.example.mindvocab.model.settings.learn.SharedPreferencesLearnSettings
 import com.example.mindvocab.model.settings.notifications.SharedPreferencesNotificationSettings
 import com.example.mindvocab.model.settings.repeat.SharedPreferencesRepeatSettings
+import com.example.mindvocab.model.statistic.StatisticRepository
+import com.example.mindvocab.model.statistic.room.RoomStatisticRepository
 import com.example.mindvocab.model.word.WordRepository
 import com.example.mindvocab.model.word.room.RoomWordRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -68,6 +72,14 @@ object Repositories {
 
     val repeatingRepository: RepeatingRepository by lazy {
         RoomRepeatingRepository(database.getRepeatingDao(), accountsRepository, ioDispatcher)
+    }
+
+    val statisticRepository: StatisticRepository by lazy {
+        RoomStatisticRepository(database.getStatisticDao(), accountsRepository, ioDispatcher)
+    }
+
+    val achievementRepository: AchievementRepository by lazy {
+        RoomAchievementRepository(database.getAchievementsDao(), accountsRepository, ioDispatcher)
     }
 
     // Entrance point in MainActivity onCreate

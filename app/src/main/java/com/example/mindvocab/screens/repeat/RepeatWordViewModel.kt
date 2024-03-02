@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mindvocab.core.BaseViewModel
+import com.example.mindvocab.model.AppException
 import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.NoWordsToRepeatException
+import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.Result
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.repeating.RepeatingRepository
@@ -16,7 +18,7 @@ class RepeatWordViewModel(
     private val repeatingRepository: RepeatingRepository
 ) : BaseViewModel() {
 
-    private val _wordToRepeat = MutableLiveData<Result<WordToRepeat>>()
+    private val _wordToRepeat = MutableLiveData<Result<WordToRepeat>>(PendingResult())
     val wordToRepeat: LiveData<Result<WordToRepeat>> = _wordToRepeat
 
     init {
@@ -36,7 +38,7 @@ class RepeatWordViewModel(
         viewModelScope.launch {
             try {
                 repeatingRepository.getWordToRepeat()
-            } catch (e: NoWordsToRepeatException) {
+            } catch (e: AppException) {
                 _wordToRepeat.value = ErrorResult(e)
             }
         }
@@ -46,7 +48,7 @@ class RepeatWordViewModel(
         viewModelScope.launch {
             try {
                 repeatingRepository.onWordRemember(word)
-            } catch (e: NoWordsToRepeatException) {
+            } catch (e: AppException) {
                 _wordToRepeat.value = ErrorResult(e)
             }
         }

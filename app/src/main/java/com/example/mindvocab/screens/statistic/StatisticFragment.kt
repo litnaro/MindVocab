@@ -2,34 +2,25 @@ package com.example.mindvocab.screens.statistic
 
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.mindvocab.R
+import com.example.mindvocab.core.BaseFragment
+import com.example.mindvocab.core.factory
 import com.example.mindvocab.databinding.DialogAchievementDetailBinding
 import com.example.mindvocab.databinding.FragmentStatisticBinding
+import com.example.mindvocab.model.ErrorResult
+import com.example.mindvocab.model.PendingResult
+import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.achievement.entities.Achievement
-import com.github.javafaker.Faker
-import kotlin.random.Random
 
-class StatisticFragment : Fragment() {
+class StatisticFragment : BaseFragment() {
 
-    private val random = Random(1)
-    private val faker = Faker.instance()
-
-    private val list = MutableList(10) {
-        val id = it + 1
-        Achievement(
-            id = id,
-            title = faker.cat().name(),
-            description = faker.lorem().paragraph(1),
-            icon = "https://source.unsplash.com/random?cat&iddqd=${random.nextInt()}",
-            progress = 50
-        )
-    }
+    override val viewModel: StatisticViewModel by viewModels { factory() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +40,15 @@ class StatisticFragment : Fragment() {
         binding.statisticViewPager.adapter = StatisticPagerAdapter(this)
         binding.statisticViewPagerIndicator.attachTo(binding.statisticViewPager)
 
-        achievementsAdapter.submitList(list)
+        viewModel.achievements.observe(viewLifecycleOwner) {
+            when(it) {
+                is PendingResult -> {}
+                is ErrorResult -> {}
+                is SuccessResult -> {
+                    achievementsAdapter.submitList(it.data)
+                }
+            }
+        }
         return binding.root
     }
 
@@ -62,7 +61,7 @@ class StatisticFragment : Fragment() {
         dialogBinding.achievementName.text = achievement.title
         dialogBinding.achievementDescription.text = achievement.description
         Glide.with(dialogBinding.achievementPhoto.context)
-            .load(achievement.icon)
+            .load(achievement.image)
             .circleCrop()
             .placeholder(R.drawable.ic_meditation)
             .error(R.drawable.ic_meditation)

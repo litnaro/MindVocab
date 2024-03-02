@@ -32,6 +32,7 @@
         android:layout_width="160dp"
         android:layout_height="160dp"
         app:cardCornerRadius="80dp"
+        app:cardBackgroundColor="?attr/colorPrimaryContainer"
         app:layout_constraintStart_toStartOf="@+id/achievementProgress"
         app:layout_constraintEnd_toEndOf="@+id/achievementProgress"
         app:layout_constraintTop_toTopOf="@+id/achievementProgress"
@@ -42,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/ic_meditation"
+            app:tint="?attr/colorOnPrimaryContainer"
             android:contentDescription="@string/achievement_image_content_description" />
 
     </androidx.cardview.widget.CardView>
@@ -51,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        tools:text="Соник"
+        tools:text="Easy"
         android:textSize="@dimen/main_heading_size"
         android:textStyle="bold"
         android:textColor="?attr/colorOnPrimaryContainer"
@@ -65,7 +67,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:layout_marginTop="5dp"
-        tools:text="Выучить как минимум 50 слов"
+        tools:text="Learn at least 50 words"
         android:textSize="@dimen/third_heading_size"
         android:textColor="?attr/colorOnPrimaryContainer"
         app:layout_constraintTop_toBottomOf="@+id/achievementName"

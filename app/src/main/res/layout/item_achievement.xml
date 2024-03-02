@@ -21,6 +21,7 @@
         android:layout_width="85dp"
         android:layout_height="85dp"
         app:cardCornerRadius="43dp"
+        app:cardBackgroundColor="?attr/colorPrimaryContainer"
         app:layout_constraintStart_toStartOf="@+id/achievementProgress"
         app:layout_constraintEnd_toEndOf="@+id/achievementProgress"
         app:layout_constraintTop_toTopOf="@+id/achievementProgress"
@@ -28,9 +29,12 @@
 
         <ImageView
             android:id="@+id/achievementPhoto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center"
             android:src="@drawable/ic_meditation"
+            android:scaleType="centerCrop"
+            app:tint="?attr/colorOnPrimaryContainer"
             android:contentDescription="@string/achievement_image_content_description" />
     </androidx.cardview.widget.CardView>
 
@@ -38,10 +42,11 @@
         android:id="@+id/achievementName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="Соник"
+        tools:text="Easy"
         android:textSize="@dimen/simple_text_size"
         android:textAlignment="center"
         android:textStyle="bold"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/achievementProgress"/>

@@ -65,7 +65,7 @@
                         app:layout_constraintEnd_toEndOf="@+id/word"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/word"
-                        tools:text="[fioi:de]" />
+                        tools:text="/test/" />
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/listenWordButton"
@@ -272,6 +272,7 @@
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:elevation="2dp"
+                android:textColor="?attr/colorOnPrimaryContainer"
                 app:layout_constraintTop_toBottomOf="@+id/emptyWordSetsImage"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>

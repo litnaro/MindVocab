@@ -20,7 +20,7 @@ interface LearningRepository : Repository {
      * Emits new value to all listenWordToLearn() flow subscribers.
      * Requires ApplicationSettings.NativeLanguageSetting to decide which translation get from database.
      * @throws AuthException Cannot get words progress without account information.
-     * @throws NoWordsToLearnException In case if all words already learned or none of the word set selected.
+     * @throws NoWordsToLearnException In case if all words already learned or none of the word set as selected.
      */
     suspend fun getWordToLearn()
 

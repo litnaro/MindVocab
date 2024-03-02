@@ -1,6 +1,5 @@
 package com.example.mindvocab.model.repeating.room
 
-import android.util.Log
 import com.example.mindvocab.model.AuthException
 import com.example.mindvocab.model.NoWordsToRepeatException
 import com.example.mindvocab.model.account.AccountsRepository
@@ -51,7 +50,6 @@ class RoomRepeatingRepository(
     override suspend fun onWordRemember(word: WordToRepeat) = withContext(ioDispatcher) {
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
-            Log.d("RoomRepeatingRepository", "onWordRemember")
             repeatingDao.updateWordProgressAsRemembered(
                 UpdateWordProgressAsRememberedTuple(
                     accountId = account.id,
@@ -67,7 +65,6 @@ class RoomRepeatingRepository(
     override suspend fun onWordForgot(word: WordToRepeat) = withContext(ioDispatcher) {
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
-            Log.d("RoomRepeatingRepository", "onWordForgot")
             repeatingDao.updateWordProgressAsForgotten(
                 UpdateWordProgressAsForgottenTuple(
                     accountId = account.id,

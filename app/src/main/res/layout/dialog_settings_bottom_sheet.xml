@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
-            tools:text="Тема приложения"
+            tools:text="@string/application_theme_settings"
             android:textStyle="bold"
             android:textColor="?attr/colorOnPrimaryContainer"
             android:textSize="@dimen/secondary_heading_size"/>
@@ -57,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="10dp"
-        tools:text="Вспомогательный текст"
+        tools:text="@string/application_theme_settings_helping_text"
         android:textColor="?attr/colorOnPrimaryContainer"
         android:textSize="@dimen/simple_text_size"/>
 

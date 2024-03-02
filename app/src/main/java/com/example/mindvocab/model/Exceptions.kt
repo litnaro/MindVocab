@@ -14,6 +14,8 @@ class NoWordsToLearnException : AppException()
 //Repeat exceptions
 class NoWordsToRepeatException : AppException()
 
+class WordsToRepeatCurrentlyInTimeout : AppException()
+
 //Account exception
 class AuthException : AppException()
 

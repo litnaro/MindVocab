@@ -37,7 +37,7 @@ class AchievementAdapter (
             achievementName.text = item.title
 
             Glide.with(achievementPhoto.context)
-                .load(item.icon)
+                .load(item.image)
                 .circleCrop()
                 .placeholder(R.drawable.ic_meditation)
                 .error(R.drawable.ic_meditation)
