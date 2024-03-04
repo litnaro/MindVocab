@@ -5,7 +5,7 @@ import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.statistic.StatisticRepository
 import com.example.mindvocab.model.statistic.entities.AccountWordsStatistic
 import com.example.mindvocab.model.statistic.entities.AccountWordsStatisticPercentage
-import com.example.mindvocab.model.word.WordCalculations
+import com.example.mindvocab.model.word.WordsCalculations
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -25,7 +25,7 @@ class RoomStatisticRepository(
 
     override suspend fun getAccountWordsStatisticPercentage(): Flow<AccountWordsStatisticPercentage>  = withContext(ioDispatcher) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        statisticDao.getAccountApplicationStatistic(accountId = account.id, WordCalculations.getWordTimesRepeatedToLearn())
+        statisticDao.getAccountApplicationStatistic(accountId = account.id, WordsCalculations.getWordTimesRepeatedToLearn())
             .map { StatisticCalculations.getPercentageByStatistic(it) }
     }
 }

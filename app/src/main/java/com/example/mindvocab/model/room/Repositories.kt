@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.account.room.RoomAccountsRepository
-import com.example.mindvocab.model.achievement.AchievementRepository
-import com.example.mindvocab.model.achievement.room.RoomAchievementRepository
+import com.example.mindvocab.model.achievement.AchievementsRepository
+import com.example.mindvocab.model.achievement.room.RoomAchievementsRepository
 import com.example.mindvocab.model.learning.LearningRepository
 import com.example.mindvocab.model.learning.room.RoomLearningRepository
 import com.example.mindvocab.model.repeating.RepeatingRepository
@@ -21,8 +21,8 @@ import com.example.mindvocab.model.settings.notifications.SharedPreferencesNotif
 import com.example.mindvocab.model.settings.repeat.SharedPreferencesRepeatSettings
 import com.example.mindvocab.model.statistic.StatisticRepository
 import com.example.mindvocab.model.statistic.room.RoomStatisticRepository
-import com.example.mindvocab.model.word.WordRepository
-import com.example.mindvocab.model.word.room.RoomWordRepository
+import com.example.mindvocab.model.word.WordsRepository
+import com.example.mindvocab.model.word.room.RoomWordsRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -62,8 +62,8 @@ object Repositories {
         RoomWordSetsRepository(database.getWordSetsDao(), database.getWordsDao(), accountsRepository, ioDispatcher)
     }
 
-    val wordsRepository: WordRepository by lazy {
-        RoomWordRepository(database.getWordsDao(), accountsRepository)
+    val wordsRepository: WordsRepository by lazy {
+        RoomWordsRepository(database.getWordsDao(), accountsRepository)
     }
 
     val learningRepository: LearningRepository by lazy {
@@ -78,8 +78,8 @@ object Repositories {
         RoomStatisticRepository(database.getStatisticDao(), accountsRepository, ioDispatcher)
     }
 
-    val achievementRepository: AchievementRepository by lazy {
-        RoomAchievementRepository(database.getAchievementsDao(), accountsRepository, ioDispatcher)
+    val achievementsRepository: AchievementsRepository by lazy {
+        RoomAchievementsRepository(database.getAchievementsDao(), accountsRepository, ioDispatcher)
     }
 
     // Entrance point in MainActivity onCreate

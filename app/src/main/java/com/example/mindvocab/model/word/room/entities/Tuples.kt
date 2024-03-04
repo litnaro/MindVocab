@@ -1,7 +1,7 @@
 package com.example.mindvocab.model.word.room.entities
 
 import androidx.room.ColumnInfo
-import com.example.mindvocab.model.word.WordCalculations
+import com.example.mindvocab.model.word.WordsCalculations
 import com.example.mindvocab.model.word.entities.WordStatistic
 
 data class WordWithStatisticTuple(
@@ -18,7 +18,7 @@ data class WordWithStatisticTuple(
         word = word,
         transcription = transcription,
         translation = translation,
-        learnProgress = WordCalculations.getProgressOfWord(this),
-        wordStatus = WordCalculations.getWordStatusByStatistic(this)
+        learnProgress = WordsCalculations.getProgressOfWord(this),
+        wordStatus = WordsCalculations.getWordStatusByStatistic(this)
     )
 }

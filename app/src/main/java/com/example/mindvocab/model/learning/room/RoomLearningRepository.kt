@@ -6,7 +6,7 @@ import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.learning.LearningRepository
 import com.example.mindvocab.model.learning.room.entities.UpdateWordProgressAsLearningTuple
 import com.example.mindvocab.model.settings.application.ApplicationSettings
-import com.example.mindvocab.model.word.WordCalculations
+import com.example.mindvocab.model.word.WordsCalculations
 import com.example.mindvocab.model.word.entities.Word
 import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
 import kotlinx.coroutines.CoroutineDispatcher
@@ -54,7 +54,7 @@ class RoomLearningRepository(
                 AccountWordProgressDbEntity(
                     accountId = account.id,
                     wordId = word.id,
-                    timesRepeated = WordCalculations.getWordTimesRepeatedToLearn().toByte(),
+                    timesRepeated = WordsCalculations.getWordTimesRepeatedToLearn().toByte(),
                     lastRepeatedAt = currentTimeMillis,
                     startedAt = currentTimeMillis
                 )

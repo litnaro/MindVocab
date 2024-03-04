@@ -3,7 +3,7 @@ package com.example.mindvocab.model.word
 import com.example.mindvocab.model.word.room.entities.WordWithStatisticTuple
 import java.util.Calendar
 
-object WordCalculations {
+object WordsCalculations {
 
     enum class WordStatus {
         NEW,

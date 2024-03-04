@@ -4,7 +4,7 @@ import com.example.mindvocab.model.Repository
 import com.example.mindvocab.model.word.entities.WordStatistic
 import kotlinx.coroutines.flow.Flow
 
-interface WordRepository : Repository {
+interface WordsRepository : Repository {
 
     /**
      * Gets words with translation and progress by specific word set id.

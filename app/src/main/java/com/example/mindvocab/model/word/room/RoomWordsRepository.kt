@@ -1,17 +1,17 @@
 package com.example.mindvocab.model.word.room
 
 import com.example.mindvocab.model.account.AccountsRepository
-import com.example.mindvocab.model.word.WordRepository
+import com.example.mindvocab.model.word.WordsRepository
 import com.example.mindvocab.model.word.entities.WordStatistic
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
-class RoomWordRepository(
+class RoomWordsRepository(
     private val wordsDao: WordsDao,
     private val accountsRepository: AccountsRepository,
-) : WordRepository {
+) : WordsRepository {
 
     override suspend fun getWordsByWordSetId(wordSetId: Long): Flow<List<WordStatistic>> {
         return accountsRepository.getAccount()

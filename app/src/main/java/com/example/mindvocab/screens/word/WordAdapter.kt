@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mindvocab.R
 import com.example.mindvocab.databinding.ItemWordBinding
-import com.example.mindvocab.model.word.WordCalculations
+import com.example.mindvocab.model.word.WordsCalculations
 import com.example.mindvocab.model.word.entities.WordStatistic
 
 class WordAdapter : ListAdapter<WordStatistic, WordAdapter.ViewHolder>(ItemCallback) {
@@ -28,7 +28,7 @@ class WordAdapter : ListAdapter<WordStatistic, WordAdapter.ViewHolder>(ItemCallb
             wordTranslation.text = item.translation
 
             when(item.wordStatus) {
-                WordCalculations.WordStatus.NEW -> {
+                WordsCalculations.WordStatus.NEW -> {
                     wordStatus.text = context.getString(R.string.word_status_new)
 
                     wordTextProgress.visibility = View.GONE
@@ -39,7 +39,7 @@ class WordAdapter : ListAdapter<WordStatistic, WordAdapter.ViewHolder>(ItemCallb
                     wordImageStatus.setImageResource(R.drawable.ic_baseline_lightbulb)
                     wordImageStatus.setColorFilter(context.getColor(R.color.word_new_status))
                 }
-                WordCalculations.WordStatus.IN_PROGRESS -> {
+                WordsCalculations.WordStatus.IN_PROGRESS -> {
                     wordStatus.text = context.getString(R.string.word_status_in_progress)
 
                     wordTextProgress.visibility = View.VISIBLE
@@ -49,7 +49,7 @@ class WordAdapter : ListAdapter<WordStatistic, WordAdapter.ViewHolder>(ItemCallb
 
                     wordImageStatus.visibility = View.GONE
                 }
-                WordCalculations.WordStatus.KNOWN -> {
+                WordsCalculations.WordStatus.KNOWN -> {
                     wordStatus.text = context.getString(R.string.word_status_known)
 
                     wordTextProgress.visibility = View.GONE
@@ -60,7 +60,7 @@ class WordAdapter : ListAdapter<WordStatistic, WordAdapter.ViewHolder>(ItemCallb
                     wordImageStatus.setImageResource(R.drawable.ic_check)
                     wordImageStatus.setColorFilter(context.getColor(R.color.word_known_status))
                 }
-                WordCalculations.WordStatus.LEARNED -> {
+                WordsCalculations.WordStatus.LEARNED -> {
                     wordStatus.text = context.getString(R.string.word_status_learned)
 
                     wordTextProgress.visibility = View.GONE

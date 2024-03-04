@@ -63,7 +63,7 @@ class ViewModelFactory(
                 StatisticDiagramViewModel(Repositories.statisticRepository)
             }
             StatisticViewModel::class.java -> {
-                StatisticViewModel(Repositories.achievementRepository)
+                StatisticViewModel(Repositories.achievementsRepository)
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModelClass")

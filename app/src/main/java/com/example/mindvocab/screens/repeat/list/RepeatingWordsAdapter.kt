@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.databinding.ItemRepeatingWordBinding
-import com.example.mindvocab.model.word.WordCalculations
+import com.example.mindvocab.model.word.WordsCalculations
 import com.example.mindvocab.model.word.entities.WordToRepeatDetail
 
 class RepeatingWordsAdapter : ListAdapter<WordToRepeatDetail, RepeatingWordsAdapter.ViewHolder>(ItemCallback) {
@@ -28,7 +28,7 @@ class RepeatingWordsAdapter : ListAdapter<WordToRepeatDetail, RepeatingWordsAdap
 
             wordStartedAtValue.text = item.startedAt
             wordLastRepeatedAtValue.text = item.lastRepeatedAt
-            wordTimesRepeatedValue.text = context.getString(R.string.amount_of_words, item.timesRepeated, WordCalculations.getWordTimesRepeatedToLearn())
+            wordTimesRepeatedValue.text = context.getString(R.string.amount_of_words, item.timesRepeated, WordsCalculations.getWordTimesRepeatedToLearn())
 
             Glide.with(wordWordSetImage.context)
                 .load(item.wordSetImage)

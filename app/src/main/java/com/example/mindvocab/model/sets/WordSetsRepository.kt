@@ -11,7 +11,7 @@ interface WordSetsRepository : Repository {
 
     /**
      * Get list of word sets.
-     * @param filter Filtering list by category or order. Getting all word sets by default.
+     * @param filter Filtering list by selection. Getting all word sets by default.
      * @throws StorageException
      */
     suspend fun getWordSets(filter: WordSetFilter = WordSetFilter.ALL) : Flow<List<WordSet>>

@@ -6,12 +6,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.model.Result
 import com.example.mindvocab.model.SuccessResult
-import com.example.mindvocab.model.word.WordRepository
+import com.example.mindvocab.model.word.WordsRepository
 import com.example.mindvocab.model.word.entities.WordStatistic
 import kotlinx.coroutines.launch
 
 class WordsViewModel(
-    private val wordRepository: WordRepository
+    private val wordsRepository: WordsRepository
 ) : BaseViewModel() {
 
 
@@ -20,7 +20,7 @@ class WordsViewModel(
 
     fun getWordsByWordSetId(wordSetId: Long) {
         viewModelScope.launch {
-            wordRepository.getWordsByWordSetId(wordSetId).collect {
+            wordsRepository.getWordsByWordSetId(wordSetId).collect {
                 _wordsList.value = SuccessResult(it)
             }
         }

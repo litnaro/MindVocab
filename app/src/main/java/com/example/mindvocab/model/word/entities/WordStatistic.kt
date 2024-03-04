@@ -1,6 +1,6 @@
 package com.example.mindvocab.model.word.entities
 
-import com.example.mindvocab.model.word.WordCalculations
+import com.example.mindvocab.model.word.WordsCalculations
 
 data class WordStatistic(
     val id: Long,
@@ -8,5 +8,5 @@ data class WordStatistic(
     val transcription: String,
     val translation: String,
     val learnProgress: Int,
-    val wordStatus: WordCalculations.WordStatus
+    val wordStatus: WordsCalculations.WordStatus
 )

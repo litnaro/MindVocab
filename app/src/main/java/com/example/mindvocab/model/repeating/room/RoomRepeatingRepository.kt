@@ -6,7 +6,8 @@ import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.repeating.RepeatingRepository
 import com.example.mindvocab.model.repeating.room.entities.UpdateWordProgressAsForgottenTuple
 import com.example.mindvocab.model.repeating.room.entities.UpdateWordProgressAsRememberedTuple
-import com.example.mindvocab.model.word.WordCalculations
+import com.example.mindvocab.model.settings.application.ApplicationSettings
+import com.example.mindvocab.model.word.WordsCalculations
 import com.example.mindvocab.model.word.entities.WordToRepeat
 import com.example.mindvocab.model.word.entities.WordToRepeatDetail
 import kotlinx.coroutines.CoroutineDispatcher
@@ -20,6 +21,7 @@ import kotlinx.coroutines.withContext
 class RoomRepeatingRepository(
     private val repeatingDao: RepeatingDao,
     private val accountsRepository: AccountsRepository,
+    private val applicationSettings: ApplicationSettings,
     private val ioDispatcher: CoroutineDispatcher
 ) : RepeatingRepository {
 
@@ -31,7 +33,12 @@ class RoomRepeatingRepository(
 
     override suspend fun getWordsToRepeat(): Flow<List<WordToRepeatDetail>> {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        val list = repeatingDao.getAllWordsForRepeating(account.id, WordCalculations.getWordTimesRepeatedToLearn(), 1) ?: throw NoWordsToRepeatException()
+        val translation = applicationSettings.listenApplicationNativeLanguage().first()
+        val list = repeatingDao.getAllWordsForRepeating(
+            accountId = account.id,
+            timesRepeatedToLearn = WordsCalculations.getWordTimesRepeatedToLearn(),
+            translationId = translation.value
+        ) ?: throw NoWordsToRepeatException()
         return flowOf(list.map { it.toRepeatingWordDetail() })
     }
 
@@ -40,9 +47,15 @@ class RoomRepeatingRepository(
     }
 
     override suspend fun getWordToRepeat() = withContext(ioDispatcher) {
+        val translation = applicationSettings.listenApplicationNativeLanguage().first()
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
-            val wordToRepeat = repeatingDao.getWordForRepeating(account.id, WordCalculations.getWordTimesRepeatedToLearn(), 1, WordCalculations.getStartOfTodayInMillis()) ?: throw NoWordsToRepeatException()
+            val wordToRepeat = repeatingDao.getWordForRepeating(
+                accountId = account.id,
+                timesRepeatedToLearn = WordsCalculations.getWordTimesRepeatedToLearn(),
+                translationId = translation.value,
+                todayInMillis = WordsCalculations.getStartOfTodayInMillis()
+            ) ?: throw NoWordsToRepeatException()
             currentWordToRepeat.emit(wordToRepeat.toWordToRepeat())
         }
     }
