@@ -32,7 +32,7 @@ interface RepeatingDao {
             "    word_sets ON word_sets.id = words.word_set_id\n" +
             "WHERE\n" +
             "    accounts_words_progress.times_repeated < :timesRepeatedToLearn AND accounts_words_progress.started_at != 0;")
-    suspend fun getAllWordsForRepeating(accountId: Long, timesRepeatedToLearn: Int, translationId: Int) : List<RepeatingWordDetailTuple>?
+    suspend fun getAllWordsForRepeating(accountId: Long, timesRepeatedToLearn: Int, translationId: Long) : List<RepeatingWordDetailTuple>?
 
     @Query("SELECT\n" +
             "    words.id,\n" +
@@ -50,7 +50,7 @@ interface RepeatingDao {
             "WHERE\n" +
             "    accounts_words_progress.times_repeated < :timesRepeatedToLearn AND accounts_words_progress.started_at != 0 AND last_repeated_at < :todayInMillis\n" +
             "LIMIT 1;")
-    suspend fun getWordForRepeating(accountId: Long, timesRepeatedToLearn: Int, translationId: Int, todayInMillis: Long) : RepeatingWordTuple?
+    suspend fun getWordForRepeating(accountId: Long, timesRepeatedToLearn: Int, translationId: Long, todayInMillis: Long) : RepeatingWordTuple?
 
     @Update(entity = AccountWordProgressDbEntity::class)
     suspend fun updateWordProgressAsRemembered(accountWordProgress: UpdateWordProgressAsRememberedTuple)

@@ -19,6 +19,7 @@ class RepeatingWordsViewModel(
 
     init {
         getRepeatingWords()
+
     }
 
     private fun getRepeatingWords() {

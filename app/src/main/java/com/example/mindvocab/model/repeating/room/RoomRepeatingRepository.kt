@@ -33,11 +33,11 @@ class RoomRepeatingRepository(
 
     override suspend fun getWordsToRepeat(): Flow<List<WordToRepeatDetail>> {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        val translation = applicationSettings.listenApplicationNativeLanguage().first()
+        val translation = applicationSettings.getApplicationNativeLanguage()
         val list = repeatingDao.getAllWordsForRepeating(
             accountId = account.id,
             timesRepeatedToLearn = WordsCalculations.getWordTimesRepeatedToLearn(),
-            translationId = translation.value
+            translationId = translation.value.toLong()
         ) ?: throw NoWordsToRepeatException()
         return flowOf(list.map { it.toRepeatingWordDetail() })
     }
@@ -47,13 +47,13 @@ class RoomRepeatingRepository(
     }
 
     override suspend fun getWordToRepeat() = withContext(ioDispatcher) {
-        val translation = applicationSettings.listenApplicationNativeLanguage().first()
+        val translation = applicationSettings.getApplicationNativeLanguage()
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
             val wordToRepeat = repeatingDao.getWordForRepeating(
                 accountId = account.id,
                 timesRepeatedToLearn = WordsCalculations.getWordTimesRepeatedToLearn(),
-                translationId = translation.value,
+                translationId = translation.value.toLong(),
                 todayInMillis = WordsCalculations.getStartOfTodayInMillis()
             ) ?: throw NoWordsToRepeatException()
             currentWordToRepeat.emit(wordToRepeat.toWordToRepeat())
