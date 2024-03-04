@@ -71,7 +71,7 @@ object Repositories {
     }
 
     val repeatingRepository: RepeatingRepository by lazy {
-        RoomRepeatingRepository(database.getRepeatingDao(), accountsRepository, ioDispatcher)
+        RoomRepeatingRepository(database.getRepeatingDao(), accountsRepository, appSettingsManager.getApplicationSettings(), ioDispatcher)
     }
 
     val statisticRepository: StatisticRepository by lazy {
