@@ -2,7 +2,7 @@ package com.example.mindvocab.model.settings
 
 import com.example.mindvocab.model.settings.account.AccountSettings
 import com.example.mindvocab.model.settings.application.ApplicationSettings
-import com.example.mindvocab.model.settings.learn.LearnSettings
+import com.example.mindvocab.model.settings.learn.LearningSettings
 import com.example.mindvocab.model.settings.notifications.NotificationSettings
 import com.example.mindvocab.model.settings.repeat.RepeatSettings
 
@@ -14,8 +14,8 @@ interface AppSettingsManager {
 
     fun getNotificationSettings() : NotificationSettings
 
-    fun getLearnSettings() : LearnSettings
+    fun getLearningSettings() : LearningSettings
 
-    fun getRepeatSettings() : RepeatSettings
+    fun getRepeatingSettings() : RepeatSettings
 
 }

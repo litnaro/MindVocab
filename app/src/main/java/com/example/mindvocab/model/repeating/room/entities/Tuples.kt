@@ -47,7 +47,6 @@ data class RepeatingWordDetailTuple(
     )
 }
 
-
 data class UpdateWordProgressAsRememberedTuple(
     @ColumnInfo(name = "account_id") val accountId: Long,
     @ColumnInfo(name = "word_id") val wordId: Long,
@@ -59,5 +58,9 @@ data class UpdateWordProgressAsForgottenTuple(
     @ColumnInfo(name = "account_id") val accountId: Long,
     @ColumnInfo(name = "word_id") val wordId: Long,
     @ColumnInfo(name = "last_repeated_at") val lastRepeatedAt: Long
+)
+
+data class StatedWordsTuple(
+    @ColumnInfo(name = "started_words_count") val startedWordsCount: Int
 )
 

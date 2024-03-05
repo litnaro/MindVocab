@@ -4,7 +4,7 @@ import com.example.mindvocab.model.settings.AppSettingsEnum
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
-interface LearnSettings {
+interface LearningSettings {
 
     // Listen after appearance
 

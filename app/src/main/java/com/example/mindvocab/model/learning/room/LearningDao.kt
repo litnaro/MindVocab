@@ -6,7 +6,9 @@ import androidx.room.Transaction
 import androidx.room.Update
 import com.example.mindvocab.model.learning.room.entities.UpdateWordProgressAsLearningTuple
 import com.example.mindvocab.model.learning.room.entities.WordForLearningTuple
+import com.example.mindvocab.model.repeating.room.entities.StatedWordsTuple
 import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface LearningDao {
@@ -34,6 +36,16 @@ interface LearningDao {
             "    words.id\n" +
             "LIMIT 1;")
     suspend fun getWordToLearn(accountId: Long): WordForLearningTuple?
+
+    @Query("SELECT\n" +
+            "   count(*) as started_words_count\n" +
+            "FROM\n" +
+            "   accounts_words_progress\n" +
+            "WHERE\n" +
+            "    accounts_words_progress.account_id = :accountId " +
+            "       AND accounts_words_progress.started_at > :todayInMillis" +
+            "       AND accounts_words_progress.times_repeated != :timesRepeatedToLearn")
+    fun getStartedWordsCount(accountId: Long, timesRepeatedToLearn: Int, todayInMillis: Long) : Flow<StatedWordsTuple>
 
     @Update(entity = AccountWordProgressDbEntity::class)
     suspend fun updateWordProgressAsLearning(accountWordProgress: UpdateWordProgressAsLearningTuple)

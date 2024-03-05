@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.factory
@@ -69,6 +70,11 @@ class WordSetsFragment : BaseFragment() {
         binding.wordSetsRv.apply {
             adapter = wordSetAdapter
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        }
+
+        val itemAnimator = binding.wordSetsRv.itemAnimator
+        if (itemAnimator is DefaultItemAnimator) {
+            itemAnimator.supportsChangeAnimations = false
         }
 
         viewModel.wordSetList.observe(viewLifecycleOwner) {

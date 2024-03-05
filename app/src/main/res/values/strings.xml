@@ -17,6 +17,9 @@
     <string name="words_title">Words</string>
     <string name="word_set_choose_title">Word set selection</string>
 
+    <string name="max_amount_of_words_started">of %d words started</string>
+    <string name="icon_timeout_of_words_for_today_content_description">Icon timeout of words for today</string>
+
     <string name="word_status_new">New word</string>
     <string name="word_status_in_progress">Learning</string>
     <string name="word_status_known">Known</string>
@@ -31,8 +34,12 @@
     <string name="word_to_learn">To learn</string>
     <string name="return_to_previous_word_content_description">Return to previous word icon</string>
     <string name="exception_image_content_description">Exception image</string>
+
     <string name="no_learning_words_exception_text_title">Nothing!</string>
     <string name="no_learning_words_exception_text">Choose which words you will learn. Click on the word set (category) icon on the screen or in the upper right corner.</string>
+
+    <string name="learning_words_timeout_exception_text_title">That`s it for today!</string>
+    <string name="learning_words_timeout_exception_text">You could go to the repeating screen to practise or increase learning words a day in settings.</string>
 
     <string name="all_words_filter">All</string>
 

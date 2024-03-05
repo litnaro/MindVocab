@@ -4,27 +4,27 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mindvocab.core.BaseViewModel
-import com.example.mindvocab.model.settings.learn.LearnSettings
+import com.example.mindvocab.model.settings.learn.LearningSettings
 import kotlinx.coroutines.launch
 
 class SettingsLearnViewModel(
-    private val learnSettings: LearnSettings
+    private val learningSettings: LearningSettings
 ) : BaseViewModel() {
 
     private val _listenAfterAppearanceSetting = MutableLiveData<Boolean>()
     val listenAfterAppearanceSetting: LiveData<Boolean> = _listenAfterAppearanceSetting
 
-    private val _wordsADaySetting = MutableLiveData<LearnSettings.WordsADaySetting>()
-    val wordsADaySetting: LiveData<LearnSettings.WordsADaySetting> = _wordsADaySetting
+    private val _wordsADaySetting = MutableLiveData<LearningSettings.WordsADaySetting>()
+    val wordsADaySetting: LiveData<LearningSettings.WordsADaySetting> = _wordsADaySetting
 
-    private val _leftSwipeAction = MutableLiveData<LearnSettings.SwipeActionsSetting>()
-    val leftSwipeAction: LiveData<LearnSettings.SwipeActionsSetting> = _leftSwipeAction
+    private val _leftSwipeAction = MutableLiveData<LearningSettings.SwipeActionsSetting>()
+    val leftSwipeAction: LiveData<LearningSettings.SwipeActionsSetting> = _leftSwipeAction
 
-    private val _rightSwipeAction = MutableLiveData<LearnSettings.SwipeActionsSetting>()
-    val rightSwipeAction: LiveData<LearnSettings.SwipeActionsSetting> = _rightSwipeAction
+    private val _rightSwipeAction = MutableLiveData<LearningSettings.SwipeActionsSetting>()
+    val rightSwipeAction: LiveData<LearningSettings.SwipeActionsSetting> = _rightSwipeAction
 
-    private val _wordsOrderSetting = MutableLiveData<LearnSettings.WordsOrderSetting>()
-    val wordsOrderSetting: LiveData<LearnSettings.WordsOrderSetting> = _wordsOrderSetting
+    private val _wordsOrderSetting = MutableLiveData<LearningSettings.WordsOrderSetting>()
+    val wordsOrderSetting: LiveData<LearningSettings.WordsOrderSetting> = _wordsOrderSetting
 
     init {
         getListenAfterAppearanceSetting()
@@ -36,7 +36,7 @@ class SettingsLearnViewModel(
 
     private fun getListenAfterAppearanceSetting() {
         viewModelScope.launch {
-            learnSettings.listenAfterAppearanceSetting.collect {
+            learningSettings.listenAfterAppearanceSetting.collect {
                 _listenAfterAppearanceSetting.value = it
             }
         }
@@ -44,63 +44,63 @@ class SettingsLearnViewModel(
 
     fun setListenAfterAppearanceSetting(setting: Boolean) {
         viewModelScope.launch {
-            learnSettings.setListenAfterAppearanceSetting(setting)
+            learningSettings.setListenAfterAppearanceSetting(setting)
         }
     }
 
     private fun getWordsADaySetting() {
         viewModelScope.launch {
-            learnSettings.wordsADaySetting.collect {
+            learningSettings.wordsADaySetting.collect {
                 _wordsADaySetting.value = it
             }
         }
     }
 
-    fun setWordsADaySetting(setting: LearnSettings.WordsADaySetting) {
+    fun setWordsADaySetting(setting: LearningSettings.WordsADaySetting) {
         viewModelScope.launch {
-            learnSettings.setWordsADay(setting)
+            learningSettings.setWordsADay(setting)
         }
     }
 
     private fun getLeftSwipeAction() {
         viewModelScope.launch {
-            learnSettings.leftSwipeAction.collect {
+            learningSettings.leftSwipeAction.collect {
                 _leftSwipeAction.value = it
             }
         }
     }
 
-    fun setLeftSwipeAction(settings: LearnSettings.SwipeActionsSetting) {
+    fun setLeftSwipeAction(settings: LearningSettings.SwipeActionsSetting) {
         viewModelScope.launch {
-            learnSettings.setLeftSwipeAction(settings)
+            learningSettings.setLeftSwipeAction(settings)
         }
     }
 
     private fun getRightSwipeAction() {
         viewModelScope.launch {
-            learnSettings.rightSwipeAction.collect {
+            learningSettings.rightSwipeAction.collect {
                 _rightSwipeAction.value = it
             }
         }
     }
 
-    fun setRightSwipeAction(settings: LearnSettings.SwipeActionsSetting) {
+    fun setRightSwipeAction(settings: LearningSettings.SwipeActionsSetting) {
         viewModelScope.launch {
-            learnSettings.setRightSwipeAction(settings)
+            learningSettings.setRightSwipeAction(settings)
         }
     }
 
     private fun getWordsOrderSetting() {
         viewModelScope.launch {
-            learnSettings.wordsOrderSetting.collect {
+            learningSettings.wordsOrderSetting.collect {
                 _wordsOrderSetting.value = it
             }
         }
     }
 
-    fun setWordsOrderSetting(settings: LearnSettings.WordsOrderSetting) {
+    fun setWordsOrderSetting(settings: LearningSettings.WordsOrderSetting) {
         viewModelScope.launch {
-            learnSettings.setWordsOrderSetting(settings)
+            learningSettings.setWordsOrderSetting(settings)
         }
     }
 

@@ -4,9 +4,9 @@ import android.content.Context
 import com.example.mindvocab.model.settings.AppSettings
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class SharedPreferencesLearnSettings(
+class SharedPreferencesLearningSettings(
     appContext: Context
-) : LearnSettings, AppSettings(appContext) {
+) : LearningSettings, AppSettings(appContext) {
 
     // Listen after appearance
 
@@ -28,7 +28,7 @@ class SharedPreferencesLearnSettings(
 
     override val wordsADaySetting = MutableStateFlow(getWordsADaySetting())
 
-    override suspend fun setWordsADay(setting: LearnSettings.WordsADaySetting) {
+    override suspend fun setWordsADay(setting: LearningSettings.WordsADaySetting) {
         if (getWordsADaySetting() == setting) return
         sharedPreferences.edit()
             .putInt(PREF_CURRENT_WORDS_A_DAY_SETTING, setting.value)
@@ -36,9 +36,9 @@ class SharedPreferencesLearnSettings(
         wordsADaySetting.emit(setting)
     }
 
-    private fun getWordsADaySetting() : LearnSettings.WordsADaySetting {
-        return LearnSettings.WordsADaySetting.fromValue(
-            sharedPreferences.getInt(PREF_CURRENT_WORDS_A_DAY_SETTING, LearnSettings.WordsADaySetting.MEDIUM.value)
+    private fun getWordsADaySetting() : LearningSettings.WordsADaySetting {
+        return LearningSettings.WordsADaySetting.fromValue(
+            sharedPreferences.getInt(PREF_CURRENT_WORDS_A_DAY_SETTING, LearningSettings.WordsADaySetting.MEDIUM.value)
         )
     }
 
@@ -46,43 +46,43 @@ class SharedPreferencesLearnSettings(
 
     override val leftSwipeAction = MutableStateFlow(getLeftSwipeAction())
 
-    override suspend fun setLeftSwipeAction(setting: LearnSettings.SwipeActionsSetting) {
+    override suspend fun setLeftSwipeAction(setting: LearningSettings.SwipeActionsSetting) {
         when(setting) {
-            LearnSettings.SwipeActionsSetting.LEARN -> {
-                setSwipeActions(setting, LearnSettings.SwipeActionsSetting.KNOW)
+            LearningSettings.SwipeActionsSetting.LEARN -> {
+                setSwipeActions(setting, LearningSettings.SwipeActionsSetting.KNOW)
             }
-            LearnSettings.SwipeActionsSetting.KNOW -> {
-                setSwipeActions(setting, LearnSettings.SwipeActionsSetting.LEARN)
+            LearningSettings.SwipeActionsSetting.KNOW -> {
+                setSwipeActions(setting, LearningSettings.SwipeActionsSetting.LEARN)
             }
         }
     }
 
-    private fun getLeftSwipeAction() : LearnSettings.SwipeActionsSetting {
-        return LearnSettings.SwipeActionsSetting.fromValue(
-            sharedPreferences.getInt(PREF_CURRENT_LEFT_SWIPE_ACTION, LearnSettings.SwipeActionsSetting.LEARN.value)
+    private fun getLeftSwipeAction() : LearningSettings.SwipeActionsSetting {
+        return LearningSettings.SwipeActionsSetting.fromValue(
+            sharedPreferences.getInt(PREF_CURRENT_LEFT_SWIPE_ACTION, LearningSettings.SwipeActionsSetting.LEARN.value)
         )
     }
 
     override val rightSwipeAction = MutableStateFlow(getRightSwipeAction())
 
-    override suspend fun setRightSwipeAction(setting: LearnSettings.SwipeActionsSetting) {
+    override suspend fun setRightSwipeAction(setting: LearningSettings.SwipeActionsSetting) {
         when(setting) {
-            LearnSettings.SwipeActionsSetting.LEARN -> {
-                setSwipeActions(LearnSettings.SwipeActionsSetting.KNOW ,setting)
+            LearningSettings.SwipeActionsSetting.LEARN -> {
+                setSwipeActions(LearningSettings.SwipeActionsSetting.KNOW ,setting)
             }
-            LearnSettings.SwipeActionsSetting.KNOW -> {
-                setSwipeActions(LearnSettings.SwipeActionsSetting.LEARN ,setting)
+            LearningSettings.SwipeActionsSetting.KNOW -> {
+                setSwipeActions(LearningSettings.SwipeActionsSetting.LEARN ,setting)
             }
         }
     }
 
-    private fun getRightSwipeAction() : LearnSettings.SwipeActionsSetting {
-        return LearnSettings.SwipeActionsSetting.fromValue(
-            sharedPreferences.getInt(PREF_CURRENT_RIGHT_SWIPE_ACTION, LearnSettings.SwipeActionsSetting.KNOW.value)
+    private fun getRightSwipeAction() : LearningSettings.SwipeActionsSetting {
+        return LearningSettings.SwipeActionsSetting.fromValue(
+            sharedPreferences.getInt(PREF_CURRENT_RIGHT_SWIPE_ACTION, LearningSettings.SwipeActionsSetting.KNOW.value)
         )
     }
 
-    private suspend fun setSwipeActions(leftAction: LearnSettings.SwipeActionsSetting, rightAction: LearnSettings.SwipeActionsSetting) {
+    private suspend fun setSwipeActions(leftAction: LearningSettings.SwipeActionsSetting, rightAction: LearningSettings.SwipeActionsSetting) {
         if (getLeftSwipeAction() == leftAction || getRightSwipeAction() == rightAction) return
 
         sharedPreferences.edit()
@@ -100,7 +100,7 @@ class SharedPreferencesLearnSettings(
 
     override val wordsOrderSetting = MutableStateFlow(getWordsOrderSetting())
 
-    override suspend fun setWordsOrderSetting(setting: LearnSettings.WordsOrderSetting) {
+    override suspend fun setWordsOrderSetting(setting: LearningSettings.WordsOrderSetting) {
         if (getWordsOrderSetting() == setting) return
         sharedPreferences.edit()
             .putInt(PREF_CURRENT_WORDS_ORDER_SETTING, setting.value)
@@ -108,9 +108,9 @@ class SharedPreferencesLearnSettings(
         wordsOrderSetting.emit(setting)
     }
 
-    private fun getWordsOrderSetting() : LearnSettings.WordsOrderSetting {
-        return LearnSettings.WordsOrderSetting.fromValue(
-            sharedPreferences.getInt(PREF_CURRENT_WORDS_ORDER_SETTING, LearnSettings.WordsOrderSetting.SMART.value)
+    private fun getWordsOrderSetting() : LearningSettings.WordsOrderSetting {
+        return LearningSettings.WordsOrderSetting.fromValue(
+            sharedPreferences.getInt(PREF_CURRENT_WORDS_ORDER_SETTING, LearningSettings.WordsOrderSetting.SMART.value)
         )
     }
 

@@ -27,7 +27,7 @@ class ViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         val viewModel = when(modelClass) {
             LearnWordViewModel::class.java -> {
-                LearnWordViewModel(Repositories.learningRepository)
+                LearnWordViewModel(Repositories.learningRepository, Repositories.appSettingsManager.getLearningSettings())
             }
             WordSetsViewModel::class.java -> {
                 WordSetsViewModel(Repositories.wordSetsRepository)
@@ -48,10 +48,10 @@ class ViewModelFactory(
                 AccountEditViewModel(Repositories.accountsRepository)
             }
             SettingsRepeatViewModel::class.java -> {
-                SettingsRepeatViewModel(Repositories.appSettingsManager.getRepeatSettings())
+                SettingsRepeatViewModel(Repositories.appSettingsManager.getRepeatingSettings())
             }
             SettingsLearnViewModel::class.java -> {
-                SettingsLearnViewModel(Repositories.appSettingsManager.getLearnSettings())
+                SettingsLearnViewModel(Repositories.appSettingsManager.getLearningSettings())
             }
             RepeatWordViewModel::class.java -> {
                 RepeatWordViewModel(Repositories.repeatingRepository)

@@ -16,7 +16,7 @@ import com.example.mindvocab.model.settings.AppSettingsManager
 import com.example.mindvocab.model.settings.SharedPreferencesAppSettingsManager
 import com.example.mindvocab.model.settings.account.SharedPreferencesAccountSettings
 import com.example.mindvocab.model.settings.application.SharedPreferencesApplicationSettings
-import com.example.mindvocab.model.settings.learn.SharedPreferencesLearnSettings
+import com.example.mindvocab.model.settings.learn.SharedPreferencesLearningSettings
 import com.example.mindvocab.model.settings.notifications.SharedPreferencesNotificationSettings
 import com.example.mindvocab.model.settings.repeat.SharedPreferencesRepeatSettings
 import com.example.mindvocab.model.statistic.StatisticRepository
@@ -47,7 +47,7 @@ object Repositories {
             SharedPreferencesAccountSettings(applicationContext),
             SharedPreferencesApplicationSettings(applicationContext),
             SharedPreferencesNotificationSettings(applicationContext),
-            SharedPreferencesLearnSettings(applicationContext),
+            SharedPreferencesLearningSettings(applicationContext),
             SharedPreferencesRepeatSettings(applicationContext)
         )
     }
@@ -67,7 +67,7 @@ object Repositories {
     }
 
     val learningRepository: LearningRepository by lazy {
-        RoomLearningRepository(database.getLearningDao(), accountsRepository, appSettingsManager.getApplicationSettings(), ioDispatcher)
+        RoomLearningRepository(database.getLearningDao(), accountsRepository, appSettingsManager.getApplicationSettings(), appSettingsManager.getLearningSettings(), ioDispatcher)
     }
 
     val repeatingRepository: RepeatingRepository by lazy {

@@ -64,7 +64,7 @@ class SharedPreferencesApplicationSettings(
 
     override suspend fun getApplicationNativeLanguage(): ApplicationSettings.NativeLanguage {
         val setting = ApplicationSettings.NativeLanguage.fromValue(
-            sharedPreferences.getInt(PREF_CURRENT_APPLICATION_NATIVE_LANGUAGE, ApplicationSettings.NativeLanguage.RUSSIAN.value)
+            sharedPreferences.getInt(PREF_CURRENT_APPLICATION_NATIVE_LANGUAGE, ApplicationSettings.NativeLanguage.UKRAINIAN.value)
         )
         applicationNativeLanguageFlow.emit(setting)
         return setting

@@ -7,38 +7,39 @@ import com.example.mindvocab.model.Result
 import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.model.AppException
 import com.example.mindvocab.model.ErrorResult
-import com.example.mindvocab.model.NoWordsToLearnException
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.learning.LearningRepository
+import com.example.mindvocab.model.settings.learn.LearningSettings
 import com.example.mindvocab.model.word.entities.Word
 import kotlinx.coroutines.launch
 
 class LearnWordViewModel(
-    private val learningRepository: LearningRepository
+    private val learningRepository: LearningRepository,
+    private val learningSettings: LearningSettings
 ) : BaseViewModel() {
 
     private val _word = MutableLiveData<Result<Word>>(PendingResult())
     val word: LiveData<Result<Word>> = _word
 
+    private val _maxWordsForToday = MutableLiveData<LearningSettings.WordsADaySetting>()
+    val maxWordsForToday: LiveData<LearningSettings.WordsADaySetting> = _maxWordsForToday
+
+    private val _startedTodayWordsCount = MutableLiveData<Int>()
+    val startedTodayWordsCount: LiveData<Int> = _startedTodayWordsCount
+
     init {
         listenWordToLearn()
         getWordToLearn()
-    }
-
-    private fun listenWordToLearn() {
-        viewModelScope.launch {
-            learningRepository.listenWordToLearn().collect {
-                _word.value = SuccessResult(it)
-            }
-        }
+        listenWordADaySettings()
+        listenTodayStartedWords()
     }
 
     fun getWordToLearn() {
         viewModelScope.launch {
             try {
                 learningRepository.getWordToLearn()
-            } catch (e: NoWordsToLearnException) {
+            } catch (e: AppException) {
                 _word.value = ErrorResult(e)
             }
         }
@@ -70,5 +71,29 @@ class LearnWordViewModel(
 
     fun onWordListen() {
 
+    }
+
+    private fun listenWordToLearn() {
+        viewModelScope.launch {
+            learningRepository.listenWordToLearn().collect {
+                _word.value = SuccessResult(it)
+            }
+        }
+    }
+
+    private fun listenWordADaySettings() {
+        viewModelScope.launch {
+            learningSettings.wordsADaySetting.collect {
+                _maxWordsForToday.value = it
+            }
+        }
+    }
+
+    private fun listenTodayStartedWords() {
+        viewModelScope.launch {
+            learningRepository.getTodayStartedWordsCount().collect {
+                _startedTodayWordsCount.value = it
+            }
+        }
     }
 }

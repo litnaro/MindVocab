@@ -1,11 +1,13 @@
 package com.example.mindvocab.model.learning.room
 
 import com.example.mindvocab.model.AuthException
+import com.example.mindvocab.model.NoMoreWordsToLearnForTodayException
 import com.example.mindvocab.model.NoWordsToLearnException
 import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.learning.LearningRepository
 import com.example.mindvocab.model.learning.room.entities.UpdateWordProgressAsLearningTuple
 import com.example.mindvocab.model.settings.application.ApplicationSettings
+import com.example.mindvocab.model.settings.learn.LearningSettings
 import com.example.mindvocab.model.word.WordsCalculations
 import com.example.mindvocab.model.word.entities.Word
 import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
@@ -13,12 +15,15 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 class RoomLearningRepository(
     private val learningDao: LearningDao,
     private val accountsRepository: AccountsRepository,
     private val applicationSettings: ApplicationSettings,
+    private val learningSettings: LearningSettings,
     private val ioDispatcher: CoroutineDispatcher
 ) : LearningRepository {
 
@@ -36,6 +41,7 @@ class RoomLearningRepository(
         //TODO live updates with native language settings. Now works only with application restart
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
+            if (getTodayStartedWordsCount().first() >= learningSettings.wordsADaySetting.first().value) throw NoMoreWordsToLearnForTodayException()
             val wordTuple = learningDao.getWordToLearn(account.id) ?: throw NoWordsToLearnException()
             val languageSetting = applicationSettings.getApplicationNativeLanguage()
             currentWordToLearn.emit(wordTuple.toWord(languageSetting))
@@ -74,6 +80,17 @@ class RoomLearningRepository(
                 )
             )
             getWordToLearn()
+        }
+    }
+
+    override suspend fun getTodayStartedWordsCount(): Flow<Int> = withContext(ioDispatcher){
+        val account = accountsRepository.getAccount().first() ?: throw AuthException()
+        learningDao.getStartedWordsCount(
+            accountId = account.id,
+            timesRepeatedToLearn = WordsCalculations.getWordTimesRepeatedToLearn(),
+            todayInMillis = WordsCalculations.getStartOfTodayInMillis()
+        ).map {
+            it.startedWordsCount
         }
     }
 

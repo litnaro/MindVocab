@@ -14,6 +14,7 @@ import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.databinding.FragmentLearnWordBinding
 import com.example.mindvocab.core.factory
 import com.example.mindvocab.model.ErrorResult
+import com.example.mindvocab.model.NoMoreWordsToLearnForTodayException
 import com.example.mindvocab.model.NoWordsToLearnException
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
@@ -34,11 +35,22 @@ class LearnWordFragment : BaseFragment() {
             binding.learnWordBlock.visibility = View.GONE
             binding.learnPendingProgressBar.visibility = View.GONE
             binding.accountLearningProgress.visibility = View.GONE
+            binding.accountLearningProgressCheckImage.visibility = View.GONE
 
             when(it) {
                 is ErrorResult -> {
+                    binding.learnEmptyWordSetsBlock.visibility = View.VISIBLE
+                    val context = binding.root.context
                     if (it.exception is NoWordsToLearnException) {
-                        binding.learnEmptyWordSetsBlock.visibility = View.VISIBLE
+                        binding.emptyWordToLearnImage.setImageResource(R.drawable.ic_selection_list)
+                        binding.emptyWordToLearnTitle.text = context.getString(R.string.no_learning_words_exception_text_title)
+                        binding.emptyWordToLearnText.text = context.getString(R.string.no_learning_words_exception_text)
+                    } else if (it.exception is NoMoreWordsToLearnForTodayException) {
+                        binding.accountLearningProgressCheckImage.visibility = View.VISIBLE
+                        binding.accountLearningProgress.visibility = View.VISIBLE
+                        binding.emptyWordToLearnImage.setImageResource(R.drawable.ic_timer)
+                        binding.emptyWordToLearnTitle.text = context.getString(R.string.learning_words_timeout_exception_text_title)
+                        binding.emptyWordToLearnText.text = context.getString(R.string.learning_words_timeout_exception_text)
                     }
                 }
                 is PendingResult -> {
@@ -50,6 +62,16 @@ class LearnWordFragment : BaseFragment() {
                     binding.accountLearningProgress.visibility = View.VISIBLE
                 }
             }
+        }
+
+        viewModel.maxWordsForToday.observe(viewLifecycleOwner) {
+            binding.maxWordsForToday.text = binding.root.context.getString(R.string.max_amount_of_words_started, it.value)
+            binding.accountLearningProgress.max = it.value
+        }
+
+        viewModel.startedTodayWordsCount.observe(viewLifecycleOwner) {
+            binding.startedTodayWordsCount.text = it.toString()
+            binding.accountLearningProgress.progress = it
         }
 
         binding.listenWordButton.setOnClickListener {

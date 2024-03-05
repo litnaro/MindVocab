@@ -11,6 +11,8 @@ class WordSetAlreadyExistsException : AppException()
 //Learn exceptions
 class NoWordsToLearnException : AppException()
 
+class NoMoreWordsToLearnForTodayException : AppException()
+
 //Repeat exceptions
 class NoWordsToRepeatException : AppException()
 

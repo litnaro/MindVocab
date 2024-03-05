@@ -8,19 +8,63 @@
     android:orientation="vertical"
     android:padding="@dimen/main_screen_padding">
 
-    <ProgressBar
-        android:id="@+id/accountLearningProgress"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:progress="50"
-        style="?android:attr/progressBarStyleHorizontal"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/startedTodayWordsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            tools:text="1"
+            android:textColor="?attr/colorOnPrimary"/>
+
+        <TextView
+            android:id="@+id/maxWordsForToday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            tools:text="@string/max_amount_of_words_started"
+            android:textColor="?attr/colorOnPrimary"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/accountLearningProgress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="10dp"
+            app:indicatorColor="?attr/colorPrimaryContainer"
+            app:trackColor="?attr/colorOnPrimaryContainer"
+            android:progress="50"
+            android:layout_gravity="center_vertical"/>
+
+        <ImageView
+            android:id="@+id/accountLearningProgressCheckImage"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:src="@drawable/ic_check"
+            app:tint="?attr/colorOnPrimary"
+            android:contentDescription="@string/icon_timeout_of_words_for_today_content_description" />
+
+    </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/learnWordContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         app:contentPadding="20dp"
         app:contentPaddingTop="10dp"
         app:contentPaddingBottom="10dp"
@@ -250,10 +294,10 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/emptyWordSetsImage"
+                android:id="@+id/emptyWordToLearnImage"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
-                android:src="@drawable/ic_selection_list"
+                tools:src="@drawable/ic_selection_list"
                 app:tint="?attr/colorOnPrimaryContainer"
                 app:layout_constraintVertical_bias="0.25"
                 app:layout_constraintStart_toStartOf="parent"
@@ -263,34 +307,34 @@
                 android:contentDescription="@string/exception_image_content_description" />
             
             <TextView
-                android:id="@+id/emptyWordSetsTitle"
+                android:id="@+id/emptyWordToLearnTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/no_learning_words_exception_text_title"
+                tools:text="@string/no_learning_words_exception_text_title"
                 android:textSize="@dimen/secondary_heading_size"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:elevation="2dp"
                 android:textColor="?attr/colorOnPrimaryContainer"
-                app:layout_constraintTop_toBottomOf="@+id/emptyWordSetsImage"
+                app:layout_constraintTop_toBottomOf="@+id/emptyWordToLearnImage"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
-                android:id="@+id/emptyWordSetsText"
+                android:id="@+id/emptyWordToLearnText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginHorizontal="10dp"
-                android:text="@string/no_learning_words_exception_text"
+                tools:text="@string/no_learning_words_exception_text"
                 android:textSize="@dimen/simple_text_size"
                 android:elevation="2dp"
                 android:textAlignment="center"
                 android:textColor="?attr/colorOnPrimaryContainer"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/emptyWordSetsTitle"/>
+                app:layout_constraintTop_toBottomOf="@+id/emptyWordToLearnTitle"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
