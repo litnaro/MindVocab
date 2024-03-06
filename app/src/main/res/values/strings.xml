@@ -77,9 +77,14 @@
     <string name="close_achievement_dialog_content_description">Close achievement dialog icon</string>
 
     <string name="achievements_statistic_title">Achievements</string>
+    <string name="icon_all_words_metric_content_description">Icon all words metric</string>
+    <string name="icon_achievements_metrics_content_description">Icon achievements metrics</string>
+
+    <string name="completed_sets">Completed sets</string>
 
     <string name="repeating_words_title">Repeating words</string>
     <string name="total_words_statistic">Total words</string>
+    <string name="achievements_statistic">Achievements</string>
     <string name="words_left_statistic">Left</string>
     <string name="words_in_progress_statistic">In progress</string>
     <string name="words_known_statistic">Known</string>

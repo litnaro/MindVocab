@@ -9,220 +9,224 @@
     tools:padding="@dimen/main_screen_padding"
     tools:context=".screens.statistic.metric.StatisticMetricFragment">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/default_card_corner_radius"
+        app:cardBackgroundColor="?attr/colorPrimaryContainer"
+        app:contentPadding="@dimen/big_card_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_check_circle_outline"
+                app:tint="?attr/colorOnPrimaryContainer"
+                android:contentDescription="@string/icon_achievements_metrics_content_description" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/achievements_statistic"
+                android:textSize="@dimen/third_heading_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/achievementsStatisticValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                tools:text="12/29"
+                android:textSize="@dimen/third_heading_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        app:cardCornerRadius="@dimen/default_card_corner_radius"
+        app:cardBackgroundColor="?attr/colorPrimaryContainer"
+        app:contentPadding="@dimen/big_card_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_language"
+                app:tint="?attr/colorOnPrimaryContainer"
+                android:contentDescription="@string/icon_all_words_metric_content_description" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/total_words_statistic"
+                android:textSize="@dimen/third_heading_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/allWordsCountValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                tools:text="245"
+                android:textSize="@dimen/third_heading_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:layout_gravity="center_vertical" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginEnd="5dp"
-            app:cardCornerRadius="@dimen/small_card_corner_radius"
-            app:cardBackgroundColor="?attr/colorPrimaryContainer">
-            <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginEnd="3dp"
+            app:cardCornerRadius="@dimen/default_card_corner_radius"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer"
+            app:contentPadding="@dimen/default_card_padding">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <View
-                    android:id="@+id/allWordsIndicator"
-                    android:layout_width="3dp"
-                    android:layout_height="0dp"
-                    android:background="?attr/colorError"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/allWordsTitle"
-                    app:layout_constraintBottom_toBottomOf="@+id/allWordsTitle"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/allWordsTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="15dp"
-                    android:text="@string/total_words_statistic"
-                    android:textStyle="bold"
-                    android:paddingVertical="10dp"
-                    android:textColor="?attr/colorOnPrimaryContainer"
-                    android:textSize="@dimen/third_heading_size"
-                    app:layout_constraintStart_toEndOf="@+id/allWordsIndicator"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-                <TextView
-                    android:id="@+id/allWordsMetrics"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    tools:text="278"
-                    android:paddingVertical="20dp"
-                    android:textSize="@dimen/secondary_heading_size"
-                    android:textColor="?attr/colorOnPrimaryContainer"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/allWordsTitle"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="5dp"
-            app:cardCornerRadius="@dimen/small_card_corner_radius"
-            app:cardBackgroundColor="?attr/colorPrimaryContainer">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <View
-                    android:id="@+id/learnedWordsIndicator"
-                    android:layout_width="3dp"
-                    android:layout_height="0dp"
-                    android:background="?attr/colorError"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/learnedWordsTitle"
-                    app:layout_constraintBottom_toBottomOf="@+id/learnedWordsTitle"/>
-
-                <TextView
-                    android:id="@+id/learnedWordsTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="15dp"
                     android:text="@string/words_learned_statistic"
-                    android:textStyle="bold"
-                    android:paddingVertical="10dp"
-                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textAlignment="center"
                     android:textSize="@dimen/third_heading_size"
-                    app:layout_constraintStart_toEndOf="@+id/learnedWordsIndicator"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    android:textColor="?attr/colorOnPrimaryContainer" />
 
                 <TextView
-                    android:id="@+id/learnedWordsMetrics"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/learnedWordsCountValue"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    tools:text="20"
-                    android:paddingVertical="20dp"
-                    android:textColor="?attr/colorOnPrimaryContainer"
-                    android:textSize="@dimen/secondary_heading_size"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/learnedWordsTitle"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    android:layout_marginTop="5dp"
+                    tools:text="45"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/third_heading_size"
+                    android:textColor="?attr/colorOnPrimaryContainer" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
         </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="3dp"
+            app:cardCornerRadius="@dimen/default_card_corner_radius"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer"
+            app:contentPadding="@dimen/default_card_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/words_known_statistic"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/third_heading_size"
+                    android:textColor="?attr/colorOnPrimaryContainer" />
+
+                <TextView
+                    android:id="@+id/knownWordsCountValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    tools:text="45"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/third_heading_size"
+                    android:textColor="?attr/colorOnPrimaryContainer" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="3dp"
+            app:cardCornerRadius="@dimen/default_card_corner_radius"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer"
+            app:contentPadding="@dimen/default_card_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/words_left_statistic"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/third_heading_size"
+                    android:textColor="?attr/colorOnPrimaryContainer" />
+
+                <TextView
+                    android:id="@+id/leftWordsCountValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    tools:text="45"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/third_heading_size"
+                    android:textColor="?attr/colorOnPrimaryContainer" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
 
     </LinearLayout>
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:paddingVertical="6dp"
+        android:text="@string/completed_sets"
+        android:textSize="@dimen/third_heading_size"
+        android:textColor="?attr/colorOnPrimary"/>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginEnd="5dp"
-            app:cardCornerRadius="@dimen/small_card_corner_radius"
-            app:cardBackgroundColor="?attr/colorPrimaryContainer">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <View
-                    android:id="@+id/knownWordsIndicator"
-                    android:layout_width="3dp"
-                    android:layout_height="0dp"
-                    android:background="?attr/colorError"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/knownWordsTitle"
-                    app:layout_constraintBottom_toBottomOf="@+id/knownWordsTitle"/>
-
-                <TextView
-                    android:id="@+id/knownWordsTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="15dp"
-                    android:text="@string/words_known_statistic"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorOnPrimaryContainer"
-                    android:paddingVertical="10dp"
-                    android:textSize="@dimen/third_heading_size"
-                    app:layout_constraintStart_toEndOf="@+id/knownWordsIndicator"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-                <TextView
-                    android:id="@+id/knownWordsMetrics"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    tools:text="20"
-                    android:paddingVertical="20dp"
-                    android:textSize="@dimen/secondary_heading_size"
-                    android:textColor="?attr/colorOnPrimaryContainer"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/knownWordsTitle"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="5dp"
-            app:cardCornerRadius="@dimen/small_card_corner_radius"
-            app:cardBackgroundColor="?attr/colorPrimaryContainer">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <View
-                    android:id="@+id/leftWordsIndicator"
-                    android:layout_width="3dp"
-                    android:layout_height="0dp"
-                    android:background="?attr/colorError"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/leftWordsTitle"
-                    app:layout_constraintBottom_toBottomOf="@+id/leftWordsTitle"/>
-
-                <TextView
-                    android:id="@+id/leftWordsTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="15dp"
-                    android:text="@string/words_left_statistic"
-                    android:textStyle="bold"
-                    android:paddingVertical="10dp"
-                    android:textColor="?attr/colorOnPrimaryContainer"
-                    android:textSize="@dimen/third_heading_size"
-                    app:layout_constraintStart_toEndOf="@+id/leftWordsIndicator"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-                <TextView
-                    android:id="@+id/leftWordsMetrics"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    tools:text="20"
-                    android:paddingVertical="20dp"
-                    android:textSize="@dimen/secondary_heading_size"
-                    android:textColor="?attr/colorOnPrimaryContainer"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/leftWordsTitle"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/wordSetsStatisticChipGroup"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="6dp"
+        android:layout_weight="1"/>
 
 </LinearLayout>

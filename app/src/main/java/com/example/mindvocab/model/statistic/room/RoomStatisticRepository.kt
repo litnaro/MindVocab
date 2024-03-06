@@ -3,8 +3,9 @@ package com.example.mindvocab.model.statistic.room
 import com.example.mindvocab.model.AuthException
 import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.statistic.StatisticRepository
-import com.example.mindvocab.model.statistic.entities.AccountWordsStatistic
-import com.example.mindvocab.model.statistic.entities.AccountWordsStatisticPercentage
+import com.example.mindvocab.model.statistic.entities.AchievementsStatistic
+import com.example.mindvocab.model.statistic.entities.WordsStatistic
+import com.example.mindvocab.model.statistic.entities.WordsStatisticPercentage
 import com.example.mindvocab.model.word.WordsCalculations
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -19,13 +20,40 @@ class RoomStatisticRepository(
 ) : StatisticRepository {
 
 
-    override suspend fun getAccountWordsStatistic(): Flow<AccountWordsStatistic> {
-        TODO("Not yet implemented")
+    override suspend fun getWordsStatistic(): Flow<WordsStatistic> = withContext(ioDispatcher) {
+        val account = accountsRepository.getAccount().first() ?: throw AuthException()
+        statisticDao.getAccountApplicationStatistic(accountId = account.id, WordsCalculations.getWordTimesRepeatedToLearn()).map {
+            WordsStatistic(
+                allWordsCount = it.allWordsCount,
+                learnedWords = it.learnedWordsCount,
+                knownWordsCount = it.knownWordsCount,
+                wordsLeftCount = it.allWordsCount - it.learnedWordsCount - it.knownWordsCount
+            )
+        }
     }
 
-    override suspend fun getAccountWordsStatisticPercentage(): Flow<AccountWordsStatisticPercentage>  = withContext(ioDispatcher) {
+    override suspend fun getWordsStatisticPercentage(): Flow<WordsStatisticPercentage> = withContext(ioDispatcher) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
         statisticDao.getAccountApplicationStatistic(accountId = account.id, WordsCalculations.getWordTimesRepeatedToLearn())
             .map { StatisticCalculations.getPercentageByStatistic(it) }
     }
+
+    override suspend fun getAchievementStatistic(): Flow<AchievementsStatistic> = withContext(ioDispatcher) {
+        val account = accountsRepository.getAccount().first() ?: throw AuthException()
+        statisticDao.getAccountAchievementsStatistic(account.id).map {
+            AchievementsStatistic(
+                achievementsCount = it.achievementsCount,
+                achievementsCompleted = it.achievementsCompleted
+            )
+        }
+    }
+
+    override suspend fun getWordSetsStatistic(): Flow<List<String>> = withContext(ioDispatcher){
+        // TODO maybe also return id to see word set or its statistic
+        val account = accountsRepository.getAccount().first() ?: throw AuthException()
+        statisticDao.getAccountCompletedWordSets(account.id, WordsCalculations.getWordTimesRepeatedToLearn()).map { entities ->
+            entities.map { it.name }
+        }
+    }
+
 }

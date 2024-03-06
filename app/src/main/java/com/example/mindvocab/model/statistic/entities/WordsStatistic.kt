@@ -1,6 +1,6 @@
 package com.example.mindvocab.model.statistic.entities
 
-data class AccountWordsStatistic(
+data class WordsStatistic (
     val allWordsCount: Int,
     val learnedWords: Int,
     val knownWordsCount: Int,

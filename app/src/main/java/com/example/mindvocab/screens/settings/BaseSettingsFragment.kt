@@ -37,6 +37,7 @@ abstract class BaseSettingsFragment : BaseFragment() {
         dialogBinding.dialogTitle.text = title
         dialogBinding.dialogHelpingText.text = subtitle
 
+        //TODO replace colors
         settingClass.enumConstants?.forEach {
             val chip = Chip(requireContext()).apply {
                 text = it.name.lowercase().replaceFirstChar { char -> char.uppercase() }

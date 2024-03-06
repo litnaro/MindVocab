@@ -12,7 +12,7 @@ import com.example.mindvocab.databinding.FragmentStatisticDiagramBinding
 import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
-import com.example.mindvocab.model.statistic.entities.AccountWordsStatisticPercentage
+import com.example.mindvocab.model.statistic.entities.WordsStatisticPercentage
 import ir.mahozad.android.PieChart
 
 class StatisticDiagramFragment : BaseFragment() {
@@ -52,7 +52,7 @@ class StatisticDiagramFragment : BaseFragment() {
         _binding = null
     }
 
-    private fun updateDiagram(statistic: AccountWordsStatisticPercentage) {
+    private fun updateDiagram(statistic: WordsStatisticPercentage) {
         val context = binding.root.context
 
         binding.progressDiagram.apply {

@@ -10,15 +10,15 @@ import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.Result
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.statistic.StatisticRepository
-import com.example.mindvocab.model.statistic.entities.AccountWordsStatisticPercentage
+import com.example.mindvocab.model.statistic.entities.WordsStatisticPercentage
 import kotlinx.coroutines.launch
 
 class StatisticDiagramViewModel(
     private val statisticRepository: StatisticRepository
 ) : BaseViewModel() {
 
-    private val _statistic = MutableLiveData<Result<AccountWordsStatisticPercentage>>(PendingResult())
-    val statistic: LiveData<Result<AccountWordsStatisticPercentage>> = _statistic
+    private val _statistic = MutableLiveData<Result<WordsStatisticPercentage>>(PendingResult())
+    val statistic: LiveData<Result<WordsStatisticPercentage>> = _statistic
 
     init {
         getStatistic()
@@ -27,7 +27,7 @@ class StatisticDiagramViewModel(
     private fun getStatistic() {
         viewModelScope.launch {
             try {
-                statisticRepository.getAccountWordsStatisticPercentage().collect {
+                statisticRepository.getWordsStatisticPercentage().collect {
                     _statistic.value = SuccessResult(it)
                 }
             } catch (e: AppException) {

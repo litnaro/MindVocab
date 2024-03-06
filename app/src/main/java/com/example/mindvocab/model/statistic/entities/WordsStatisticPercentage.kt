@@ -1,6 +1,6 @@
 package com.example.mindvocab.model.statistic.entities
 
-data class AccountWordsStatisticPercentage(
+data class WordsStatisticPercentage (
     val learnedWords: Float,
     val knownWords: Float,
     val repeatingWords: Float,

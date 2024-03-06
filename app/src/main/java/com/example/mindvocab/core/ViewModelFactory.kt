@@ -17,6 +17,7 @@ import com.example.mindvocab.screens.settings.notifications.SettingsNotification
 import com.example.mindvocab.screens.settings.repeat.SettingsRepeatViewModel
 import com.example.mindvocab.screens.statistic.StatisticViewModel
 import com.example.mindvocab.screens.statistic.diagram.StatisticDiagramViewModel
+import com.example.mindvocab.screens.statistic.metric.StatisticMetricViewModel
 import com.example.mindvocab.screens.word.WordsViewModel
 
 class ViewModelFactory(
@@ -64,6 +65,9 @@ class ViewModelFactory(
             }
             StatisticViewModel::class.java -> {
                 StatisticViewModel(Repositories.achievementsRepository)
+            }
+            StatisticMetricViewModel::class.java -> {
+                StatisticMetricViewModel(Repositories.statisticRepository)
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModelClass")
