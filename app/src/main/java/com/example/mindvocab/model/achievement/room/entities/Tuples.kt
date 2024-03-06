@@ -1,6 +1,7 @@
 package com.example.mindvocab.model.achievement.room.entities
 
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import com.example.mindvocab.model.achievement.entities.Achievement
 
 data class AccountAchievementProgressTuple(
@@ -17,3 +18,8 @@ data class AccountAchievementProgressTuple(
         id, title, description, image, progress, progressToAchieve, dateAchieved, isChecked
     )
 }
+
+data class AchievementProgressTuple(
+    @Embedded val achievement: AchievementDbEntity,
+    val progress: Int
+)

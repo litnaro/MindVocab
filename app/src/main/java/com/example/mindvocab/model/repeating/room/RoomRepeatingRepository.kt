@@ -3,6 +3,7 @@ package com.example.mindvocab.model.repeating.room
 import com.example.mindvocab.model.AuthException
 import com.example.mindvocab.model.NoWordsToRepeatException
 import com.example.mindvocab.model.account.AccountsRepository
+import com.example.mindvocab.model.achievement.AchievementsRepository
 import com.example.mindvocab.model.repeating.RepeatingRepository
 import com.example.mindvocab.model.repeating.room.entities.UpdateWordProgressAsForgottenTuple
 import com.example.mindvocab.model.repeating.room.entities.UpdateWordProgressAsRememberedTuple
@@ -22,6 +23,7 @@ class RoomRepeatingRepository(
     private val repeatingDao: RepeatingDao,
     private val accountsRepository: AccountsRepository,
     private val applicationSettings: ApplicationSettings,
+    private val achievementsRepository: AchievementsRepository,
     private val ioDispatcher: CoroutineDispatcher
 ) : RepeatingRepository {
 
@@ -71,6 +73,9 @@ class RoomRepeatingRepository(
                     lastRepeatedAt = System.currentTimeMillis()
                 )
             )
+            if (word.timesRepeated + 1 == WordsCalculations.getWordTimesRepeatedToLearn()) {
+                achievementsRepository.updateAchievementsByAction(AchievementsRepository.AchievementAction.WORD_LEARN_ACTION)
+            }
             getWordToRepeat()
         }
     }

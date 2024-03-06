@@ -85,7 +85,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         tools:text="Learn at least 50 words"
         android:textSize="@dimen/third_heading_size"
         android:textColor="?attr/colorOnPrimaryContainer"

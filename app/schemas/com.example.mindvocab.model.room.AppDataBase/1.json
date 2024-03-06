@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "b65c04ee37ef2a48daf04c8ff95991c4",
+    "identityHash": "d46984ea25fe260361f4ce1f6a55e4ba",
     "entities": [
       {
         "tableName": "accounts",
@@ -176,7 +176,7 @@
       },
       {
         "tableName": "achievements",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `image` TEXT NOT NULL, `progress_to_achieve` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `achievement_type_id` INTEGER NOT NULL, `description` TEXT NOT NULL, `image` TEXT NOT NULL, `progress_to_achieve` INTEGER NOT NULL, FOREIGN KEY(`achievement_type_id`) REFERENCES `achievements_types`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -188,6 +188,12 @@
             "fieldPath": "title",
             "columnName": "title",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "achievementTypeId",
+            "columnName": "achievement_type_id",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -216,11 +222,23 @@
           ]
         },
         "indices": [],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "achievements_types",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "achievement_type_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
       },
       {
         "tableName": "accounts_achievements_progress",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`account_id` INTEGER NOT NULL, `achievement_id` INTEGER NOT NULL, `achievement_type_id` INTEGER NOT NULL, `progress` INTEGER NOT NULL, `date_achieved` INTEGER NOT NULL, `is_checked` INTEGER NOT NULL, PRIMARY KEY(`account_id`, `achievement_id`), FOREIGN KEY(`account_id`) REFERENCES `accounts`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`achievement_id`) REFERENCES `achievements`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`achievement_type_id`) REFERENCES `achievements_types`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`account_id` INTEGER NOT NULL, `achievement_id` INTEGER NOT NULL, `progress` INTEGER NOT NULL, `date_achieved` INTEGER NOT NULL, `is_checked` INTEGER NOT NULL, PRIMARY KEY(`account_id`, `achievement_id`), FOREIGN KEY(`account_id`) REFERENCES `accounts`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`achievement_id`) REFERENCES `achievements`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "accountId",
@@ -231,12 +249,6 @@
           {
             "fieldPath": "achievementId",
             "columnName": "achievement_id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "achievementTypeId",
-            "columnName": "achievement_type_id",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -295,17 +307,6 @@
             "onUpdate": "CASCADE",
             "columns": [
               "achievement_id"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          },
-          {
-            "table": "achievements_types",
-            "onDelete": "CASCADE",
-            "onUpdate": "CASCADE",
-            "columns": [
-              "achievement_type_id"
             ],
             "referencedColumns": [
               "id"
@@ -763,7 +764,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b65c04ee37ef2a48daf04c8ff95991c4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd46984ea25fe260361f4ce1f6a55e4ba')"
     ]
   }
 }

@@ -60,12 +60,23 @@ class StatisticFragment : BaseFragment() {
 
         dialogBinding.achievementName.text = achievement.title
         dialogBinding.achievementDescription.text = achievement.description
+
+        if (achievement.progress == achievement.maxProgress) {
+            dialogBinding.achievementCompletedIcon.visibility = View.VISIBLE
+        } else {
+            dialogBinding.achievementCompletedIcon.visibility = View.GONE
+        }
+
+        dialogBinding.achievementProgress.max = achievement.maxProgress
+        dialogBinding.achievementProgress.progress = achievement.progress
+
         Glide.with(dialogBinding.achievementPhoto.context)
             .load(achievement.image)
             .circleCrop()
             .placeholder(R.drawable.ic_meditation)
             .error(R.drawable.ic_meditation)
             .into(dialogBinding.achievementPhoto)
+
         dialogBinding.close.setOnClickListener {
             dialog.dismiss()
         }

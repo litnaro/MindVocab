@@ -66,20 +66,20 @@ object Repositories {
         RoomWordsRepository(database.getWordsDao(), accountsRepository)
     }
 
-    val learningRepository: LearningRepository by lazy {
-        RoomLearningRepository(database.getLearningDao(), accountsRepository, appSettingsManager.getApplicationSettings(), appSettingsManager.getLearningSettings(), ioDispatcher)
-    }
-
-    val repeatingRepository: RepeatingRepository by lazy {
-        RoomRepeatingRepository(database.getRepeatingDao(), accountsRepository, appSettingsManager.getApplicationSettings(), ioDispatcher)
-    }
-
     val statisticRepository: StatisticRepository by lazy {
         RoomStatisticRepository(database.getStatisticDao(), accountsRepository, ioDispatcher)
     }
 
     val achievementsRepository: AchievementsRepository by lazy {
         RoomAchievementsRepository(database.getAchievementsDao(), accountsRepository, ioDispatcher)
+    }
+
+    val repeatingRepository: RepeatingRepository by lazy {
+        RoomRepeatingRepository(database.getRepeatingDao(), accountsRepository, appSettingsManager.getApplicationSettings(), achievementsRepository, ioDispatcher)
+    }
+
+    val learningRepository: LearningRepository by lazy {
+        RoomLearningRepository(database.getLearningDao(), accountsRepository, appSettingsManager.getApplicationSettings(), appSettingsManager.getLearningSettings(), achievementsRepository, ioDispatcher)
     }
 
     // Entrance point in MainActivity onCreate

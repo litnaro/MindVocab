@@ -4,6 +4,7 @@ import com.example.mindvocab.model.AuthException
 import com.example.mindvocab.model.NoMoreWordsToLearnForTodayException
 import com.example.mindvocab.model.NoWordsToLearnException
 import com.example.mindvocab.model.account.AccountsRepository
+import com.example.mindvocab.model.achievement.AchievementsRepository
 import com.example.mindvocab.model.learning.LearningRepository
 import com.example.mindvocab.model.learning.room.entities.UpdateWordProgressAsLearningTuple
 import com.example.mindvocab.model.settings.application.ApplicationSettings
@@ -24,6 +25,7 @@ class RoomLearningRepository(
     private val accountsRepository: AccountsRepository,
     private val applicationSettings: ApplicationSettings,
     private val learningSettings: LearningSettings,
+    private val achievementsRepository: AchievementsRepository,
     private val ioDispatcher: CoroutineDispatcher
 ) : LearningRepository {
 
@@ -65,6 +67,7 @@ class RoomLearningRepository(
                     startedAt = currentTimeMillis
                 )
             )
+            achievementsRepository.updateAchievementsByAction(AchievementsRepository.AchievementAction.WORD_KNOWN_ACTION)
             getWordToLearn()
         }
     }
