@@ -43,8 +43,14 @@ class AchievementAdapter (
                 .error(R.drawable.ic_meditation)
                 .into(achievementPhoto)
 
-            achievementProgress.max = item.progress
-            achievementProgress.progress = item.progress / 2
+            achievementProgress.max = item.maxProgress
+            achievementProgress.progress = item.progress
+
+            if (item.progress == item.maxProgress) {
+                achievementCompletedIcon.visibility = View.VISIBLE
+            } else {
+                achievementCompletedIcon.visibility = View.GONE
+            }
         }
     }
 

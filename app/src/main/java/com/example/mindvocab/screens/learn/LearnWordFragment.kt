@@ -31,35 +31,49 @@ class LearnWordFragment : BaseFragment() {
         _binding = FragmentLearnWordBinding.inflate(inflater, container, false)
 
         viewModel.word.observe(viewLifecycleOwner) {
-            binding.learnEmptyWordSetsBlock.visibility = View.GONE
-            binding.learnWordBlock.visibility = View.GONE
-            binding.learnPendingProgressBar.visibility = View.GONE
-            binding.accountLearningProgress.visibility = View.GONE
-            binding.accountLearningProgressCheckImage.visibility = View.GONE
+            with(binding) {
+                learnEmptyWordSetsBlock.visibility = View.GONE
+                learnWordBlock.visibility = View.GONE
+                learnPendingProgressBar.visibility = View.GONE
 
-            when(it) {
-                is ErrorResult -> {
-                    binding.learnEmptyWordSetsBlock.visibility = View.VISIBLE
-                    val context = binding.root.context
-                    if (it.exception is NoWordsToLearnException) {
-                        binding.emptyWordToLearnImage.setImageResource(R.drawable.ic_selection_list)
-                        binding.emptyWordToLearnTitle.text = context.getString(R.string.no_learning_words_exception_text_title)
-                        binding.emptyWordToLearnText.text = context.getString(R.string.no_learning_words_exception_text)
-                    } else if (it.exception is NoMoreWordsToLearnForTodayException) {
-                        binding.accountLearningProgressCheckImage.visibility = View.VISIBLE
-                        binding.accountLearningProgress.visibility = View.VISIBLE
-                        binding.emptyWordToLearnImage.setImageResource(R.drawable.ic_timer)
-                        binding.emptyWordToLearnTitle.text = context.getString(R.string.learning_words_timeout_exception_text_title)
-                        binding.emptyWordToLearnText.text = context.getString(R.string.learning_words_timeout_exception_text)
+                accountLearningProgress.visibility = View.GONE
+                accountLearningProgressCheckImage.visibility = View.GONE
+
+                maxWordsForToday.visibility = View.GONE
+                startedTodayWordsCount.visibility = View.GONE
+
+                when(it) {
+                    is ErrorResult -> {
+                        learnEmptyWordSetsBlock.visibility = View.VISIBLE
+                        val context = root.context
+                        if (it.exception is NoWordsToLearnException) {
+                            emptyWordToLearnImage.setImageResource(R.drawable.ic_selection_list)
+                            emptyWordToLearnTitle.text = context.getString(R.string.no_learning_words_exception_text_title)
+                            emptyWordToLearnText.text = context.getString(R.string.no_learning_words_exception_text)
+                        } else if (it.exception is NoMoreWordsToLearnForTodayException) {
+                            maxWordsForToday.visibility = View.VISIBLE
+                            startedTodayWordsCount.visibility = View.VISIBLE
+
+                            accountLearningProgressCheckImage.visibility = View.VISIBLE
+                            accountLearningProgress.visibility = View.VISIBLE
+
+                            emptyWordToLearnImage.setImageResource(R.drawable.ic_timer)
+                            emptyWordToLearnTitle.text = context.getString(R.string.learning_words_timeout_exception_text_title)
+                            emptyWordToLearnText.text = context.getString(R.string.learning_words_timeout_exception_text)
+                        }
                     }
-                }
-                is PendingResult -> {
-                    binding.learnPendingProgressBar.visibility = View.VISIBLE
-                }
-                is SuccessResult -> {
-                    setWordData(it.data)
-                    binding.learnWordBlock.visibility = View.VISIBLE
-                    binding.accountLearningProgress.visibility = View.VISIBLE
+                    is PendingResult -> {
+                        learnPendingProgressBar.visibility = View.VISIBLE
+                    }
+                    is SuccessResult -> {
+                        setWordData(it.data)
+
+                        learnWordBlock.visibility = View.VISIBLE
+                        accountLearningProgress.visibility = View.VISIBLE
+
+                        maxWordsForToday.visibility = View.VISIBLE
+                        startedTodayWordsCount.visibility = View.VISIBLE
+                    }
                 }
             }
         }

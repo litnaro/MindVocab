@@ -11,11 +11,28 @@
         android:id="@+id/achievementProgress"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:max="100"
-        android:progress="65"
+        tools:max="100"
+        tools:progress="65"
+        android:indeterminate="false"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        android:background="@drawable/circle_shape"
+        style="?android:attr/progressBarStyleHorizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/achievementCompletedIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_check_circle"
+        app:tint="@color/word_learned_status"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="12dp"
+        android:elevation="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/achievementProgress"
+        app:layout_constraintTop_toTopOf="@+id/achievementProgress"
+        android:contentDescription="@string/icon_achievement_completed_content_description" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="85dp"
