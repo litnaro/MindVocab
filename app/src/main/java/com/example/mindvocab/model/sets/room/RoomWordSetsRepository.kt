@@ -8,6 +8,7 @@ import com.example.mindvocab.model.sets.WordSetsRepository
 import com.example.mindvocab.model.sets.entity.WordSet
 import com.example.mindvocab.model.sets.room.entity.AccountWordSetDbEntity
 import com.example.mindvocab.model.sets.room.entity.WordSetDbEntity
+import com.example.mindvocab.model.word.WordsCalculations
 import com.example.mindvocab.model.word.room.WordsDao
 import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
 import kotlinx.coroutines.CoroutineDispatcher
@@ -67,8 +68,8 @@ class RoomWordSetsRepository(
         setSelectedFlagForWordSet(wordSet, false)
     }
 
-    private fun queryWordSets(accountId: Long): Flow<List<WordSet>>{
-        return wordSetsDao.getWordSets(accountId).map { it ->
+    private fun queryWordSets(accountId: Long): Flow<List<WordSet>> {
+        return wordSetsDao.getWordSetWithStatistic(accountId, WordsCalculations.getWordTimesRepeatedToLearn()).map { it ->
             it.map {
                 it.toWordSet()
             }

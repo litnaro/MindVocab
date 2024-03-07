@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d46984ea25fe260361f4ce1f6a55e4ba",
+    "identityHash": "ee48fb8065bbb7a3e5982112b08ba150",
     "entities": [
       {
         "tableName": "accounts",
@@ -756,15 +756,10 @@
         "foreignKeys": []
       }
     ],
-    "views": [
-      {
-        "viewName": "word_sets_statistic",
-        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT\n    accounts.id AS account_id,\n    word_sets.id,\n    word_sets.name,\n    word_sets.image,\n    IFNULL(accounts_word_sets.is_selected, 0) AS is_selected,\n    (SELECT COUNT(*) FROM words WHERE words.word_set_id = word_sets.id) AS words_count,\n    (SELECT COUNT(*)\n        FROM (\n            SELECT words.id\n            FROM words, accounts_words_progress\n            WHERE words.word_set_id = word_sets.id\n                AND accounts_words_progress.word_id = words.id\n                AND accounts_words_progress.times_repeated = 6\n                AND accounts_words_progress.account_id = accounts.id\n            GROUP BY words.id)\n    ) AS words_completed\nFROM\n    accounts\nJOIN\n    word_sets\nLEFT JOIN\n    accounts_word_sets ON accounts_word_sets.account_id = accounts.id\n                        AND accounts_word_sets.word_set_id = word_sets.id"
-      }
-    ],
+    "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd46984ea25fe260361f4ce1f6a55e4ba')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ee48fb8065bbb7a3e5982112b08ba150')"
     ]
   }
 }

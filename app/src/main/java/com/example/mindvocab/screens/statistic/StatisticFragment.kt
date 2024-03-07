@@ -63,8 +63,13 @@ class StatisticFragment : BaseFragment() {
 
         if (achievement.progress == achievement.maxProgress) {
             dialogBinding.achievementCompletedIcon.visibility = View.VISIBLE
+
+            dialogBinding.achievementProgressText.visibility = View.GONE
         } else {
             dialogBinding.achievementCompletedIcon.visibility = View.GONE
+
+            dialogBinding.achievementProgressText.visibility = View.VISIBLE
+            dialogBinding.achievementProgressText.text = dialogBinding.root.context.getString(R.string.amount_of, achievement.progress, achievement.maxProgress)
         }
 
         dialogBinding.achievementProgress.max = achievement.maxProgress

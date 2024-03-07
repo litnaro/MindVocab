@@ -13,7 +13,6 @@ import com.example.mindvocab.model.repeating.room.RepeatingDao
 import com.example.mindvocab.model.sets.room.WordSetsDao
 import com.example.mindvocab.model.sets.room.entity.AccountWordSetDbEntity
 import com.example.mindvocab.model.sets.room.entity.WordSetDbEntity
-import com.example.mindvocab.model.sets.room.entity.WordSetsWithStatisticDbView
 import com.example.mindvocab.model.statistic.room.StatisticDao
 import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
 import com.example.mindvocab.model.word.room.entities.ExampleDbEntity
@@ -44,9 +43,6 @@ import com.example.mindvocab.model.word.room.entities.WordLogTypesDbEntity
 
         WordLogDbEntity::class,
         WordLogTypesDbEntity::class
-    ],
-    views = [
-        WordSetsWithStatisticDbView::class
     ]
 )
 abstract class AppDataBase : RoomDatabase() {
