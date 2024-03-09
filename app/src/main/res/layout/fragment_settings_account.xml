@@ -42,33 +42,36 @@
                 app:layout_constraintTop_toTopOf="@+id/accountPhoto"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/account_edit_main_info_title"
-            android:textSize="@dimen/third_heading_size" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="20dp"
             app:cardCornerRadius="@dimen/default_card_corner_radius"
             app:contentPadding="@dimen/default_card_padding"
-            app:cardBackgroundColor="?attr/colorPrimaryContainer">
+            app:cardBackgroundColor="?attr/colorPrimaryContainer"
+            tools:context=".screens.settings.application.SettingsApplicationFragment">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/accountUsernameSettingContainer"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:text="@string/account_edit_main_info_title"
+                    android:textSize="@dimen/simple_text_size"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:id="@+id/themeSettingsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:paddingVertical="5dp"
-                    android:layout_marginStart="7dp"
+                    android:layout_marginStart="5dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -77,7 +80,6 @@
                         android:text="@string/account_edit_username_subtitle"
                         android:textSize="@dimen/simple_text_size"
                         android:textColor="?attr/colorOnPrimaryContainer"
-                        android:textStyle="bold"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"/>
 
@@ -102,11 +104,11 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/accountFullNameSettingsContainer"
+                    android:id="@+id/languageSettingsContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:layout_marginStart="7dp"
+                    android:layout_marginStart="5dp"
                     android:paddingVertical="5dp"
                     android:orientation="horizontal">
 
@@ -116,7 +118,6 @@
                         android:text="@string/account_edit_full_name_subtitle"
                         android:textSize="@dimen/simple_text_size"
                         android:textColor="?attr/colorOnPrimaryContainer"
-                        android:textStyle="bold"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"/>
 
@@ -141,11 +142,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/accountEmailSettingsContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:layout_marginStart="7dp"
+                    android:layout_marginStart="5dp"
                     android:paddingVertical="5dp"
                     android:orientation="horizontal">
 
@@ -155,7 +155,6 @@
                         android:text="@string/account_edit_email_subtitle"
                         android:textSize="@dimen/simple_text_size"
                         android:textColor="?attr/colorOnPrimaryContainer"
-                        android:textStyle="bold"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"/>
 
@@ -180,14 +179,12 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/accountPasswordSettingsContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:layout_marginStart="7dp"
+                    android:layout_marginStart="5dp"
                     android:paddingVertical="5dp"
-                    android:orientation="horizontal"
-                    tools:ignore="UseCompoundDrawables">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="0dp"
@@ -195,7 +192,84 @@
                         android:text="@string/account_edit_password_subtitle"
                         android:textSize="@dimen/simple_text_size"
                         android:textColor="?attr/colorOnPrimaryContainer"
-                        android:textStyle="bold"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:src="@drawable/ic_arrow_right"
+                        app:tint="?attr/colorOnPrimaryContainer"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/button_to_change_settings_content_description"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:cardCornerRadius="@dimen/default_card_corner_radius"
+            app:contentPadding="@dimen/default_card_padding"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer"
+            tools:context=".screens.settings.application.SettingsApplicationFragment">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_edit_account_actions_title"
+                    android:textSize="@dimen/simple_text_size"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingVertical="5dp"
+                    android:layout_marginStart="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/account_edit_reset_account_progress_button"
+                        android:textSize="@dimen/simple_text_size"
+                        android:textColor="?attr/colorOnPrimaryContainer"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:src="@drawable/ic_arrow_right"
+                        app:tint="?attr/colorOnPrimaryContainer"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/button_to_change_settings_content_description" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:paddingVertical="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/account_edit_delete_account_button"
+                        android:textSize="@dimen/simple_text_size"
+                        android:textColor="?attr/colorOnPrimaryContainer"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"/>
 
@@ -209,52 +283,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/account_edit_account_actions_title"
-            android:textSize="@dimen/third_heading_size"
-            android:textColor="?attr/colorOnPrimaryContainer" />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:cardCornerRadius="@dimen/default_card_corner_radius"
-            app:contentPadding="@dimen/default_card_padding"
-            app:cardBackgroundColor="?attr/colorPrimaryContainer">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/account_edit_reset_account_progress_button"
-                    android:layout_marginStart="7dp"
-                    android:paddingVertical="10dp"
-                    android:textSize="@dimen/simple_text_size"
-                    android:textColor="?attr/colorOnPrimaryContainer"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/account_edit_delete_account_button"
-                    android:layout_marginStart="7dp"
-                    android:paddingVertical="10dp"
-                    android:textSize="@dimen/simple_text_size"
-                    android:textColor="?attr/colorOnPrimaryContainer"
-                    android:textStyle="bold"/>
-
-            </LinearLayout>
-
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>

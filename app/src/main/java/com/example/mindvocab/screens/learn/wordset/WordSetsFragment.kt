@@ -78,16 +78,19 @@ class WordSetsFragment : BaseFragment() {
         }
 
         viewModel.wordSetList.observe(viewLifecycleOwner) {
+            binding.pendingResultProgressBar.visibility = View.GONE
+            binding.wordSetsRv.visibility = View.GONE
+
             when(it) {
                 is PendingResult -> {
-                    // TODO create view for pending result
+                    binding.pendingResultProgressBar.visibility = View.VISIBLE
                 }
                 is ErrorResult -> {
                     // TODO create view for error result
                 }
                 is SuccessResult -> {
-                    // TODO create view for empty result
                     wordSetAdapter.submitList(it.data)
+                    binding.wordSetsRv.visibility = View.VISIBLE
                 }
             }
         }

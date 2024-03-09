@@ -40,7 +40,6 @@ class RoomLearningRepository(
     }
 
     override suspend fun getWordToLearn() = withContext(ioDispatcher) {
-        //TODO live updates with native language settings. Now works only with application restart
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
             if (getTodayStartedWordsCount().first() >= learningSettings.wordsADaySetting.first().value) throw NoMoreWordsToLearnForTodayException()

@@ -76,6 +76,20 @@
         android:id="@+id/wordSetsRv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_marginTop="10dp"
         tools:listitem="@layout/item_word_set"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/pendingResultProgressBar"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+
 </LinearLayout>
