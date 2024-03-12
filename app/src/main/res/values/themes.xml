@@ -43,4 +43,5 @@
         <item name="android:windowEnterAnimation">@anim/settings_slide_in_dialog_animation</item>
         <item name="android:windowExitAnimation">@anim/settings_slide_out_dialog_animation</item>
     </style>
+
 </resources>

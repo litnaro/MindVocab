@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
@@ -36,6 +37,10 @@ class AccountEditFragment : BaseFragment() {
                     setAccountData(it.data)
                 }
             }
+        }
+
+        binding.changePasswordContainer.setOnClickListener {
+            findNavController().navigate(AccountEditFragmentDirections.actionAccountEditFragmentToChangePasswordFragment())
         }
 
         return binding.root

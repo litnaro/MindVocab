@@ -6,4 +6,16 @@
         <item name="cornerRadius">@dimen/default_card_corner_radius</item>
         <item name="android:background">#000000</item>
     </style>
+
+    <style name="InputHintTextAppearance" parent="@style/TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?attr/colorOnPrimaryContainer</item>
+    </style>
+
+    <style name="InputTextContainer" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/input_container</item>
+        <item name="android:textColorHint">@color/input_label</item>
+        <item name="hintTextColor">?attr/colorOnPrimaryContainer</item>
+    </style>
+
 </resources>

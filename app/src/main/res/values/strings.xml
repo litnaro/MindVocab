@@ -127,6 +127,8 @@
     <string name="account_add_photo_content_description">Add account photo</string>
     <string name="account_settings_content_description">Account settings</string>
 
+    <string name="account_change_password_title">Change password</string>
+
     <string name="additional_settings_title">Additionally</string>
     <string name="share_application_settings">Share app</string>
     <string name="share_application_settings_content_description">Share application icon</string>

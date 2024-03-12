@@ -76,10 +76,19 @@
         android:id="@+id/accountEditFragment"
         android:name="com.example.mindvocab.screens.settings.account.edit.AccountEditFragment"
         android:label="@string/account_edit_settings"
-        tools:layout="@layout/fragment_settings_account" />
+        tools:layout="@layout/fragment_settings_account" >
+        <action
+            android:id="@+id/action_accountEditFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/repeatingWordsFragment"
         android:name="com.example.mindvocab.screens.repeat.list.RepeatingWordsFragment"
         android:label="@string/repeating_words_title"
         tools:layout="@layout/fragment_repeating_words" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.mindvocab.screens.settings.account.password.ChangePasswordFragment"
+        android:label="@string/account_change_password_title"
+        tools:layout="@layout/fragment_settings_change_password" />
 </navigation>
