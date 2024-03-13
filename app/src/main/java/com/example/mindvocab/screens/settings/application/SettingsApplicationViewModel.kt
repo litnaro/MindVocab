@@ -5,9 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.model.settings.application.ApplicationSettings
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SettingsApplicationViewModel(
+@HiltViewModel
+class SettingsApplicationViewModel @Inject constructor(
     private val applicationSettings: ApplicationSettings
 ) : BaseViewModel() {
 

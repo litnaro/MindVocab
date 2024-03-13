@@ -5,9 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.model.settings.learn.LearningSettings
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SettingsLearnViewModel(
+@HiltViewModel
+class SettingsLearnViewModel @Inject constructor(
     private val learningSettings: LearningSettings
 ) : BaseViewModel() {
 

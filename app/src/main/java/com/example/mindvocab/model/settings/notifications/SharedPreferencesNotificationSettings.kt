@@ -2,10 +2,12 @@ package com.example.mindvocab.model.settings.notifications
 
 import android.content.Context
 import com.example.mindvocab.model.settings.AppSettings
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Inject
 
-class SharedPreferencesNotificationSettings(
-    appContext: Context
+class SharedPreferencesNotificationSettings @Inject constructor(
+    @ApplicationContext appContext: Context
 ) : NotificationSettings, AppSettings(appContext) {
 
     // General notifications

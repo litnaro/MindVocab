@@ -6,14 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.mindvocab.R
-import com.example.mindvocab.core.factory
 import com.example.mindvocab.databinding.FragmentSettingsLearnBinding
 import com.example.mindvocab.model.settings.learn.LearningSettings
 import com.example.mindvocab.screens.settings.BaseSettingsFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingsLearnFragment : BaseSettingsFragment() {
 
-    override val viewModel: SettingsLearnViewModel by viewModels { factory() }
+    override val viewModel by viewModels<SettingsLearnViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

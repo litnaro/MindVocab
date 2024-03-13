@@ -6,14 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.mindvocab.R
-import com.example.mindvocab.core.factory
 import com.example.mindvocab.databinding.FragmentSettingsRepeatBinding
 import com.example.mindvocab.model.settings.repeat.RepeatSettings
 import com.example.mindvocab.screens.settings.BaseSettingsFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingsRepeatFragment : BaseSettingsFragment() {
 
-    override val viewModel: SettingsRepeatViewModel by viewModels { factory() }
+    override val viewModel by viewModels<SettingsRepeatViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

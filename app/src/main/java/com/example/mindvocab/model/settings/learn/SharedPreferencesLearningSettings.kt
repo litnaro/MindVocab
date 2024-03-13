@@ -2,10 +2,12 @@ package com.example.mindvocab.model.settings.learn
 
 import android.content.Context
 import com.example.mindvocab.model.settings.AppSettings
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Inject
 
-class SharedPreferencesLearningSettings(
-    appContext: Context
+class SharedPreferencesLearningSettings @Inject constructor(
+    @ApplicationContext appContext: Context
 ) : LearningSettings, AppSettings(appContext) {
 
     // Listen after appearance

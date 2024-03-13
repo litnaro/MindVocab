@@ -2,10 +2,12 @@ package com.example.mindvocab.model.settings.repeat
 
 import android.content.Context
 import com.example.mindvocab.model.settings.AppSettings
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Inject
 
-class SharedPreferencesRepeatSettings(
-    appContext: Context
+class SharedPreferencesRepeatSettings @Inject constructor(
+    @ApplicationContext appContext: Context
 ) : RepeatSettings, AppSettings(appContext) {
 
     // Answering variants settings

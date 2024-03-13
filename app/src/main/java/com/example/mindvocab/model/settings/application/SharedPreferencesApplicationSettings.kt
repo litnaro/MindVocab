@@ -2,12 +2,14 @@ package com.example.mindvocab.model.settings.application
 
 import android.content.Context
 import com.example.mindvocab.model.settings.AppSettings
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Inject
 
-class SharedPreferencesApplicationSettings(
-    appContext: Context
+class SharedPreferencesApplicationSettings @Inject constructor(
+    @ApplicationContext appContext: Context
 ) : ApplicationSettings, AppSettings(appContext) {
 
     // Application theme

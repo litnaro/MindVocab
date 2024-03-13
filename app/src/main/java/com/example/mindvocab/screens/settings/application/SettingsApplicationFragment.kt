@@ -6,14 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.mindvocab.R
-import com.example.mindvocab.core.factory
 import com.example.mindvocab.databinding.FragmentSettingsApplicationBinding
 import com.example.mindvocab.model.settings.application.ApplicationSettings
 import com.example.mindvocab.screens.settings.BaseSettingsFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingsApplicationFragment : BaseSettingsFragment() {
 
-    override val viewModel: SettingsApplicationViewModel by viewModels { factory() }
+    override val viewModel by viewModels<SettingsApplicationViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

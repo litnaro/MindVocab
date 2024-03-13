@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.mindvocab.core.BaseFragment
-import com.example.mindvocab.core.factory
 import com.example.mindvocab.databinding.FragmentSettingsNotificationsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingsNotificationsFragment : BaseFragment() {
 
-    override val viewModel: SettingsNotificationsViewModel by viewModels { factory() }
+    override val viewModel by viewModels<SettingsNotificationsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

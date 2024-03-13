@@ -2,6 +2,7 @@ package com.example.mindvocab
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.children
 import androidx.navigation.NavController
@@ -10,18 +11,24 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.mindvocab.databinding.ActivityMainBinding
 import com.example.mindvocab.model.room.Repositories
+import com.example.mindvocab.model.settings.application.ApplicationSettings
 import com.example.mindvocab.screens.learn.LearnWordFragmentDirections
 import com.example.mindvocab.screens.learn.wordset.WordSetsFragmentDirections
 import com.example.mindvocab.screens.repeat.RepeatWordFragmentDirections
 import com.example.mindvocab.screens.statistic.StatisticFragmentDirections
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var navController: NavController
+
+    @Inject lateinit var applicationSetting: ApplicationSettings
 
     private val topLevelDestinations = setOf(
         R.id.learn,
@@ -36,6 +43,8 @@ class MainActivity : AppCompatActivity() {
         Repositories.init(applicationContext)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        Log.d("AAAAA", applicationSetting.toString())
 
         setSupportActionBar(binding.toolbar)
 

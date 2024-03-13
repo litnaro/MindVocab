@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.mindvocab.R
 import com.example.mindvocab.databinding.FragmentSettingsBinding
 import com.example.mindvocab.screens.settings.account.SettingsAccountFragment
 import com.example.mindvocab.screens.settings.additional.SettingsAdditionalFragment
@@ -13,7 +12,9 @@ import com.example.mindvocab.screens.settings.application.SettingsApplicationFra
 import com.example.mindvocab.screens.settings.learn.SettingsLearnFragment
 import com.example.mindvocab.screens.settings.notifications.SettingsNotificationsFragment
 import com.example.mindvocab.screens.settings.repeat.SettingsRepeatFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
     override fun onCreateView(
