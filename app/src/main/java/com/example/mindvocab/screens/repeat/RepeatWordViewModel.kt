@@ -12,9 +12,12 @@ import com.example.mindvocab.model.Result
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.repeating.RepeatingRepository
 import com.example.mindvocab.model.word.entities.WordToRepeat
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RepeatWordViewModel(
+@HiltViewModel
+class RepeatWordViewModel @Inject constructor(
     private val repeatingRepository: RepeatingRepository
 ) : BaseViewModel() {
 

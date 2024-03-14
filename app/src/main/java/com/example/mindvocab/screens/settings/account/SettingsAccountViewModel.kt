@@ -8,9 +8,12 @@ import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.Result
 import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.account.etities.Account
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SettingsAccountViewModel(
+@HiltViewModel
+class SettingsAccountViewModel @Inject constructor(
     private val accountsRepository: AccountsRepository
 ) : BaseViewModel() {
 

@@ -7,9 +7,12 @@ import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.model.statistic.StatisticRepository
 import com.example.mindvocab.model.statistic.entities.AchievementsStatistic
 import com.example.mindvocab.model.statistic.entities.WordsStatistic
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class StatisticMetricViewModel(
+@HiltViewModel
+class StatisticMetricViewModel @Inject constructor(
     private val statisticRepository: StatisticRepository
 ): BaseViewModel() {
 

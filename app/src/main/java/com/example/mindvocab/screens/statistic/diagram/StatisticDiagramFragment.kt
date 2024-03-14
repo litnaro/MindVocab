@@ -7,17 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
-import com.example.mindvocab.core.factory
 import com.example.mindvocab.databinding.FragmentStatisticDiagramBinding
 import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.statistic.entities.WordsStatisticPercentage
+import dagger.hilt.android.AndroidEntryPoint
 import ir.mahozad.android.PieChart
 
+@AndroidEntryPoint
 class StatisticDiagramFragment : BaseFragment() {
 
-    override val viewModel: StatisticDiagramViewModel by viewModels { factory() }
+    override val viewModel by viewModels<StatisticDiagramViewModel>()
 
     private var _binding: FragmentStatisticDiagramBinding? = null
     private val binding get() = _binding!!

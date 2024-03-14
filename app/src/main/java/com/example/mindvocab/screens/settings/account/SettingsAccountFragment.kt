@@ -9,17 +9,18 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
-import com.example.mindvocab.core.factory
 import com.example.mindvocab.databinding.FragmentSettingsAccountPreviewBinding
 import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.account.etities.Account
 import com.example.mindvocab.screens.settings.SettingsFragmentDirections
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingsAccountFragment : BaseFragment() {
 
-    override val viewModel: SettingsAccountViewModel by viewModels { factory() }
+    override val viewModel by viewModels<SettingsAccountViewModel>()
 
     private var _binding: FragmentSettingsAccountPreviewBinding? = null
     private val binding get() = _binding!!

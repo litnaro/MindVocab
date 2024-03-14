@@ -7,15 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
-import com.example.mindvocab.core.factory
 import com.example.mindvocab.databinding.FragmentStatisticMetricBinding
 import com.example.mindvocab.model.statistic.entities.AchievementsStatistic
 import com.example.mindvocab.model.statistic.entities.WordsStatistic
 import com.google.android.material.chip.Chip
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class StatisticMetricFragment : BaseFragment() {
 
-    override val viewModel: StatisticMetricViewModel by viewModels { factory() }
+    override val viewModel by viewModels<StatisticMetricViewModel>()
 
     private var _binding: FragmentStatisticMetricBinding? = null
     val binding get() = _binding!!

@@ -11,9 +11,12 @@ import com.example.mindvocab.model.Result
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.statistic.StatisticRepository
 import com.example.mindvocab.model.statistic.entities.WordsStatisticPercentage
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class StatisticDiagramViewModel(
+@HiltViewModel
+class StatisticDiagramViewModel @Inject constructor(
     private val statisticRepository: StatisticRepository
 ) : BaseViewModel() {
 

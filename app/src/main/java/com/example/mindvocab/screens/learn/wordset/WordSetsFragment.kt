@@ -9,17 +9,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mindvocab.core.BaseFragment
-import com.example.mindvocab.core.factory
 import com.example.mindvocab.databinding.FragmentWordSetsBinding
 import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.sets.WordSetFilter
 import com.example.mindvocab.model.sets.entity.WordSet
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WordSetsFragment : BaseFragment() {
 
-    override val viewModel: WordSetsViewModel by viewModels { factory() }
+    override val viewModel by viewModels<WordSetsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +45,7 @@ class WordSetsFragment : BaseFragment() {
             }
         }
 
-        binding.chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+        binding.chipGroup.setOnCheckedStateChangeListener { _, checkedIds ->
             when(checkedIds[0]) {
                 binding.chipAll.id -> viewModel.getWordSets(WordSetFilter.ALL)
                 binding.chipOnlySelected.id -> viewModel.getWordSets(WordSetFilter.SELECTED)

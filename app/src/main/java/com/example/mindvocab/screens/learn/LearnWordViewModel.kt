@@ -12,9 +12,12 @@ import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.learning.LearningRepository
 import com.example.mindvocab.model.settings.learn.LearningSettings
 import com.example.mindvocab.model.word.entities.Word
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LearnWordViewModel(
+@HiltViewModel
+class LearnWordViewModel @Inject constructor(
     private val learningRepository: LearningRepository,
     private val learningSettings: LearningSettings
 ) : BaseViewModel() {

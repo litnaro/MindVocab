@@ -19,8 +19,9 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class RoomWordSetsRepository(
+class RoomWordSetsRepository @Inject constructor(
     private val wordSetsDao: WordSetsDao,
     private val wordsDao: WordsDao,
     private val accountsRepository: AccountsRepository,

@@ -5,8 +5,9 @@ import com.example.mindvocab.model.account.etities.Account
 import com.example.mindvocab.model.account.etities.SignUpData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class RoomAccountsRepository(
+class RoomAccountsRepository @Inject constructor(
     private val accountsDao: AccountsDao,
 ) : AccountsRepository {
 

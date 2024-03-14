@@ -11,9 +11,12 @@ import com.example.mindvocab.model.Result
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.achievement.AchievementsRepository
 import com.example.mindvocab.model.achievement.entities.Achievement
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class StatisticViewModel(
+@HiltViewModel
+class StatisticViewModel @Inject constructor(
     private val achievementsRepository: AchievementsRepository
 ) : BaseViewModel() {
 

@@ -10,8 +10,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class RoomAchievementsRepository(
+class RoomAchievementsRepository @Inject constructor(
     private val achievementsDao: AchievementsDao,
     private val accountsRepository: AccountsRepository,
     private val ioDispatcher: CoroutineDispatcher

@@ -8,9 +8,12 @@ import com.example.mindvocab.model.Result
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.word.WordsRepository
 import com.example.mindvocab.model.word.entities.WordStatistic
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class WordsViewModel(
+@HiltViewModel
+class WordsViewModel @Inject constructor(
     private val wordsRepository: WordsRepository
 ) : BaseViewModel() {
 

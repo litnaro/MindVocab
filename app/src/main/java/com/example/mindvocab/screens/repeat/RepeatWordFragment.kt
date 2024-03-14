@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
-import com.example.mindvocab.core.factory
 import com.example.mindvocab.databinding.FragmentRepeatWordBinding
 import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.NoWordsToRepeatException
@@ -16,12 +15,14 @@ import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.WordsToRepeatCurrentlyInTimeout
 import com.example.mindvocab.model.word.entities.WordToRepeat
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RepeatWordFragment : BaseFragment() {
 
     // https://www.youtube.com/watch?v=XCvejwakoao
 
-    override val viewModel: RepeatWordViewModel by viewModels { factory() }
+    override val viewModel by viewModels<RepeatWordViewModel>()
 
     private var _binding: FragmentRepeatWordBinding? = null
     private val binding get() = _binding!!

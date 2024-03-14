@@ -19,8 +19,9 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class RoomLearningRepository(
+class RoomLearningRepository @Inject constructor(
     private val learningDao: LearningDao,
     private val accountsRepository: AccountsRepository,
     private val applicationSettings: ApplicationSettings,

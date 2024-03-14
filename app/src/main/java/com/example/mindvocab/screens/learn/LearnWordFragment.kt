@@ -12,17 +12,18 @@ import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.databinding.FragmentLearnWordBinding
-import com.example.mindvocab.core.factory
 import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.NoMoreWordsToLearnForTodayException
 import com.example.mindvocab.model.NoWordsToLearnException
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.word.entities.Word
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LearnWordFragment : BaseFragment() {
 
-    override val viewModel: LearnWordViewModel by viewModels { factory() }
+    override val viewModel by viewModels<LearnWordViewModel>()
 
     private var _binding: FragmentLearnWordBinding? = null
     private val binding get() = _binding!!

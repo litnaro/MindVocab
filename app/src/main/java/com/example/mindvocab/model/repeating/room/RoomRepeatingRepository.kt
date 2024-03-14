@@ -18,8 +18,9 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class RoomRepeatingRepository(
+class RoomRepeatingRepository @Inject constructor(
     private val repeatingDao: RepeatingDao,
     private val accountsRepository: AccountsRepository,
     private val applicationSettings: ApplicationSettings,

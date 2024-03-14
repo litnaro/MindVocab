@@ -7,8 +7,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class RoomWordsRepository(
+class RoomWordsRepository @Inject constructor(
     private val wordsDao: WordsDao,
     private val accountsRepository: AccountsRepository,
 ) : WordsRepository {

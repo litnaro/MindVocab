@@ -10,17 +10,18 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
-import com.example.mindvocab.core.factory
 import com.example.mindvocab.databinding.DialogAchievementDetailBinding
 import com.example.mindvocab.databinding.FragmentStatisticBinding
 import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.achievement.entities.Achievement
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class StatisticFragment : BaseFragment() {
 
-    override val viewModel: StatisticViewModel by viewModels { factory() }
+    override val viewModel by viewModels<StatisticViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

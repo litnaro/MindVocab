@@ -7,15 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mindvocab.core.BaseFragment
-import com.example.mindvocab.core.factory
 import com.example.mindvocab.databinding.FragmentRepeatingWordsBinding
 import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.PendingResult
 import com.example.mindvocab.model.SuccessResult
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RepeatingWordsFragment : BaseFragment() {
 
-    override val viewModel: RepeatingWordsViewModel by viewModels { factory() }
+    override val viewModel by viewModels<RepeatingWordsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

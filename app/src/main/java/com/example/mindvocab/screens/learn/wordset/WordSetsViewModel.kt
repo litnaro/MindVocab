@@ -9,9 +9,12 @@ import com.example.mindvocab.model.sets.WordSetFilter
 import com.example.mindvocab.model.Result
 import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.sets.WordSetsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class WordSetsViewModel(
+@HiltViewModel
+class WordSetsViewModel @Inject constructor(
     private val wordSetsRepository: WordSetsRepository
 ) : BaseViewModel() {
 
