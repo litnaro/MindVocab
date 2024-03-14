@@ -9,7 +9,6 @@ import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.mindvocab.databinding.ActivityMainBinding
-import com.example.mindvocab.model.room.Repositories
 import com.example.mindvocab.screens.learn.LearnWordFragmentDirections
 import com.example.mindvocab.screens.learn.wordset.WordSetsFragmentDirections
 import com.example.mindvocab.screens.repeat.RepeatWordFragmentDirections
@@ -35,7 +34,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Repositories.init(applicationContext)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
