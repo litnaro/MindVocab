@@ -11,12 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
+import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentLearnWordBinding
-import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.NoMoreWordsToLearnForTodayException
 import com.example.mindvocab.model.NoWordsToLearnException
-import com.example.mindvocab.model.PendingResult
-import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.word.entities.Word
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,9 +31,12 @@ class LearnWordFragment : BaseFragment() {
 
         viewModel.word.observe(viewLifecycleOwner) {
             with(binding) {
+                learnWordContainer.visibility = View.GONE
+
                 learnEmptyWordSetsBlock.visibility = View.GONE
                 learnWordBlock.visibility = View.GONE
-                learnPendingProgressBar.visibility = View.GONE
+                pendingShimmer.visibility = View.GONE
+                pendingShimmer.stopShimmer()
 
                 accountLearningProgress.visibility = View.GONE
                 accountLearningProgressCheckImage.visibility = View.GONE
@@ -44,7 +45,8 @@ class LearnWordFragment : BaseFragment() {
                 startedTodayWordsCount.visibility = View.GONE
 
                 when(it) {
-                    is ErrorResult -> {
+                    is Result.ErrorResult -> {
+                        learnWordContainer.visibility = View.VISIBLE
                         learnEmptyWordSetsBlock.visibility = View.VISIBLE
                         val context = root.context
                         if (it.exception is NoWordsToLearnException) {
@@ -63,11 +65,14 @@ class LearnWordFragment : BaseFragment() {
                             emptyWordToLearnText.text = context.getString(R.string.learning_words_timeout_exception_text)
                         }
                     }
-                    is PendingResult -> {
-                        learnPendingProgressBar.visibility = View.VISIBLE
+                    is Result.PendingResult -> {
+                        pendingShimmer.visibility = View.VISIBLE
+                        pendingShimmer.startShimmer()
                     }
-                    is SuccessResult -> {
+                    is Result.SuccessResult -> {
                         setWordData(it.data)
+
+                        learnWordContainer.visibility = View.VISIBLE
 
                         learnWordBlock.visibility = View.VISIBLE
                         accountLearningProgress.visibility = View.VISIBLE

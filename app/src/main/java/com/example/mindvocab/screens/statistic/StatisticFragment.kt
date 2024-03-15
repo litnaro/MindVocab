@@ -10,11 +10,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
+import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.DialogAchievementDetailBinding
 import com.example.mindvocab.databinding.FragmentStatisticBinding
-import com.example.mindvocab.model.ErrorResult
-import com.example.mindvocab.model.PendingResult
-import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.achievement.entities.Achievement
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,11 +40,21 @@ class StatisticFragment : BaseFragment() {
         binding.statisticViewPagerIndicator.attachTo(binding.statisticViewPager)
 
         viewModel.achievements.observe(viewLifecycleOwner) {
-            when(it) {
-                is PendingResult -> {}
-                is ErrorResult -> {}
-                is SuccessResult -> {
-                    achievementsAdapter.submitList(it.data)
+            with(binding) {
+                achievementsRv.visibility = View.GONE
+                pendingShimmer.visibility = View.GONE
+                pendingShimmer.stopShimmer()
+
+                when(it) {
+                    is Result.PendingResult -> {
+                        pendingShimmer.visibility = View.VISIBLE
+                        pendingShimmer.startShimmer()
+                    }
+                    is Result.ErrorResult -> {}
+                    is Result.SuccessResult -> {
+                        achievementsAdapter.submitList(it.data)
+                        achievementsRv.visibility = View.VISIBLE
+                    }
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.example.mindvocab.screens.word
+package com.example.mindvocab.screens.learn.wordset.words
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +8,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mindvocab.core.BaseFragment
+import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentWordsBinding
-import com.example.mindvocab.model.ErrorResult
-import com.example.mindvocab.model.PendingResult
-import com.example.mindvocab.model.SuccessResult
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,18 +31,28 @@ class WordsFragment : BaseFragment() {
         }
 
         viewModel.wordsList.observe(viewLifecycleOwner) {
-            when(it) {
-                is ErrorResult -> {
+            with(binding) {
+                pendingShimmer.visibility = View.GONE
+                pendingShimmer.stopShimmer()
 
-                }
-                is PendingResult -> {
+                wordRv.visibility = View.GONE
 
-                }
-                is SuccessResult -> {
-                    wordAdapter.submitList(it.data)
+                when(it) {
+                    is Result.PendingResult -> {
+                        pendingShimmer.visibility = View.VISIBLE
+                        pendingShimmer.startShimmer()
+                    }
+                    is Result.ErrorResult -> {
+
+                    }
+                    is Result.SuccessResult -> {
+                        wordRv.visibility = View.VISIBLE
+                        wordAdapter.submitList(it.data)
+                    }
                 }
             }
         }
+
         viewModel.getWordsByWordSetId(args.wordSetId)
 
         return binding.root

@@ -176,11 +176,14 @@
 
         </LinearLayout>
 
-        <ProgressBar
-            android:id="@+id/repeatPendingProgressBar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"/>
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/pendingShimmer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/fragment_repeat_word_placeholder"/>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
     </androidx.cardview.widget.CardView>
 

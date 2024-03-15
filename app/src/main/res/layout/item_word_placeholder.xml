@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/default_card_padding"
+    android:layout_marginTop="@dimen/default_card_padding"
+    android:layout_marginBottom="5dp">
+
+    <View
+        android:id="@+id/wordIndicator"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:background="?attr/colorOnPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <View
+        android:id="@+id/wordStatus"
+        android:layout_width="100dp"
+        android:layout_height="12dp"
+        android:background="?attr/colorOnPrimary"
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintStart_toEndOf="@+id/wordIndicator"
+        app:layout_constraintTop_toTopOf="@+id/wordIndicator"
+        app:layout_constraintBottom_toBottomOf="@+id/wordIndicator" />
+
+    <View
+        android:id="@+id/word"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:background="?attr/colorOnPrimary"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toStartOf="@+id/wordStatus"
+        app:layout_constraintTop_toBottomOf="@+id/wordStatus"/>
+
+    <View
+        android:layout_width="50dp"
+        android:layout_height="16dp"
+        android:background="?attr/colorOnPrimary"
+        android:layout_marginStart="7dp"
+        app:layout_constraintStart_toEndOf="@+id/word"
+        app:layout_constraintTop_toTopOf="@+id/word"
+        app:layout_constraintBottom_toBottomOf="@+id/word"
+        />
+
+    <View
+        android:id="@+id/wordTranslation"
+        android:layout_width="90dp"
+        android:layout_height="16dp"
+        android:background="?attr/colorOnPrimary"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/wordStatus"
+        app:layout_constraintStart_toStartOf="@+id/wordStatus"
+        app:layout_constraintTop_toBottomOf="@+id/word"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/wordProgressContainer"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:cardCornerRadius="25dp"
+        android:layout_marginEnd="10dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="?attr/colorOnPrimary"
+        app:contentPadding="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/word"
+        app:layout_constraintBottom_toBottomOf="@+id/word"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="?attr/colorOnPrimary"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/wordStatus"
+        app:layout_constraintEnd_toEndOf="@+id/wordProgressContainer"
+        app:layout_constraintTop_toBottomOf="@+id/wordTranslation"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

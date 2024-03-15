@@ -5,13 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.model.AppException
-import com.example.mindvocab.model.ErrorResult
-import com.example.mindvocab.model.PendingResult
-import com.example.mindvocab.model.Result
-import com.example.mindvocab.model.SuccessResult
+import com.example.mindvocab.core.Result
 import com.example.mindvocab.model.achievement.AchievementsRepository
 import com.example.mindvocab.model.achievement.entities.Achievement
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,7 +18,7 @@ class StatisticViewModel @Inject constructor(
     private val achievementsRepository: AchievementsRepository
 ) : BaseViewModel() {
 
-    private val _achievements = MutableLiveData<Result<List<Achievement>>>(PendingResult())
+    private val _achievements = MutableLiveData<Result<List<Achievement>>>(Result.PendingResult())
     val achievements: LiveData<Result<List<Achievement>>> = _achievements
 
     init {
@@ -29,12 +27,13 @@ class StatisticViewModel @Inject constructor(
 
     private fun getAchievements() {
         viewModelScope.launch {
+            delay(1500)
             try {
                 achievementsRepository.getAchievementsListWithAccountProgress().collect {
-                    _achievements.value = SuccessResult(it)
+                    _achievements.value = Result.SuccessResult(it)
                 }
             } catch (e: AppException) {
-                _achievements.value = ErrorResult(e)
+                _achievements.value = Result.ErrorResult(e)
             }
         }
     }

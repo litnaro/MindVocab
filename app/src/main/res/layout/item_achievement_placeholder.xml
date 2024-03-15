@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    tools:layout_width="match_parent"
+    android:layout_weight="1"
+    android:layout_marginBottom="7dp">
+
+    <ProgressBar
+        android:id="@+id/achievementProgress"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        tools:max="100"
+        tools:progress="100"
+        android:indeterminate="false"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        android:background="@drawable/circle_shape"
+        style="?android:attr/progressBarStyleHorizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        app:cardCornerRadius="43dp"
+        app:cardBackgroundColor="?attr/colorPrimaryContainer"
+        app:layout_constraintStart_toStartOf="@+id/achievementProgress"
+        app:layout_constraintEnd_toEndOf="@+id/achievementProgress"
+        app:layout_constraintTop_toTopOf="@+id/achievementProgress"
+        app:layout_constraintBottom_toBottomOf="@+id/achievementProgress">
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_meditation"
+            android:scaleType="centerCrop"
+            app:tint="?attr/colorOnPrimaryContainer"
+            android:contentDescription="@string/achievement_image_content_description" />
+
+    </androidx.cardview.widget.CardView>
+
+
+    <View
+        android:layout_width="75dp"
+        android:layout_height="18dp"
+        android:background="?attr/colorOnPrimaryContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/achievementProgress"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

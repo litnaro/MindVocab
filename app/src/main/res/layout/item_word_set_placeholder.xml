@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:contentPadding="15dp"
+    app:cardCornerRadius="@dimen/default_card_corner_radius"
+    app:cardBackgroundColor="?attr/colorPrimaryContainer"
+    android:layout_marginBottom="7dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <View
+            android:id="@+id/wordSetPhoto"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="?attr/colorOnPrimaryContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        <View
+            android:id="@+id/wordSetTitle"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:background="?attr/colorOnPrimaryContainer"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/wordSetIsSelected"
+            app:layout_constraintStart_toEndOf="@+id/wordSetPhoto"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <View
+            android:id="@+id/wordSetIsSelected"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="?attr/colorOnPrimaryContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/wordSetProgress"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <View
+            android:id="@+id/wordSetProgress"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:background="?attr/colorOnPrimaryContainer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

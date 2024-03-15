@@ -1,4 +1,4 @@
-package com.example.mindvocab.screens.repeat.list
+package com.example.mindvocab.screens.repeat.words
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -9,10 +9,8 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
+import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentSettingsAccountBinding
-import com.example.mindvocab.model.ErrorResult
-import com.example.mindvocab.model.PendingResult
-import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.account.etities.Account
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,9 +30,9 @@ class AccountEditFragment : BaseFragment() {
 
         viewModel.account.observe(viewLifecycleOwner) {
             when(it) {
-                is PendingResult -> {}
-                is ErrorResult -> {}
-                is SuccessResult -> {
+                is Result.PendingResult -> {}
+                is Result.ErrorResult -> {}
+                is Result.SuccessResult -> {
                     setAccountData(it.data)
                 }
             }

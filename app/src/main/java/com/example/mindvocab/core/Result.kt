@@ -1,10 +1,17 @@
-package com.example.mindvocab.model
+package com.example.mindvocab.core
 
 import java.lang.Exception
 
 typealias Mapper<Input, Output> = (Input) -> Output
 
 sealed class Result<T> {
+
+    class PendingResult<T> : Result<T>()
+
+    class SuccessResult<T>(val data: T) : Result<T>()
+
+    class ErrorResult<T>(val exception: Exception) : Result<T>()
+
     fun <R> map(mapper: Mapper<T, R>? = null) : Result<R> {
         return when(this) {
             is PendingResult -> PendingResult()
@@ -17,13 +24,9 @@ sealed class Result<T> {
     }
 }
 
-class PendingResult<T> : Result<T>()
-class SuccessResult<T>(val data: T) : Result<T>()
-class ErrorResult<T>(val exception: Exception) : Result<T>()
-
 
 fun <T> Result<T>?.successResult() : T? {
-    return if (this is SuccessResult) {
+    return if (this is Result.SuccessResult) {
         return this.data
     } else {
         return null

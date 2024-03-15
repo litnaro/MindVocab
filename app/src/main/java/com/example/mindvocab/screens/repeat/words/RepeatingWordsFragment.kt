@@ -1,4 +1,4 @@
-package com.example.mindvocab.screens.repeat.list
+package com.example.mindvocab.screens.repeat.words
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mindvocab.core.BaseFragment
+import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentRepeatingWordsBinding
-import com.example.mindvocab.model.ErrorResult
-import com.example.mindvocab.model.PendingResult
-import com.example.mindvocab.model.SuccessResult
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,15 +30,23 @@ class RepeatingWordsFragment : BaseFragment() {
         }
 
         viewModel.repeatingWords.observe(viewLifecycleOwner) {
-            when(it) {
-                is PendingResult -> {
+            with(binding) {
+                repeatingWordsRv.visibility = View.GONE
+                pendingShimmer.visibility = View.GONE
+                pendingShimmer.stopShimmer()
 
-                }
-                is ErrorResult -> {
+                when(it) {
+                    is Result.PendingResult -> {
+                        pendingShimmer.visibility = View.VISIBLE
+                        pendingShimmer.startShimmer()
+                    }
+                    is Result.ErrorResult -> {
 
-                }
-                is SuccessResult -> {
-                    wordAdapter.submitList(it.data)
+                    }
+                    is Result.SuccessResult -> {
+                        wordAdapter.submitList(it.data)
+                        repeatingWordsRv.visibility = View.VISIBLE
+                    }
                 }
             }
         }

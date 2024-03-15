@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
+import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentStatisticDiagramBinding
-import com.example.mindvocab.model.ErrorResult
-import com.example.mindvocab.model.PendingResult
-import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.statistic.entities.WordsStatisticPercentage
 import dagger.hilt.android.AndroidEntryPoint
 import ir.mahozad.android.PieChart
@@ -34,11 +32,11 @@ class StatisticDiagramFragment : BaseFragment() {
             binding.pendingProgressBar.visibility = View.GONE
 
             when(it) {
-                is PendingResult -> {
+                is Result.PendingResult -> {
                     binding.pendingProgressBar.visibility = View.VISIBLE
                 }
-                is ErrorResult -> {}
-                is SuccessResult -> {
+                is Result.ErrorResult -> {}
+                is Result.SuccessResult -> {
                     binding.diagramContainer.visibility = View.VISIBLE
                     updateDiagram(it.data)
                 }

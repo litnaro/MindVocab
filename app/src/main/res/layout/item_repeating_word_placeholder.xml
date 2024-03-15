@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="@dimen/default_card_corner_radius"
+    app:cardBackgroundColor="?attr/colorTertiaryContainer">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentPadding="10dp"
+            app:cardCornerRadius="@dimen/default_card_corner_radius"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:background="?attr/colorOnPrimaryContainer"/>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="7dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="?attr/colorOnPrimaryContainer"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="20dp"
+                        android:background="?attr/colorOnPrimaryContainer"/>
+
+                    <View
+                        android:layout_width="70dp"
+                        android:layout_height="16dp"
+                        android:layout_marginTop="5dp"
+                        android:background="?attr/colorOnPrimaryContainer"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="?attr/colorTertiaryContainer"
+            android:layout_marginTop="10dp">
+
+            <View
+                android:id="@+id/wordStartedAtTitle"
+                android:layout_width="90dp"
+                android:layout_height="20dp"
+                android:background="?attr/colorOnPrimaryContainer"
+                app:layout_constraintEnd_toStartOf="@+id/wordLastRepeatedAtTitle"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <View
+                android:layout_width="80dp"
+                android:layout_height="18dp"
+                android:background="?attr/colorOnPrimaryContainer"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@+id/wordStartedAtTitle"
+                app:layout_constraintStart_toStartOf="@+id/wordStartedAtTitle"
+                app:layout_constraintTop_toBottomOf="@+id/wordStartedAtTitle"/>
+
+
+            <View
+                android:id="@+id/wordLastRepeatedAtTitle"
+                android:layout_width="90dp"
+                android:layout_height="20dp"
+                android:background="?attr/colorOnPrimaryContainer"
+                app:layout_constraintEnd_toStartOf="@+id/wordTimesRepeatedTitle"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/wordStartedAtTitle"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <View
+                android:layout_width="80dp"
+                android:layout_height="18dp"
+                android:background="?attr/colorOnPrimaryContainer"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@+id/wordLastRepeatedAtTitle"
+                app:layout_constraintStart_toStartOf="@+id/wordLastRepeatedAtTitle"
+                app:layout_constraintTop_toBottomOf="@+id/wordLastRepeatedAtTitle"/>
+
+            <View
+                android:id="@+id/wordTimesRepeatedTitle"
+                android:layout_width="90dp"
+                android:layout_height="20dp"
+                android:background="?attr/colorOnPrimaryContainer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/wordLastRepeatedAtTitle"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <View
+                android:layout_width="80dp"
+                android:layout_height="18dp"
+                android:background="?attr/colorOnPrimaryContainer"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@+id/wordTimesRepeatedTitle"
+                app:layout_constraintStart_toStartOf="@+id/wordTimesRepeatedTitle"
+                app:layout_constraintTop_toBottomOf="@+id/wordTimesRepeatedTitle"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

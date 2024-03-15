@@ -6,10 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.model.sets.entity.WordSet
 import com.example.mindvocab.model.sets.WordSetFilter
-import com.example.mindvocab.model.Result
-import com.example.mindvocab.model.SuccessResult
+import com.example.mindvocab.core.Result
 import com.example.mindvocab.model.sets.WordSetsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +21,7 @@ class WordSetsViewModel @Inject constructor(
     private val _wordSetFilter = MutableLiveData(WordSetFilter.ALL)
     val wordSetFilter: LiveData<WordSetFilter> = _wordSetFilter
 
-    private val _wordSetList = MutableLiveData<Result<List<WordSet>>>()
+    private val _wordSetList = MutableLiveData<Result<List<WordSet>>>(Result.PendingResult())
     val wordSetList: LiveData<Result<List<WordSet>>> = _wordSetList
 
     init {
@@ -30,8 +30,9 @@ class WordSetsViewModel @Inject constructor(
 
     fun getWordSets(filter: WordSetFilter = WordSetFilter.ALL) {
         viewModelScope.launch {
+            delay(1500)
             wordSetsRepository.getWordSets(filter).collect {
-                _wordSetList.value = SuccessResult(it)
+                _wordSetList.value = Result.SuccessResult(it)
             }
         }
     }

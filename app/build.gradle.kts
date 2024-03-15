@@ -81,6 +81,8 @@ dependencies {
 
     val roomVersion = "2.6.1"
 
+    val shimmerVersion = "0.5.0"
+
     val junitVersion = "4.13.2"
     val junitExtVersion = "1.1.5"
     val espressoVersion = "3.5.1"
@@ -126,6 +128,9 @@ dependencies {
     implementation("androidx.room:room-runtime:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
+
+    //Shimmer
+    implementation("com.facebook.shimmer:shimmer:$shimmerVersion")
 
     //Tests
     testImplementation("junit:junit:$junitVersion")

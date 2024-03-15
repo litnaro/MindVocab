@@ -1,4 +1,4 @@
-package com.example.mindvocab.screens.word
+package com.example.mindvocab.screens.learn.wordset.words
 
 import android.view.LayoutInflater
 import android.view.View

@@ -8,11 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
+import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentRepeatWordBinding
-import com.example.mindvocab.model.ErrorResult
 import com.example.mindvocab.model.NoWordsToRepeatException
-import com.example.mindvocab.model.PendingResult
-import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.WordsToRepeatCurrentlyInTimeout
 import com.example.mindvocab.model.word.entities.WordToRepeat
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,36 +37,41 @@ class RepeatWordFragment : BaseFragment() {
         _binding = FragmentRepeatWordBinding.inflate(inflater, container, false)
 
         viewModel.wordToRepeat.observe(viewLifecycleOwner) {
-            binding.repeatingContainer.visibility = View.INVISIBLE
-            binding.repeatingExceptionContainer.visibility = View.GONE
-            binding.repeatPendingProgressBar.visibility = View.GONE
+            with(binding) {
+                repeatingContainer.visibility = View.INVISIBLE
+                repeatingExceptionContainer.visibility = View.GONE
+                pendingShimmer.visibility = View.GONE
+                pendingShimmer.stopShimmer()
 
-            when(it) {
-                is PendingResult -> {
-                    binding.repeatPendingProgressBar.visibility = View.VISIBLE
-                }
-                is ErrorResult -> {
-                    val context = binding.root.context
-                    binding.repeatingContainer.visibility = View.INVISIBLE
-                    binding.repeatingExceptionContainer.visibility = View.VISIBLE
+                when(it) {
+                    is Result.PendingResult -> {
+                        binding.pendingShimmer.visibility = View.VISIBLE
+                        pendingShimmer.startShimmer()
+                    }
+                    is Result.ErrorResult -> {
+                        val context = root.context
+                        repeatingContainer.visibility = View.INVISIBLE
+                        repeatingExceptionContainer.visibility = View.VISIBLE
 
-                    when(it.exception) {
-                        is NoWordsToRepeatException -> {
-                            binding.repeatingExceptionImage.setImageResource(R.drawable.ic_remember)
-                            binding.repeatingExceptionText.text = context.getString(R.string.no_words_to_repeat_exception_title)
-                            binding.repeatingExceptionSubtext.text = context.getString(R.string.no_words_to_repeat_exception_subtitle)
-                        }
-                        is WordsToRepeatCurrentlyInTimeout -> {
-                            binding.repeatingExceptionImage.setImageResource(R.drawable.ic_timeout)
-                            binding.repeatingExceptionText.text = context.getString(R.string.words_to_repeat_in_timeout_exception_title)
-                            binding.repeatingExceptionSubtext.text = context.getString(R.string.words_to_repeat_in_timeout_exception_subtitle)
+                        when(it.exception) {
+                            is NoWordsToRepeatException -> {
+                                repeatingExceptionImage.setImageResource(R.drawable.ic_remember)
+                                repeatingExceptionText.text = context.getString(R.string.no_words_to_repeat_exception_title)
+                                repeatingExceptionSubtext.text = context.getString(R.string.no_words_to_repeat_exception_subtitle)
+                            }
+                            is WordsToRepeatCurrentlyInTimeout -> {
+                                repeatingExceptionImage.setImageResource(R.drawable.ic_timeout)
+                                repeatingExceptionText.text = context.getString(R.string.words_to_repeat_in_timeout_exception_title)
+                                repeatingExceptionSubtext.text = context.getString(R.string.words_to_repeat_in_timeout_exception_subtitle)
+                            }
                         }
                     }
+                    is Result.SuccessResult -> {
+                        repeatingContainer.visibility = View.VISIBLE
+                        setWordData(it.data)
+                    }
                 }
-                is SuccessResult -> {
-                    binding.repeatingContainer.visibility = View.VISIBLE
-                    setWordData(it.data)
-                }
+
             }
         }
 

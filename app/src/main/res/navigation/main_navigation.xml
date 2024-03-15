@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/wordsFragment"
-        android:name="com.example.mindvocab.screens.word.WordsFragment"
+        android:name="com.example.mindvocab.screens.learn.wordset.words.WordsFragment"
         android:label="@string/words_title"
         tools:layout="@layout/fragment_words" >
         <argument
@@ -83,7 +83,7 @@
     </fragment>
     <fragment
         android:id="@+id/repeatingWordsFragment"
-        android:name="com.example.mindvocab.screens.repeat.list.RepeatingWordsFragment"
+        android:name="com.example.mindvocab.screens.repeat.words.RepeatingWordsFragment"
         android:label="@string/repeating_words_title"
         tools:layout="@layout/fragment_repeating_words" />
     <fragment

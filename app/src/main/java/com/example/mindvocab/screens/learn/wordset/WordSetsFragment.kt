@@ -9,10 +9,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mindvocab.core.BaseFragment
+import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentWordSetsBinding
-import com.example.mindvocab.model.ErrorResult
-import com.example.mindvocab.model.PendingResult
-import com.example.mindvocab.model.SuccessResult
 import com.example.mindvocab.model.sets.WordSetFilter
 import com.example.mindvocab.model.sets.entity.WordSet
 import dagger.hilt.android.AndroidEntryPoint
@@ -79,17 +77,19 @@ class WordSetsFragment : BaseFragment() {
         }
 
         viewModel.wordSetList.observe(viewLifecycleOwner) {
-            binding.pendingResultProgressBar.visibility = View.GONE
+            binding.pendingShimmer.visibility = View.GONE
+            binding.pendingShimmer.stopShimmer()
             binding.wordSetsRv.visibility = View.GONE
 
             when(it) {
-                is PendingResult -> {
-                    binding.pendingResultProgressBar.visibility = View.VISIBLE
+                is Result.PendingResult -> {
+                    binding.pendingShimmer.visibility = View.VISIBLE
+                    binding.pendingShimmer.startShimmer()
                 }
-                is ErrorResult -> {
+                is Result.ErrorResult -> {
                     // TODO create view for error result
                 }
-                is SuccessResult -> {
+                is Result.SuccessResult -> {
                     wordSetAdapter.submitList(it.data)
                     binding.wordSetsRv.visibility = View.VISIBLE
                 }

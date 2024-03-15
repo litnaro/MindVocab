@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.example.mindvocab.di
 
 import com.example.mindvocab.model.account.AccountsRepository

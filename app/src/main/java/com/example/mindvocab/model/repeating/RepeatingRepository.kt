@@ -33,7 +33,7 @@ interface RepeatingRepository : Repository {
      * Gets list of the words to repeat.
      * If word started_at not null ro empty, that word will be put to list.
      * @throws AuthException If no user signed in.
-     * @throws StorageException If something wrong with database.
+     * @throws StorageException If unable to execute SQL query.
      * @return Flow of words with progress metadata and details.
      */
     suspend fun getWordsToRepeat() : Flow<List<WordToRepeatDetail>>
