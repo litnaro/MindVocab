@@ -2,6 +2,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,6 +13,51 @@
         android:padding="@dimen/main_screen_padding"
         tools:listitem="@layout/item_repeating_word"
         tools:context=".screens.repeat.words.RepeatingWordsFragment" />
+
+    <LinearLayout
+        android:id="@+id/emptyListContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_remember"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="10dp"
+            app:tint="?attr/colorOnPrimary"
+            android:contentDescription="@string/exception_image_content_description" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:text="@string/no_words_to_repeat_exception_title"
+            android:textSize="@dimen/third_heading_size"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:elevation="2dp"
+            android:textColor="?attr/colorOnPrimaryContainer"/>
+
+        <TextView
+            android:id="@+id/repeatingExceptionSubtext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            tools:text="Additional text"
+            android:textSize="@dimen/simple_text_size"
+            android:elevation="2dp"
+            android:textAlignment="center"
+            android:textColor="?attr/colorOnPrimaryContainer"/>
+
+    </LinearLayout>
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/pendingShimmer"

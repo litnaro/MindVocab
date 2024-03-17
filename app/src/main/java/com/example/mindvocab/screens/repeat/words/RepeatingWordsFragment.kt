@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mindvocab.core.BaseFragment
@@ -34,18 +35,22 @@ class RepeatingWordsFragment : BaseFragment() {
                 repeatingWordsRv.visibility = View.GONE
                 pendingShimmer.visibility = View.GONE
                 pendingShimmer.stopShimmer()
+                emptyListContainer.visibility = View.GONE
 
                 when(it) {
                     is Result.PendingResult -> {
                         pendingShimmer.visibility = View.VISIBLE
                         pendingShimmer.startShimmer()
                     }
-                    is Result.ErrorResult -> {
-
-                    }
+                    is Result.ErrorResult -> {}
                     is Result.SuccessResult -> {
-                        wordAdapter.submitList(it.data)
-                        repeatingWordsRv.visibility = View.VISIBLE
+                        if (it.data.isEmpty()) {
+                            emptyListContainer.visibility = View.VISIBLE
+                        } else {
+                            wordAdapter.submitList(it.data)
+                            repeatingWordsRv.visibility = View.VISIBLE
+                            Toast.makeText(requireContext(), it.data.size.toString(), Toast.LENGTH_LONG).show()
+                        }
                     }
                 }
             }

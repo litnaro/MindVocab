@@ -38,6 +38,7 @@ class LearnWordViewModel @Inject constructor(
 
     fun getWordToLearn() {
         viewModelScope.launch {
+            _word.value = Result.PendingResult()
             delay(1500)
             try {
                 learningRepository.getWordToLearn()
