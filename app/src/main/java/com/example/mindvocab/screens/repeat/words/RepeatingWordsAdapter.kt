@@ -28,7 +28,8 @@ class RepeatingWordsAdapter : ListAdapter<WordToRepeatDetail, RepeatingWordsAdap
 
             wordStartedAtValue.text = item.startedAt
             wordLastRepeatedAtValue.text = item.lastRepeatedAt
-            wordTimesRepeatedValue.text = context.getString(R.string.amount_of_words, item.timesRepeated, WordsCalculations.getWordTimesRepeatedToLearn())
+            //TODO remove request to WordsCalculations
+            wordTimesRepeatedValue.text = context.getString(R.string.amount_of_words, item.timesRepeated, WordsCalculations.TIMES_REPEATED_TO_LEARN)
 
             Glide.with(wordWordSetImage.context)
                 .load(item.wordSetImage)

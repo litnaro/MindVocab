@@ -9,6 +9,7 @@ import com.example.mindvocab.model.learning.LearningRepository
 import com.example.mindvocab.model.learning.room.entities.UpdateWordProgressAsLearningTuple
 import com.example.mindvocab.model.settings.application.ApplicationSettings
 import com.example.mindvocab.model.settings.learn.LearningSettings
+import com.example.mindvocab.model.word.TimeCalculations
 import com.example.mindvocab.model.word.WordsCalculations
 import com.example.mindvocab.model.word.entities.Word
 import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
@@ -62,7 +63,7 @@ class RoomLearningRepository @Inject constructor(
                 AccountWordProgressDbEntity(
                     accountId = account.id,
                     wordId = word.id,
-                    timesRepeated = WordsCalculations.getWordTimesRepeatedToLearn().toByte(),
+                    timesRepeated = WordsCalculations.TIMES_REPEATED_TO_LEARN.toByte(),
                     lastRepeatedAt = currentTimeMillis,
                     startedAt = currentTimeMillis
                 )
@@ -90,8 +91,8 @@ class RoomLearningRepository @Inject constructor(
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
         learningDao.getStartedWordsCount(
             accountId = account.id,
-            timesRepeatedToLearn = WordsCalculations.getWordTimesRepeatedToLearn(),
-            todayInMillis = WordsCalculations.getStartOfTodayInMillis()
+            timesRepeatedToLearn = WordsCalculations.TIMES_REPEATED_TO_LEARN,
+            todayInMillis = TimeCalculations.getStartOfTodayInMillis()
         ).map {
             it.startedWordsCount
         }

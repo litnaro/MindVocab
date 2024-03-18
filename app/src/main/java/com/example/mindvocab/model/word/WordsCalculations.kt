@@ -1,7 +1,6 @@
 package com.example.mindvocab.model.word
 
 import com.example.mindvocab.model.word.room.entities.WordWithStatisticTuple
-import java.util.Calendar
 
 object WordsCalculations {
 
@@ -12,7 +11,7 @@ object WordsCalculations {
         LEARNED
     }
 
-    private const val TIMES_REPEATED_TO_LEARN = 6
+    const val TIMES_REPEATED_TO_LEARN = 6
 
     fun getWordStatusByStatistic(wordWithStatistic: WordWithStatisticTuple) : WordStatus {
         if (wordWithStatistic.startedAt == 0L) {
@@ -35,16 +34,5 @@ object WordsCalculations {
     fun getProgressOfWord(wordWithStatistic: WordWithStatisticTuple) : Int {
         return ((wordWithStatistic.timesRepeated / TIMES_REPEATED_TO_LEARN.toFloat()) * 100).toInt()
     }
-
-    fun getStartOfTodayInMillis(): Long {
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-        return calendar.timeInMillis
-    }
-
-    fun getWordTimesRepeatedToLearn() = TIMES_REPEATED_TO_LEARN
 
 }

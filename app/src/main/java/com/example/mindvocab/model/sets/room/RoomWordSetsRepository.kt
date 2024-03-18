@@ -70,7 +70,7 @@ class RoomWordSetsRepository @Inject constructor(
     }
 
     private fun queryWordSets(accountId: Long): Flow<List<WordSet>> {
-        return wordSetsDao.getWordSetWithStatistic(accountId, WordsCalculations.getWordTimesRepeatedToLearn()).map { it ->
+        return wordSetsDao.getWordSetWithStatistic(accountId, WordsCalculations.TIMES_REPEATED_TO_LEARN).map { it ->
             it.map {
                 it.toWordSet()
             }

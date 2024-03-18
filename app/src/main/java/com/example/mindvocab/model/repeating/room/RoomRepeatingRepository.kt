@@ -8,6 +8,7 @@ import com.example.mindvocab.model.repeating.RepeatingRepository
 import com.example.mindvocab.model.repeating.room.entities.UpdateWordProgressAsForgottenTuple
 import com.example.mindvocab.model.repeating.room.entities.UpdateWordProgressAsRememberedTuple
 import com.example.mindvocab.model.settings.application.ApplicationSettings
+import com.example.mindvocab.model.word.TimeCalculations
 import com.example.mindvocab.model.word.WordsCalculations
 import com.example.mindvocab.model.word.entities.WordToRepeat
 import com.example.mindvocab.model.word.entities.WordToRepeatDetail
@@ -39,7 +40,7 @@ class RoomRepeatingRepository @Inject constructor(
         val translation = applicationSettings.getApplicationNativeLanguage()
         val list = repeatingDao.getAllWordsForRepeating(
             accountId = account.id,
-            timesRepeatedToLearn = WordsCalculations.getWordTimesRepeatedToLearn(),
+            timesRepeatedToLearn = WordsCalculations.TIMES_REPEATED_TO_LEARN,
             translationId = translation.value.toLong()
         ) ?: throw NoWordsToRepeatException()
         return flowOf(list.map { it.toRepeatingWordDetail() })
@@ -55,9 +56,9 @@ class RoomRepeatingRepository @Inject constructor(
             if (account == null) throw AuthException()
             val wordToRepeat = repeatingDao.getWordForRepeating(
                 accountId = account.id,
-                timesRepeatedToLearn = WordsCalculations.getWordTimesRepeatedToLearn(),
+                timesRepeatedToLearn = WordsCalculations.TIMES_REPEATED_TO_LEARN,
                 translationId = translation.value.toLong(),
-                todayInMillis = WordsCalculations.getStartOfTodayInMillis()
+                todayInMillis = TimeCalculations.getStartOfTodayInMillis()
             ) ?: throw NoWordsToRepeatException()
             currentWordToRepeat.emit(wordToRepeat.toWordToRepeat())
         }
@@ -74,7 +75,7 @@ class RoomRepeatingRepository @Inject constructor(
                     lastRepeatedAt = System.currentTimeMillis()
                 )
             )
-            if (word.timesRepeated + 1 == WordsCalculations.getWordTimesRepeatedToLearn()) {
+            if (word.timesRepeated + 1 == WordsCalculations.TIMES_REPEATED_TO_LEARN) {
                 achievementsRepository.updateAchievementsByAction(AchievementsRepository.AchievementAction.WORD_LEARN_ACTION)
             }
             getWordToRepeat()
