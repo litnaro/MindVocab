@@ -52,4 +52,8 @@ interface LearningDao {
 
     @Update(entity = AccountWordProgressDbEntity::class)
     suspend fun updateWordProgressAsKnown(accountWordProgress: AccountWordProgressDbEntity)
+
+    @Update(entity = AccountWordProgressDbEntity::class)
+    suspend fun resetWordProgress(accountWordProgress: AccountWordProgressDbEntity)
+
 }

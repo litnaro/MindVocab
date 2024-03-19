@@ -1,11 +1,12 @@
 package com.example.mindvocab.model.achievement.room
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Upsert
+import androidx.room.Update
 import com.example.mindvocab.model.achievement.room.entities.AccountAchievementProgressDbEntity
 import com.example.mindvocab.model.achievement.room.entities.AccountAchievementProgressTuple
-import com.example.mindvocab.model.achievement.room.entities.AchievementProgressTuple
+import com.example.mindvocab.model.achievement.room.entities.AchievementProgressToUpdateTuple
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -27,22 +28,23 @@ interface AchievementsDao {
             "                                     AND accounts_achievements_progress.achievement_id = achievements.id;\n")
     fun getAchievementsWithAccountProgress(accountId: Long) : Flow<List<AccountAchievementProgressTuple>>
 
-    @Query("SELECT \n" +
+    @Query("SELECT\n" +
             "    achievements.*, \n" +
-            "    IFNULL(\n" +
-            "        (\n" +
-            "            SELECT accounts_achievements_progress.progress \n" +
-            "            FROM accounts_achievements_progress \n" +
-            "            WHERE accounts_achievements_progress.achievement_id = achievements.id \n" +
-            "            AND accounts_achievements_progress.account_id = :accountId\n" +
-            "        ), \n" +
-            "        0\n" +
-            "    ) AS progress\n" +
+            "    accounts_achievements_progress.progress, \n" +
+            "    accounts_achievements_progress.date_achieved\n" +
             "FROM achievements\n" +
-            "WHERE achievements.achievement_type_id = :achievementType;\n")
-    fun getAchievementsByType(accountId: Long, achievementType: Long) : List<AchievementProgressTuple>
+            "LEFT JOIN accounts_achievements_progress ON accounts_achievements_progress.achievement_id = achievements.id \n" +
+            "                                          AND accounts_achievements_progress.account_id = :accountId\n" +
+            "WHERE achievements.achievement_type_id = :achievementType;")
+    suspend fun getAchievementsWithProgressByType(accountId: Long, achievementType: Long) : List<AchievementProgressToUpdateTuple>
 
-    @Upsert
-    fun upsertAccountAchievement(achievementProgress: List<AccountAchievementProgressDbEntity>)
+    @Insert
+    suspend fun insertAccountAchievementProgress(achievementProgress: AccountAchievementProgressDbEntity)
+
+    @Update
+    suspend fun updateAccountAchievementProgress(achievementProgress: AccountAchievementProgressDbEntity)
+
+    @Update
+    suspend fun updateAccountAchievementProgresses(achievementProgress: List<AccountAchievementProgressDbEntity>)
 
 }

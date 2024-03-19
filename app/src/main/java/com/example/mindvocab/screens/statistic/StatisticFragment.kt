@@ -70,7 +70,7 @@ class StatisticFragment : BaseFragment() {
         dialogBinding.achievementName.text = achievement.title
         dialogBinding.achievementDescription.text = achievement.description
 
-        if (achievement.progress == achievement.maxProgress) {
+        if (achievement.progress >= achievement.maxProgress) {
             dialogBinding.achievementCompletedIcon.visibility = View.VISIBLE
 
             dialogBinding.achievementProgressText.visibility = View.GONE
@@ -82,7 +82,7 @@ class StatisticFragment : BaseFragment() {
         }
 
         dialogBinding.achievementProgress.max = achievement.maxProgress
-        dialogBinding.achievementProgress.progress = achievement.progress
+        dialogBinding.achievementProgress.progress = if (achievement.progress > achievement.maxProgress) achievement.maxProgress else achievement.progress
 
         Glide.with(dialogBinding.achievementPhoto.context)
             .load(achievement.image)

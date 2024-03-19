@@ -19,7 +19,9 @@ data class AccountAchievementProgressTuple(
     )
 }
 
-data class AchievementProgressTuple(
+data class AchievementProgressToUpdateTuple(
     @Embedded val achievement: AchievementDbEntity,
-    val progress: Int
+    val progress: Int?,
+    @ColumnInfo(name = "date_achieved") val dateAchieved: Long?
 )
+

@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface AchievementsRepository : Repository {
 
+    //TODO finished word set and day in a row achievements
+    @Suppress("unused")
     enum class AchievementAction (val value: Long) {
         WORD_LEARN_ACTION(1),
         WORD_KNOWN_ACTION(2),
@@ -14,6 +16,8 @@ interface AchievementsRepository : Repository {
     }
 
     suspend fun updateAchievementsByAction(action: AchievementAction)
+
+    suspend fun resetAchievementsByAction(action: AchievementAction)
 
     suspend fun getAchievementsListWithAccountProgress() : Flow<List<Achievement>>
 

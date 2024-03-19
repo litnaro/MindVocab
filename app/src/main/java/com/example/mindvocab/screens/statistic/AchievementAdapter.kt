@@ -44,9 +44,9 @@ class AchievementAdapter (
                 .into(achievementPhoto)
 
             achievementProgress.max = item.maxProgress
-            achievementProgress.progress = item.progress
+            achievementProgress.progress = if (item.progress > item.maxProgress) item.maxProgress else item.progress
 
-            if (item.progress == item.maxProgress) {
+            if (item.progress >= item.maxProgress) {
                 achievementCompletedIcon.visibility = View.VISIBLE
             } else {
                 achievementCompletedIcon.visibility = View.GONE

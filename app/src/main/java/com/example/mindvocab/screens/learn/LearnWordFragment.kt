@@ -95,10 +95,22 @@ class LearnWordFragment : BaseFragment() {
         }
 
         binding.listenWordButton.setOnClickListener {
-            viewModel.onWordListen()
+            //TODO listen word
         }
 
-        //binding.learnWordContainer.setOnTouchListener(onTouchListener)
+        viewModel.isPreviousWordAvailable.observe(viewLifecycleOwner) {
+            //TODO replace with dimens
+            if (it) {
+                binding.returnPreviousWordButton.alpha = 1f
+            } else {
+                binding.returnPreviousWordButton.alpha = 0.5f
+            }
+            binding.returnPreviousWordButton.isEnabled = it
+        }
+
+        binding.returnPreviousWordButton.setOnClickListener {
+            viewModel.onWordReturnPrevious()
+        }
 
         return binding.root
     }
@@ -130,7 +142,7 @@ class LearnWordFragment : BaseFragment() {
             examplesRv.apply {
                 adapter = ExampleAdapter(word.exampleList, object : ExampleAdapter.Listener {
                     override fun onSentenceListen(sentence: String) {
-                        viewModel.onSentenceListen(sentence)
+                        //TODO listen sentence
                     }
                 })
                 layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -150,69 +162,5 @@ class LearnWordFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    //    private val onTouchListener = View.OnTouchListener { view, event ->
-//
-//        val MIN_SWIPE_DISTANCE = -350
-//
-//        // variables to store current configuration of quote card.
-//        val displayMetrics = resources.displayMetrics
-//        val cardWidth = binding.learnWordContainer.width
-//        val cardStart = (displayMetrics.widthPixels.toFloat() / 2) - (cardWidth / 2)
-//
-//        when(event.action) {
-//            MotionEvent.ACTION_UP -> {
-//                var currentX = binding.learnWordContainer.x
-//                binding.learnWordContainer.animate()
-//                    .x(cardStart)
-//                    .setDuration(150)
-//                    .setListener(
-//                        object : AnimatorListenerAdapter() {
-//                            override fun onAnimationEnd(animation: Animator) {
-//                                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default) {
-//                                    delay(100)
-//
-//                                    // check if the swipe distance was more than
-//                                    // minimum swipe required to load a new quote
-//                                    if (currentX < MIN_SWIPE_DISTANCE) {
-//                                        // Add logic to load a new quote if swiped adequately
-//                                        //Toast.makeText(requireContext(), "Swap action", Toast.LENGTH_SHORT).show()
-//                                        //viewModel.onWordLearn()
-//                                        currentX = 0f
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    )
-//                    .start()
-//                //textView.text = getString(R.string.infoText)
-//            }
-//
-//            MotionEvent.ACTION_MOVE -> {
-//                // get the new co-ordinate of X-axis
-//                val newX = event.rawX
-//
-//                // carry out swipe only if newX < cardStart, that is,
-//                // the card is swiped to the left side, not to the right
-//                if (newX - cardWidth < cardStart) {
-//                    binding.learnWordContainer.animate()
-//                        .x(
-//                            min(cardStart, newX - (cardWidth / 2))
-//                        )
-//                        .setDuration(0)
-//                        .start()
-//                    if (binding.learnWordContainer.x < MIN_SWIPE_DISTANCE) {
-//                        //textView.text = getString(R.string.releaseCard)
-//                    } else {
-//                        //textView.text = getString(R.string.infoText
-//                    }
-//                }
-//            }
-//        }
-//
-//        // required to by-pass lint warning
-//        view.performClick()
-//        return@OnTouchListener true
-//    }
 
 }

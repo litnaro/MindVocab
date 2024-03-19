@@ -3,6 +3,7 @@ package com.example.mindvocab.model.learning.room
 import com.example.mindvocab.model.AuthException
 import com.example.mindvocab.model.NoMoreWordsToLearnForTodayException
 import com.example.mindvocab.model.NoWordsToLearnException
+import com.example.mindvocab.model.StorageException
 import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.achievement.AchievementsRepository
 import com.example.mindvocab.model.learning.LearningRepository
@@ -36,9 +37,18 @@ class RoomLearningRepository @Inject constructor(
         extraBufferCapacity = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
-
     override suspend fun listenWordToLearn(): Flow<Word> {
         return currentWordToLearn
+    }
+
+    private val previousWordsDequeue = ArrayDeque<Word>()
+    private val isPreviousWordAvailable = MutableSharedFlow<Boolean>(
+        replay = 0,
+        extraBufferCapacity = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
+    override suspend fun listenIsReturnPreviousWordEnabled(): Flow<Boolean> {
+        return isPreviousWordAvailable
     }
 
     override suspend fun getWordToLearn() = withContext(ioDispatcher) {
@@ -48,6 +58,7 @@ class RoomLearningRepository @Inject constructor(
             val wordTuple = learningDao.getWordToLearn(account.id) ?: throw NoWordsToLearnException()
             val languageSetting = applicationSettings.getApplicationNativeLanguage()
             currentWordToLearn.emit(wordTuple.toWord(languageSetting))
+            updateIsPreviousWordAvailable()
         }
     }
 
@@ -58,17 +69,21 @@ class RoomLearningRepository @Inject constructor(
             // lastRepeatedAt and startedAt should be the same
             // because that's the only way to differentiate KNOWN word from LEARNED
             val currentTimeMillis = System.currentTimeMillis()
-
-            learningDao.updateWordProgressAsKnown(
-                AccountWordProgressDbEntity(
-                    accountId = account.id,
-                    wordId = word.id,
-                    timesRepeated = WordsCalculations.TIMES_REPEATED_TO_LEARN.toByte(),
-                    lastRepeatedAt = currentTimeMillis,
-                    startedAt = currentTimeMillis
+            try {
+                learningDao.updateWordProgressAsKnown(
+                    AccountWordProgressDbEntity(
+                        accountId = account.id,
+                        wordId = word.id,
+                        timesRepeated = WordsCalculations.TIMES_REPEATED_TO_LEARN.toByte(),
+                        lastRepeatedAt = currentTimeMillis,
+                        startedAt = currentTimeMillis
+                    )
                 )
-            )
+            } catch (e: Exception) {
+                throw StorageException()
+            }
             achievementsRepository.updateAchievementsByAction(AchievementsRepository.AchievementAction.WORD_KNOWN_ACTION)
+            previousWordsDequeue.add(word)
             getWordToLearn()
         }
     }
@@ -76,13 +91,18 @@ class RoomLearningRepository @Inject constructor(
     override suspend fun onWordToLearn(word: Word) = withContext(ioDispatcher) {
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
-            learningDao.updateWordProgressAsLearning(
-                UpdateWordProgressAsLearningTuple(
-                    accountId = account.id,
-                    wordId = word.id,
-                    startedAt = System.currentTimeMillis()
+            try {
+                learningDao.updateWordProgressAsLearning(
+                    UpdateWordProgressAsLearningTuple(
+                        accountId = account.id,
+                        wordId = word.id,
+                        startedAt = System.currentTimeMillis()
+                    )
                 )
-            )
+            } catch (e: Exception) {
+                throw StorageException()
+            }
+            previousWordsDequeue.add(word)
             getWordToLearn()
         }
     }
@@ -96,6 +116,29 @@ class RoomLearningRepository @Inject constructor(
         ).map {
             it.startedWordsCount
         }
+    }
+
+    override suspend fun returnPreviousWord() = withContext(ioDispatcher) {
+        if (previousWordsDequeue.isNotEmpty()) {
+            val account = accountsRepository.getAccount().first() ?: throw AuthException()
+            val word = previousWordsDequeue.removeLast()
+            learningDao.resetWordProgress(
+                AccountWordProgressDbEntity(
+                    accountId = account.id,
+                    wordId = word.id,
+                    lastRepeatedAt = 0,
+                    startedAt = 0,
+                    timesRepeated = 0
+                )
+            )
+            achievementsRepository.resetAchievementsByAction(AchievementsRepository.AchievementAction.WORD_KNOWN_ACTION)
+            currentWordToLearn.emit(word)
+            updateIsPreviousWordAvailable()
+        }
+    }
+
+    private suspend fun updateIsPreviousWordAvailable() {
+        isPreviousWordAvailable.emit(previousWordsDequeue.isNotEmpty())
     }
 
 }

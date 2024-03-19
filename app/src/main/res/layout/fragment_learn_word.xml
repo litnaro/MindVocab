@@ -264,10 +264,14 @@
                     android:textSize="@dimen/simple_text_size"
                     android:layout_weight="1" />
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/returnPreviousWordButton"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/ic_restore"
+                    android:background="@android:color/transparent"
+                    android:enabled="false"
+                    android:scaleType="centerCrop"
                     app:tint="?attr/colorOnPrimaryContainer"
                     android:layout_gravity="center_vertical"
                     android:contentDescription="@string/return_to_previous_word_content_description" />

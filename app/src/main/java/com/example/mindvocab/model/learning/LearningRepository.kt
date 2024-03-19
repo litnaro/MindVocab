@@ -14,14 +14,22 @@ interface LearningRepository : Repository {
     /**
      * Subscribe on word to learn.
      * Not auto-updated. Updates only after calling getWordToLearn() method.
-     * @return All possible information about word for learning.
+     * @return Flow of all possible information about word for learning.
      */
     suspend fun listenWordToLearn() : Flow<Word>
+
+    /**
+     *  Subscribe on is return action available.
+     *  Not auto-updated.
+     *  @return Flow of is there previous words in the stack or not.
+     */
+    suspend fun listenIsReturnPreviousWordEnabled() : Flow<Boolean>
 
     /**
      * Get all information about word to learn.
      * Emits new value to all listenWordToLearn() flow subscribers.
      * Requires ApplicationSettings.NativeLanguageSetting to decide which translation get from database.
+     * Updates listenIsReturnPreviousWordEnabled().
      * @throws AuthException Cannot get words progress without account information.
      * @throws NoWordsToLearnException In case if all words already learned or none of the word set as selected.
      * @throws NoMoreWordsToLearnForTodayException Throws when more then LearningSettings.WordsADay words were marked as started today.
@@ -33,7 +41,8 @@ interface LearningRepository : Repository {
      * Sets word repeat count by user to TIMES_REPEATED_TO_LEARN constant, to skip it from learning.
      * Sets started and last repeated time metadata to current time.
      * Important to set the same value to started and repeated fields, because that's the only way to differentiate KNOWN word from LEARNED.
-     * After updates - load new word to learn.
+     * Write word to stack so it could be returned later.
+     * After updates - load new word to learn, update all achievements with "word known" action.
      * @param word Current word from learning screen.
      * @throws AuthException Cannot update word progress without account information.
      */
@@ -41,7 +50,8 @@ interface LearningRepository : Repository {
 
     /**
      * Sets word startedAt time to current time.
-     * After updates - load new word to learn.
+     * Write word to stack so it could be returned later.
+     * After updates - load new word to learn, update all achievements with "word to learn" action.
      * @param word Current word from learning screen.
      * @throws AuthException Cannot update word progress without account information.
      */
@@ -56,5 +66,14 @@ interface LearningRepository : Repository {
      * @return Flow of how many words were learned today.
      */
     suspend fun getTodayStartedWordsCount() : Flow<Int>
+
+    /**
+     * Return previous word.
+     * Reset all it is progress.
+     * Update listenIsReturnPreviousWordEnabled() value.
+     * If no words to return - does nothing.
+     * @throws AuthException Cannot update word progress without account information.
+     */
+    suspend fun returnPreviousWord()
 
 }

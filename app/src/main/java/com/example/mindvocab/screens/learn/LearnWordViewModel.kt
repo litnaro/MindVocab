@@ -29,11 +29,15 @@ class LearnWordViewModel @Inject constructor(
     private val _startedTodayWordsCount = MutableLiveData<Int>()
     val startedTodayWordsCount: LiveData<Int> = _startedTodayWordsCount
 
+    private val _isPreviousWordAvailable = MutableLiveData<Boolean>()
+    val isPreviousWordAvailable: LiveData<Boolean> = _isPreviousWordAvailable
+
     init {
+        listenIsReturnPreviousWordEnabled()
         listenWordToLearn()
-        getWordToLearn()
         listenWordADaySettings()
         listenTodayStartedWords()
+        getWordToLearn()
     }
 
     fun getWordToLearn() {
@@ -68,12 +72,10 @@ class LearnWordViewModel @Inject constructor(
         }
     }
 
-    fun onSentenceListen(sentence: String) {
-
-    }
-
-    fun onWordListen() {
-
+    fun onWordReturnPrevious() {
+        viewModelScope.launch {
+            learningRepository.returnPreviousWord()
+        }
     }
 
     private fun listenWordToLearn() {
@@ -96,6 +98,14 @@ class LearnWordViewModel @Inject constructor(
         viewModelScope.launch {
             learningRepository.getTodayStartedWordsCount().collect {
                 _startedTodayWordsCount.value = it
+            }
+        }
+    }
+
+    private fun listenIsReturnPreviousWordEnabled() {
+        viewModelScope.launch {
+            learningRepository.listenIsReturnPreviousWordEnabled().collect {
+                _isPreviousWordAvailable.value = it
             }
         }
     }
