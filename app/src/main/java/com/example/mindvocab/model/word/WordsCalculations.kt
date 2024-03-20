@@ -18,7 +18,6 @@ object WordsCalculations {
             return WordStatus.NEW
         }
 
-        // TODO set comment or rewrite it
         if (wordWithStatistic.timesRepeated < TIMES_REPEATED_TO_LEARN
             || wordWithStatistic.timesRepeated != TIMES_REPEATED_TO_LEARN) {
             return WordStatus.IN_PROGRESS

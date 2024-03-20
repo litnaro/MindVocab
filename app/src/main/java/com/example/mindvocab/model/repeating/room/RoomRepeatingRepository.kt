@@ -2,9 +2,12 @@ package com.example.mindvocab.model.repeating.room
 
 import com.example.mindvocab.model.AuthException
 import com.example.mindvocab.model.NoWordsToRepeatException
+import com.example.mindvocab.model.StorageException
 import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.achievement.AchievementsRepository
 import com.example.mindvocab.model.repeating.RepeatingRepository
+import com.example.mindvocab.model.repeating.room.entities.RepeatingWordDetailTuple
+import com.example.mindvocab.model.repeating.room.entities.RepeatingWordTuple
 import com.example.mindvocab.model.repeating.room.entities.UpdateWordProgressAsForgottenTuple
 import com.example.mindvocab.model.repeating.room.entities.UpdateWordProgressAsRememberedTuple
 import com.example.mindvocab.model.settings.application.ApplicationSettings
@@ -35,31 +38,43 @@ class RoomRepeatingRepository @Inject constructor(
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    override suspend fun getWordsToRepeat(): Flow<List<WordToRepeatDetail>> {
-        val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        val translation = applicationSettings.getApplicationNativeLanguage()
-        val list = repeatingDao.getAllWordsForRepeating(
-            accountId = account.id,
-            timesRepeatedToLearn = WordsCalculations.TIMES_REPEATED_TO_LEARN,
-            translationId = translation.value.toLong()
-        ) ?: throw NoWordsToRepeatException()
-        return flowOf(list.map { it.toRepeatingWordDetail() })
-    }
-
     override suspend fun listenWordToRepeat(): Flow<WordToRepeat> {
         return currentWordToRepeat
     }
 
-    override suspend fun getWordToRepeat() = withContext(ioDispatcher) {
+    override suspend fun getWordsToRepeat(): Flow<List<WordToRepeatDetail>> {
+        val account = accountsRepository.getAccount().first() ?: throw AuthException()
         val translation = applicationSettings.getApplicationNativeLanguage()
-        accountsRepository.getAccount().collect { account ->
-            if (account == null) throw AuthException()
-            val wordToRepeat = repeatingDao.getWordForRepeating(
+        val listOfRepeatingWords: List<RepeatingWordDetailTuple>?
+        try {
+            listOfRepeatingWords = repeatingDao.getAllWordsForRepeating(
                 accountId = account.id,
                 timesRepeatedToLearn = WordsCalculations.TIMES_REPEATED_TO_LEARN,
-                translationId = translation.value.toLong(),
-                todayInMillis = TimeCalculations.getStartOfTodayInMillis()
-            ) ?: throw NoWordsToRepeatException()
+                translationId = translation.value.toLong()
+            )
+        } catch (e: Exception) {
+            throw StorageException()
+        }
+        if (listOfRepeatingWords == null) throw NoWordsToRepeatException()
+        return flowOf(listOfRepeatingWords.map { it.toRepeatingWordDetail() })
+    }
+
+    override suspend fun getWordToRepeat() = withContext(ioDispatcher) {
+        accountsRepository.getAccount().collect { account ->
+            if (account == null) throw AuthException()
+            val translation = applicationSettings.getApplicationNativeLanguage()
+            val wordToRepeat: RepeatingWordTuple?
+            try {
+                wordToRepeat = repeatingDao.getWordForRepeating(
+                    accountId = account.id,
+                    timesRepeatedToLearn = WordsCalculations.TIMES_REPEATED_TO_LEARN,
+                    translationId = translation.value.toLong(),
+                    todayInMillis = TimeCalculations.getStartOfTodayInMillis()
+                )
+            } catch (e: Exception) {
+                throw StorageException()
+            }
+            if (wordToRepeat == null) throw NoWordsToRepeatException()
             currentWordToRepeat.emit(wordToRepeat.toWordToRepeat())
         }
     }
@@ -67,16 +82,20 @@ class RoomRepeatingRepository @Inject constructor(
     override suspend fun onWordRemember(word: WordToRepeat) = withContext(ioDispatcher) {
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
-            repeatingDao.updateWordProgressAsRemembered(
-                UpdateWordProgressAsRememberedTuple(
-                    accountId = account.id,
-                    wordId = word.id,
-                    timesRepeated = (word.timesRepeated + 1).toByte(),
-                    lastRepeatedAt = System.currentTimeMillis()
+            try {
+                repeatingDao.updateWordProgressAsRemembered(
+                    UpdateWordProgressAsRememberedTuple(
+                        accountId = account.id,
+                        wordId = word.id,
+                        timesRepeated = (word.timesRepeated + 1).toByte(),
+                        lastRepeatedAt = System.currentTimeMillis()
+                    )
                 )
-            )
+            } catch (e: Exception) {
+                throw StorageException()
+            }
             if (word.timesRepeated + 1 == WordsCalculations.TIMES_REPEATED_TO_LEARN) {
-                achievementsRepository.updateAchievementsByAction(AchievementsRepository.AchievementAction.WORD_LEARN_ACTION)
+                achievementsRepository.increaseAchievementsProgressByAction(AchievementsRepository.AchievementAction.WORD_LEARN_ACTION)
             }
             getWordToRepeat()
         }
@@ -85,13 +104,17 @@ class RoomRepeatingRepository @Inject constructor(
     override suspend fun onWordForgot(word: WordToRepeat) = withContext(ioDispatcher) {
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
-            repeatingDao.updateWordProgressAsForgotten(
-                UpdateWordProgressAsForgottenTuple(
-                    accountId = account.id,
-                    wordId = word.id,
-                    lastRepeatedAt = System.currentTimeMillis()
+            try {
+                repeatingDao.updateWordProgressAsForgotten(
+                    UpdateWordProgressAsForgottenTuple(
+                        accountId = account.id,
+                        wordId = word.id,
+                        lastRepeatedAt = System.currentTimeMillis()
+                    )
                 )
-            )
+            } catch (e: Exception) {
+                throw StorageException()
+            }
             getWordToRepeat()
         }
     }

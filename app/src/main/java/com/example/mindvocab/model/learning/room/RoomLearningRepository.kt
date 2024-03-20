@@ -8,6 +8,7 @@ import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.achievement.AchievementsRepository
 import com.example.mindvocab.model.learning.LearningRepository
 import com.example.mindvocab.model.learning.room.entities.UpdateWordProgressAsLearningTuple
+import com.example.mindvocab.model.learning.room.entities.WordForLearningTuple
 import com.example.mindvocab.model.settings.application.ApplicationSettings
 import com.example.mindvocab.model.settings.learn.LearningSettings
 import com.example.mindvocab.model.word.TimeCalculations
@@ -55,7 +56,13 @@ class RoomLearningRepository @Inject constructor(
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
             if (getTodayStartedWordsCount().first() >= learningSettings.wordsADaySetting.first().value) throw NoMoreWordsToLearnForTodayException()
-            val wordTuple = learningDao.getWordToLearn(account.id) ?: throw NoWordsToLearnException()
+            val wordTuple: WordForLearningTuple?
+            try {
+                wordTuple = learningDao.getWordToLearn(account.id)
+            } catch (e: Exception) {
+                throw StorageException()
+            }
+            if (wordTuple == null) throw NoWordsToLearnException()
             val languageSetting = applicationSettings.getApplicationNativeLanguage()
             currentWordToLearn.emit(wordTuple.toWord(languageSetting))
             updateIsPreviousWordAvailable()
@@ -82,7 +89,7 @@ class RoomLearningRepository @Inject constructor(
             } catch (e: Exception) {
                 throw StorageException()
             }
-            achievementsRepository.updateAchievementsByAction(AchievementsRepository.AchievementAction.WORD_KNOWN_ACTION)
+            achievementsRepository.increaseAchievementsProgressByAction(AchievementsRepository.AchievementAction.WORD_KNOWN_ACTION)
             previousWordsDequeue.add(word)
             getWordToLearn()
         }
@@ -109,12 +116,16 @@ class RoomLearningRepository @Inject constructor(
 
     override suspend fun getTodayStartedWordsCount(): Flow<Int> = withContext(ioDispatcher){
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        learningDao.getStartedWordsCount(
-            accountId = account.id,
-            timesRepeatedToLearn = WordsCalculations.TIMES_REPEATED_TO_LEARN,
-            todayInMillis = TimeCalculations.getStartOfTodayInMillis()
-        ).map {
-            it.startedWordsCount
+        try {
+            learningDao.getStartedWordsCount(
+                accountId = account.id,
+                timesRepeatedToLearn = WordsCalculations.TIMES_REPEATED_TO_LEARN,
+                todayInMillis = TimeCalculations.getStartOfTodayInMillis()
+            ).map {
+                it.startedWordsCount
+            }
+        } catch (e: Exception) {
+            throw StorageException()
         }
     }
 
@@ -122,16 +133,20 @@ class RoomLearningRepository @Inject constructor(
         if (previousWordsDequeue.isNotEmpty()) {
             val account = accountsRepository.getAccount().first() ?: throw AuthException()
             val word = previousWordsDequeue.removeLast()
-            learningDao.resetWordProgress(
-                AccountWordProgressDbEntity(
-                    accountId = account.id,
-                    wordId = word.id,
-                    lastRepeatedAt = 0,
-                    startedAt = 0,
-                    timesRepeated = 0
+            try {
+                learningDao.resetWordProgress(
+                    AccountWordProgressDbEntity(
+                        accountId = account.id,
+                        wordId = word.id,
+                        lastRepeatedAt = 0,
+                        startedAt = 0,
+                        timesRepeated = 0
+                    )
                 )
-            )
-            achievementsRepository.resetAchievementsByAction(AchievementsRepository.AchievementAction.WORD_KNOWN_ACTION)
+            } catch (e: Exception) {
+                throw StorageException()
+            }
+            achievementsRepository.decreaseAchievementsProgressByAction(AchievementsRepository.AchievementAction.WORD_KNOWN_ACTION)
             currentWordToLearn.emit(word)
             updateIsPreviousWordAvailable()
         }

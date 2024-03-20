@@ -1,6 +1,7 @@
 package com.example.mindvocab.model.statistic.room
 
 import com.example.mindvocab.model.AuthException
+import com.example.mindvocab.model.StorageException
 import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.statistic.StatisticRepository
 import com.example.mindvocab.model.statistic.entities.AchievementsStatistic
@@ -23,37 +24,53 @@ class RoomStatisticRepository @Inject constructor(
 
     override suspend fun getWordsStatistic(): Flow<WordsStatistic> = withContext(ioDispatcher) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        statisticDao.getAccountApplicationStatistic(accountId = account.id, WordsCalculations.TIMES_REPEATED_TO_LEARN).map {
-            WordsStatistic(
-                allWordsCount = it.allWordsCount,
-                learnedWords = it.learnedWordsCount,
-                knownWordsCount = it.knownWordsCount,
-                wordsLeftCount = it.allWordsCount - it.learnedWordsCount - it.knownWordsCount
-            )
+        try {
+            statisticDao.getAccountApplicationStatistic(accountId = account.id, WordsCalculations.TIMES_REPEATED_TO_LEARN).map {
+                WordsStatistic(
+                    allWordsCount = it.allWordsCount,
+                    learnedWords = it.learnedWordsCount,
+                    knownWordsCount = it.knownWordsCount,
+                    wordsLeftCount = it.allWordsCount - it.learnedWordsCount - it.knownWordsCount
+                )
+            }
+        } catch (e: Exception) {
+            throw StorageException()
         }
     }
 
     override suspend fun getWordsStatisticPercentage(): Flow<WordsStatisticPercentage> = withContext(ioDispatcher) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        statisticDao.getAccountApplicationStatistic(accountId = account.id, WordsCalculations.TIMES_REPEATED_TO_LEARN)
-            .map { getPercentageByStatistic(it) }
+        try {
+            statisticDao.getAccountApplicationStatistic(accountId = account.id, WordsCalculations.TIMES_REPEATED_TO_LEARN)
+                .map { getPercentageByStatistic(it) }
+        } catch (e: Exception) {
+            throw StorageException()
+        }
     }
 
     override suspend fun getAchievementStatistic(): Flow<AchievementsStatistic> = withContext(ioDispatcher) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        statisticDao.getAccountAchievementsStatistic(account.id).map {
-            AchievementsStatistic(
-                achievementsCount = it.achievementsCount,
-                achievementsCompleted = it.achievementsCompleted
-            )
+        try {
+            statisticDao.getAccountAchievementsStatistic(account.id).map {
+                AchievementsStatistic(
+                    achievementsCount = it.achievementsCount,
+                    achievementsCompleted = it.achievementsCompleted
+                )
+            }
+        } catch (e: Exception) {
+            throw StorageException()
         }
     }
 
     override suspend fun getWordSetsStatistic(): Flow<List<String>> = withContext(ioDispatcher){
         // TODO maybe also return id to see word set or its statistic
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        statisticDao.getAccountCompletedWordSets(account.id, WordsCalculations.TIMES_REPEATED_TO_LEARN).map { entities ->
-            entities.map { it.name }
+        try {
+            statisticDao.getAccountCompletedWordSets(account.id, WordsCalculations.TIMES_REPEATED_TO_LEARN).map { entities ->
+                entities.map { it.name }
+            }
+        } catch (e: Exception) {
+            throw StorageException()
         }
     }
 

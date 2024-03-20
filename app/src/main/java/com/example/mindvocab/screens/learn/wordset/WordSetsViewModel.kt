@@ -9,7 +9,6 @@ import com.example.mindvocab.model.sets.WordSetFilter
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.model.sets.WordSetsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,7 +29,6 @@ class WordSetsViewModel @Inject constructor(
 
     fun getWordSets(filter: WordSetFilter = WordSetFilter.ALL) {
         viewModelScope.launch {
-            delay(1500)
             wordSetsRepository.getWordSets(filter).collect {
                 _wordSetList.value = Result.SuccessResult(it)
             }

@@ -14,7 +14,7 @@ interface RepeatingRepository : Repository {
     /**
      * Subscribe on word to repeat.
      * Not auto-updated. Updates only after calling getWordsToRepeat() method.
-     * @return All base word fields and how many times account already repeat this word.
+     * @return All base word fields and how many times account has already repeated this word.
      */
     suspend fun listenWordToRepeat() : Flow<WordToRepeat>
 
@@ -26,6 +26,7 @@ interface RepeatingRepository : Repository {
      * @throws AuthException If no user signed in.
      * @throws NoWordsToRepeatException If no words with were started or all previous words already learned.
      * @throws WordsToRepeatCurrentlyInTimeout If there are words to be repeated, but only a few time past since last repeat.
+     * @throws StorageException If unable to execute SQL query.
      */
     suspend fun getWordToRepeat()
 
@@ -43,6 +44,7 @@ interface RepeatingRepository : Repository {
      * Also updates word`s date of last repeat to a new one.
      * Emits new value to  word to repeat subscribers after succeed operations.
      * @throws AuthException If no user signed in.
+     * @throws StorageException If unable to execute SQL query.
      */
     suspend fun onWordRemember(word: WordToRepeat)
 
@@ -51,6 +53,7 @@ interface RepeatingRepository : Repository {
      * Progression of the word is staying the same.
      * Emits new value to  word to repeat subscribers after succeed operations.
      * @throws AuthException If no user signed in.
+     * @throws StorageException If unable to execute SQL query.
      */
     suspend fun onWordForgot(word: WordToRepeat)
 

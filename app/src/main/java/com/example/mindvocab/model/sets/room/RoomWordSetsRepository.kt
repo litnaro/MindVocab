@@ -7,10 +7,10 @@ import com.example.mindvocab.model.sets.WordSetFilter
 import com.example.mindvocab.model.sets.WordSetsRepository
 import com.example.mindvocab.model.sets.entity.WordSet
 import com.example.mindvocab.model.sets.room.entity.AccountWordSetDbEntity
-import com.example.mindvocab.model.sets.room.entity.WordSetDbEntity
 import com.example.mindvocab.model.word.WordsCalculations
 import com.example.mindvocab.model.word.room.WordsDao
 import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
+import com.example.mindvocab.model.word.room.entities.WordDbEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -32,7 +32,11 @@ class RoomWordSetsRepository @Inject constructor(
         return accountsRepository.getAccount()
             .flatMapLatest { account ->
                 if (account == null) return@flatMapLatest flowOf(emptyList())
-                queryWordSets(account.id)
+                try {
+                    queryWordSets(account.id)
+                } catch (e: Exception) {
+                    throw StorageException()
+                }
             }
             .mapLatest { wordSets ->
                 when(filter) {
@@ -47,18 +51,6 @@ class RoomWordSetsRepository @Inject constructor(
                     }
                 }
             }
-    }
-
-    override suspend fun createWordSet(wordSet: WordSetDbEntity) = withContext(ioDispatcher) {
-        try {
-            wordSetsDao.createWordSet(wordSet)
-        } catch (e: StorageException) {
-            e.printStackTrace()
-        }
-    }
-
-    override suspend fun deleteWordSet(wordSet: WordSetDbEntity) = withContext(ioDispatcher) {
-        TODO("Not yet implemented")
     }
 
     override suspend fun selectWordSet(wordSet: WordSet) = withContext(ioDispatcher) {
@@ -86,18 +78,23 @@ class RoomWordSetsRepository @Inject constructor(
         )
 
         if (isSelected) {
-            val accountWordsProgress = wordsDao.getWordsByWordSetId(wordSet.id).first().map {
-                AccountWordProgressDbEntity(
-                    accountId = account.id,
-                    wordId = it.id,
-                    timesRepeated = 0,
-                    lastRepeatedAt = 0,
-                    startedAt = 0
-                )
+            val accountWordsProgress: List<WordDbEntity>?
+            try {
+                accountWordsProgress = wordsDao.getWordsByWordSetId(wordSet.id).first()
+            } catch (e: Exception) {
+               throw StorageException()
             }
             wordSetsDao.upsertWordSetSelection(
                 wordSetDbEntity,
-                accountWordsProgress
+                accountWordsProgress.map {
+                    AccountWordProgressDbEntity(
+                        accountId = account.id,
+                        wordId = it.id,
+                        timesRepeated = 0,
+                        lastRepeatedAt = 0,
+                        startedAt = 0
+                    )
+                }
             )
         } else {
             wordSetsDao.upsertWordSetSelection(wordSetDbEntity)

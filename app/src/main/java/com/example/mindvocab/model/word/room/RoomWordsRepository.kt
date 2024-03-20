@@ -1,11 +1,11 @@
 package com.example.mindvocab.model.word.room
 
+import com.example.mindvocab.model.AuthException
 import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.word.WordsRepository
 import com.example.mindvocab.model.word.entities.WordStatistic
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -17,8 +17,8 @@ class RoomWordsRepository @Inject constructor(
     override suspend fun getWordsByWordSetId(wordSetId: Long): Flow<List<WordStatistic>> {
         return accountsRepository.getAccount()
             .flatMapLatest { account ->
-                if (account == null) return@flatMapLatest flowOf(emptyList())
-                queryWordsWithStatisticByWordSetId(wordSetId ,account.id)
+                if (account == null) throw AuthException()
+                queryWordsWithStatisticByWordSetId(wordSetId, account.id)
             }
     }
 

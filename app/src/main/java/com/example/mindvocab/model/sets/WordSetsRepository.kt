@@ -1,10 +1,9 @@
 package com.example.mindvocab.model.sets
 
+import com.example.mindvocab.model.AuthException
 import com.example.mindvocab.model.Repository
 import com.example.mindvocab.model.sets.entity.WordSet
-import com.example.mindvocab.model.sets.room.entity.WordSetDbEntity
 import com.example.mindvocab.model.StorageException
-import com.example.mindvocab.model.WordSetAlreadyExistsException
 import kotlinx.coroutines.flow.Flow
 
 interface WordSetsRepository : Repository {
@@ -12,36 +11,26 @@ interface WordSetsRepository : Repository {
     /**
      * Get list of word sets.
      * @param filter Filtering list by selection. Getting all word sets by default.
-     * @throws StorageException
+     * @throws StorageException If unable to execute SQL query.
      */
     suspend fun getWordSets(filter: WordSetFilter = WordSetFilter.ALL) : Flow<List<WordSet>>
-
-    /**
-     * Create a new word set if it does not exist.
-     * @throws StorageException
-     * @throws WordSetAlreadyExistsException
-     */
-    suspend fun createWordSet(wordSet: WordSetDbEntity)
-
-    /**
-     *  Delete a custom user word set.
-     *  Platform word sets can not be deleted.
-     *  @throws StorageException
-     */
-    suspend fun deleteWordSet(wordSet: WordSetDbEntity)
 
     /**
      *  Mark the specified word set as selected.
      *  Adding all words selected from word set to account words progress.
      *  After selection those words are displayed in learning screen.
-     *  @throws StorageException
+     *  @param wordSet Word set to be selected.
+     *  @throws StorageException If unable to execute SQL query.
+     *  @throws AuthException If no user signed in.
      */
     suspend fun selectWordSet(wordSet: WordSet)
 
     /**
      *  Mark the specified word set as unselected.
      *  Removing all word set words but save their progress in account progress.
-     *  @throws StorageException
+     *  @param wordSet Word set to be unselected.
+     *  @throws StorageException If unable to execute SQL query.
+     *  @throws AuthException If no user signed in.
      */
     suspend fun unselectWordSet(wordSet: WordSet)
 

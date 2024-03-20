@@ -24,7 +24,7 @@ sealed class Result<T> {
     }
 }
 
-
+@Suppress("unused", "UNREACHABLE_CODE")
 fun <T> Result<T>?.successResult() : T? {
     return if (this is Result.SuccessResult) {
         return this.data

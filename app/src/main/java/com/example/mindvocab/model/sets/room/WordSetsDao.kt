@@ -1,7 +1,6 @@
 package com.example.mindvocab.model.sets.room
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -53,9 +52,4 @@ interface WordSetsDao {
     @Update
     suspend fun updateWordSet(wordSetDbEntity: WordSetDbEntity)
 
-    @Insert
-    suspend fun createWordSet(wordSetDbEntity: WordSetDbEntity)
-
-    @Delete
-    suspend fun removeWordSet(wordSetDbEntity: WordSetDbEntity)
 }

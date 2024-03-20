@@ -19,36 +19,44 @@ class RoomAchievementsRepository @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher
 ) : AchievementsRepository {
 
-    override suspend fun updateAchievementsByAction(action: AchievementsRepository.AchievementAction) = withContext(ioDispatcher) {
+    override suspend fun increaseAchievementsProgressByAction(action: AchievementsRepository.AchievementAction) = withContext(ioDispatcher) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
 
         val achievements = achievementsDao.getAchievementsWithProgressByType(account.id, action.value)
         achievements.forEach { achievement ->
             if (achievement.progress == null || achievement.dateAchieved == null) {
-                achievementsDao.insertAccountAchievementProgress(
-                    AccountAchievementProgressDbEntity(
-                        accountId = account.id,
-                        achievementId = achievement.achievement.id,
-                        dateAchieved = if (achievement.achievement.progressToAchieve == 1) System.currentTimeMillis() else 0,
-                        progress = 1,
-                        isChecked = false,
+                try {
+                    achievementsDao.insertAccountAchievementProgress(
+                        AccountAchievementProgressDbEntity(
+                            accountId = account.id,
+                            achievementId = achievement.achievement.id,
+                            dateAchieved = if (achievement.achievement.progressToAchieve == 1) System.currentTimeMillis() else 0,
+                            progress = 1,
+                            isChecked = false,
+                        )
                     )
-                )
+                } catch (e: Exception) {
+                    throw StorageException()
+                }
             } else {
-                achievementsDao.updateAccountAchievementProgress(
-                    AccountAchievementProgressDbEntity(
-                        accountId = account.id,
-                        achievementId = achievement.achievement.id,
-                        dateAchieved = if (achievement.progress + 1 == achievement.achievement.progressToAchieve) System.currentTimeMillis() else achievement.dateAchieved,
-                        progress = achievement.progress + 1,
-                        isChecked = false,
+                try {
+                    achievementsDao.updateAccountAchievementProgress(
+                        AccountAchievementProgressDbEntity(
+                            accountId = account.id,
+                            achievementId = achievement.achievement.id,
+                            dateAchieved = if (achievement.progress + 1 == achievement.achievement.progressToAchieve) System.currentTimeMillis() else achievement.dateAchieved,
+                            progress = achievement.progress + 1,
+                            isChecked = false,
+                        )
                     )
-                )
+                } catch (e: Exception) {
+                    throw StorageException()
+                }
             }
         }
     }
 
-    override suspend fun resetAchievementsByAction(action: AchievementsRepository.AchievementAction) = withContext(ioDispatcher) {
+    override suspend fun decreaseAchievementsProgressByAction(action: AchievementsRepository.AchievementAction) = withContext(ioDispatcher) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
         val achievements = achievementsDao.getAchievementsWithProgressByType(account.id, action.value)
             .map {
@@ -66,8 +74,12 @@ class RoomAchievementsRepository @Inject constructor(
 
     override suspend fun getAchievementsListWithAccountProgress(): Flow<List<Achievement>> = withContext(ioDispatcher) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        achievementsDao.getAchievementsWithAccountProgress(account.id).map { entities ->
-            entities.map { it.toAchievement() }
+        try {
+            achievementsDao.getAchievementsWithAccountProgress(account.id).map { entities ->
+                entities.map { it.toAchievement() }
+            }
+        } catch (e: Exception) {
+            throw StorageException()
         }
     }
 
