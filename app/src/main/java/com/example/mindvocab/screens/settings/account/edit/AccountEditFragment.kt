@@ -39,7 +39,8 @@ class AccountEditFragment : BaseFragment() {
         }
 
         binding.changePasswordContainer.setOnClickListener {
-            findNavController().navigate(AccountEditFragmentDirections.actionAccountEditFragmentToChangePasswordFragment())
+            // TODO Direction
+            //findNavController().navigate(AccountEditFragmentDirections.actionAccountEditFragmentToChangePasswordFragment())
         }
 
         return binding.root

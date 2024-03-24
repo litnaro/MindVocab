@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/repeat"
+    app:startDestination="@id/repeatWordFragment">
+
+    <fragment
+        android:id="@+id/repeatWordFragment"
+        android:name="com.example.mindvocab.screens.repeat.RepeatWordFragment"
+        android:label="@string/repeat_title"
+        tools:layout="@layout/fragment_repeat_word" >
+        <action
+            android:id="@+id/action_repeatWordFragment_to_repeatingWordsFragment"
+            app:destination="@id/repeatingWordsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/repeatingWordsFragment"
+        android:name="com.example.mindvocab.screens.repeat.words.RepeatingWordsFragment"
+        android:label="@string/repeating_words_title" />
+</navigation>

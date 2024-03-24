@@ -12,7 +12,8 @@ import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentSettingsAccountPreviewBinding
 import com.example.mindvocab.model.account.etities.Account
-import com.example.mindvocab.screens.settings.SettingsFragmentDirections
+// TODO Direction
+//import com.example.mindvocab.screens.settings.SettingsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,7 +45,8 @@ class SettingsAccountFragment : BaseFragment() {
         }
 
         binding.accountEditButton.setOnClickListener {
-            findNavController().navigate(SettingsFragmentDirections.actionSettingsToAccountEditFragment())
+            // TODO Direction
+            //findNavController().navigate(SettingsFragmentDirections.actionSettingsToAccountEditFragment())
         }
 
         return binding.root

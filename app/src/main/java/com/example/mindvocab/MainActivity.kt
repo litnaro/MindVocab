@@ -1,95 +1,82 @@
 package com.example.mindvocab
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.children
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.navigation.fragment.findNavController
 import com.example.mindvocab.databinding.ActivityMainBinding
-import com.example.mindvocab.screens.learn.LearnWordFragmentDirections
-import com.example.mindvocab.screens.learn.wordset.WordSetsFragmentDirections
-import com.example.mindvocab.screens.repeat.RepeatWordFragmentDirections
-import com.example.mindvocab.screens.statistic.StatisticFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private var _binding: ActivityMainBinding? = null
-    private val binding get() = _binding!!
+    private var navController: NavController? = null
 
-    private lateinit var navController: NavController
+    private val topLevelDestinations = setOf(getTabsDestination(), getSignInDestination())
 
-    private val topLevelDestinations = setOf(
-        R.id.learn,
-        R.id.repeat,
-        R.id.statistic,
-        R.id.browser,
-        R.id.settings,
-    )
+    private val fragmentListener = object : FragmentManager.FragmentLifecycleCallbacks() {
+        override fun onFragmentViewCreated(fm: FragmentManager, f: Fragment, v: View, savedInstanceState: Bundle?) {
+            super.onFragmentViewCreated(fm, f, v, savedInstanceState)
+            if (f is TabsFragment || f is NavHostFragment) return
+            onNavControllerActivated(f.findNavController())
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityMainBinding.inflate(layoutInflater)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
 
-        val navHost = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
-        navController = navHost.navController
+        val navController = getRootNavController()
+        prepareRootNavController(isSignedIn(), navController)
+        onNavControllerActivated(navController)
 
-        setupWithNavController(binding.bottomNavigationView, navController)
+        supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, true)
 
-        navController.addOnDestinationChangedListener(destinationListener)
+    }
 
-        binding.actionSelectWordSet.setOnClickListener {
-            navController.navigate(LearnWordFragmentDirections.actionLearnToWordSetsFragment())
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        navController = null
+        supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentListener)
+    }
 
-        binding.actionNotification.setOnClickListener {
-            navController.navigate(StatisticFragmentDirections.actionStatisticToNotificationsFragment())
-        }
-
-        binding.actionShowListOfRepeatingWords.setOnClickListener {
-            navController.navigate(RepeatWordFragmentDirections.actionRepeatToRepeatingWordsFragment())
-        }
-
-        binding.actionConfirmWordSets.setOnClickListener {
-            navController.navigate(WordSetsFragmentDirections.actionWordSetsFragmentToLearn())
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (isStartDestination(navController?.currentDestination)) {
+            super.onBackPressed()
+        } else {
+            navController?.popBackStack()
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
+    override fun onSupportNavigateUp(): Boolean = (navController?.navigateUp() ?: false) || super.onSupportNavigateUp()
+
+    private fun prepareRootNavController(isSignedIn: Boolean, navController: NavController) {
+        val graph = navController.navInflater.inflate(getMainNavigationGraphId())
+        graph.setStartDestination(
+            if (isSignedIn) {
+                getTabsDestination()
+            } else {
+                getSignInDestination()
+            }
+        )
+        navController.graph = graph
     }
 
-    private val destinationListener = NavController.OnDestinationChangedListener { _, destination, arguments ->
-        supportActionBar?.title = prepareTitle(destination.label, arguments)
-        supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
-
-        binding.actionButtonsContainer.children.forEach {
-            it.visibility = View.GONE
-        }
-
-        when(destination.id) {
-            R.id.learn -> {
-                binding.actionSelectWordSet.visibility = View.VISIBLE
-            }
-            R.id.repeat -> {
-                binding.actionShowListOfRepeatingWords.visibility = View.VISIBLE
-            }
-            R.id.statistic -> {
-                binding.actionNotification.visibility = View.VISIBLE
-            }
-            R.id.wordSetsFragment -> {
-                binding.actionConfirmWordSets.visibility = View.VISIBLE
-            }
-        }
-
+    private fun isSignedIn(): Boolean {
+        //TODO set string res
+        val bundle = intent.extras ?: throw IllegalStateException("No required arguments")
+        val args = MainActivityArgs.fromBundle(bundle)
+        return args.isSignedIn
     }
 
     private fun prepareTitle(label: CharSequence?, arguments: Bundle?): String {
@@ -104,6 +91,7 @@ class MainActivity : AppCompatActivity() {
                 title.append(arguments.getString(argName))
             } else {
                 throw IllegalArgumentException(
+                    //TODO set string res
                     "Could not find $argName in $arguments to fill label $label"
                 )
             }
@@ -112,10 +100,33 @@ class MainActivity : AppCompatActivity() {
         return title.toString()
     }
 
-    private fun isStartDestination(destination: NavDestination?): Boolean {
-        if (destination == null) return false
-        destination.parent ?: return false
-        return topLevelDestinations.contains(destination.id)
+    private fun onNavControllerActivated(navController: NavController) {
+        if (this.navController == navController) return
+        this.navController?.removeOnDestinationChangedListener(destinationListener)
+        navController.addOnDestinationChangedListener(destinationListener)
+        this.navController = navController
     }
 
+    private fun getRootNavController(): NavController {
+        val navHost = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
+        return navHost.navController
+    }
+
+    private val destinationListener = NavController.OnDestinationChangedListener { _, destination, arguments ->
+        supportActionBar?.title = prepareTitle(destination.label, arguments)
+        supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
+    }
+
+    private fun isStartDestination(destination: NavDestination?): Boolean {
+        if (destination == null) return false
+        val graph = destination.parent ?: return false
+        val startDestinations = topLevelDestinations + graph.startDestinationId
+        return startDestinations.contains(destination.id)
+    }
+
+    private fun getMainNavigationGraphId(): Int = R.navigation.main_graph
+
+    private fun getTabsDestination(): Int = R.id.tabsFragment
+
+    private fun getSignInDestination(): Int = R.id.signInFragment
 }

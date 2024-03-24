@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tabs_graph"
+    app:startDestination="@id/learn">
+
+    <include app:graph="@navigation/learn" />
+    <include app:graph="@navigation/repeat" />
+    <include app:graph="@navigation/statistic" />
+    <include app:graph="@navigation/browser" />
+    <include app:graph="@navigation/settings" />
+
+</navigation>
