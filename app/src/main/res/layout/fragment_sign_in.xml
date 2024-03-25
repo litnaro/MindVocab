@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/main_screen_padding"
-    tools:context=".SignInFragment">
+    tools:context=".screens.signin.SignInFragment">
 
     <TextView
         android:id="@+id/signInHeading"

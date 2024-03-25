@@ -1,10 +1,11 @@
-package com.example.mindvocab
+package com.example.mindvocab.screens.signup
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.mindvocab.R
 
 
 class SignUpFragment : Fragment() {

@@ -54,8 +54,7 @@ class WordSetsFragment : BaseFragment() {
         val wordSetAdapter = WordSetAdapter(object : WordSetAdapter.Listener {
 
             override fun onWordSetDetail(wordSet: WordSet) {
-                // TODO Direction
-                //findNavController().navigate(WordSetsFragmentDirections.actionWordSetsFragmentToWordsFragment(wordSet.id))
+                findNavController().navigate(WordSetsFragmentDirections.actionWordSetsFragmentToWordsFragment(wordSet.id))
             }
 
             override fun selectWordSet(wordSet: WordSet) {

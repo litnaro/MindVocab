@@ -1,4 +1,4 @@
-package com.example.mindvocab
+package com.example.mindvocab.screens
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

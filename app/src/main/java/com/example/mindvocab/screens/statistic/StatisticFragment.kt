@@ -3,9 +3,16 @@ package com.example.mindvocab.screens.statistic
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.mindvocab.R
@@ -26,6 +33,9 @@ class StatisticFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentStatisticBinding.inflate(layoutInflater, container, false)
+
+        setupMenu()
+
         val achievementsAdapter = AchievementAdapter(object : AchievementAdapter.Listener {
             override fun onAchievementDetail(achievement: Achievement) {
                 showAchievementDetailDialog(achievement)
@@ -59,6 +69,26 @@ class StatisticFragment : BaseFragment() {
             }
         }
         return binding.root
+    }
+
+    private fun setupMenu() {
+        (requireActivity() as MenuHost).addMenuProvider( object : MenuProvider {
+
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.statistic_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when(menuItem.itemId) {
+                    R.id.toNotifications -> {
+                        findNavController().navigate(StatisticFragmentDirections.actionStatisticFragmentToNotificationsFragment())
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun showAchievementDetailDialog(achievement: Achievement) {

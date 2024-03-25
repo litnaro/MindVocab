@@ -17,8 +17,7 @@ class WordsFragment : BaseFragment() {
 
     override val viewModel by viewModels<WordsViewModel>()
 
-    // TODO Direction
-    //private val args: WordsFragmentArgs by navArgs()
+    private val args: WordsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,8 +53,7 @@ class WordsFragment : BaseFragment() {
             }
         }
 
-        // TODO Direction
-        //viewModel.getWordsByWordSetId(args.wordSetId)
+        viewModel.getWordsByWordSetId(args.wordSetId)
 
         return binding.root
     }

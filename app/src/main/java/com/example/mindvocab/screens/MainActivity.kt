@@ -1,4 +1,4 @@
-package com.example.mindvocab
+package com.example.mindvocab.screens
 
 import android.os.Bundle
 import android.view.View
@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import com.example.mindvocab.R
 import com.example.mindvocab.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
@@ -20,6 +21,9 @@ class MainActivity : AppCompatActivity() {
 
     private val topLevelDestinations = setOf(getTabsDestination(), getSignInDestination())
 
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
+
     private val fragmentListener = object : FragmentManager.FragmentLifecycleCallbacks() {
         override fun onFragmentViewCreated(fm: FragmentManager, f: Fragment, v: View, savedInstanceState: Bundle?) {
             super.onFragmentViewCreated(fm, f, v, savedInstanceState)
@@ -30,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
@@ -40,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         onNavControllerActivated(navController)
 
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, true)
-
     }
 
     override fun onDestroy() {

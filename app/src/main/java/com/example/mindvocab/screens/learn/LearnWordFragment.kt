@@ -4,9 +4,16 @@ import android.graphics.text.LineBreaker
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.mindvocab.R
@@ -28,6 +35,8 @@ class LearnWordFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLearnWordBinding.inflate(inflater, container, false)
+
+        setupMenu()
 
         viewModel.word.observe(viewLifecycleOwner) {
             with(binding) {
@@ -118,6 +127,26 @@ class LearnWordFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         viewModel.getWordToLearn()
+    }
+
+    private fun setupMenu() {
+        (requireActivity() as MenuHost).addMenuProvider( object : MenuProvider {
+
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.learning_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when(menuItem.itemId) {
+                    R.id.toWordSetsSelection -> {
+                        findNavController().navigate(LearnWordFragmentDirections.actionLearnWordFragmentToWordSetsFragment())
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun setWordData(word: Word) {

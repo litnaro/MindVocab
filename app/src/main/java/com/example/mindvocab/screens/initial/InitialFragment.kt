@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.mindvocab.MainActivity
-import com.example.mindvocab.MainActivityArgs
-import com.example.mindvocab.R
+import com.example.mindvocab.screens.MainActivity
+import com.example.mindvocab.screens.MainActivityArgs
 import com.example.mindvocab.databinding.FragmentInitialBinding
 
 class InitialFragment : Fragment() {
@@ -19,7 +18,7 @@ class InitialFragment : Fragment() {
     ): View {
 
         val binding = FragmentInitialBinding.inflate(inflater, container, false)
-        launchMainScreen(false)
+        launchMainScreen(true)
         return binding.root
     }
 

@@ -17,7 +17,7 @@
         android:theme="@style/Theme.MindVocab"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".screens.MainActivity"
             android:exported="false" />
         <activity
             android:name=".screens.initial.InitialActivity"
@@ -28,9 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".TabsActivity"
-            android:exported="false" />
     </application>
 
 </manifest>

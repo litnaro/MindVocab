@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mindvocab.core.BaseFragment
@@ -49,7 +48,6 @@ class RepeatingWordsFragment : BaseFragment() {
                         } else {
                             wordAdapter.submitList(it.data)
                             repeatingWordsRv.visibility = View.VISIBLE
-                            Toast.makeText(requireContext(), it.data.size.toString(), Toast.LENGTH_LONG).show()
                         }
                     }
                 }

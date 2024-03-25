@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.mindvocab.SignInFragment"
+        android:name="com.example.mindvocab.screens.signin.SignInFragment"
         android:label="@string/sign_in_title"
         tools:layout="@layout/fragment_sign_in" >
         <action
@@ -22,11 +22,11 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.mindvocab.SignUpFragment"
+        android:name="com.example.mindvocab.screens.signup.SignUpFragment"
         android:label="@string/sign_up_title"
         tools:layout="@layout/fragment_sign_up" />
     <fragment
         android:id="@+id/tabsFragment"
-        android:name="com.example.mindvocab.TabsFragment"
+        android:name="com.example.mindvocab.screens.TabsFragment"
         tools:layout="@layout/fragment_tabs" />
 </navigation>

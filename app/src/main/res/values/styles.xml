@@ -18,4 +18,8 @@
         <item name="hintTextColor">?attr/colorOnPrimaryContainer</item>
     </style>
 
+    <style name="ActionButton" parent="@android:style/Widget.ActionButton">
+        <item name="android:drawablePadding">@dimen/action_button_padding</item>
+    </style>
+
 </resources>
