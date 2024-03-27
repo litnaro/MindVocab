@@ -17,16 +17,41 @@ MindVocab is developed using modern technologies and approaches:
 
 ## Screenshots
 
-![Learning](images/Learning.png)
-![Everyday Learning](images/Everyday%20learning.png)
-![Word sets](images/Words%20by%20category.png)
-![Words in word set](images/Words%20in%20category.png)
-![Repeating](images/Repeating.png)
-![Words to repeat](images/Words%20to%20repeat.png)
-![Statistic](images/Statistic.png)
-![Achievements](images/Achievement.png)
-![Settings](images/Settings.png)
-![Setting detail](images/Settings%20detail.png)
+### Learning
+
+<p float="left">
+  <img alt="Learning" src="images/Learning.png" width="250">
+  <img alt="Everyday learning" src="images/Everyday%20learning.png" width="250">
+</p>
+
+### Word sets
+
+<p float="left">
+  <img alt="Words by category" src="images/Words%20by%20category.png" width="250">
+  <img alt="Words in category" src="images/Words%20in%20category.png" width="250">
+</p>
+
+### Repeating
+
+<p float="left">
+  <img alt="Repeating" src="images/Repeating.png" width="250">
+  <img alt="Words to repeat" src="images/Words%20to%20repeat.png" width="250">
+</p>
+
+### Statistic
+
+<p float="left">
+  <img alt="Statistic" src="images/Statistic.png" width="250">
+  <img alt="Achievements" src="images/Achievements.png" width="250">
+  <img alt="Achievement" src="images/Achievement.png" width="250">
+</p>
+
+### Settings
+
+<p float="left">
+  <img alt="Settings" src="images/Settings.png" width="250">
+  <img alt="Settings detail" src="images/Settings%20detail.png" width="250">
+</p>
 
 ## Features
 
@@ -57,3 +82,7 @@ MindVocab is developed using modern technologies and approaches:
 
 #### Offline Access and Progress Saving
 - Access words offline and save learning progress locally on the device.
+
+## Database Schema
+
+![Database Schema](images/DB.drawio.png)
