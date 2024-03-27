@@ -1,6 +1,6 @@
 package com.example.mindvocab.core
 
-import java.lang.Exception
+import com.example.mindvocab.model.AppException
 
 typealias Mapper<Input, Output> = (Input) -> Output
 
@@ -10,7 +10,7 @@ sealed class Result<T> {
 
     class SuccessResult<T>(val data: T) : Result<T>()
 
-    class ErrorResult<T>(val exception: Exception) : Result<T>()
+    class ErrorResult<T>(val exception: AppException) : Result<T>()
 
     fun <R> map(mapper: Mapper<T, R>? = null) : Result<R> {
         return when(this) {

@@ -5,20 +5,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.screens.MainActivity
 import com.example.mindvocab.screens.MainActivityArgs
 import com.example.mindvocab.databinding.FragmentInitialBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class InitialFragment : Fragment() {
+@AndroidEntryPoint
+class InitialFragment : BaseFragment() {
+
+    override val viewModel by viewModels<InitialViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         val binding = FragmentInitialBinding.inflate(inflater, container, false)
-        launchMainScreen(true)
+
+        viewModel.isSignedIn.observe(viewLifecycleOwner) {
+            launchMainScreen(it)
+        }
         return binding.root
     }
 

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ee48fb8065bbb7a3e5982112b08ba150",
+    "identityHash": "1796e7296f1a13155f3b817a97ac9835",
     "entities": [
       {
         "tableName": "accounts",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `surname` TEXT, `username` TEXT NOT NULL, `email` TEXT NOT NULL COLLATE NOCASE, `photo` TEXT, `password` TEXT NOT NULL, `created_at` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `surname` TEXT, `username` TEXT NOT NULL, `email` TEXT NOT NULL COLLATE NOCASE, `photo` TEXT, `hash` TEXT NOT NULL, `salt` TEXT NOT NULL DEFAULT '', `created_at` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -45,10 +45,17 @@
             "notNull": false
           },
           {
-            "fieldPath": "password",
-            "columnName": "password",
+            "fieldPath": "hash",
+            "columnName": "hash",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "salt",
+            "columnName": "salt",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           },
           {
             "fieldPath": "createdAt",
@@ -759,7 +766,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ee48fb8065bbb7a3e5982112b08ba150')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1796e7296f1a13155f3b817a97ac9835')"
     ]
   }
 }

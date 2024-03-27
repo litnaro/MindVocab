@@ -161,6 +161,15 @@ class LearnWordFragment : BaseFragment() {
                 .error(R.drawable.ic_image_simple_placeholder)
                 .into(wordImage)
 
+            if (word.translation.isNotEmpty()) {
+                wordTranslationTitle.visibility = View.VISIBLE
+                wordTranslation.visibility = View.VISIBLE
+                wordTranslation.text = word.translation
+            } else {
+                wordTranslationTitle.visibility = View.GONE
+                wordTranslation.visibility = View.GONE
+            }
+
             wordTranslation.text = word.translation
             wordExplaining.text = word.explanation
 

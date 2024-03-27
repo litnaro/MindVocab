@@ -5,9 +5,6 @@ open class AppException : RuntimeException()
 //DB exceptions
 class StorageException : AppException()
 
-// Word set exception
-class WordSetAlreadyExistsException : AppException()
-
 //Learn exceptions
 class NoWordsToLearnException : AppException()
 
@@ -20,4 +17,16 @@ class WordsToRepeatCurrentlyInTimeout : AppException()
 
 //Account exception
 class AuthException : AppException()
+
+enum class Field {
+    Email,
+    Username,
+    Password
+}
+
+class EmptyFieldException(val field: Field) : AppException()
+
+class PasswordMismatchException : AppException()
+
+class AccountAlreadyExistsException : AppException()
 

@@ -2,6 +2,32 @@
 
 MindVocab is an application for learning, memorizing, and tracking statistics of English words.
 
+## Technology Stack
+
+MindVocab is developed using modern technologies and approaches:
+
+- **Programming Language**: [Kotlin](https://kotlinlang.org/)
+- **Architecture Pattern**: MVVM (Model-View-ViewModel)
+- **Dependency Injection**: [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
+- **Asynchronous Programming**: [Kotlin Flow](https://kotlinlang.org/docs/flow.html), [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html)
+- **Database**: [SQLite](https://www.sqlite.org/index.html) (with [Room](https://developer.android.com/training/data-storage/room))
+- **Networking**: [Retrofit](https://square.github.io/retrofit/)
+- **View Layer**: XML (for layout design) with [Material Design Components](https://material.io/develop/android/docs/getting-started)
+- **Localization**: Android resource system for localization
+
+## Screenshots
+
+![Learning](images/Learning.png)
+![Everyday Learning](images/Everyday%20learning.png)
+![Word sets](images/Words%20by%20category.png)
+![Words in word set](images/Words%20in%20category.png)
+![Repeating](images/Repeating.png)
+![Words to repeat](images/Words%20to%20repeat.png)
+![Statistic](images/Statistic.png)
+![Achievements](images/Achievement.png)
+![Settings](images/Settings.png)
+![Setting detail](images/Settings%20detail.png)
+
 ## Features
 
 #### Word Categories
@@ -31,16 +57,3 @@ MindVocab is an application for learning, memorizing, and tracking statistics of
 
 #### Offline Access and Progress Saving
 - Access words offline and save learning progress locally on the device.
-  
-## Technology Stack
-
-MindVocab is developed using modern technologies and approaches:
-
-- **Programming Language**: [Kotlin](https://kotlinlang.org/)
-- **Architecture Pattern**: MVVM (Model-View-ViewModel)
-- **Dependency Injection**: [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
-- **Asynchronous Programming**: [Kotlin Flow](https://kotlinlang.org/docs/flow.html), [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html)
-- **Database**: [SQLite](https://www.sqlite.org/index.html) (with [Room](https://developer.android.com/training/data-storage/room))
-- **Networking**: [Retrofit](https://square.github.io/retrofit/)
-- **View Layer**: XML (for layout design) with [Material Design Components](https://material.io/develop/android/docs/getting-started)
-- **Localization**: Android resource system for localization

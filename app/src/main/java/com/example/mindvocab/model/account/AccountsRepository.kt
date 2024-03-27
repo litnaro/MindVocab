@@ -11,15 +11,15 @@ interface AccountsRepository : Repository {
 
     suspend fun isSignedIn(): Boolean
 
-    suspend fun signIn(email: String, password: String) : String
+    suspend fun signIn(login: String, password: CharArray) : Long
 
     suspend fun signUp(signUpData: SignUpData)
 
     suspend fun logout()
 
-    suspend fun updateUsername(username: String)
+    suspend fun updateUsername(newUsername: String)
 
-    suspend fun changePassword(password: String, repeatPassword: String)
+    suspend fun changePassword(newPassword: String)
 
     suspend fun setAccountPhoto(photo: String)
 

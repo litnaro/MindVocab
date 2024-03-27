@@ -116,8 +116,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val destinationListener = NavController.OnDestinationChangedListener { _, destination, arguments ->
-        supportActionBar?.title = prepareTitle(destination.label, arguments)
-        supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
+        if (destination.id == R.id.signInFragment || destination.id == R.id.signUpFragment) {
+            supportActionBar?.hide()
+        } else {
+            supportActionBar?.show()
+            supportActionBar?.title = prepareTitle(destination.label, arguments)
+            supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
+        }
     }
 
     private fun isStartDestination(destination: NavDestination?): Boolean {

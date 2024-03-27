@@ -13,14 +13,36 @@
     <string name="show_list_for_words_content_description">Show list of words icon</string>
     <!--    General-->
 
+    <!--    Auth general-->
+    <string name="empty_password_error_text">Password field should not be empty.</string>
+    <!--    Auth general-->
+
     <!--    Sign in-->
     <string name="sign_in_title">Sign in</string>
-    <string name="enter">Enter</string>
-    <string name="login_or_email_hint">Login or Email</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="or">Or</string>
+    <string name="email_hint">Email</string>
+    <string name="sign_in_button_text">Enter</string>
+    <string name="username_or_email_hint">Username or Email</string>
+    <string name="i_don_t_have_an_account">Not with MindVocab yet?</string>
+    <string name="create_account">Get started</string>
+
+    <string name="empty_login_error_text">Login field should not be empty.</string>
+    <string name="no_such_account_error_text">Could not sign you in, check login or password.</string>
     <!--    Sign in-->
 
     <!--    Sign up-->
     <string name="sign_up_title">Sign up</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="repeat_your_password_hint">Repeat your password</string>
+    <string name="create_account_button_text">Create</string>
+    <string name="i_already_have_an_account">I already have an account!</string>
+
+    <string name="account_already_exists_error_text">Account already exists.</string>
+    <string name="empty_email_error_text">Email field should not be empty.</string>
+    <string name="empty_username_error_text">Username field should not be empty.</string>
+    <string name="password_mismatch_error_text">Your passwords are different.</string>
     <!--    Sign up-->
 
     <!--    Learn graph-->
@@ -101,6 +123,7 @@
     <string name="words_known_statistic">Known</string>
     <string name="words_learned_statistic">Learned</string>
 
+    <string name="icon_achievement_completed_content_description">Icon achievement completed</string>
     <!--    Statistic graph-->
 
     <!--    Browser graph-->
@@ -196,7 +219,6 @@
     <string name="turning_animation_settings_content_description">Turning animation icon</string>
 
     <string name="new_strings">New strings</string>
-    <string name="icon_achievement_completed_content_description">Icon achievement completed</string>
 
     <!--    Settings graph-->
 
