@@ -2,26 +2,18 @@ package com.example.mindvocab.model.learning.room
 
 import androidx.room.Dao
 import androidx.room.Query
-import androidx.room.Transaction
 import androidx.room.Update
 import com.example.mindvocab.model.learning.room.entities.UpdateWordProgressAsLearningTuple
 import com.example.mindvocab.model.learning.room.entities.WordForLearningTuple
-import com.example.mindvocab.model.repeating.room.entities.StatedWordsTuple
+import com.example.mindvocab.model.repeating.room.entities.StartedWordsTuple
 import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface LearningDao {
 
-    @Transaction
     @Query("SELECT\n" +
-            "    words.id,\n" +
-            "    words.word,\n" +
-            "    words.image,\n" +
-            "    words.audio,\n" +
-            "    words.transcription,\n" +
-            "    words.explanation,\n" +
-            "    words.word_set_id\n" +
+            "    words.*\n" +
             "FROM\n" +
             "    words\n" +
             "LEFT JOIN\n" +
@@ -33,7 +25,7 @@ interface LearningDao {
             "WHERE\n" +
             "    accounts_word_sets.is_selected = 1 AND accounts_words_progress.started_at = 0\n" +
             "GROUP BY\n" +
-            "    words.id\n" +
+            "    RANDOM()\n" +
             "LIMIT 1;")
     suspend fun getWordToLearn(accountId: Long): WordForLearningTuple?
 
@@ -45,7 +37,7 @@ interface LearningDao {
             "    accounts_words_progress.account_id = :accountId " +
             "       AND accounts_words_progress.started_at > :todayInMillis" +
             "       AND accounts_words_progress.times_repeated != :timesRepeatedToLearn")
-    fun getStartedWordsCount(accountId: Long, timesRepeatedToLearn: Int, todayInMillis: Long) : Flow<StatedWordsTuple>
+    fun getStartedWordsCount(accountId: Long, timesRepeatedToLearn: Int, todayInMillis: Long) : Flow<StartedWordsTuple>
 
     @Update(entity = AccountWordProgressDbEntity::class)
     suspend fun updateWordProgressAsLearning(accountWordProgress: UpdateWordProgressAsLearningTuple)

@@ -76,11 +76,21 @@ class RepeatWordFragment : BaseFragment() {
             }
         }
 
-        binding.wordToRepeat.setOnClickListener {
+        binding.flipCardButton.setOnClickListener {
             binding.wordAnswer.visibility = View.VISIBLE
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getWordToRepeat()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setupMenu() {
@@ -105,7 +115,11 @@ class RepeatWordFragment : BaseFragment() {
 
     private fun setWordData(word: WordToRepeat) {
         binding.wordToRepeat.text = word.word
-        binding.wordAnswer.text = word.translation
+        if (word.translation.isNotBlank()) {
+            binding.wordAnswer.text = word.translation
+        } else {
+            binding.wordAnswer.text = word.explanation
+        }
 
         binding.leftActionButton.setOnClickListener {
             viewModel.onWordRemember(word)
@@ -116,15 +130,5 @@ class RepeatWordFragment : BaseFragment() {
             viewModel.onWordForgot(word)
             binding.wordAnswer.visibility = View.GONE
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getWordToRepeat()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

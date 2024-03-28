@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AccountEditViewModel @Inject constructor(
-    accountsRepository: AccountsRepository
+    private val accountsRepository: AccountsRepository
 ) : BaseViewModel() {
 
     private val _account = MutableLiveData<Result<Account>>(Result.PendingResult())
@@ -26,6 +26,12 @@ class AccountEditViewModel @Inject constructor(
                     _account.value = Result.SuccessResult(it)
                 }
             }
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            accountsRepository.logout()
         }
     }
 }

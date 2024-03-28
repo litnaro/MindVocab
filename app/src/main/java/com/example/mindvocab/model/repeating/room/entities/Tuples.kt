@@ -60,7 +60,7 @@ data class UpdateWordProgressAsForgottenTuple(
     @ColumnInfo(name = "last_repeated_at") val lastRepeatedAt: Long
 )
 
-data class StatedWordsTuple(
+data class StartedWordsTuple(
     @ColumnInfo(name = "started_words_count") val startedWordsCount: Int
 )
 

@@ -76,6 +76,7 @@
 
     <string name="all_words_filter">All</string>
 
+    <string name="word_set_search_query_query">Search through word sets.</string>
     <string name="word_status_icon_content_description">Word status icon</string>
     <string name="word_set_image_content_description">Word set image</string>
     <string name="is_word_set_selected_icon_content_description">Is word set selected icon</string>
@@ -156,7 +157,7 @@
     <string name="account_edit_password_change_title">Password change</string>
     <string name="account_edit_account_actions_title">Account actions</string>
     <string name="account_edit_reset_account_progress_button">Reset account progress</string>
-    <string name="account_edit_delete_account_button">Delete account</string>
+    <string name="account_edit_logout_account_button">Logout</string>
     <string name="account_photo_content_description">Account photo</string>
     <string name="account_add_photo_content_description">Add account photo</string>
     <string name="account_settings_content_description">Account settings</string>

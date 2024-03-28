@@ -71,6 +71,4 @@ class SettingsAccountFragment : BaseFragment() {
         _binding = null
     }
 
-
-
 }

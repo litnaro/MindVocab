@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RepeatWordViewModel @Inject constructor(
-    private val repeatingRepository: RepeatingRepository
+    private val repeatingRepository: RepeatingRepository,
 ) : BaseViewModel() {
 
     private val _wordToRepeat = MutableLiveData<Result<WordToRepeat>>(Result.PendingResult())

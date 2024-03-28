@@ -12,10 +12,9 @@ import com.example.mindvocab.model.word.room.WordsDao
 import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
 import com.example.mindvocab.model.word.room.entities.WordDbEntity
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.withContext
@@ -28,17 +27,11 @@ class RoomWordSetsRepository @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher
 ) : WordSetsRepository {
 
-    override suspend fun getWordSets(filter: WordSetFilter): Flow<List<WordSet>> {
-        return accountsRepository.getAccount()
-            .flatMapLatest { account ->
-                if (account == null) return@flatMapLatest flowOf(emptyList())
-                try {
-                    queryWordSets(account.id)
-                } catch (e: Exception) {
-                    throw StorageException()
-                }
-            }
-            .mapLatest { wordSets ->
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override suspend fun getWordSets(searchQuery: String, filter: WordSetFilter): Flow<List<WordSet>> {
+        val account = accountsRepository.getAccount().first() ?: throw AuthException()
+        if (searchQuery.isBlank()) {
+            return queryWordSets(account.id).mapLatest { wordSets ->
                 when(filter) {
                     WordSetFilter.ALL -> {
                         wordSets
@@ -51,6 +44,9 @@ class RoomWordSetsRepository @Inject constructor(
                     }
                 }
             }
+        } else {
+            return queryWordSets(account.id, searchQuery)
+        }
     }
 
     override suspend fun selectWordSet(wordSet: WordSet) = withContext(ioDispatcher) {
@@ -63,6 +59,14 @@ class RoomWordSetsRepository @Inject constructor(
 
     private fun queryWordSets(accountId: Long): Flow<List<WordSet>> {
         return wordSetsDao.getWordSetWithStatistic(accountId, WordsCalculations.TIMES_REPEATED_TO_LEARN).map { it ->
+            it.map {
+                it.toWordSet()
+            }
+        }
+    }
+
+    private fun queryWordSets(accountId: Long, searchQuery: String): Flow<List<WordSet>> {
+        return wordSetsDao.getWordSetWithStatistic(accountId, WordsCalculations.TIMES_REPEATED_TO_LEARN, "%$searchQuery%").map { it ->
             it.map {
                 it.toWordSet()
             }

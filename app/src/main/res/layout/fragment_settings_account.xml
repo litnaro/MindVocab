@@ -258,6 +258,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/logout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -268,9 +269,9 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/account_edit_delete_account_button"
+                        android:text="@string/account_edit_logout_account_button"
                         android:textSize="@dimen/simple_text_size"
-                        android:textColor="?attr/colorOnPrimaryContainer"
+                        android:textColor="?attr/colorError"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"/>
 

@@ -27,9 +27,10 @@ class WordSetsViewModel @Inject constructor(
         getWordSets()
     }
 
-    fun getWordSets(filter: WordSetFilter = WordSetFilter.ALL) {
+    fun getWordSets(searchQuery: String = "", filter: WordSetFilter = WordSetFilter.ALL) {
         viewModelScope.launch {
-            wordSetsRepository.getWordSets(filter).collect {
+            if (searchQuery.isNotBlank()) _wordSetFilter.value = WordSetFilter.ALL
+            wordSetsRepository.getWordSets(searchQuery, filter).collect {
                 _wordSetList.value = Result.SuccessResult(it)
             }
         }

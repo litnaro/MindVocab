@@ -10,10 +10,11 @@ interface WordSetsRepository : Repository {
 
     /**
      * Get list of word sets.
+     * @param searchQuery Searching word set by a specific name.
      * @param filter Filtering list by selection. Getting all word sets by default.
      * @throws StorageException If unable to execute SQL query.
      */
-    suspend fun getWordSets(filter: WordSetFilter = WordSetFilter.ALL) : Flow<List<WordSet>>
+    suspend fun getWordSets(searchQuery: String, filter: WordSetFilter = WordSetFilter.ALL) : Flow<List<WordSet>>
 
     /**
      *  Mark the specified word set as selected.

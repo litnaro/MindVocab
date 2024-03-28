@@ -42,6 +42,10 @@ class AccountEditFragment : BaseFragment() {
             findNavController().navigate(AccountEditFragmentDirections.actionAccountEditFragmentToChangePasswordFragment())
         }
 
+        binding.logout.setOnClickListener {
+            viewModel.logout()
+        }
+
         return binding.root
     }
 

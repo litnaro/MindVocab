@@ -9,17 +9,15 @@
     android:padding="@dimen/main_screen_padding"
     tools:context=".screens.learn.wordset.WordSetsFragment">
 
-    <androidx.cardview.widget.CardView
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/default_card_corner_radius"
-        app:cardBackgroundColor="?attr/colorPrimaryContainer">
-
-        <androidx.appcompat.widget.SearchView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </androidx.cardview.widget.CardView>
+        android:background="@drawable/search_view_bg"
+        app:queryHint="@string/word_set_search_query_query"
+        app:iconifiedByDefault="false"
+        android:paddingStart="-5dp"
+        tools:ignore="RtlSymmetry" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"

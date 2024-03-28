@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -26,6 +27,22 @@ class WordSetsFragment : BaseFragment() {
     ): View {
         val binding = FragmentWordSetsBinding.inflate(inflater, container, false)
 
+        //For lower api
+        binding.searchView.clearFocus()
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                if (query != null) {
+                    viewModel.getWordSets(searchQuery = query)
+                }
+                return true
+            }
+        })
+
         viewModel.wordSetFilter.observe(viewLifecycleOwner) {
             when(it) {
                 WordSetFilter.ALL -> {
@@ -45,14 +62,13 @@ class WordSetsFragment : BaseFragment() {
 
         binding.chipGroup.setOnCheckedStateChangeListener { _, checkedIds ->
             when(checkedIds[0]) {
-                binding.chipAll.id -> viewModel.getWordSets(WordSetFilter.ALL)
-                binding.chipOnlySelected.id -> viewModel.getWordSets(WordSetFilter.SELECTED)
-                binding.chipOnlyUnelected.id -> viewModel.getWordSets(WordSetFilter.UNSELECTED)
+                binding.chipAll.id -> viewModel.getWordSets(filter = WordSetFilter.ALL)
+                binding.chipOnlySelected.id -> viewModel.getWordSets(filter = WordSetFilter.SELECTED)
+                binding.chipOnlyUnelected.id -> viewModel.getWordSets(filter = WordSetFilter.UNSELECTED)
             }
         }
 
         val wordSetAdapter = WordSetAdapter(object : WordSetAdapter.Listener {
-
             override fun onWordSetDetail(wordSet: WordSet) {
                 findNavController().navigate(WordSetsFragmentDirections.actionWordSetsFragmentToWordsFragment(wordSet.id))
             }
