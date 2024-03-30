@@ -25,11 +25,11 @@ interface WordsDao {
             "LEFT JOIN\n" +
             "    accounts_words_progress ON words.id = accounts_words_progress.word_id AND accounts_words_progress.account_id = :accountId\n" +
             "LEFT JOIN\n" +
-            "    translations ON words.id = translations.word_id AND translations.language_id = 1\n" +
+            "    translations ON words.id = translations.word_id AND translations.language_id = :languageId\n" +
             "WHERE\n" +
             "    words.word_set_id = :wordSetId\n" +
             "GROUP BY\n" +
             "    words.id;\n")
-    fun getWordsWithStatisticByWordSetId(wordSetId: Long, accountId: Long): Flow<List<WordWithStatisticTuple>>
+    fun getWordsWithStatisticByWordSetId(accountId: Long, wordSetId: Long, languageId: Int): Flow<List<WordWithStatisticTuple>>
 
 }

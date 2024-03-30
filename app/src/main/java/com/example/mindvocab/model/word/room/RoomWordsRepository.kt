@@ -2,6 +2,7 @@ package com.example.mindvocab.model.word.room
 
 import com.example.mindvocab.model.AuthException
 import com.example.mindvocab.model.account.AccountsRepository
+import com.example.mindvocab.model.settings.application.ApplicationSettings
 import com.example.mindvocab.model.word.WordsRepository
 import com.example.mindvocab.model.word.entities.WordStatistic
 import kotlinx.coroutines.flow.Flow
@@ -12,6 +13,7 @@ import javax.inject.Inject
 class RoomWordsRepository @Inject constructor(
     private val wordsDao: WordsDao,
     private val accountsRepository: AccountsRepository,
+    private val applicationSettings: ApplicationSettings
 ) : WordsRepository {
 
     override suspend fun getWordsByWordSetId(wordSetId: Long): Flow<List<WordStatistic>> {
@@ -22,8 +24,9 @@ class RoomWordsRepository @Inject constructor(
             }
     }
 
-    private fun queryWordsWithStatisticByWordSetId(wordSetId: Long, accountId: Long) : Flow<List<WordStatistic>> {
-        return wordsDao.getWordsWithStatisticByWordSetId(wordSetId, accountId)
+    private suspend fun queryWordsWithStatisticByWordSetId(wordSetId: Long, accountId: Long) : Flow<List<WordStatistic>> {
+        val languageSetting = applicationSettings.getApplicationNativeLanguage()
+        return wordsDao.getWordsWithStatisticByWordSetId(accountId, wordSetId, languageSetting.value)
             .map { entities ->
                 entities.map {
                     it.toWordStatistic()

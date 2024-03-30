@@ -6,6 +6,7 @@ import com.example.mindvocab.model.statistic.entities.WordsStatistic
 import com.example.mindvocab.model.statistic.entities.WordsStatisticPercentage
 import com.example.mindvocab.model.AuthException
 import com.example.mindvocab.model.StorageException
+import com.example.mindvocab.model.statistic.entities.StatisticDay
 
 import kotlinx.coroutines.flow.Flow
 
@@ -47,5 +48,8 @@ interface StatisticRepository : Repository {
      * @return Flow of completed word sets names.
      */
     suspend fun getWordSetsStatistic() : Flow<List<String>>
+
+    //TODO set comments
+    suspend fun getStatisticForMonthCalendar(selectedMonth: Int) : List<StatisticDay>
 
 }

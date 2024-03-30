@@ -5,6 +5,7 @@ import androidx.room.Query
 import com.example.mindvocab.model.statistic.room.entities.AccountCompletedAchievementsSetTuple
 import com.example.mindvocab.model.statistic.room.entities.AccountCompletedWordSetTuple
 import com.example.mindvocab.model.statistic.room.entities.AccountWordsStatisticTuple
+import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -50,5 +51,18 @@ interface StatisticDao {
             "      )\n" +
             ")")
     fun getAccountCompletedWordSets(accountId: Long, timesRepeatedToLearn: Int): Flow<List<AccountCompletedWordSetTuple>>
+
+    @Query("SELECT\n" +
+            "   *\n" +
+            "FROM \n" +
+            "   accounts_words_progress\n" +
+            "WHERE \n" +
+            "   accounts_words_progress.account_id = :accountId \n" +
+            "   AND (\n" +
+            "       (accounts_words_progress.last_repeated_at < :endDate AND accounts_words_progress.last_repeated_at > :startDate) \n" +
+            "       OR \n" +
+            "       (accounts_words_progress.started_at < :endDate AND accounts_words_progress.started_at > :startDate)\n" +
+            "   )\n")
+    suspend fun getStatisticInDateRange(accountId: Long, startDate: Long, endDate: Long) : List<AccountWordProgressDbEntity>?
 
 }

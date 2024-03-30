@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:left="30dp">
+        <bitmap
+            android:gravity="left"
+            android:tint="@color/word_in_progress_status"
+            android:src="@drawable/ic_dot" />
+    </item>
+    <item android:left="70dp" android:right="20dp">
+        <bitmap
+            android:gravity="right"
+            android:tint="@color/word_learned_status"
+            android:src="@drawable/ic_dot"/>
+    </item>
+</layer-list>

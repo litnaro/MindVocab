@@ -70,6 +70,7 @@ dependencies {
     val pieChartVersion = "0.7.0"
     val viewPagerDotsVersion = "5.0"
     val glideVersion = "4.12.0"
+    val calendarView = "1.9.1"
 
     val navigationVersion = "2.7.2"
 
@@ -103,12 +104,15 @@ dependencies {
     //View
     implementation("com.google.android.material:material:$materialDesignVersion")
     implementation("androidx.constraintlayout:constraintlayout:$constraintLayoutVersion")
+
     //Statistic diagram
     implementation("ir.mahozad.android:pie-chart:$pieChartVersion")
     //Indicator dots for ViewPager
     implementation("com.tbuonomo:dotsindicator:$viewPagerDotsVersion")
     //Image handling
     implementation("com.github.bumptech.glide:glide:$glideVersion")
+    //Calendar
+    implementation("com.applandeo:material-calendar-view:$calendarView")
 
     //Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:$navigationVersion")

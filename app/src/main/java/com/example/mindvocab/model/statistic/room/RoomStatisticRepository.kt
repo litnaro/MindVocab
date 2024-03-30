@@ -1,10 +1,11 @@
 package com.example.mindvocab.model.statistic.room
 
 import com.example.mindvocab.model.AuthException
-import com.example.mindvocab.model.StorageException
 import com.example.mindvocab.model.account.AccountsRepository
+import com.example.mindvocab.model.room.wrapSQLiteException
 import com.example.mindvocab.model.statistic.StatisticRepository
 import com.example.mindvocab.model.statistic.entities.AchievementsStatistic
+import com.example.mindvocab.model.statistic.entities.StatisticDay
 import com.example.mindvocab.model.statistic.entities.WordsStatistic
 import com.example.mindvocab.model.statistic.entities.WordsStatisticPercentage
 import com.example.mindvocab.model.statistic.room.entities.AccountWordsStatisticTuple
@@ -13,7 +14,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.withContext
+import java.util.Calendar
 import javax.inject.Inject
 
 class RoomStatisticRepository @Inject constructor(
@@ -22,56 +23,99 @@ class RoomStatisticRepository @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher
 ) : StatisticRepository {
 
-    override suspend fun getWordsStatistic(): Flow<WordsStatistic> = withContext(ioDispatcher) {
+    override suspend fun getWordsStatistic(): Flow<WordsStatistic> = wrapSQLiteException(ioDispatcher) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        try {
-            statisticDao.getAccountApplicationStatistic(accountId = account.id, WordsCalculations.TIMES_REPEATED_TO_LEARN).map {
-                WordsStatistic(
-                    allWordsCount = it.allWordsCount,
-                    learnedWords = it.learnedWordsCount,
-                    knownWordsCount = it.knownWordsCount,
-                    wordsLeftCount = it.allWordsCount - it.learnedWordsCount - it.knownWordsCount
-                )
-            }
-        } catch (e: Exception) {
-            throw StorageException()
+        statisticDao.getAccountApplicationStatistic(accountId = account.id, WordsCalculations.TIMES_REPEATED_TO_LEARN).map {
+            WordsStatistic(
+                allWordsCount = it.allWordsCount,
+                learnedWords = it.learnedWordsCount,
+                knownWordsCount = it.knownWordsCount,
+                wordsLeftCount = it.allWordsCount - it.learnedWordsCount - it.knownWordsCount
+            )
         }
     }
 
-    override suspend fun getWordsStatisticPercentage(): Flow<WordsStatisticPercentage> = withContext(ioDispatcher) {
+    override suspend fun getWordsStatisticPercentage(): Flow<WordsStatisticPercentage> = wrapSQLiteException(ioDispatcher) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        try {
-            statisticDao.getAccountApplicationStatistic(accountId = account.id, WordsCalculations.TIMES_REPEATED_TO_LEARN)
-                .map { getPercentageByStatistic(it) }
-        } catch (e: Exception) {
-            throw StorageException()
+        statisticDao.getAccountApplicationStatistic(accountId = account.id, WordsCalculations.TIMES_REPEATED_TO_LEARN)
+            .map { getPercentageByStatistic(it) }
+    }
+
+    override suspend fun getAchievementStatistic(): Flow<AchievementsStatistic> = wrapSQLiteException(ioDispatcher) {
+        val account = accountsRepository.getAccount().first() ?: throw AuthException()
+        statisticDao.getAccountAchievementsStatistic(account.id).map {
+            AchievementsStatistic(
+                achievementsCount = it.achievementsCount,
+                achievementsCompleted = it.achievementsCompleted
+            )
         }
     }
 
-    override suspend fun getAchievementStatistic(): Flow<AchievementsStatistic> = withContext(ioDispatcher) {
-        val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        try {
-            statisticDao.getAccountAchievementsStatistic(account.id).map {
-                AchievementsStatistic(
-                    achievementsCount = it.achievementsCount,
-                    achievementsCompleted = it.achievementsCompleted
-                )
-            }
-        } catch (e: Exception) {
-            throw StorageException()
-        }
-    }
-
-    override suspend fun getWordSetsStatistic(): Flow<List<String>> = withContext(ioDispatcher){
+    override suspend fun getWordSetsStatistic(): Flow<List<String>> = wrapSQLiteException(ioDispatcher){
         // TODO maybe also return id to see word set or its statistic
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        try {
-            statisticDao.getAccountCompletedWordSets(account.id, WordsCalculations.TIMES_REPEATED_TO_LEARN).map { entities ->
-                entities.map { it.name }
-            }
-        } catch (e: Exception) {
-            throw StorageException()
+        statisticDao.getAccountCompletedWordSets(account.id, WordsCalculations.TIMES_REPEATED_TO_LEARN).map { entities ->
+            entities.map { it.name }
         }
+    }
+
+    override suspend fun getStatisticForMonthCalendar(selectedMonth: Int): List<StatisticDay> {
+        val account = accountsRepository.getAccount().first() ?: throw AuthException()
+
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.MONTH, selectedMonth)
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
+
+        val maxDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+
+        val dayStartTimes = mutableListOf<Long>()
+        val dayEndTimes = mutableListOf<Long>()
+
+        for (i in 0 until maxDayOfMonth) {
+            calendar.set(Calendar.DAY_OF_MONTH, i + 1)
+
+            calendar.set(Calendar.HOUR_OF_DAY, 0)
+            calendar.set(Calendar.MINUTE, 0)
+            calendar.set(Calendar.SECOND, 0)
+            dayStartTimes.add(calendar.timeInMillis)
+
+            calendar.set(Calendar.HOUR_OF_DAY, 23)
+            calendar.set(Calendar.MINUTE, 59)
+            calendar.set(Calendar.SECOND, 59)
+            dayEndTimes.add(calendar.timeInMillis)
+        }
+
+        val listOfStatisticDays = mutableListOf<StatisticDay>()
+
+        for (i in 0 until maxDayOfMonth) {
+            val startTime = dayStartTimes[i]
+            val endTime = dayEndTimes[i]
+
+            var isWordStarted = false
+
+            val wordsForCurrentDay = statisticDao.getStatisticInDateRange(account.id, startTime, endTime)
+
+            wordsForCurrentDay?.forEach {
+                if (it.startedAt in startTime..<endTime) {
+                    isWordStarted = true
+                    return@forEach
+                }
+            }
+
+            if (isWordStarted) {
+                val day = Calendar.getInstance()
+                day.timeInMillis = startTime
+                listOfStatisticDays.add(
+                    StatisticDay(
+                        day = day,
+                        isStartedNewWords = isWordStarted,
+                        isRepeatedOldWords = false
+                    )
+                )
+            }
+
+        }
+        return listOfStatisticDays
     }
 
     private fun getPercentageByStatistic(statistic: AccountWordsStatisticTuple) : WordsStatisticPercentage {

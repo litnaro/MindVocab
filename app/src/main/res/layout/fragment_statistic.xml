@@ -15,7 +15,7 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/statisticViewPager"
             android:layout_width="0dp"
-            android:layout_height="400dp"
+            android:layout_height="@dimen/statistic_container_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -24,6 +24,7 @@
             android:id="@+id/statisticViewPagerIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             app:dotsColor="?attr/colorOnPrimary"
             app:dotsStrokeColor="?attr/colorOnPrimary"
             app:dotsCornerRadius="8dp"

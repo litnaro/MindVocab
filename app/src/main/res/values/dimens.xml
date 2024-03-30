@@ -16,4 +16,8 @@
 
     <!--    Paddings-->
     <dimen name="action_button_padding">15dp</dimen>
+
+    <dimen name="statistic_container_size">470dp</dimen>
+
+    <dimen name="alpha_for_additional_text">0.8</dimen>
 </resources>
