@@ -57,4 +57,10 @@ interface AchievementsRepository : Repository {
      */
     suspend fun getAchievementsListWithAccountProgress() : Flow<List<Achievement>>
 
+    //TODO set comment
+    suspend fun getRecentAchievementsCount() : Flow<Int>
+
+    //TODO set comment
+    suspend fun setAchievementAsChecked(achievement: Achievement)
+
 }

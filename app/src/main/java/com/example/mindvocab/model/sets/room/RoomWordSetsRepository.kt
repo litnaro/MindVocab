@@ -1,8 +1,8 @@
 package com.example.mindvocab.model.sets.room
 
 import com.example.mindvocab.model.AuthException
-import com.example.mindvocab.model.StorageException
 import com.example.mindvocab.model.account.AccountsRepository
+import com.example.mindvocab.model.room.wrapSQLiteException
 import com.example.mindvocab.model.sets.WordSetFilter
 import com.example.mindvocab.model.sets.WordSetsRepository
 import com.example.mindvocab.model.sets.entity.WordSet
@@ -10,7 +10,6 @@ import com.example.mindvocab.model.sets.room.entity.AccountWordSetDbEntity
 import com.example.mindvocab.model.word.WordsCalculations
 import com.example.mindvocab.model.word.room.WordsDao
 import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
-import com.example.mindvocab.model.word.room.entities.WordDbEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -28,10 +27,10 @@ class RoomWordSetsRepository @Inject constructor(
 ) : WordSetsRepository {
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override suspend fun getWordSets(searchQuery: String, filter: WordSetFilter): Flow<List<WordSet>> {
+    override suspend fun getWordSets(searchQuery: String, filter: WordSetFilter): Flow<List<WordSet>> = wrapSQLiteException(ioDispatcher) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
         if (searchQuery.isBlank()) {
-            return queryWordSets(account.id).mapLatest { wordSets ->
+            queryWordSets(account.id).mapLatest { wordSets ->
                 when(filter) {
                     WordSetFilter.ALL -> {
                         wordSets
@@ -45,7 +44,7 @@ class RoomWordSetsRepository @Inject constructor(
                 }
             }
         } else {
-            return queryWordSets(account.id, searchQuery)
+            queryWordSets(account.id, searchQuery)
         }
     }
 
@@ -73,7 +72,7 @@ class RoomWordSetsRepository @Inject constructor(
         }
     }
 
-    private suspend fun setSelectedFlagForWordSet(wordSet: WordSet, isSelected: Boolean) = withContext(ioDispatcher) {
+    private suspend fun setSelectedFlagForWordSet(wordSet: WordSet, isSelected: Boolean) = wrapSQLiteException(ioDispatcher) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
         val wordSetDbEntity = AccountWordSetDbEntity(
             accountId = account.id,
@@ -82,12 +81,7 @@ class RoomWordSetsRepository @Inject constructor(
         )
 
         if (isSelected) {
-            val accountWordsProgress: List<WordDbEntity>?
-            try {
-                accountWordsProgress = wordsDao.getWordsByWordSetId(wordSet.id).first()
-            } catch (e: Exception) {
-               throw StorageException()
-            }
+            val accountWordsProgress = wordsDao.getWordsByWordSetId(wordSet.id).first()
             wordSetsDao.upsertWordSetSelection(
                 wordSetDbEntity,
                 accountWordsProgress.map {

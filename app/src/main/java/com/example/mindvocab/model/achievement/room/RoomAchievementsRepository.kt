@@ -6,6 +6,7 @@ import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.achievement.AchievementsRepository
 import com.example.mindvocab.model.achievement.entities.Achievement
 import com.example.mindvocab.model.achievement.room.entities.AccountAchievementProgressDbEntity
+import com.example.mindvocab.model.room.wrapSQLiteException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -19,39 +20,35 @@ class RoomAchievementsRepository @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher
 ) : AchievementsRepository {
 
-    override suspend fun increaseAchievementsProgressByAction(action: AchievementsRepository.AchievementAction) = withContext(ioDispatcher) {
+    override suspend fun increaseAchievementsProgressByAction(action: AchievementsRepository.AchievementAction) = wrapSQLiteException(ioDispatcher) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
 
         val achievements = achievementsDao.getAchievementsWithProgressByType(account.id, action.value)
         achievements.forEach { achievement ->
             if (achievement.progress == null || achievement.dateAchieved == null) {
-                try {
-                    achievementsDao.insertAccountAchievementProgress(
-                        AccountAchievementProgressDbEntity(
-                            accountId = account.id,
-                            achievementId = achievement.achievement.id,
-                            dateAchieved = if (achievement.achievement.progressToAchieve == 1) System.currentTimeMillis() else 0,
-                            progress = 1,
-                            isChecked = false,
-                        )
+                achievementsDao.insertAccountAchievementProgress(
+                    AccountAchievementProgressDbEntity(
+                        accountId = account.id,
+                        achievementId = achievement.achievement.id,
+                        dateAchieved = if (achievement.achievement.progressToAchieve == 1) System.currentTimeMillis() else 0,
+                        progress = 1,
+                        isChecked = false,
                     )
-                } catch (e: Exception) {
-                    throw StorageException()
-                }
+                )
             } else {
-                try {
-                    achievementsDao.updateAccountAchievementProgress(
-                        AccountAchievementProgressDbEntity(
-                            accountId = account.id,
-                            achievementId = achievement.achievement.id,
-                            dateAchieved = if (achievement.progress + 1 == achievement.achievement.progressToAchieve) System.currentTimeMillis() else achievement.dateAchieved,
-                            progress = achievement.progress + 1,
-                            isChecked = false,
-                        )
+                achievementsDao.updateAccountAchievementProgress(
+                    AccountAchievementProgressDbEntity(
+                        accountId = account.id,
+                        achievementId = achievement.achievement.id,
+                        dateAchieved = if (achievement.progress + 1 == achievement.achievement.progressToAchieve) {
+                            System.currentTimeMillis()
+                        } else {
+                            achievement.dateAchieved
+                        },
+                        progress = achievement.progress + 1,
+                        isChecked = false,
                     )
-                } catch (e: Exception) {
-                    throw StorageException()
-                }
+                )
             }
         }
     }
@@ -72,15 +69,29 @@ class RoomAchievementsRepository @Inject constructor(
         achievementsDao.updateAccountAchievementProgresses(achievements)
     }
 
-    override suspend fun getAchievementsListWithAccountProgress(): Flow<List<Achievement>> = withContext(ioDispatcher) {
+    override suspend fun getAchievementsListWithAccountProgress(): Flow<List<Achievement>> = wrapSQLiteException(ioDispatcher) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        try {
-            achievementsDao.getAchievementsWithAccountProgress(account.id).map { entities ->
-                entities.map { it.toAchievement() }
-            }
-        } catch (e: Exception) {
-            throw StorageException()
+        achievementsDao.getAchievementsWithAccountProgress(account.id).map { entities ->
+            entities.map { it.toAchievement() }
         }
+    }
+
+    override suspend fun getRecentAchievementsCount(): Flow<Int> = wrapSQLiteException(ioDispatcher) {
+        val account = accountsRepository.getAccount().first() ?: throw AuthException()
+        achievementsDao.getRecentAchievementsCount(account.id)
+    }
+
+    override suspend fun setAchievementAsChecked(achievement: Achievement) {
+        val account = accountsRepository.getAccount().first() ?: throw AuthException()
+        achievementsDao.updateAccountAchievementProgress(
+            AccountAchievementProgressDbEntity(
+                accountId = account.id,
+                achievementId = achievement.id,
+                dateAchieved = achievement.dateAchieved,
+                progress = achievement.progress,
+                isChecked = true
+            )
+        )
     }
 
 }

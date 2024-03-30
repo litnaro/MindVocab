@@ -38,6 +38,16 @@ interface AchievementsDao {
             "WHERE achievements.achievement_type_id = :achievementType;")
     suspend fun getAchievementsWithProgressByType(accountId: Long, achievementType: Long) : List<AchievementProgressToUpdateTuple>
 
+    @Query("SELECT\n" +
+            "   COUNT(*)\n" +
+            "FROM\n" +
+            "   accounts_achievements_progress\n" +
+            "WHERE\n" +
+            "   accounts_achievements_progress.account_id = :accountId\n" +
+            "       AND accounts_achievements_progress.date_achieved != 0\n" +
+            "       AND accounts_achievements_progress.is_checked = 0")
+    fun getRecentAchievementsCount(accountId: Long) : Flow<Int>
+
     @Insert
     suspend fun insertAccountAchievementProgress(achievementProgress: AccountAchievementProgressDbEntity)
 

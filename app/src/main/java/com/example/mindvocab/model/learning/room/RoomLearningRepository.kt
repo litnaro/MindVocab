@@ -3,12 +3,11 @@ package com.example.mindvocab.model.learning.room
 import com.example.mindvocab.model.AuthException
 import com.example.mindvocab.model.NoMoreWordsToLearnForTodayException
 import com.example.mindvocab.model.NoWordsToLearnException
-import com.example.mindvocab.model.StorageException
 import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.achievement.AchievementsRepository
 import com.example.mindvocab.model.learning.LearningRepository
 import com.example.mindvocab.model.learning.room.entities.UpdateWordProgressAsLearningTuple
-import com.example.mindvocab.model.learning.room.entities.WordForLearningTuple
+import com.example.mindvocab.model.room.wrapSQLiteException
 import com.example.mindvocab.model.settings.application.ApplicationSettings
 import com.example.mindvocab.model.settings.learn.LearningSettings
 import com.example.mindvocab.model.word.TimeCalculations
@@ -21,7 +20,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class RoomLearningRepository @Inject constructor(
@@ -52,100 +50,78 @@ class RoomLearningRepository @Inject constructor(
         return isPreviousWordAvailable
     }
 
-    override suspend fun getWordToLearn() = withContext(ioDispatcher) {
+    override suspend fun getWordToLearn() = wrapSQLiteException(ioDispatcher) {
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
             if (getTodayStartedWordsCount().first() >= learningSettings.wordsADaySetting.first().value) throw NoMoreWordsToLearnForTodayException()
-            val wordTuple: WordForLearningTuple?
-            try {
-                wordTuple = learningDao.getWordToLearn(account.id)
-            } catch (e: Exception) {
-                throw StorageException()
-            }
-            if (wordTuple == null) throw NoWordsToLearnException()
+            val wordTuple = learningDao.getWordToLearn(account.id) ?: throw NoWordsToLearnException()
             val languageSetting = applicationSettings.getApplicationNativeLanguage()
             currentWordToLearn.emit(wordTuple.toWord(languageSetting))
             updateIsPreviousWordAvailable()
         }
     }
 
-    override suspend fun onWordKnown(word: Word) = withContext(ioDispatcher) {
+    override suspend fun onWordKnown(word: Word) = wrapSQLiteException(ioDispatcher) {
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
 
             // lastRepeatedAt and startedAt should be the same
             // because that's the only way to differentiate KNOWN word from LEARNED
             val currentTimeMillis = System.currentTimeMillis()
-            try {
-                learningDao.updateWordProgressAsKnown(
-                    AccountWordProgressDbEntity(
-                        accountId = account.id,
-                        wordId = word.id,
-                        timesRepeated = WordsCalculations.TIMES_REPEATED_TO_LEARN.toByte(),
-                        lastRepeatedAt = currentTimeMillis,
-                        startedAt = currentTimeMillis
-                    )
+            learningDao.updateWordProgressAsKnown(
+                AccountWordProgressDbEntity(
+                    accountId = account.id,
+                    wordId = word.id,
+                    timesRepeated = WordsCalculations.TIMES_REPEATED_TO_LEARN.toByte(),
+                    lastRepeatedAt = currentTimeMillis,
+                    startedAt = currentTimeMillis
                 )
-            } catch (e: Exception) {
-                throw StorageException()
-            }
+            )
             achievementsRepository.increaseAchievementsProgressByAction(AchievementsRepository.AchievementAction.WORD_KNOWN_ACTION)
             previousWordsDequeue.add(word)
             getWordToLearn()
         }
     }
 
-    override suspend fun onWordToLearn(word: Word) = withContext(ioDispatcher) {
+    override suspend fun onWordToLearn(word: Word) = wrapSQLiteException(ioDispatcher) {
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
-            try {
-                learningDao.updateWordProgressAsLearning(
-                    UpdateWordProgressAsLearningTuple(
-                        accountId = account.id,
-                        wordId = word.id,
-                        startedAt = System.currentTimeMillis()
-                    )
+            learningDao.updateWordProgressAsLearning(
+                UpdateWordProgressAsLearningTuple(
+                    accountId = account.id,
+                    wordId = word.id,
+                    startedAt = System.currentTimeMillis()
                 )
-            } catch (e: Exception) {
-                throw StorageException()
-            }
+            )
             previousWordsDequeue.add(word)
             getWordToLearn()
         }
     }
 
-    override suspend fun getTodayStartedWordsCount(): Flow<Int> = withContext(ioDispatcher){
+    override suspend fun getTodayStartedWordsCount(): Flow<Int> = wrapSQLiteException(ioDispatcher){
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        try {
-            learningDao.getStartedWordsCount(
-                accountId = account.id,
-                timesRepeatedToLearn = WordsCalculations.TIMES_REPEATED_TO_LEARN,
-                todayInMillis = TimeCalculations.getStartOfTodayInMillis()
-            ).map {
-                it.startedWordsCount
-            }
-        } catch (e: Exception) {
-            throw StorageException()
+        learningDao.getStartedWordsCount(
+            accountId = account.id,
+            timesRepeatedToLearn = WordsCalculations.TIMES_REPEATED_TO_LEARN,
+            todayInMillis = TimeCalculations.getStartOfTodayInMillis()
+        ).map {
+            it.startedWordsCount
         }
     }
 
-    override suspend fun returnPreviousWord() = withContext(ioDispatcher) {
+    override suspend fun returnPreviousWord() = wrapSQLiteException(ioDispatcher) {
         if (previousWordsDequeue.isNotEmpty()) {
             val account = accountsRepository.getAccount().first() ?: throw AuthException()
             val word = previousWordsDequeue.removeLast()
-            try {
-                learningDao.resetWordProgress(
-                    AccountWordProgressDbEntity(
-                        accountId = account.id,
-                        wordId = word.id,
-                        lastRepeatedAt = 0,
-                        startedAt = 0,
-                        timesRepeated = 0
-                    )
+            learningDao.resetWordProgress(
+                AccountWordProgressDbEntity(
+                    accountId = account.id,
+                    wordId = word.id,
+                    lastRepeatedAt = 0,
+                    startedAt = 0,
+                    timesRepeated = 0
                 )
-            } catch (e: Exception) {
-                throw StorageException()
-            }
+            )
             achievementsRepository.decreaseAchievementsProgressByAction(AchievementsRepository.AchievementAction.WORD_KNOWN_ACTION)
             currentWordToLearn.emit(word)
             updateIsPreviousWordAvailable()

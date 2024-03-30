@@ -5,7 +5,7 @@ import androidx.room.Embedded
 import com.example.mindvocab.model.achievement.entities.Achievement
 
 data class AccountAchievementProgressTuple(
-    val id: Int,
+    val id: Long,
     val title: String,
     val description: String,
     val image: String,

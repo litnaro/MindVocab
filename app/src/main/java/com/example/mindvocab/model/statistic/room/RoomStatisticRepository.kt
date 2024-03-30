@@ -62,60 +62,39 @@ class RoomStatisticRepository @Inject constructor(
     override suspend fun getStatisticForMonthCalendar(selectedMonth: Int): List<StatisticDay> {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
 
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.MONTH, selectedMonth)
-        calendar.set(Calendar.DAY_OF_MONTH, 1)
-
-        val maxDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
-
-        val dayStartTimes = mutableListOf<Long>()
-        val dayEndTimes = mutableListOf<Long>()
-
-        for (i in 0 until maxDayOfMonth) {
-            calendar.set(Calendar.DAY_OF_MONTH, i + 1)
-
-            calendar.set(Calendar.HOUR_OF_DAY, 0)
-            calendar.set(Calendar.MINUTE, 0)
-            calendar.set(Calendar.SECOND, 0)
-            dayStartTimes.add(calendar.timeInMillis)
-
-            calendar.set(Calendar.HOUR_OF_DAY, 23)
-            calendar.set(Calendar.MINUTE, 59)
-            calendar.set(Calendar.SECOND, 59)
-            dayEndTimes.add(calendar.timeInMillis)
+        val startOfTheMonth = Calendar.getInstance().apply {
+            set(Calendar.MONTH, selectedMonth)
+            set(Calendar.DAY_OF_MONTH, 1)
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
         }
 
-        val listOfStatisticDays = mutableListOf<StatisticDay>()
-
-        for (i in 0 until maxDayOfMonth) {
-            val startTime = dayStartTimes[i]
-            val endTime = dayEndTimes[i]
-
-            var isWordStarted = false
-
-            val wordsForCurrentDay = statisticDao.getStatisticInDateRange(account.id, startTime, endTime)
-
-            wordsForCurrentDay?.forEach {
-                if (it.startedAt in startTime..<endTime) {
-                    isWordStarted = true
-                    return@forEach
-                }
-            }
-
-            if (isWordStarted) {
-                val day = Calendar.getInstance()
-                day.timeInMillis = startTime
-                listOfStatisticDays.add(
-                    StatisticDay(
-                        day = day,
-                        isStartedNewWords = isWordStarted,
-                        isRepeatedOldWords = false
-                    )
-                )
-            }
-
+        val endOfTheMonth = Calendar.getInstance().apply {
+            set(Calendar.MONTH, selectedMonth)
+            set(Calendar.DAY_OF_MONTH, this.getActualMaximum(Calendar.DAY_OF_MONTH))
+            set(Calendar.HOUR_OF_DAY, 23)
+            set(Calendar.MINUTE, 59)
+            set(Calendar.SECOND, 59)
         }
-        return listOfStatisticDays
+
+        val wordsForSelectedMonth = statisticDao.getStatisticInDateRange(
+            accountId = account.id,
+            startDate = startOfTheMonth.timeInMillis,
+            endDate = endOfTheMonth.timeInMillis) ?: emptyList()
+
+        val daysOfMonthSet = mutableMapOf<Int, StatisticDay>()
+
+        wordsForSelectedMonth.forEach {
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = it.startedAt
+            val dayOfTheMonth = calendar.get(Calendar.DAY_OF_MONTH)
+            if (!daysOfMonthSet.containsKey(dayOfTheMonth)) {
+                daysOfMonthSet[dayOfTheMonth] = StatisticDay(calendar, isStartedNewWords = true, isRepeatedOldWords = false)
+            }
+        }
+
+        return daysOfMonthSet.values.toList()
     }
 
     private fun getPercentageByStatistic(statistic: AccountWordsStatisticTuple) : WordsStatisticPercentage {

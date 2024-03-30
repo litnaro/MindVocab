@@ -11,6 +11,7 @@ import com.example.mindvocab.model.account.etities.SignUpData
 import com.example.mindvocab.model.account.room.entities.AccountDbEntity
 import com.example.mindvocab.model.account.room.entities.AccountUpdateUsernameTuple
 import com.example.mindvocab.model.account.security.SecurityUtils
+import com.example.mindvocab.model.room.wrapSQLiteException
 import com.example.mindvocab.model.settings.account.AccountSettings
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -58,7 +59,7 @@ class RoomAccountsRepository @Inject constructor(
         currentAccountIdFlow.emit(AccountId(AccountSettings.NO_ACCOUNT_ID))
     }
 
-    override suspend fun updateUsername(newUsername: String) = withContext(ioDispatcher) {
+    override suspend fun updateUsername(newUsername: String) = wrapSQLiteException(ioDispatcher) {
         if (newUsername.isBlank()) throw EmptyFieldException(Field.Username)
 
         val accountId = accountSettings.getCurrentAccountId()
@@ -67,11 +68,11 @@ class RoomAccountsRepository @Inject constructor(
         accountsDao.updateUsername(AccountUpdateUsernameTuple(accountId, newUsername))
     }
 
-    override suspend fun changePassword(newPassword: String) = withContext(ioDispatcher) {
+    override suspend fun changePassword(newPassword: String) = wrapSQLiteException(ioDispatcher) {
         TODO("Not yet implemented")
     }
 
-    override suspend fun setAccountPhoto(photo: String) = withContext(ioDispatcher) {
+    override suspend fun setAccountPhoto(photo: String) = wrapSQLiteException(ioDispatcher) {
         TODO("Not yet implemented")
     }
 
@@ -101,7 +102,7 @@ class RoomAccountsRepository @Inject constructor(
         return tuple.id
     }
 
-    private suspend fun createAccount(signUpData: SignUpData) {
+    private suspend fun createAccount(signUpData: SignUpData) = withContext(ioDispatcher) {
         try {
             val entity = AccountDbEntity.fromSignUpData(signUpData, securityUtils)
             accountsDao.createAccount(entity)
@@ -114,6 +115,7 @@ class RoomAccountsRepository @Inject constructor(
         return accountsDao.getAccountById(accountId).map { it?.toAccount() }
     }
 
+    @Suppress("unused")
     private class AccountId(val value: Long)
 
 }

@@ -38,6 +38,9 @@ class StatisticFragment : BaseFragment() {
 
         val achievementsAdapter = AchievementAdapter(object : AchievementAdapter.Listener {
             override fun onAchievementDetail(achievement: Achievement) {
+                if (!achievement.isChecked) {
+                    viewModel.setAchievementAsChecked(achievement)
+                }
                 showAchievementDetailDialog(achievement)
             }
         })

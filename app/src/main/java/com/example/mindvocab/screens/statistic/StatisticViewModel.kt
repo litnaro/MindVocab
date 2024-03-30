@@ -25,6 +25,12 @@ class StatisticViewModel @Inject constructor(
         getAchievements()
     }
 
+    fun setAchievementAsChecked(achievement: Achievement) {
+        viewModelScope.launch {
+            achievementsRepository.setAchievementAsChecked(achievement)
+        }
+    }
+
     private fun getAchievements() {
         viewModelScope.launch {
             delay(1500)
