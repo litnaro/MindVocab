@@ -21,7 +21,7 @@ class AuthException : AppException()
 enum class Field {
     Email,
     Username,
-    Password
+    Password,
 }
 
 class EmptyFieldException(val field: Field) : AppException()
@@ -29,4 +29,6 @@ class EmptyFieldException(val field: Field) : AppException()
 class PasswordMismatchException : AppException()
 
 class AccountAlreadyExistsException : AppException()
+
+class SameDataModificationException : AppException()
 

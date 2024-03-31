@@ -1,67 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/main_screen_padding"
-    tools:context=".screens.settings.account.password.ChangePasswordFragment">
+    tools:context=".screens.settings.account.fullname.ChangeFullNameFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/oldPasswordFieldContainer"
+        android:id="@+id/accountNameFieldContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/old_password_hint"
-        style="@style/InputTextContainer"
-        >
+        android:layout_marginTop="20dp"
+        android:hint="@string/name_hint"
+        style="@style/InputTextContainer">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/oldPasswordField"
+            android:id="@+id/accountNameField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
+            android:inputType="text"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/newPasswordFieldContainer"
+        android:id="@+id/accountSurnameFieldContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/new_password_hint"
         android:layout_marginTop="10dp"
+        android:hint="@string/surname_hint"
         style="@style/InputTextContainer">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/newPasswordField"
+            android:id="@+id/accountSurnameField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/newPasswordRepeatFieldContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/repeat_new_password_hint"
-        android:layout_marginTop="5dp"
-        style="@style/InputTextContainer">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/newPasswordRepeatField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
+            android:inputType="text"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/changePasswordButton"
+        android:id="@+id/changeFullNameButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="@string/change_password"
+        android:text="@string/change_username"
         app:backgroundTint="?attr/colorPrimaryContainer"
         android:textColor="?attr/colorOnPrimaryContainer"
         app:cornerRadius="14dp"

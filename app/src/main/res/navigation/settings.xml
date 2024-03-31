@@ -14,6 +14,7 @@
             android:id="@+id/action_settingsFragment_to_accountEditFragment"
             app:destination="@id/accountEditFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/accountEditFragment"
         android:name="com.example.mindvocab.screens.settings.account.edit.AccountEditFragment"
@@ -22,10 +23,29 @@
         <action
             android:id="@+id/action_accountEditFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/action_accountEditFragment_to_changeUsernameFragment"
+            app:destination="@id/changeUsernameFragment" />
+        <action
+            android:id="@+id/action_accountEditFragment_to_changeFullNameFragment"
+            app:destination="@id/changeFullNameFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="com.example.mindvocab.screens.settings.account.password.ChangePasswordFragment"
         android:label="@string/account_change_password_title"
         tools:layout="@layout/fragment_settings_change_password" />
+
+    <fragment
+        android:id="@+id/changeUsernameFragment"
+        android:name="com.example.mindvocab.screens.settings.account.username.ChangeUsernameFragment"
+        android:label="@string/change_username_settings_title"
+        tools:layout="@layout/fragment_settings_change_username" />
+    <fragment
+        android:id="@+id/changeFullNameFragment"
+        android:name="com.example.mindvocab.screens.settings.account.fullname.ChangeFullNameFragment"
+        android:label="@string/change_full_name_settings_title"
+        tools:layout="@layout/fragment_settings_change_full_name" />
+
 </navigation>

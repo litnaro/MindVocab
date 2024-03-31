@@ -8,6 +8,9 @@ import com.example.mindvocab.model.AuthException
 import com.example.mindvocab.model.StorageException
 import com.example.mindvocab.model.PasswordMismatchException
 import com.example.mindvocab.model.AccountAlreadyExistsException
+import com.example.mindvocab.model.SameDataModificationException
+import com.example.mindvocab.model.account.etities.ChangePasswordData
+import com.example.mindvocab.model.account.etities.FullName
 import kotlinx.coroutines.flow.Flow
 
 interface AccountsRepository : Repository {
@@ -45,15 +48,42 @@ interface AccountsRepository : Repository {
     suspend fun logout()
 
     /**
+     * Get current account username.
+     * @throws [AuthException]
+     */
+    suspend fun getAccountUsername() : String
+
+    /**
      * Change the username of the current signed-in user.
      * @throws [EmptyFieldException]
      * @throws [AuthException]
      * @throws [StorageException]
+     * @throws [SameDataModificationException]
      */
     suspend fun updateUsername(newUsername: String)
 
-    suspend fun changePassword(newPassword: String)
+    /**
+     * Get current account full name.
+     * @throws [AuthException]
+     */
+    suspend fun getAccountFullName() : FullName
 
+    /**
+     * Change the full name of the current signed-in user.
+     * @throws [AuthException]
+     */
+    suspend fun updateFullName(fullName: FullName)
+
+    /**
+     * Change the password name of the current signed-in user.
+     * @throws [AuthException]
+     * @throws [EmptyFieldException]
+     * @throws [PasswordMismatchException]
+     * @throws [SameDataModificationException]
+     */
+    suspend fun changePassword(changePasswordData: ChangePasswordData)
+
+    //TODO implementation
     suspend fun setAccountPhoto(photo: String)
 
 }

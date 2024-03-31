@@ -1,11 +1,11 @@
 <resources>
 
     <!--    General-->
-    <string name="app_name">MindVocab</string>
+    <string name="app_name" translatable="false">MindVocab</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="percentage">%d%%</string>
-    <string name="amount_of">%1$d/%2$d</string>
-    <string name="amount_of_words">%1$d of %2$d</string>
+    <string name="percentage" translatable="false">%d%%</string>
+    <string name="amount_of" translatable="false">%1$d/%2$d</string>
+    <string name="amount_of_words" translatable="false">%1$d of %2$d</string>
 
     <string name="select_category_content_description">Select category icon</string>
     <string name="confirm_categories_content_description">Confirm categories icon</string>
@@ -21,7 +21,7 @@
     <string name="sign_in_title">Sign in</string>
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="or">Or</string>
-    <string name="email_hint">Email</string>
+    <string name="email_hint" translatable="false">Email</string>
     <string name="sign_in_button_text">Enter</string>
     <string name="username_or_email_hint">Username or Email</string>
     <string name="i_don_t_have_an_account">Not with MindVocab yet?</string>
@@ -141,16 +141,31 @@
     <string name="dismiss_settings_dialog_content_description">Dismiss settings dialog</string>
     <string name="settings_dialog_drag_icon_content_description">Settings dialog drag icon</string>
 
-    <string name="account_full_name">%1$s %2$s</string>
+    <string name="account_full_name" translatable="false">%1$s %2$s</string>
 
     <string name="old_password_hint">Old password</string>
     <string name="new_password_hint">New password</string>
     <string name="repeat_new_password_hint">Repeat new password</string>
     <string name="change_password">Change password</string>
+    <string name="fill_all_fields_error_text">Fill all fields to change your password</string>
+    <string name="new_passwords_mismatch_error_text">New passwords mismatch</string>
+    <string name="new_password_equals_old_one_error_text">Old and new passwords are the same</string>
+    <string name="wrong_old_password_error_text">Wrong old password</string>
+    <string name="password_successfully_changed">Password changed</string>
+
+    <string name="change_username_settings_title">Change username</string>
+    <string name="change_username">Change</string>
+    <string name="new_username_equals_old_one_error_text">Old and new passwords are the same</string>
+    <string name="username_successfully_changed">Username changed</string>
+
+    <string name="change_full_name_settings_title">Change full name</string>
+    <string name="name_hint">Name</string>
+    <string name="surname_hint">Surname</string>
+    <string name="full_name_successfully_changed">Full name changed</string>
 
     <string name="account_edit_settings">Editing</string>
     <string name="account_edit_main_info_title">Main information</string>
-    <string name="account_edit_email_subtitle">Email</string>
+    <string name="account_edit_email_subtitle" translatable="false">Email</string>
     <string name="account_edit_username_subtitle">Username</string>
     <string name="account_edit_full_name_subtitle">Full name</string>
     <string name="account_edit_password_subtitle">Password</string>
@@ -176,13 +191,13 @@
 
     <string name="application_settings_title">Application</string>
     <string name="application_theme_settings">Theme</string>
-    <string name="application_theme_settings_helping_text">\t\t\t\tYou may need to restart the application to see the result.</string>
+    <string name="application_theme_settings_helping_text">You may need to restart the application to see the result.</string>
     <string name="application_theme_settings_content_description">Application theme icon</string>
     <string name="interface_language_settings">Interface Language</string>
-    <string name="application_language_settings_helping_text">\t\t\t\tNot affects the Translation section when learning and repeating words.</string>
+    <string name="application_language_settings_helping_text">Not affects the Translation section when learning and repeating words.</string>
     <string name="interface_language_settings_content_description">Interface language icon</string>
     <string name="interface_native_language_settings">Native Language</string>
-    <string name="application_native_language_settings_helping_text">\t\t\t\tAffects the Translation section when learning and repeating words.</string>
+    <string name="application_native_language_settings_helping_text">Affects the Translation section when learning and repeating words.</string>
     <string name="interface_native_language_settings_content_description">User native language icon</string>
 
     <string name="word_learning_settings_title">Learning words</string>
@@ -192,13 +207,13 @@
     <string name="words_a_day_settings_helping_text">Modes: \n\t\t\t\tEasy - 3 \n\t\t\t\tMedium - 5 \n\t\t\t\tHard - 7 \n\t\t\t\tExtreme - 10 \n\t\t\t\tLegendary - 15</string>
     <string name="words_a_day_settings_content_description">Words a day settings icon</string>
     <string name="left_swipe_settings">Left swipe</string>
-    <string name="left_swipe_settings_helping_text">\t\t\t\tAffects interaction buttons and word swipes on the learning screen. Changing this setting also reverses swipe right.</string>
+    <string name="left_swipe_settings_helping_text">Affects interaction buttons and word swipes on the learning screen. Changing this setting also reverses swipe right.</string>
     <string name="left_swipe_settings_content_description">Left swipe settings icon</string>
     <string name="right_swipe_setting">Right swipe</string>
-    <string name="right_swipe_setting_helping_text">\t\t\t\tAffects interaction buttons and word swipes on the learning screen. Changing this setting also reverses swipe left.</string>
+    <string name="right_swipe_setting_helping_text">Affects interaction buttons and word swipes on the learning screen. Changing this setting also reverses swipe left.</string>
     <string name="right_swipe_setting_content_description">Right swipe setting icon</string>
     <string name="word_order_settings">Words order</string>
-    <string name="word_order_settings_helping_text">\t\t\t\tSmart - Shows words depending on the last time it was repeated, and also puts problematic words forward. \n\t\t\t\tRandom - Random words regardless of parameters.</string>
+    <string name="word_order_settings_helping_text">Smart - Shows words depending on the last time it was repeated, and also puts problematic words forward. Random - Random words regardless of parameters.</string>
     <string name="word_order_content_description">Word order</string>
 
     <string name="notifications_title">Notifications</string>
@@ -210,10 +225,10 @@
 
     <string name="repeating_setting_title">Repeating words</string>
     <string name="repeating_variant_settings">Repeating variants</string>
-    <string name="repeating_variant_settings_helping_text">\t\t\t\tTranslation - You just need to press a button whether you remember the word or not. \n\t\t\t\tGrammar - You need to write a word to continue. \n\t\t\t\tChanging this setting also reverses First show settings.</string>
+    <string name="repeating_variant_settings_helping_text">Translation - You just need to press a button whether you remember the word or not. Grammar - You need to write a word to continue. Changing this setting also reverses First show settings.</string>
     <string name="repeating_variant_content_description">Repeating variant icon</string>
     <string name="first_show_settings">First show</string>
-    <string name="first_show_settings_helping_text">\t\t\t\tWord - Shows the word and you have to remember the translation. \n\t\t\t\tTranslation - Shows the translation and you have to remember the word. \n\t\t\t\tChanging this setting also reverses Repeating variants settings.</string>
+    <string name="first_show_settings_helping_text">Word - Shows the word and you have to remember the translation. Translation - Shows the translation and you have to remember the word. Changing this setting also reverses Repeating variants settings.</string>
     <string name="first_show_settings_content_description">First show icon</string>
     <string name="turning_animation_settings">Turning animation</string>
     <string name="turning_animation_settings_helping_text">Just visual components of word repetition.</string>

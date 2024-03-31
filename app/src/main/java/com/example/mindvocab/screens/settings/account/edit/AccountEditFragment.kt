@@ -42,6 +42,14 @@ class AccountEditFragment : BaseFragment() {
             findNavController().navigate(AccountEditFragmentDirections.actionAccountEditFragmentToChangePasswordFragment())
         }
 
+        binding.changeUsernameContainer.setOnClickListener {
+            findNavController().navigate(AccountEditFragmentDirections.actionAccountEditFragmentToChangeUsernameFragment())
+        }
+
+        binding.changeFullNameContainer.setOnClickListener {
+            findNavController().navigate(AccountEditFragmentDirections.actionAccountEditFragmentToChangeFullNameFragment())
+        }
+
         binding.logout.setOnClickListener {
             viewModel.logout()
         }

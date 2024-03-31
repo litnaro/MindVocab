@@ -66,7 +66,37 @@
                     android:textStyle="bold"/>
 
                 <LinearLayout
-                    android:id="@+id/themeSettingsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:paddingVertical="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/account_edit_email_subtitle"
+                        android:textSize="@dimen/simple_text_size"
+                        android:textColor="?attr/colorOnPrimaryContainer"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/accountEmailSettingValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="andru.meteo@gmail.com"
+                        android:textSize="@dimen/simple_text_size"
+                        android:textColor="?attr/colorOnPrimaryContainer"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="6dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/changeUsernameContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -104,7 +134,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/languageSettingsContainer"
+                    android:id="@+id/changeFullNameContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -126,43 +156,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="Andru Meteo"
-                        android:textSize="@dimen/simple_text_size"
-                        android:textColor="?attr/colorOnPrimaryContainer"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="6dp"/>
-
-                    <ImageView
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"
-                        android:src="@drawable/ic_arrow_right"
-                        app:tint="?attr/colorOnPrimaryContainer"
-                        android:layout_gravity="center_vertical"
-                        android:contentDescription="@string/button_to_change_settings_content_description"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="5dp"
-                    android:paddingVertical="5dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/account_edit_email_subtitle"
-                        android:textSize="@dimen/simple_text_size"
-                        android:textColor="?attr/colorOnPrimaryContainer"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"/>
-
-                    <TextView
-                        android:id="@+id/accountEmailSettingValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="andru.meteo@gmail.com"
                         android:textSize="@dimen/simple_text_size"
                         android:textColor="?attr/colorOnPrimaryContainer"
                         android:layout_gravity="center_vertical"

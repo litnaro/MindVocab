@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/main_screen_padding"
+    android:paddingHorizontal="@dimen/learning_horizontal_screen_padding"
+    android:paddingVertical="@dimen/learning_vertical_screen_padding"
     tools:context=".screens.learn.LearnWordFragment">
 
     <LinearLayout

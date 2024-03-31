@@ -5,10 +5,15 @@ import com.example.mindvocab.model.AccountAlreadyExistsException
 import com.example.mindvocab.model.AuthException
 import com.example.mindvocab.model.EmptyFieldException
 import com.example.mindvocab.model.Field
+import com.example.mindvocab.model.SameDataModificationException
 import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.account.etities.Account
+import com.example.mindvocab.model.account.etities.ChangePasswordData
+import com.example.mindvocab.model.account.etities.FullName
 import com.example.mindvocab.model.account.etities.SignUpData
 import com.example.mindvocab.model.account.room.entities.AccountDbEntity
+import com.example.mindvocab.model.account.room.entities.AccountUpdateFullNameTuple
+import com.example.mindvocab.model.account.room.entities.AccountUpdatePasswordTuple
 import com.example.mindvocab.model.account.room.entities.AccountUpdateUsernameTuple
 import com.example.mindvocab.model.account.security.SecurityUtils
 import com.example.mindvocab.model.room.wrapSQLiteException
@@ -16,6 +21,7 @@ import com.example.mindvocab.model.settings.account.AccountSettings
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -59,8 +65,14 @@ class RoomAccountsRepository @Inject constructor(
         currentAccountIdFlow.emit(AccountId(AccountSettings.NO_ACCOUNT_ID))
     }
 
+    override suspend fun getAccountUsername(): String {
+        val account = getAccount().first() ?: throw AuthException()
+        return account.username
+    }
+
     override suspend fun updateUsername(newUsername: String) = wrapSQLiteException(ioDispatcher) {
         if (newUsername.isBlank()) throw EmptyFieldException(Field.Username)
+        if (newUsername == getAccountUsername()) throw SameDataModificationException()
 
         val accountId = accountSettings.getCurrentAccountId()
         if (accountId == AccountSettings.NO_ACCOUNT_ID) throw AuthException()
@@ -68,8 +80,43 @@ class RoomAccountsRepository @Inject constructor(
         accountsDao.updateUsername(AccountUpdateUsernameTuple(accountId, newUsername))
     }
 
-    override suspend fun changePassword(newPassword: String) = wrapSQLiteException(ioDispatcher) {
-        TODO("Not yet implemented")
+    override suspend fun getAccountFullName(): FullName {
+        val account = getAccount().first() ?: throw AuthException()
+        return FullName(
+            account.name,
+            account.surname
+        )
+    }
+
+    override suspend fun updateFullName(fullName: FullName) = wrapSQLiteException(ioDispatcher) {
+        val (name, surname) = fullName
+
+        val account = getAccount().first() ?: throw AuthException()
+
+        accountsDao.updateFullName(
+            AccountUpdateFullNameTuple(account.id, name, surname)
+        )
+    }
+
+    override suspend fun changePassword(changePasswordData: ChangePasswordData) = wrapSQLiteException(ioDispatcher) {
+        changePasswordData.validate()
+
+        val account = getAccount().first() ?: throw AuthException()
+
+        findAccountIdByEmailAndPassword(account.email, changePasswordData.oldPassword)
+
+        val newSalt = securityUtils.generateSalt()
+        val newHash = securityUtils.passwordToHash(changePasswordData.newPassword, newSalt)
+
+        changePasswordData.clearFields()
+
+        accountsDao.updatePassword(
+            AccountUpdatePasswordTuple(
+                id = account.id,
+                hash = securityUtils.bytesToString(newHash),
+                salt = securityUtils.bytesToString(newSalt)
+            )
+        )
     }
 
     override suspend fun setAccountPhoto(photo: String) = wrapSQLiteException(ioDispatcher) {

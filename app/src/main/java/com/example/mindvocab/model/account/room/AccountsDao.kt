@@ -7,6 +7,8 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.mindvocab.model.account.room.entities.AccountDbEntity
 import com.example.mindvocab.model.account.room.entities.AccountSignInTuple
+import com.example.mindvocab.model.account.room.entities.AccountUpdateFullNameTuple
+import com.example.mindvocab.model.account.room.entities.AccountUpdatePasswordTuple
 import com.example.mindvocab.model.account.room.entities.AccountUpdateUsernameTuple
 import kotlinx.coroutines.flow.Flow
 
@@ -24,6 +26,12 @@ interface AccountsDao {
 
     @Update(entity = AccountDbEntity::class)
     suspend fun updateUsername(account: AccountUpdateUsernameTuple)
+
+    @Update(entity = AccountDbEntity::class)
+    suspend fun updatePassword(account: AccountUpdatePasswordTuple)
+
+    @Update(entity = AccountDbEntity::class)
+    suspend fun updateFullName(account: AccountUpdateFullNameTuple)
 
     @Query("SELECT id, hash, salt FROM accounts WHERE email = :email")
     suspend fun findByEmail(email: String): AccountSignInTuple?
