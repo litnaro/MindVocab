@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import java.util.Calendar
 import javax.inject.Inject
 
 class RoomLearningRepository @Inject constructor(
@@ -90,7 +91,7 @@ class RoomLearningRepository @Inject constructor(
                 UpdateWordProgressAsLearningTuple(
                     accountId = account.id,
                     wordId = word.id,
-                    startedAt = System.currentTimeMillis()
+                    startedAt = Calendar.getInstance().timeInMillis
                 )
             )
             previousWordsDequeue.add(word)

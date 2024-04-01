@@ -1,5 +1,7 @@
 package com.example.mindvocab.screens.settings.account.edit
 
+import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +12,10 @@ import com.bumptech.glide.Glide
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.Result
+import com.example.mindvocab.databinding.DialogDangerousActionBinding
 import com.example.mindvocab.databinding.FragmentSettingsAccountBinding
 import com.example.mindvocab.model.account.etities.Account
+import com.example.mindvocab.screens.initial.InitialActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,10 +55,44 @@ class AccountEditFragment : BaseFragment() {
         }
 
         binding.logout.setOnClickListener {
-            viewModel.logout()
+            openDangerousActionDialog(title = requireContext().getString(R.string.dialog_title_logout)) {
+                viewModel.logout()
+                val intent = Intent(requireContext(), InitialActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+            }
+        }
+
+        binding.resetAccountProgress.setOnClickListener {
+            openDangerousActionDialog(title = requireContext().getString(R.string.dialog_title_reset_account_data)) {
+                viewModel.resetAccountProgress()
+            }
         }
 
         return binding.root
+    }
+
+    private fun openDangerousActionDialog(title: String, onConfirm: () -> Unit) {
+        val dialogBinding = DialogDangerousActionBinding.inflate(layoutInflater)
+        val dialog = Dialog(requireContext())
+
+        dialog.setContentView(dialogBinding.root)
+
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        dialogBinding.title.text = title
+
+        dialogBinding.confirm.setOnClickListener {
+            onConfirm()
+            dialog.dismiss()
+        }
+
+        dialogBinding.dismiss.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     private fun setAccountData(account: Account) {

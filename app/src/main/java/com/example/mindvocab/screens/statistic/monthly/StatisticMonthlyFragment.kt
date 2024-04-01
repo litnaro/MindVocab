@@ -51,6 +51,16 @@ class StatisticMonthlyFragment : BaseFragment() {
             }
         }
 
+        viewModel.getMonthStatistic(binding.calendar.currentPageDate.get(Calendar.MONTH))
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.calendar.setMaximumDate(Calendar.getInstance().apply {set(Calendar.DAY_OF_MONTH, this.getActualMaximum(Calendar.DAY_OF_MONTH))})
+
         val monthChangeListener = object : OnCalendarPageChangeListener {
             override fun onChange() {
                 viewModel.getMonthStatistic(
@@ -62,13 +72,11 @@ class StatisticMonthlyFragment : BaseFragment() {
         binding.calendar.setOnPreviousPageChangeListener(monthChangeListener)
         binding.calendar.setOnForwardPageChangeListener(monthChangeListener)
 
-        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.getMonthStatistic(
-            binding.calendar.currentPageDate.get(Calendar.MONTH)
-        )
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
+
 }

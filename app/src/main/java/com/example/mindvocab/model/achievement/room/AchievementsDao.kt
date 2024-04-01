@@ -6,7 +6,9 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.mindvocab.model.achievement.room.entities.AccountAchievementProgressDbEntity
 import com.example.mindvocab.model.achievement.room.entities.AccountAchievementProgressTuple
+import com.example.mindvocab.model.achievement.room.entities.AchievementProgressAsCheckedTuple
 import com.example.mindvocab.model.achievement.room.entities.AchievementProgressToUpdateTuple
+import com.example.mindvocab.model.achievement.room.entities.UpdateAccountAchievementProgressTuple
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -51,8 +53,11 @@ interface AchievementsDao {
     @Insert
     suspend fun insertAccountAchievementProgress(achievementProgress: AccountAchievementProgressDbEntity)
 
-    @Update
-    suspend fun updateAccountAchievementProgress(achievementProgress: AccountAchievementProgressDbEntity)
+    @Update(entity = AccountAchievementProgressDbEntity::class)
+    suspend fun updateAccountAchievementProgress(achievementProgress: UpdateAccountAchievementProgressTuple)
+
+    @Update(entity = AccountAchievementProgressDbEntity::class)
+    suspend fun updateAccountAchievementProgress(achievementProgress: AchievementProgressAsCheckedTuple)
 
     @Update
     suspend fun updateAccountAchievementProgresses(achievementProgress: List<AccountAchievementProgressDbEntity>)

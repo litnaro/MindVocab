@@ -6,6 +6,8 @@
     <string name="percentage" translatable="false">%d%%</string>
     <string name="amount_of" translatable="false">%1$d/%2$d</string>
     <string name="amount_of_words" translatable="false">%1$d of %2$d</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="confirm">Confirm</string>
 
     <string name="select_category_content_description">Select category icon</string>
     <string name="confirm_categories_content_description">Confirm categories icon</string>
@@ -176,6 +178,9 @@
     <string name="account_photo_content_description">Account photo</string>
     <string name="account_add_photo_content_description">Add account photo</string>
     <string name="account_settings_content_description">Account settings</string>
+
+    <string name="dialog_title_logout">Do you want to logout?</string>
+    <string name="dialog_title_reset_account_data">All your words, word sets, achievements progress will be deleted. Continue?</string>
 
     <string name="account_change_password_title">Change password</string>
 

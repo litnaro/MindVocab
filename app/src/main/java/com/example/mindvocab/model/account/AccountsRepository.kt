@@ -83,6 +83,11 @@ interface AccountsRepository : Repository {
      */
     suspend fun changePassword(changePasswordData: ChangePasswordData)
 
+    /**
+     * Delete all word sets, words and achievements progress.
+     */
+    suspend fun resetAccountProgress()
+
     //TODO implementation
     suspend fun setAccountPhoto(photo: String)
 

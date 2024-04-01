@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">MindVocab</string>
     <string name="hello_blank_fragment">Привіт пустий фрагмент</string>
+    <string name="dismiss">Скасувати</string>
+    <string name="confirm">Підтвердити</string>
     <string name="select_category_content_description">Іконка вибору категорії</string>
     <string name="confirm_categories_content_description">Іконка підтвердження категорії</string>
     <string name="notifications_content_description">Іконка повідомлень</string>
@@ -112,6 +114,7 @@
     <string name="account_photo_content_description">Фото акаунту</string>
     <string name="account_add_photo_content_description">Додати фото акаунту</string>
     <string name="account_settings_content_description">Налаштування акаунту</string>
+    <string name="dialog_title_logout">Ви дійсно хочете вийти з облікового запису?</string>
     <string name="account_change_password_title">Змінити пароль</string>
     <string name="additional_settings_title">Додатково</string>
     <string name="share_application_settings">Поділитись додатком</string>
@@ -171,4 +174,5 @@
     <string name="change_username_settings_title">Змінити логін</string>
     <string name="new_username_equals_old_one_error_text">Старий логін дорівнює новому</string>
     <string name="username_successfully_changed">Логін змінено</string>
+    <string name="dialog_title_reset_account_data">Весь прогрес слів, досягнень та категорій слів буде видалено. Продовжити?</string>
 </resources>

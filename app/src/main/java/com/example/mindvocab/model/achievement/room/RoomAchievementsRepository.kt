@@ -6,12 +6,13 @@ import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.achievement.AchievementsRepository
 import com.example.mindvocab.model.achievement.entities.Achievement
 import com.example.mindvocab.model.achievement.room.entities.AccountAchievementProgressDbEntity
+import com.example.mindvocab.model.achievement.room.entities.AchievementProgressAsCheckedTuple
+import com.example.mindvocab.model.achievement.room.entities.UpdateAccountAchievementProgressTuple
 import com.example.mindvocab.model.room.wrapSQLiteException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class RoomAchievementsRepository @Inject constructor(
@@ -37,7 +38,7 @@ class RoomAchievementsRepository @Inject constructor(
                 )
             } else {
                 achievementsDao.updateAccountAchievementProgress(
-                    AccountAchievementProgressDbEntity(
+                    UpdateAccountAchievementProgressTuple(
                         accountId = account.id,
                         achievementId = achievement.achievement.id,
                         dateAchieved = if (achievement.progress + 1 == achievement.achievement.progressToAchieve) {
@@ -46,14 +47,13 @@ class RoomAchievementsRepository @Inject constructor(
                             achievement.dateAchieved
                         },
                         progress = achievement.progress + 1,
-                        isChecked = false,
                     )
                 )
             }
         }
     }
 
-    override suspend fun decreaseAchievementsProgressByAction(action: AchievementsRepository.AchievementAction) = withContext(ioDispatcher) {
+    override suspend fun decreaseAchievementsProgressByAction(action: AchievementsRepository.AchievementAction) = wrapSQLiteException(ioDispatcher) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
         val achievements = achievementsDao.getAchievementsWithProgressByType(account.id, action.value)
             .map {
@@ -84,11 +84,9 @@ class RoomAchievementsRepository @Inject constructor(
     override suspend fun setAchievementAsChecked(achievement: Achievement) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
         achievementsDao.updateAccountAchievementProgress(
-            AccountAchievementProgressDbEntity(
+            AchievementProgressAsCheckedTuple(
                 accountId = account.id,
                 achievementId = achievement.id,
-                dateAchieved = achievement.dateAchieved,
-                progress = achievement.progress,
                 isChecked = true
             )
         )

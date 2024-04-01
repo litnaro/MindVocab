@@ -12,7 +12,6 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.mindvocab.R
@@ -83,8 +82,8 @@ class StatisticFragment : BaseFragment() {
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when(menuItem.itemId) {
-                    R.id.toNotifications -> {
-                        findNavController().navigate(StatisticFragmentDirections.actionStatisticFragmentToNotificationsFragment())
+                    R.id.openHelpDialog -> {
+                        //TODO open helping dialog
                         true
                     }
                     else -> false

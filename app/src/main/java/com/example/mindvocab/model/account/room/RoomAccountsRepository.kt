@@ -119,6 +119,11 @@ class RoomAccountsRepository @Inject constructor(
         )
     }
 
+    override suspend fun resetAccountProgress() = wrapSQLiteException(ioDispatcher) {
+        val account = getAccount().first() ?: throw AuthException()
+        accountsDao.resetAccountData(account.id)
+    }
+
     override suspend fun setAccountPhoto(photo: String) = wrapSQLiteException(ioDispatcher) {
         TODO("Not yet implemented")
     }

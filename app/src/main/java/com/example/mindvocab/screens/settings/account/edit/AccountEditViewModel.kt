@@ -34,4 +34,10 @@ class AccountEditViewModel @Inject constructor(
             accountsRepository.logout()
         }
     }
+
+    fun resetAccountProgress() {
+        viewModelScope.launch {
+            accountsRepository.resetAccountProgress()
+        }
+    }
 }

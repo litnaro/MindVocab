@@ -59,7 +59,7 @@ class RoomStatisticRepository @Inject constructor(
         }
     }
 
-    override suspend fun getStatisticForMonthCalendar(selectedMonth: Int): List<StatisticDay> {
+    override suspend fun getStatisticForMonthCalendar(selectedMonth: Int): List<StatisticDay> = wrapSQLiteException(ioDispatcher){
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
 
         val startOfTheMonth = Calendar.getInstance().apply {
@@ -81,20 +81,25 @@ class RoomStatisticRepository @Inject constructor(
         val wordsForSelectedMonth = statisticDao.getStatisticInDateRange(
             accountId = account.id,
             startDate = startOfTheMonth.timeInMillis,
-            endDate = endOfTheMonth.timeInMillis) ?: emptyList()
+            endDate = endOfTheMonth.timeInMillis) ?: return@wrapSQLiteException emptyList()
 
         val daysOfMonthSet = mutableMapOf<Int, StatisticDay>()
 
         wordsForSelectedMonth.forEach {
-            val calendar = Calendar.getInstance()
-            calendar.timeInMillis = it.startedAt
+            val calendar = Calendar.getInstance().apply {
+                timeInMillis = it.startedAt
+                set(Calendar.HOUR_OF_DAY, 0)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+            }
             val dayOfTheMonth = calendar.get(Calendar.DAY_OF_MONTH)
             if (!daysOfMonthSet.containsKey(dayOfTheMonth)) {
                 daysOfMonthSet[dayOfTheMonth] = StatisticDay(calendar, isStartedNewWords = true, isRepeatedOldWords = false)
             }
         }
 
-        return daysOfMonthSet.values.toList()
+        daysOfMonthSet.values.toList()
     }
 
     private fun getPercentageByStatistic(statistic: AccountWordsStatisticTuple) : WordsStatisticPercentage {
