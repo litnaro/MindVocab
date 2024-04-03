@@ -6,6 +6,7 @@
     <string name="percentage" translatable="false">%d%%</string>
     <string name="amount_of" translatable="false">%1$d/%2$d</string>
     <string name="amount_of_words" translatable="false">%1$d of %2$d</string>
+    <string name="time" translatable="false">%1$d:%2$d</string>
     <string name="dismiss">Dismiss</string>
     <string name="confirm">Confirm</string>
 
@@ -127,6 +128,10 @@
     <string name="words_learned_statistic">Learned</string>
 
     <string name="icon_achievement_completed_content_description">Icon achievement completed</string>
+
+    <string name="day_statistic_title">Day statistic</string>
+    <string name="new_words_list">New words:</string>
+    <string name="repeated_words_list">Repeated words:</string>
     <!--    Statistic graph-->
 
     <!--    Browser graph-->

@@ -32,7 +32,7 @@ interface ApplicationSettings {
 
         companion object {
             fun fromValue(value: Int): ApplicationLanguage {
-                return ApplicationLanguage.entries.firstOrNull { it.value == value } ?: DEFAULT
+                return entries.firstOrNull { it.value == value } ?: DEFAULT
             }
         }
     }
@@ -49,7 +49,7 @@ interface ApplicationSettings {
 
         companion object {
             fun fromValue(value: Int): NativeLanguage {
-                return NativeLanguage.entries.firstOrNull { it.value == value } ?: UKRAINIAN
+                return entries.firstOrNull { it.value == value } ?: UKRAINIAN
             }
         }
     }

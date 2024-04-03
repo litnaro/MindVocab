@@ -30,6 +30,7 @@
             app:abbreviationsBarColor="?attr/colorPrimaryContainer"
             app:abbreviationsLabelsColor="?attr/colorOnPrimaryContainer"
             app:selectionBetweenMonthsEnabled="false"
+            app:swipeEnabled="false"
             app:type="classic"
             />
 

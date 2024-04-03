@@ -23,7 +23,7 @@ interface LearningSettings {
 
         companion object {
             fun fromValue(value: Int): WordsADaySetting {
-                return WordsADaySetting.entries.firstOrNull { it.value == value } ?: MEDIUM
+                return entries.firstOrNull { it.value == value } ?: MEDIUM
             }
         }
     }
@@ -40,7 +40,7 @@ interface LearningSettings {
 
         companion object {
             fun fromValue(value: Int): SwipeActionsSetting {
-                return SwipeActionsSetting.entries.firstOrNull { it.value == value } ?: KNOW
+                return entries.firstOrNull { it.value == value } ?: KNOW
             }
         }
     }
@@ -61,7 +61,7 @@ interface LearningSettings {
 
         companion object {
             fun fromValue(value: Int): WordsOrderSetting {
-                return WordsOrderSetting.entries.firstOrNull { it.value == value } ?: SMART
+                return entries.firstOrNull { it.value == value } ?: SMART
             }
         }
     }

@@ -5,7 +5,8 @@ import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.room.wrapSQLiteException
 import com.example.mindvocab.model.statistic.StatisticRepository
 import com.example.mindvocab.model.statistic.entities.AchievementsStatistic
-import com.example.mindvocab.model.statistic.entities.StatisticDay
+import com.example.mindvocab.model.statistic.entities.CalendarDayStatistic
+import com.example.mindvocab.model.statistic.entities.WordDayStatistic
 import com.example.mindvocab.model.statistic.entities.WordsStatistic
 import com.example.mindvocab.model.statistic.entities.WordsStatisticPercentage
 import com.example.mindvocab.model.statistic.room.entities.AccountWordsStatisticTuple
@@ -59,7 +60,7 @@ class RoomStatisticRepository @Inject constructor(
         }
     }
 
-    override suspend fun getStatisticForMonthCalendar(selectedMonth: Int): List<StatisticDay> = wrapSQLiteException(ioDispatcher){
+    override suspend fun getStatisticForMonthCalendar(selectedMonth: Int): List<CalendarDayStatistic> = wrapSQLiteException(ioDispatcher){
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
 
         val startOfTheMonth = Calendar.getInstance().apply {
@@ -68,7 +69,7 @@ class RoomStatisticRepository @Inject constructor(
             set(Calendar.HOUR_OF_DAY, 0)
             set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
-        }
+        }.timeInMillis
 
         val endOfTheMonth = Calendar.getInstance().apply {
             set(Calendar.MONTH, selectedMonth)
@@ -76,30 +77,152 @@ class RoomStatisticRepository @Inject constructor(
             set(Calendar.HOUR_OF_DAY, 23)
             set(Calendar.MINUTE, 59)
             set(Calendar.SECOND, 59)
+        }.timeInMillis
+
+        val startedWords = queryStartedWordsInRange(account.id, startOfTheMonth, endOfTheMonth)
+        val repeatedWords = queryRepeatedWordsInRange(account.id, startOfTheMonth, endOfTheMonth)
+
+        //Merging two maps
+        (startedWords.keys + repeatedWords.keys).associateWith { key ->
+            val learningDay = startedWords[key]
+            val repeatedDay = repeatedWords[key]
+            when {
+                learningDay == null -> repeatedDay!!
+                repeatedDay == null -> learningDay
+                else -> CalendarDayStatistic(
+                    day = learningDay.day,
+                    isStartedNewWords = true,
+                    isRepeatedOldWords = true
+                )
+            }
+        }.values.toList()
+    }
+
+    override suspend fun getStartedWordsDetailForDay(date: Long): List<WordDayStatistic> = wrapSQLiteException(ioDispatcher){
+        val account = accountsRepository.getAccount().first() ?: throw AuthException()
+
+        val startOfTheDay = Calendar.getInstance().apply {
+            timeInMillis = date
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+        }.timeInMillis
+
+        val endOfTheDay = Calendar.getInstance().apply {
+            timeInMillis = date
+            set(Calendar.HOUR_OF_DAY, 23)
+            set(Calendar.MINUTE, 59)
+            set(Calendar.SECOND, 59)
+        }.timeInMillis
+
+        statisticDao.getStartedWordsDetailInDateRange(
+            account.id,
+            startOfTheDay,
+            endOfTheDay
+        ).map {
+            WordDayStatistic(
+                id = it.wordDetail.id,
+                word = it.wordDetail.word,
+                transcription = it.wordDetail.transcription,
+                wordSetImage = it.wordDetail.wordSetImage,
+                actionDate = it.startedAt
+            )
         }
+    }
 
-        val wordsForSelectedMonth = statisticDao.getStatisticInDateRange(
-            accountId = account.id,
-            startDate = startOfTheMonth.timeInMillis,
-            endDate = endOfTheMonth.timeInMillis) ?: return@wrapSQLiteException emptyList()
+    override suspend fun getRepeatedWordsDetailForDay(date: Long): List<WordDayStatistic> = wrapSQLiteException(ioDispatcher){
+        val account = accountsRepository.getAccount().first() ?: throw AuthException()
 
-        val daysOfMonthSet = mutableMapOf<Int, StatisticDay>()
+        val startOfTheDay = Calendar.getInstance().apply {
+            timeInMillis = date
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+        }.timeInMillis
 
-        wordsForSelectedMonth.forEach {
+        val endOfTheDay = Calendar.getInstance().apply {
+            timeInMillis = date
+            set(Calendar.HOUR_OF_DAY, 23)
+            set(Calendar.MINUTE, 59)
+            set(Calendar.SECOND, 59)
+        }.timeInMillis
+
+        statisticDao.getRepeatedWordsDetailInDateRange(
+            account.id,
+            startOfTheDay,
+            endOfTheDay
+        ).map {
+            WordDayStatistic(
+                id = it.wordDetail.id,
+                word = it.wordDetail.word,
+                transcription = it.wordDetail.transcription,
+                wordSetImage = it.wordDetail.wordSetImage,
+                actionDate = it.repeatedAt
+            )
+        }
+    }
+
+    // TODO remove redundant StatisticDay from query logic
+    private suspend fun queryStartedWordsInRange(
+        accountId: Long,
+        startOfTheMonth: Long,
+        endOfTheMonth: Long
+    ) : Map<Int, CalendarDayStatistic> {
+        val startedWordsForSelectedMonth = statisticDao.getStartedWordsInDateRange(
+            accountId = accountId,
+            startDate = startOfTheMonth,
+            endDate = endOfTheMonth) ?: return emptyMap()
+
+        val startedWordsEachDay = mutableMapOf<Int, CalendarDayStatistic>()
+
+        startedWordsForSelectedMonth.forEach {
             val calendar = Calendar.getInstance().apply {
                 timeInMillis = it.startedAt
+                //Should be set to 0
                 set(Calendar.HOUR_OF_DAY, 0)
                 set(Calendar.MINUTE, 0)
                 set(Calendar.SECOND, 0)
                 set(Calendar.MILLISECOND, 0)
             }
             val dayOfTheMonth = calendar.get(Calendar.DAY_OF_MONTH)
-            if (!daysOfMonthSet.containsKey(dayOfTheMonth)) {
-                daysOfMonthSet[dayOfTheMonth] = StatisticDay(calendar, isStartedNewWords = true, isRepeatedOldWords = false)
+            if (!startedWordsEachDay.containsKey(dayOfTheMonth)) {
+                startedWordsEachDay[dayOfTheMonth] = CalendarDayStatistic(calendar, isStartedNewWords = true, isRepeatedOldWords = false)
             }
         }
 
-        daysOfMonthSet.values.toList()
+        return startedWordsEachDay
+    }
+
+    // TODO remove redundant StatisticDay from query logic
+    private suspend fun queryRepeatedWordsInRange(
+        accountId: Long,
+        startOfTheMonth: Long,
+        endOfTheMonth: Long
+    ) : Map<Int, CalendarDayStatistic> {
+        val repeatedWordsForSelectedMonth = statisticDao.getRepeatedWordsInDateRange(
+            accountId = accountId,
+            startDate = startOfTheMonth,
+            endDate = endOfTheMonth) ?: return emptyMap()
+
+        val repeatedWordsEachDay = mutableMapOf<Int, CalendarDayStatistic>()
+
+        repeatedWordsForSelectedMonth.forEach {
+            val calendar = Calendar.getInstance().apply {
+                timeInMillis = it.repeatDate
+                //Should be set to 0
+                set(Calendar.HOUR_OF_DAY, 0)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+            }
+            val dayOfTheMonth = calendar.get(Calendar.DAY_OF_MONTH)
+
+            if (!repeatedWordsEachDay.containsKey(dayOfTheMonth)) {
+                repeatedWordsEachDay[dayOfTheMonth] = CalendarDayStatistic(calendar, isStartedNewWords = false, isRepeatedOldWords = true)
+            }
+        }
+
+        return repeatedWordsEachDay
     }
 
     private fun getPercentageByStatistic(statistic: AccountWordsStatisticTuple) : WordsStatisticPercentage {

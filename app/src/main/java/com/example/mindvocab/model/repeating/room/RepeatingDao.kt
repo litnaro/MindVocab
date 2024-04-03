@@ -1,6 +1,7 @@
 package com.example.mindvocab.model.repeating.room
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.mindvocab.model.repeating.room.entities.RepeatingWordDetailTuple
@@ -8,6 +9,7 @@ import com.example.mindvocab.model.repeating.room.entities.RepeatingWordTuple
 import com.example.mindvocab.model.repeating.room.entities.UpdateWordProgressAsForgottenTuple
 import com.example.mindvocab.model.repeating.room.entities.UpdateWordProgressAsRememberedTuple
 import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
+import com.example.mindvocab.model.word.room.entities.WordRepeatLogDbEntity
 
 @Dao
 interface RepeatingDao {
@@ -51,6 +53,9 @@ interface RepeatingDao {
             "    accounts_words_progress.times_repeated < :timesRepeatedToLearn AND accounts_words_progress.started_at != 0 AND last_repeated_at < :todayInMillis\n" +
             "LIMIT 1;")
     suspend fun getWordForRepeating(accountId: Long, timesRepeatedToLearn: Int, translationId: Long, todayInMillis: Long) : RepeatingWordTuple?
+
+    @Insert(entity = WordRepeatLogDbEntity::class)
+    suspend fun logWordRepeatAction(log: WordRepeatLogDbEntity)
 
     @Update(entity = AccountWordProgressDbEntity::class)
     suspend fun updateWordProgressAsRemembered(accountWordProgress: UpdateWordProgressAsRememberedTuple)

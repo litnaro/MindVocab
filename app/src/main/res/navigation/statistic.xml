@@ -9,5 +9,18 @@
         android:id="@+id/statisticFragment"
         android:name="com.example.mindvocab.screens.statistic.StatisticFragment"
         android:label="@string/statistic_title"
-        tools:layout="@layout/fragment_statistic" />
+        tools:layout="@layout/fragment_statistic" >
+        <action
+            android:id="@+id/action_statisticFragment_to_statisticDayDialogFragment"
+            app:destination="@id/statisticDayDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/statisticDayDialogFragment"
+        android:name="com.example.mindvocab.screens.statistic.monthly.daystats.StatisticDayDetailFragment"
+        android:label="@string/day_statistic_title"
+        tools:layout="@layout/fragment_statistic_day_detail" >
+        <argument
+            android:name="dayDetailTime"
+            app:argType="long" />
+    </fragment>
 </navigation>

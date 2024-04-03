@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "1796e7296f1a13155f3b817a97ac9835",
+    "identityHash": "d737e1d6043e49bef8fe895cd3807997",
     "entities": [
       {
         "tableName": "accounts",
@@ -659,18 +659,12 @@
         ]
       },
       {
-        "tableName": "words_logs",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `account_id` INTEGER NOT NULL, `word_id` INTEGER NOT NULL, `action_type_id` INTEGER NOT NULL, `date` INTEGER NOT NULL, FOREIGN KEY(`account_id`) REFERENCES `accounts`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`word_id`) REFERENCES `words`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`action_type_id`) REFERENCES `words_logs_types`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "tableName": "words_repeat_logs",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `word_id` INTEGER NOT NULL, `account_id` INTEGER NOT NULL, `repeat_date` INTEGER NOT NULL, FOREIGN KEY(`account_id`, `word_id`) REFERENCES `accounts_words_progress`(`account_id`, `word_id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "accountId",
-            "columnName": "account_id",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -681,14 +675,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "actionTypeId",
-            "columnName": "action_type_id",
+            "fieldPath": "accountId",
+            "columnName": "account_id",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "date",
-            "columnName": "date",
+            "fieldPath": "repeatDate",
+            "columnName": "repeat_date",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -702,71 +696,25 @@
         "indices": [],
         "foreignKeys": [
           {
-            "table": "accounts",
+            "table": "accounts_words_progress",
             "onDelete": "CASCADE",
             "onUpdate": "CASCADE",
             "columns": [
-              "account_id"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          },
-          {
-            "table": "words",
-            "onDelete": "CASCADE",
-            "onUpdate": "CASCADE",
-            "columns": [
+              "account_id",
               "word_id"
             ],
             "referencedColumns": [
-              "id"
-            ]
-          },
-          {
-            "table": "words_logs_types",
-            "onDelete": "CASCADE",
-            "onUpdate": "CASCADE",
-            "columns": [
-              "action_type_id"
-            ],
-            "referencedColumns": [
-              "id"
+              "account_id",
+              "word_id"
             ]
           }
         ]
-      },
-      {
-        "tableName": "words_logs_types",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `description` TEXT NOT NULL)",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "description",
-            "columnName": "description",
-            "affinity": "TEXT",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": true,
-          "columnNames": [
-            "id"
-          ]
-        },
-        "indices": [],
-        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1796e7296f1a13155f3b817a97ac9835')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd737e1d6043e49bef8fe895cd3807997')"
     ]
   }
 }

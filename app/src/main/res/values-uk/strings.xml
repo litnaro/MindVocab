@@ -175,4 +175,7 @@
     <string name="new_username_equals_old_one_error_text">Старий логін дорівнює новому</string>
     <string name="username_successfully_changed">Логін змінено</string>
     <string name="dialog_title_reset_account_data">Весь прогрес слів, досягнень та категорій слів буде видалено. Продовжити?</string>
+    <string name="day_statistic_title">Статистика за день</string>
+    <string name="new_words_list">Нові слова:</string>
+    <string name="repeated_words_list">Повторені слова:</string>
 </resources>

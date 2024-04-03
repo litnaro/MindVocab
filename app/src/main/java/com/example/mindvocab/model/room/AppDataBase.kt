@@ -20,8 +20,7 @@ import com.example.mindvocab.model.word.room.entities.LanguageDbEntity
 import com.example.mindvocab.model.word.room.entities.TranslationDbEntity
 import com.example.mindvocab.model.word.room.entities.WordDbEntity
 import com.example.mindvocab.model.word.room.WordsDao
-import com.example.mindvocab.model.word.room.entities.WordLogDbEntity
-import com.example.mindvocab.model.word.room.entities.WordLogTypesDbEntity
+import com.example.mindvocab.model.word.room.entities.WordRepeatLogDbEntity
 
 @Database(
     version = 1,
@@ -41,8 +40,7 @@ import com.example.mindvocab.model.word.room.entities.WordLogTypesDbEntity
         LanguageDbEntity::class,
         TranslationDbEntity::class,
 
-        WordLogDbEntity::class,
-        WordLogTypesDbEntity::class
+        WordRepeatLogDbEntity::class
     ]
 )
 abstract class AppDataBase : RoomDatabase() {

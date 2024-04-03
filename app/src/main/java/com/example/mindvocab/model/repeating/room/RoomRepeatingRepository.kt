@@ -13,6 +13,7 @@ import com.example.mindvocab.model.word.TimeCalculations
 import com.example.mindvocab.model.word.WordsCalculations
 import com.example.mindvocab.model.word.entities.WordToRepeat
 import com.example.mindvocab.model.word.entities.WordToRepeatDetail
+import com.example.mindvocab.model.word.room.entities.WordRepeatLogDbEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
@@ -67,12 +68,21 @@ class RoomRepeatingRepository @Inject constructor(
     override suspend fun onWordRemember(word: WordToRepeat) = wrapSQLiteException(ioDispatcher) {
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
+            val currentTime = System.currentTimeMillis()
             repeatingDao.updateWordProgressAsRemembered(
                 UpdateWordProgressAsRememberedTuple(
                     accountId = account.id,
                     wordId = word.id,
                     timesRepeated = (word.timesRepeated + 1).toByte(),
-                    lastRepeatedAt = System.currentTimeMillis()
+                    lastRepeatedAt = currentTime
+                )
+            )
+            repeatingDao.logWordRepeatAction(
+                WordRepeatLogDbEntity(
+                    id = 0,
+                    accountId = account.id,
+                    wordId = word.id,
+                    repeatDate = currentTime
                 )
             )
             if (word.timesRepeated + 1 == WordsCalculations.TIMES_REPEATED_TO_LEARN) {
@@ -85,11 +95,20 @@ class RoomRepeatingRepository @Inject constructor(
     override suspend fun onWordForgot(word: WordToRepeat) = wrapSQLiteException(ioDispatcher) {
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
+            val currentTime = System.currentTimeMillis()
             repeatingDao.updateWordProgressAsForgotten(
                 UpdateWordProgressAsForgottenTuple(
                     accountId = account.id,
                     wordId = word.id,
-                    lastRepeatedAt = System.currentTimeMillis()
+                    lastRepeatedAt = currentTime
+                )
+            )
+            repeatingDao.logWordRepeatAction(
+                WordRepeatLogDbEntity(
+                    id = 0,
+                    accountId = account.id,
+                    wordId = word.id,
+                    repeatDate = currentTime
                 )
             )
             getWordToRepeat()

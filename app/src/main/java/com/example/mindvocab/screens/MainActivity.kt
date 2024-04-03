@@ -46,11 +46,11 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, true)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        navController = null
-        supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentListener)
+    fun setCustomTitle(title: String) {
+        supportActionBar?.title = title
     }
+
+    override fun onSupportNavigateUp(): Boolean = (navController?.navigateUp() ?: false) || super.onSupportNavigateUp()
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
@@ -61,7 +61,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean = (navController?.navigateUp() ?: false) || super.onSupportNavigateUp()
+    override fun onDestroy() {
+        super.onDestroy()
+        navController = null
+        supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentListener)
+    }
+
 
     private fun prepareRootNavController(isSignedIn: Boolean, navController: NavController) {
         val graph = navController.navInflater.inflate(getMainNavigationGraphId())

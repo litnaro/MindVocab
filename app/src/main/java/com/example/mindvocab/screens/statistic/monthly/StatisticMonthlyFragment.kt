@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.applandeo.materialcalendarview.CalendarDay
+import com.applandeo.materialcalendarview.listeners.OnCalendarDayClickListener
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentStatisticMonthlyBinding
+import com.example.mindvocab.screens.statistic.StatisticFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
@@ -51,9 +54,20 @@ class StatisticMonthlyFragment : BaseFragment() {
             }
         }
 
-        viewModel.getMonthStatistic(binding.calendar.currentPageDate.get(Calendar.MONTH))
+        binding.calendar.setOnCalendarDayClickListener(object : OnCalendarDayClickListener {
+            override fun onClick(calendarDay: CalendarDay) {
+                if (calendarDay.imageDrawable != null) {
+                    findNavController().navigate(StatisticFragmentDirections.actionStatisticFragmentToStatisticDayDialogFragment(calendarDay.calendar.timeInMillis))
+                }
+            }
+        })
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getMonthStatistic(binding.calendar.currentPageDate.get(Calendar.MONTH))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

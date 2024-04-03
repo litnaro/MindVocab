@@ -33,6 +33,7 @@ data class AccountWordProgressDbEntity(
     @ColumnInfo(name = "account_id") val accountId: Long,
     @ColumnInfo(name = "word_id") val wordId: Long,
     @ColumnInfo(name = "started_at") val startedAt: Long,
+    //TODO remove last_repeated_at because WordRepeatLogDbEntity do the same
     @ColumnInfo(name = "last_repeated_at") val lastRepeatedAt: Long,
     @ColumnInfo(name = "times_repeated") val timesRepeated: Byte
 )

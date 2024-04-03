@@ -12,7 +12,7 @@ interface RepeatSettings {
 
         companion object {
             fun fromValue(value: Int): AnsweringVariantSetting {
-                return AnsweringVariantSetting.entries.firstOrNull { it.value == value } ?: TRANSLATION
+                return entries.firstOrNull { it.value == value } ?: TRANSLATION
             }
         }
     }
@@ -28,7 +28,7 @@ interface RepeatSettings {
 
         companion object {
             fun fromValue(value: Int): QuestionVariantSetting {
-                return QuestionVariantSetting.entries.firstOrNull { it.value == value } ?: WORD
+                return entries.firstOrNull { it.value == value } ?: WORD
             }
         }
     }
@@ -44,7 +44,7 @@ interface RepeatSettings {
 
         companion object {
             fun fromValue(value: Int): CardAnimationSetting {
-                return CardAnimationSetting.entries.firstOrNull { it.value == value } ?: FLIP
+                return entries.firstOrNull { it.value == value } ?: FLIP
             }
         }
     }
