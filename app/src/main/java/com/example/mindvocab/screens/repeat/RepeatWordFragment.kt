@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
@@ -18,6 +19,7 @@ import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentRepeatWordBinding
 import com.example.mindvocab.model.NoWordsToRepeatException
 import com.example.mindvocab.model.WordsToRepeatCurrentlyInTimeout
+import com.example.mindvocab.model.settings.repeat.RepeatSettings
 import com.example.mindvocab.model.word.entities.WordToRepeat
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -114,21 +116,78 @@ class RepeatWordFragment : BaseFragment() {
     }
 
     private fun setWordData(word: WordToRepeat) {
-        binding.wordToRepeat.text = word.word
-        if (word.translation.isNotBlank()) {
-            binding.wordAnswer.text = word.translation
-        } else {
-            binding.wordAnswer.text = word.explanation
+        viewModel.questionVariantSetting.observe(viewLifecycleOwner) {
+            when(it) {
+                RepeatSettings.QuestionVariantSetting.WORD -> {
+                    binding.wordToRepeat.text = word.word
+
+                    binding.wordAnswer.text = word.translation.ifBlank {
+                        word.explanation
+                    }
+                }
+                RepeatSettings.QuestionVariantSetting.TRANSLATION -> {
+                    binding.wordToRepeat.text = word.translation.ifBlank {
+                        word.explanation
+                    }
+                    binding.wordAnswer.text = word.word
+                }
+                else -> {
+                    binding.wordToRepeat.text = word.word
+
+                    binding.wordAnswer.text = word.translation.ifBlank {
+                        word.explanation
+                    }
+                }
+            }
+        }
+
+        viewModel.answeringVariantSetting.observe(viewLifecycleOwner) {
+            when(it) {
+                RepeatSettings.AnsweringVariantSetting.TRANSLATION -> {
+                    if (binding.wordAnswer.visibility == View.GONE) {
+                        binding.wordAnswer.visibility = View.GONE
+                    } else {
+                        binding.wordAnswer.visibility = View.VISIBLE
+                    }
+                }
+                RepeatSettings.AnsweringVariantSetting.GRAMMAR -> {
+                    binding.wordAnswer.visibility = View.GONE
+                    binding.wordGrammarCheckFieldContainer.visibility = View.VISIBLE
+                }
+                else -> {
+                    if (binding.wordAnswer.visibility == View.GONE) {
+                        binding.wordAnswer.visibility = View.GONE
+                    } else {
+                        binding.wordAnswer.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
+
+        binding.wordGrammarCheckField.doOnTextChanged { text, _, _, _ ->
+            if (text.toString().lowercase() == word.word.lowercase()) {
+                binding.wordGrammarCheckFieldContainer.helperText = "Correct!"
+            } else {
+                binding.wordGrammarCheckFieldContainer.helperText = null
+            }
         }
 
         binding.leftActionButton.setOnClickListener {
             viewModel.onWordRemember(word)
-            binding.wordAnswer.visibility = View.GONE
+            resetUiElemets()
         }
 
         binding.rightActionButton.setOnClickListener {
             viewModel.onWordForgot(word)
-            binding.wordAnswer.visibility = View.GONE
+            resetUiElemets()
         }
+    }
+
+    private fun resetUiElemets() {
+        binding.wordAnswer.visibility = View.GONE
+
+        binding.wordGrammarCheckField.setText("")
+        binding.wordGrammarCheckField.clearFocus()
+        binding.wordGrammarCheckFieldContainer.helperText = null
     }
 }

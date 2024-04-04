@@ -93,6 +93,8 @@
     <string name="return_to_previous_repeat_word__content_description">Return to previous word</string>
     <string name="word_forgot">Forgot</string>
 
+    <string name="your_answer_hint">Your answer</string>
+
     <string name="no_words_to_repeat_exception_title">No words to repeat</string>
     <string name="no_words_to_repeat_exception_subtitle">But you could go to learning screen to select one! (if they are available)</string>
     <string name="words_to_repeat_in_timeout_exception_title">Let`s wait until tomorrow!</string>
@@ -117,7 +119,8 @@
     <string name="icon_all_words_metric_content_description">Icon all words metric</string>
     <string name="icon_achievements_metrics_content_description">Icon achievements metrics</string>
 
-    <string name="completed_sets">Completed sets</string>
+    <string name="completed_sets">Completed sets:</string>
+    <string name="completed_sets_empty_list_text">Keep learning to see word sets here!</string>
 
     <string name="repeating_words_title">Repeating words</string>
     <string name="total_words_statistic">Total words</string>
@@ -126,6 +129,15 @@
     <string name="words_in_progress_statistic">In progress</string>
     <string name="words_known_statistic">Known</string>
     <string name="words_learned_statistic">Learned</string>
+
+    <string name="markers_on_calendar_dialog_title">Markers on Calendar</string>
+    <string name="only_started_marker_explanation">If at least one word was started on specific day.</string>
+    <string name="only_repeated_marker_explanation">If at least one word was repeated on specific day.</string>
+    <string name="only_started_and_repeated_marker_explanation">If at least one word was repeated AND started on specific day.</string>
+    <string name="calendar_touch_hint">You can touch any day with marker to see actions on that day.</string>
+    <string name="started_and_repeated_day_marker_content_description">Started and repeated day marker</string>
+    <string name="repeated_day_marker_content_description">Repeated day marker</string>
+    <string name="started_day_marker_content_description">Started day marker</string>
 
     <string name="icon_achievement_completed_content_description">Icon achievement completed</string>
 

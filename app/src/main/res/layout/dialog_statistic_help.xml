@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        app:cardCornerRadius="@dimen/default_card_corner_radius"
+        app:contentPadding="15dp"
+        app:cardBackgroundColor="?attr/colorPrimaryContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/markers_on_calendar_dialog_title"
+                android:textSize="@dimen/secondary_heading_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:textAlignment="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_only_started_dot"
+                    android:contentDescription="@string/started_day_marker_content_description" />
+
+                <TextView
+                    android:id="@+id/startedMarkerText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="@string/only_started_marker_explanation"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textSize="@dimen/simple_text_size"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_only_repeated_dot"
+                    android:contentDescription="@string/repeated_day_marker_content_description" />
+
+                <TextView
+                    android:id="@+id/repeatedMarkerText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="@string/only_repeated_marker_explanation"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textSize="@dimen/simple_text_size"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_only_repeated_and_started_dot"
+                    android:contentDescription="@string/started_and_repeated_day_marker_content_description" />
+
+                <TextView
+                    android:id="@+id/repeatedAndStartedMarkerText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="@string/only_started_and_repeated_marker_explanation"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textSize="@dimen/simple_text_size"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/calendar_touch_hint"
+                android:textSize="@dimen/simple_text_size"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:textStyle="italic"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

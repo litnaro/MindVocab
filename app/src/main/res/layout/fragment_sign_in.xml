@@ -57,6 +57,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_marginTop="8dp"
         android:layout_gravity="end"
         android:text="@string/forgot_your_password"
@@ -66,7 +67,7 @@
         android:id="@+id/signInButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="25dp"
         android:text="@string/sign_in_button_text"
         app:backgroundTint="?attr/colorPrimaryContainer"
         android:textColor="?attr/colorOnPrimaryContainer"

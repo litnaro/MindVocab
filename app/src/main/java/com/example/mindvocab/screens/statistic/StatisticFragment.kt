@@ -1,6 +1,8 @@
 package com.example.mindvocab.screens.statistic
 
 import android.app.Dialog
+import android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -18,6 +20,7 @@ import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.DialogAchievementDetailBinding
+import com.example.mindvocab.databinding.DialogStatisticHelpBinding
 import com.example.mindvocab.databinding.FragmentStatisticBinding
 import com.example.mindvocab.model.achievement.entities.Achievement
 import dagger.hilt.android.AndroidEntryPoint
@@ -83,7 +86,7 @@ class StatisticFragment : BaseFragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when(menuItem.itemId) {
                     R.id.openHelpDialog -> {
-                        //TODO open helping dialog
+                        showCalendarHelperDialog()
                         true
                     }
                     else -> false
@@ -91,6 +94,28 @@ class StatisticFragment : BaseFragment() {
             }
 
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun showCalendarHelperDialog() {
+        val dialogBinding = DialogStatisticHelpBinding.inflate(layoutInflater)
+        val dialog = Dialog(requireContext())
+
+        dialog.setContentView(dialogBinding.root)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            dialogBinding.startedMarkerText.justificationMode = JUSTIFICATION_MODE_INTER_WORD
+            dialogBinding.repeatedMarkerText.justificationMode = JUSTIFICATION_MODE_INTER_WORD
+            dialogBinding.repeatedAndStartedMarkerText.justificationMode = JUSTIFICATION_MODE_INTER_WORD
+        }
+
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        dialogBinding.root.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     private fun showAchievementDetailDialog(achievement: Achievement) {

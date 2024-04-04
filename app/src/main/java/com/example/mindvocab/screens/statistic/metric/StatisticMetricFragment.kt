@@ -1,5 +1,6 @@
 package com.example.mindvocab.screens.statistic.metric
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.example.mindvocab.databinding.FragmentStatisticMetricBinding
 import com.example.mindvocab.model.statistic.entities.AchievementsStatistic
 import com.example.mindvocab.model.statistic.entities.WordsStatistic
 import com.google.android.material.chip.Chip
+import com.google.android.material.color.MaterialColors
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,7 +38,15 @@ class StatisticMetricFragment : BaseFragment() {
         }
 
         viewModel.wordSetsStatistic.observe(viewLifecycleOwner) {
-            setWordSetsStatistic(it)
+            binding.wordSetsStatisticChipGroup.visibility = View.GONE
+            binding.wordSetsStatisticEmptyList.visibility = View.GONE
+
+            if (it.isNotEmpty()) {
+                setWordSetsStatistic(it)
+                binding.wordSetsStatisticChipGroup.visibility = View.VISIBLE
+            } else {
+                binding.wordSetsStatisticEmptyList.visibility = View.VISIBLE
+            }
         }
 
         return binding.root
@@ -66,6 +76,11 @@ class StatisticMetricFragment : BaseFragment() {
                     text = it
                     isCheckable = false
                     setEnsureMinTouchTargetSize(false)
+                    chipBackgroundColor = MaterialColors.getColorStateListOrNull(
+                        context,
+                        com.google.android.material.R.attr.colorPrimaryContainer
+                    )
+                    setTextColor(MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnPrimaryContainer, Color.WHITE))
                 }
             )
         }

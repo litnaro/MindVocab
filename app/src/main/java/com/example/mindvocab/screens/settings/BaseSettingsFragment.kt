@@ -10,6 +10,7 @@ import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.databinding.DialogSettingsBottomSheetBinding
 import com.google.android.material.chip.Chip
+import com.google.android.material.color.MaterialColors
 
 abstract class BaseSettingsFragment : BaseFragment() {
 
@@ -37,15 +38,26 @@ abstract class BaseSettingsFragment : BaseFragment() {
         dialogBinding.dialogTitle.text = title
         dialogBinding.dialogHelpingText.text = subtitle
 
-        //TODO replace colors
         settingClass.enumConstants?.forEach {
             val chip = Chip(requireContext()).apply {
                 text = it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
-                setTextColor(Color.WHITE)
+                chipBackgroundColor = MaterialColors.getColorStateListOrNull(
+                    context,
+                    com.google.android.material.R.attr.colorPrimaryContainer
+                )
+                setTextColor(MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnPrimaryContainer, Color.WHITE))
                 isCheckable = true
                 tag = it
                 if (it.name == setting.name) {
                     isChecked = true
+                    chipBackgroundColor = MaterialColors.getColorStateListOrNull(
+                        context,
+                        com.google.android.material.R.attr.colorTertiaryContainer
+                    )
+                    chipStrokeColor = MaterialColors.getColorStateListOrNull(
+                        context,
+                        com.google.android.material.R.attr.colorOnPrimaryContainer
+                    )
                 }
             }
             dialogBinding.dialogChipGroup.addView(chip)

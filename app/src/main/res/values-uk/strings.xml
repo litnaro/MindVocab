@@ -76,7 +76,7 @@
     <string name="achievements_statistic_title">Досягнення</string>
     <string name="icon_all_words_metric_content_description">Іконка статистики всіх слів</string>
     <string name="icon_achievements_metrics_content_description">Іконка статистики досягнення</string>
-    <string name="completed_sets">Закінчені набори слів</string>
+    <string name="completed_sets">Закінчені набори слів:</string>
     <string name="repeating_words_title">Слова для повтору</string>
     <string name="total_words_statistic">Всього слів</string>
     <string name="achievements_statistic">Досягнення</string>
@@ -178,4 +178,14 @@
     <string name="day_statistic_title">Статистика за день</string>
     <string name="new_words_list">Нові слова:</string>
     <string name="repeated_words_list">Повторені слова:</string>
+    <string name="markers_on_calendar_dialog_title">Позначки на календарі</string>
+    <string name="only_started_marker_explanation">Хоча б одне слово було розпочато у цей день.</string>
+    <string name="only_repeated_marker_explanation">Хоча б одне слово було повторено у цей день.</string>
+    <string name="only_started_and_repeated_marker_explanation">"Хоча б одне слово було розпочато і повторено у цей день. "</string>
+    <string name="calendar_touch_hint">Ви можете натиснути на день з позначкою, щоб побачити список активностей у цей день.</string>
+    <string name="started_and_repeated_day_marker_content_description">Позначка розпочато та повторено</string>
+    <string name="repeated_day_marker_content_description">Позначка повторено</string>
+    <string name="started_day_marker_content_description">Позначка розпочато</string>
+    <string name="your_answer_hint">Ваша відповідь</string>
+    <string name="completed_sets_empty_list_text">Продовжуйте навчання, щоб тут з\'явилися пройдені категорії слів.</string>
 </resources>
