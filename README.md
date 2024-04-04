@@ -17,40 +17,62 @@ MindVocab is developed using modern technologies and approaches:
 
 ## Screenshots
 
+### Authentication
+
+<p float="left">
+  <img alt="Splash" src="images/splash.png" width="250">
+  <img alt="Sign in learning" src="images/sign_in.png" width="250">
+  <img alt="Sign in learning" src="images/sign_up.png" width="250">
+</p>
+
 ### Learning
 
 <p float="left">
-  <img alt="Learning" src="images/Learning.png" width="250">
-  <img alt="Everyday learning" src="images/Everyday%20learning.png" width="250">
+  <img alt="Learning" src="images/learning.png" width="250">
+  <img alt="Learning pending" src="images/learning_pending.png" width="250">
+  <img alt="Learning daily" src="images/learning_words_daily.png" width="250">
+  <img alt="Learning empty" src="images/learning_empty.png" width="250">
 </p>
 
 ### Word sets
 
 <p float="left">
-  <img alt="Words by category" src="images/Words%20by%20category.png" width="250">
-  <img alt="Words in category" src="images/Words%20in%20category.png" width="250">
+  <img alt="Word sets" src="images/word_sets.png" width="250">
+  <img alt="Word sets search" src="images/word_sets_search.png" width="250">
+  <img alt="Word sets words" src="images/word_sets_words.png" width="250">
 </p>
 
 ### Repeating
 
 <p float="left">
-  <img alt="Repeating" src="images/Repeating.png" width="250">
-  <img alt="Words to repeat" src="images/Words%20to%20repeat.png" width="250">
+  <img alt="Repeating" src="images/repeating.png" width="250">
+  <img alt="Repeating input" src="images/repeating_input.png" width="250">
+  <img alt="Repeating pending" src="images/repeating_pending.png" width="250">
+  <img alt="Repeating words" src="images/repeating_words.png" width="250">
 </p>
 
 ### Statistic
 
 <p float="left">
-  <img alt="Statistic" src="images/Statistic.png" width="250">
-  <img alt="Achievements" src="images/Achievements.png" width="250">
-  <img alt="Achievement" src="images/Achievement.png" width="250">
+  <img alt="Statistic main" src="images/statistic_main.png" width="250">
+  <img alt="Statistic calendar" src="images/statistic_calendar.png" width="250">
+  <img alt="Statistic calendar day" src="images/statistic_calendar_day.png" width="250">
+  <img alt="Statistic data" src="images/statistic_data.png" width="250">
+</p>
+
+### Achievements
+
+<p float="left">
+  <img alt="Achievements" src="images/achievements.png" width="250">
+  <img alt="Achievement detail" src="images/achievement_detail.png" width="250">
 </p>
 
 ### Settings
 
 <p float="left">
-  <img alt="Settings" src="images/Settings.png" width="250">
-  <img alt="Settings detail" src="images/Settings%20detail.png" width="250">
+  <img alt="Settings" src="images/settings.png" width="250">
+  <img alt="Settings detail" src="images/settings_language.png" width="250">
+  <img alt="Settings account edit" src="images/settings_account_edit.png" width="250">
 </p>
 
 ## Features

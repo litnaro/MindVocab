@@ -235,7 +235,7 @@
     <string name="right_swipe_setting_helping_text">Affects interaction buttons and word swipes on the learning screen. Changing this setting also reverses swipe left.</string>
     <string name="right_swipe_setting_content_description">Right swipe setting icon</string>
     <string name="word_order_settings">Words order</string>
-    <string name="word_order_settings_helping_text">Smart - Shows words depending on the last time it was repeated, and also puts problematic words forward. Random - Random words regardless of parameters.</string>
+    <string name="word_order_settings_helping_text">Smart - Shows words depending on the last time it was repeated, and also puts problematic words forward. \nRandom - Random words regardless of parameters.</string>
     <string name="word_order_content_description">Word order</string>
 
     <string name="notifications_title">Notifications</string>
