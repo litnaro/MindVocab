@@ -17,8 +17,8 @@ import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentRepeatWordBinding
-import com.example.mindvocab.model.NoWordsToRepeatException
-import com.example.mindvocab.model.WordsToRepeatCurrentlyInTimeout
+import com.example.mindvocab.model.repeating.NoWordsToRepeatException
+import com.example.mindvocab.model.repeating.WordsToRepeatCurrentlyInTimeout
 import com.example.mindvocab.model.settings.repeat.RepeatSettings
 import com.example.mindvocab.model.word.entities.WordToRepeat
 import dagger.hilt.android.AndroidEntryPoint

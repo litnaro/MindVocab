@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.model.AppException
-import com.example.mindvocab.model.NoWordsToRepeatException
+import com.example.mindvocab.model.repeating.NoWordsToRepeatException
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.model.repeating.RepeatingRepository
 import com.example.mindvocab.model.settings.repeat.RepeatSettings

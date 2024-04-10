@@ -1,9 +1,9 @@
 package com.example.mindvocab.model.account.etities
 
-import com.example.mindvocab.model.EmptyFieldException
-import com.example.mindvocab.model.Field
-import com.example.mindvocab.model.PasswordMismatchException
-import com.example.mindvocab.model.SameDataModificationException
+import com.example.mindvocab.model.account.EmptyFieldException
+import com.example.mindvocab.model.account.Field
+import com.example.mindvocab.model.account.PasswordMismatchException
+import com.example.mindvocab.model.account.SameDataModificationException
 
 data class ChangePasswordData(
     val oldPassword: CharArray,

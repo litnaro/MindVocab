@@ -1,8 +1,8 @@
 package com.example.mindvocab.model.learning.room
 
 import com.example.mindvocab.model.AuthException
-import com.example.mindvocab.model.NoMoreWordsToLearnForTodayException
-import com.example.mindvocab.model.NoWordsToLearnException
+import com.example.mindvocab.model.learning.NoMoreWordsToLearnForTodayException
+import com.example.mindvocab.model.learning.NoWordsToLearnException
 import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.achievement.AchievementsRepository
 import com.example.mindvocab.model.learning.LearningRepository

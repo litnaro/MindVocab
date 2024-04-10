@@ -12,6 +12,7 @@ MindVocab is developed using modern technologies and approaches:
 - **Asynchronous Programming**: [Kotlin Flow](https://kotlinlang.org/docs/flow.html), [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html)
 - **Database**: [SQLite](https://www.sqlite.org/index.html) (with [Room](https://developer.android.com/training/data-storage/room))
 - **Networking**: [Retrofit](https://square.github.io/retrofit/)
+- **Navigation**: Navigation component
 - **View Layer**: XML (for layout design) with [Material Design Components](https://material.io/develop/android/docs/getting-started)
 - **Localization**: Android resource system for localization
 
@@ -73,6 +74,14 @@ MindVocab is developed using modern technologies and approaches:
   <img alt="Settings" src="images/settings.png" width="250">
   <img alt="Settings detail" src="images/settings_language.png" width="250">
   <img alt="Settings account edit" src="images/settings_account_edit.png" width="250">
+</p>
+
+### Light theme
+
+<p float="left">
+  <img alt="Settings" src="images/light_learning.png" width="250">
+  <img alt="Settings detail" src="images/light_achievements.png" width="250">
+  <img alt="Settings account edit" src="images/light_settings.png" width="250">
 </p>
 
 ## Features

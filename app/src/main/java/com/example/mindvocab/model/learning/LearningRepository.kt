@@ -1,8 +1,6 @@
 package com.example.mindvocab.model.learning
 
 import com.example.mindvocab.model.AuthException
-import com.example.mindvocab.model.NoWordsToLearnException
-import com.example.mindvocab.model.NoMoreWordsToLearnForTodayException
 import com.example.mindvocab.model.StorageException
 import com.example.mindvocab.model.Repository
 import com.example.mindvocab.model.word.entities.Word
@@ -29,10 +27,10 @@ interface LearningRepository : Repository {
      * Emits new value to all listenWordToLearn() flow subscribers.
      * Requires ApplicationSettings.NativeLanguageSetting to decide which translation get from database.
      * Updates listenIsReturnPreviousWordEnabled().
-     * @throws AuthException Cannot get words progress without account information.
-     * @throws NoWordsToLearnException In case if all words already learned or none of the word set as selected.
-     * @throws NoMoreWordsToLearnForTodayException Throws when more then LearningSettings.WordsADay words were marked as started today.
-     * @throws StorageException If unable to execute SQL query.
+     * @throws AuthException
+     * @throws NoWordsToLearnException
+     * @throws NoMoreWordsToLearnForTodayException
+     * @throws StorageException
      */
     suspend fun getWordToLearn()
 
@@ -44,8 +42,8 @@ interface LearningRepository : Repository {
      * Write word to stack so it could be returned later.
      * After updates - load new word to learn, update all achievements with "word known" action.
      * @param word Current word from learning screen.
-     * @throws AuthException Cannot update word progress without account information.
-     * @throws StorageException If unable to execute SQL query.
+     * @throws AuthException
+     * @throws StorageException
      */
     suspend fun onWordKnown(word: Word)
 
@@ -54,8 +52,8 @@ interface LearningRepository : Repository {
      * Write word to stack so it could be returned later.
      * After updates - load new word to learn, update all achievements with "word to learn" action.
      * @param word Current word from learning screen.
-     * @throws AuthException Cannot update word progress without account information.
-     * @throws StorageException If unable to execute SQL query.
+     * @throws AuthException
+     * @throws StorageException
      */
     suspend fun onWordToLearn(word: Word)
 
@@ -64,8 +62,8 @@ interface LearningRepository : Repository {
      * So user could control how many new words a day he should learn.
      * Word is started when it's started_at value more then today's date and times repeated less then needed to learn.
      * Last repeated date not involved because after word started, it can be repeated at the same day, so it could be infinite learning words.
-     * @throws AuthException Cannot update word progress without account information.
-     * @throws StorageException If unable to execute SQL query.
+     * @throws AuthException
+     * @throws StorageException
      * @return Flow of how many words were learned today.
      */
     suspend fun getTodayStartedWordsCount() : Flow<Int>
@@ -75,8 +73,8 @@ interface LearningRepository : Repository {
      * Reset all it is progress.
      * Update listenIsReturnPreviousWordEnabled() value.
      * If no words to return - does nothing.
-     * @throws AuthException Cannot update word progress without account information.
-     * @throws StorageException If unable to execute SQL query, when resetting word`s progress.
+     * @throws AuthException
+     * @throws StorageException
      */
     suspend fun returnPreviousWord()
 

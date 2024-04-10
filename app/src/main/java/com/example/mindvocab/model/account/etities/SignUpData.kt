@@ -1,8 +1,8 @@
 package com.example.mindvocab.model.account.etities
 
-import com.example.mindvocab.model.EmptyFieldException
-import com.example.mindvocab.model.Field
-import com.example.mindvocab.model.PasswordMismatchException
+import com.example.mindvocab.model.account.EmptyFieldException
+import com.example.mindvocab.model.account.Field
+import com.example.mindvocab.model.account.PasswordMismatchException
 
 data class SignUpData(
     val username: String,

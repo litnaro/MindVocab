@@ -11,10 +11,10 @@ import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentSettingsChangePasswordBinding
 import com.example.mindvocab.model.AppException
 import com.example.mindvocab.model.AuthException
-import com.example.mindvocab.model.EmptyFieldException
-import com.example.mindvocab.model.Field
-import com.example.mindvocab.model.PasswordMismatchException
-import com.example.mindvocab.model.SameDataModificationException
+import com.example.mindvocab.model.account.EmptyFieldException
+import com.example.mindvocab.model.account.Field
+import com.example.mindvocab.model.account.PasswordMismatchException
+import com.example.mindvocab.model.account.SameDataModificationException
 import com.example.mindvocab.model.account.etities.ChangePasswordData
 import com.example.mindvocab.model.account.security.toCharArray
 import dagger.hilt.android.AndroidEntryPoint

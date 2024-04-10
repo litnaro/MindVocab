@@ -1,11 +1,11 @@
 package com.example.mindvocab.model.account.room
 
 import android.database.sqlite.SQLiteConstraintException
-import com.example.mindvocab.model.AccountAlreadyExistsException
+import com.example.mindvocab.model.account.AccountAlreadyExistsException
 import com.example.mindvocab.model.AuthException
-import com.example.mindvocab.model.EmptyFieldException
-import com.example.mindvocab.model.Field
-import com.example.mindvocab.model.SameDataModificationException
+import com.example.mindvocab.model.account.EmptyFieldException
+import com.example.mindvocab.model.account.Field
+import com.example.mindvocab.model.account.SameDataModificationException
 import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.account.etities.Account
 import com.example.mindvocab.model.account.etities.ChangePasswordData

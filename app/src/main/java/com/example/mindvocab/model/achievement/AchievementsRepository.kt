@@ -30,8 +30,8 @@ interface AchievementsRepository : Repository {
      * Setting previous achievement date needed because of Return Previous Word application feature, so account cannot cheat with achievements.
      *
      * @param action Identified achievements which progress need to be increased.
-     * @throws StorageException If unable to execute SQL query.
-     * @throws AuthException If no user signed in.
+     * @throws StorageException
+     * @throws AuthException
      */
     suspend fun increaseAchievementsProgressByAction(action: AchievementAction)
 
@@ -44,23 +44,34 @@ interface AchievementsRepository : Repository {
      * updates "date achieved" by setting 0.
      *
      * @param action Identified achievements which progress need to be decreased.
-     * @throws StorageException If unable to execute SQL query.
-     * @throws AuthException If no user signed in.
+     * @throws StorageException
+     * @throws AuthException
      */
     suspend fun decreaseAchievementsProgressByAction(action: AchievementAction)
 
     /**
-     * Get list of achievements with account progress.
-     * @throws StorageException If unable to execute SQL query.
-     * @throws AuthException If no user signed in.
+     * Gets list of achievements with account progress.
+     * @throws StorageException
+     * @throws AuthException
      * @return Flow of achievements with all available data.
      */
     suspend fun getAchievementsListWithAccountProgress() : Flow<List<Achievement>>
 
-    //TODO set comment
+    /**
+     * Gets count of unchecked achievements to notify
+     * user about achievement has achieved.
+     * @throws AuthException
+     * @throws StorageException
+     * @return Flow of new achievements count.
+     */
     suspend fun getRecentAchievementsCount() : Flow<Int>
 
-    //TODO set comment
+    /**
+     * Shows that user has seen that specific [achievement]
+     * has achieved.
+     * @throws StorageException
+     * @throws AuthException
+     */
     suspend fun setAchievementAsChecked(achievement: Achievement)
 
 }

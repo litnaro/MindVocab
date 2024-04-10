@@ -12,7 +12,7 @@ interface WordSetsRepository : Repository {
      * Get list of word sets.
      * @param searchQuery Searching word set by a specific name.
      * @param filter Filtering list by selection. Getting all word sets by default.
-     * @throws StorageException If unable to execute SQL query.
+     * @throws StorageException
      */
     suspend fun getWordSets(searchQuery: String, filter: WordSetFilter = WordSetFilter.ALL) : Flow<List<WordSet>>
 
@@ -21,8 +21,8 @@ interface WordSetsRepository : Repository {
      *  Adding all words selected from word set to account words progress.
      *  After selection those words are displayed in learning screen.
      *  @param wordSet Word set to be selected.
-     *  @throws StorageException If unable to execute SQL query.
-     *  @throws AuthException If no user signed in.
+     *  @throws StorageException
+     *  @throws AuthException
      */
     suspend fun selectWordSet(wordSet: WordSet)
 
@@ -30,8 +30,8 @@ interface WordSetsRepository : Repository {
      *  Mark the specified word set as unselected.
      *  Removing all word set words but save their progress in account progress.
      *  @param wordSet Word set to be unselected.
-     *  @throws StorageException If unable to execute SQL query.
-     *  @throws AuthException If no user signed in.
+     *  @throws StorageException
+     *  @throws AuthException
      */
     suspend fun unselectWordSet(wordSet: WordSet)
 

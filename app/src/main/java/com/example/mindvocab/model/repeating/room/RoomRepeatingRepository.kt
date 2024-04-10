@@ -1,7 +1,7 @@
 package com.example.mindvocab.model.repeating.room
 
 import com.example.mindvocab.model.AuthException
-import com.example.mindvocab.model.NoWordsToRepeatException
+import com.example.mindvocab.model.repeating.NoWordsToRepeatException
 import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.achievement.AchievementsRepository
 import com.example.mindvocab.model.repeating.RepeatingRepository

@@ -19,8 +19,8 @@ interface StatisticRepository : Repository {
      *      - amount of words which account learned;
      *      - amount of words which account already know;
      *      - amount of unknown words.
-     * @throws AuthException If no user signed in.
-     * @throws StorageException If unable to execute SQL query.
+     * @throws AuthException
+     * @throws StorageException
      * @return Flow of account statistic.
      */
     suspend fun getWordsStatistic() : Flow<WordsStatistic>
@@ -28,24 +28,24 @@ interface StatisticRepository : Repository {
     /**
      * Get everything [getWordsStatistic] does plus how many days account learn words.
      * Convert every parameter of [getWordsStatistic] to float to display as diagram.
-     * @throws AuthException If no user signed in.
-     * @throws StorageException If unable to execute SQL query.
+     * @throws AuthException
+     * @throws StorageException
      * @return Flow of account statistic.
      */
     suspend fun getWordsStatisticPercentage() : Flow<WordsStatisticPercentage>
 
     /**
      * Get amount of application achievements and amount of achievements which finished by account.
-     * @throws AuthException If no user signed in.
-     * @throws StorageException If unable to execute SQL query.
+     * @throws AuthException
+     * @throws StorageException
      * @return Flow of achievement statistic.
      */
     suspend fun getAchievementStatistic() : Flow<AchievementsStatistic>
 
     /**
      * Get list of finished word sets names.
-     * @throws AuthException If no user signed in.
-     * @throws StorageException If unable to execute SQL query.
+     * @throws AuthException
+     * @throws StorageException
      * @return Flow of completed word sets names.
      */
     suspend fun getWordSetsStatistic() : Flow<List<String>>
@@ -63,7 +63,7 @@ interface StatisticRepository : Repository {
      * should be set to 0, otherwise it will cause problems in Calendar (problem with first day of the week).
      * If no results return empty list.
      * @param selectedMonth Current month of Calendar on UI side.
-     * @throws AuthException If no user signed in.
+     * @throws AuthException
      * @return List of days for [selectedMonth].
      */
     suspend fun getStatisticForMonthCalendar(selectedMonth: Int) : List<CalendarDayStatistic>
@@ -71,14 +71,14 @@ interface StatisticRepository : Repository {
     /**
      * Gets list started words.
      * @param date Information for which day selecting started words.
-     * @throws AuthException If no user signed in.
+     * @throws AuthException
      */
     suspend fun getStartedWordsDetailForDay(date: Long) : List<WordDayStatistic>
 
     /**
      * Gets list repeated words.
      * @param date Information for which day selecting repeated words.
-     * @throws AuthException If no user signed in.
+     * @throws AuthException
      */
     suspend fun getRepeatedWordsDetailForDay(date: Long) : List<WordDayStatistic>
 

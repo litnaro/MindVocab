@@ -3,12 +3,8 @@ package com.example.mindvocab.model.account
 import com.example.mindvocab.model.Repository
 import com.example.mindvocab.model.account.etities.Account
 import com.example.mindvocab.model.account.etities.SignUpData
-import com.example.mindvocab.model.EmptyFieldException
 import com.example.mindvocab.model.AuthException
 import com.example.mindvocab.model.StorageException
-import com.example.mindvocab.model.PasswordMismatchException
-import com.example.mindvocab.model.AccountAlreadyExistsException
-import com.example.mindvocab.model.SameDataModificationException
 import com.example.mindvocab.model.account.etities.ChangePasswordData
 import com.example.mindvocab.model.account.etities.FullName
 import kotlinx.coroutines.flow.Flow

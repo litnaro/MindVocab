@@ -20,8 +20,8 @@ import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentLearnWordBinding
-import com.example.mindvocab.model.NoMoreWordsToLearnForTodayException
-import com.example.mindvocab.model.NoWordsToLearnException
+import com.example.mindvocab.model.learning.NoMoreWordsToLearnForTodayException
+import com.example.mindvocab.model.learning.NoWordsToLearnException
 import com.example.mindvocab.model.word.entities.Word
 import dagger.hilt.android.AndroidEntryPoint
 

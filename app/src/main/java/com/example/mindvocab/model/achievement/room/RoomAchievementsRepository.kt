@@ -81,7 +81,7 @@ class RoomAchievementsRepository @Inject constructor(
         achievementsDao.getRecentAchievementsCount(account.id)
     }
 
-    override suspend fun setAchievementAsChecked(achievement: Achievement) {
+    override suspend fun setAchievementAsChecked(achievement: Achievement) = wrapSQLiteException(ioDispatcher) {
         val account = accountsRepository.getAccount().first() ?: throw AuthException()
         achievementsDao.updateAccountAchievementProgress(
             AchievementProgressAsCheckedTuple(

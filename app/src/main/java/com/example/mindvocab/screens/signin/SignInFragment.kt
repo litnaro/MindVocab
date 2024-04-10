@@ -12,8 +12,8 @@ import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentSignInBinding
 import com.example.mindvocab.model.AppException
 import com.example.mindvocab.model.AuthException
-import com.example.mindvocab.model.EmptyFieldException
-import com.example.mindvocab.model.Field
+import com.example.mindvocab.model.account.EmptyFieldException
+import com.example.mindvocab.model.account.Field
 import com.example.mindvocab.model.account.security.toCharArray
 import dagger.hilt.android.AndroidEntryPoint
 

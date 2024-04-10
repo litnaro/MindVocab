@@ -10,11 +10,11 @@ import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentSignUpBinding
-import com.example.mindvocab.model.AccountAlreadyExistsException
+import com.example.mindvocab.model.account.AccountAlreadyExistsException
 import com.example.mindvocab.model.AppException
-import com.example.mindvocab.model.EmptyFieldException
-import com.example.mindvocab.model.Field
-import com.example.mindvocab.model.PasswordMismatchException
+import com.example.mindvocab.model.account.EmptyFieldException
+import com.example.mindvocab.model.account.Field
+import com.example.mindvocab.model.account.PasswordMismatchException
 import com.example.mindvocab.model.account.etities.SignUpData
 import com.example.mindvocab.model.account.security.toCharArray
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,7 +52,9 @@ class SignUpFragment : BaseFragment() {
         viewModel.signUpResult.observe(viewLifecycleOwner) {
             when(it) {
                 is Result.PendingResult -> {}
-                is Result.ErrorResult -> handleSignUpErrors(it.exception)
+                is Result.ErrorResult -> {
+                    handleSignUpErrors(it.exception)
+                }
                 is Result.SuccessResult -> {
                     findNavController().popBackStack()
                 }

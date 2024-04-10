@@ -9,7 +9,7 @@ import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentSettingsChangeUsernameBinding
-import com.example.mindvocab.model.SameDataModificationException
+import com.example.mindvocab.model.account.SameDataModificationException
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
