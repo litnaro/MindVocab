@@ -11,7 +11,7 @@ MindVocab is developed using modern technologies and approaches:
 - **Dependency Injection**: [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 - **Asynchronous Programming**: [Kotlin Flow](https://kotlinlang.org/docs/flow.html), [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html)
 - **Database**: [SQLite](https://www.sqlite.org/index.html) (with [Room](https://developer.android.com/training/data-storage/room))
-- **Networking**: [Retrofit](https://square.github.io/retrofit/)
+- ~~**Networking**: [Retrofit](https://square.github.io/retrofit/)~~
 - **Navigation**: Navigation component
 - **View Layer**: XML (for layout design) with [Material Design Components](https://material.io/develop/android/docs/getting-started)
 - **Localization**: Android resource system for localization
@@ -29,7 +29,11 @@ MindVocab is developed using modern technologies and approaches:
 ### Learning
 
 <p float="left">
-  <img alt="Learning" src="images/learning.png" width="250">
+  <img alt="Learning" src="images/Learning.png" width="250">
+  <img alt="Learning daily" src="images/learning_words_daily.png" width="250">
+</p>
+
+<p float="left">
   <img alt="Learning pending" src="images/learning_pending.png" width="250">
   <img alt="Learning daily" src="images/learning_words_daily.png" width="250">
   <img alt="Learning empty" src="images/learning_empty.png" width="250">
@@ -46,8 +50,11 @@ MindVocab is developed using modern technologies and approaches:
 ### Repeating
 
 <p float="left">
-  <img alt="Repeating" src="images/repeating.png" width="250">
+  <img alt="Repeating" src="images/Repeating.png" width="250">
   <img alt="Repeating input" src="images/repeating_input.png" width="250">
+</p>
+
+<p float="left">
   <img alt="Repeating pending" src="images/repeating_pending.png" width="250">
   <img alt="Repeating words" src="images/repeating_words.png" width="250">
 </p>
@@ -56,22 +63,26 @@ MindVocab is developed using modern technologies and approaches:
 
 <p float="left">
   <img alt="Statistic main" src="images/statistic_main.png" width="250">
-  <img alt="Statistic calendar" src="images/statistic_calendar.png" width="250">
-  <img alt="Statistic calendar day" src="images/statistic_calendar_day.png" width="250">
   <img alt="Statistic data" src="images/statistic_data.png" width="250">
+</p>
+
+<p float="left">
+  <img alt="Statistic calendar" src="images/statistic_calendar.png" width="250">
+  <img alt="Statistic calendar helping dialog" src="images/statistic_calendar_help_dialog.png" width="250">
+  <img alt="Statistic calendar day" src="images/statistic_calendar_day.png" width="250">
 </p>
 
 ### Achievements
 
 <p float="left">
-  <img alt="Achievements" src="images/achievements.png" width="250">
+  <img alt="Achievements" src="images/Achievements.png" width="250">
   <img alt="Achievement detail" src="images/achievement_detail.png" width="250">
 </p>
 
 ### Settings
 
 <p float="left">
-  <img alt="Settings" src="images/settings.png" width="250">
+  <img alt="Settings" src="images/Settings.png" width="250">
   <img alt="Settings detail" src="images/settings_language.png" width="250">
   <img alt="Settings account edit" src="images/settings_account_edit.png" width="250">
 </p>
