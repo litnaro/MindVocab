@@ -1,9 +1,11 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.hilt)
+
+    //TODO version catalog
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
     kotlin("kapt")
 }
 
@@ -57,87 +59,53 @@ kapt {
 }
 
 dependencies {
-    val coreKtxVersion = "1.9.0"
-
-    val legacyVersion = "1.0.0"
-
-    val appCompatVersion = "1.6.1"
-    val fragmentsVersion = "1.6.1"
-    val androidLifecycleVersion = "2.6.1"
-
-    val materialDesignVersion = "1.9.0"
-    val constraintLayoutVersion = "2.1.4"
-    val pieChartVersion = "0.7.0"
-    val viewPagerDotsVersion = "5.0"
-    val glideVersion = "4.12.0"
-    val calendarView = "1.9.1"
-
-    val navigationVersion = "2.7.2"
-
-    val hiltVersion = "2.48"
-
-    val coroutineVersion = "1.3.9"
-
-    val javaFakerVersion = "1.0.2"
-
-    val roomVersion = "2.6.1"
-
-    val shimmerVersion = "0.5.0"
-
-    val junitVersion = "4.13.2"
-    val junitExtVersion = "1.1.5"
-    val espressoVersion = "3.5.1"
 
     //Core
-    implementation("androidx.core:core-ktx:$coreKtxVersion")
+    implementation(libs.androidx.ktx)
 
-    implementation("androidx.legacy:legacy-support-v4:$legacyVersion")
+    implementation(libs.legacy)
 
-    implementation("androidx.appcompat:appcompat:$appCompatVersion")
-    implementation("androidx.fragment:fragment-ktx:$fragmentsVersion")
+    implementation(libs.appcompat)
+    implementation(libs.fragments)
 
     //MVVM
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$androidLifecycleVersion")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$androidLifecycleVersion")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$androidLifecycleVersion")
+    implementation(libs.lifecicle.livedata)
+    implementation(libs.lifecicle.view.model)
+    implementation(libs.lifecicle.runtime)
 
     //View
-    implementation("com.google.android.material:material:$materialDesignVersion")
-    implementation("androidx.constraintlayout:constraintlayout:$constraintLayoutVersion")
+    implementation(libs.material.design)
+    implementation(libs.constraint.layout)
 
-    //Statistic diagram
-    implementation("ir.mahozad.android:pie-chart:$pieChartVersion")
-    //Indicator dots for ViewPager
-    implementation("com.tbuonomo:dotsindicator:$viewPagerDotsVersion")
-    //Image handling
-    implementation("com.github.bumptech.glide:glide:$glideVersion")
-    //Calendar
-    implementation("com.applandeo:material-calendar-view:$calendarView")
+    implementation(libs.diagram)
+    implementation(libs.view.pager.indicator)
+    implementation(libs.glide)
+    implementation(libs.calendar)
 
     //Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:$navigationVersion")
-    implementation("androidx.navigation:navigation-ui-ktx:$navigationVersion")
+    implementation(libs.navigation.ui)
+    implementation(libs.navigation.fragment)
 
     //Hilt
-    implementation("com.google.dagger:hilt-android:$hiltVersion")
-    kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
 
     //Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion")
+    implementation(libs.coroutines)
 
     //Generate data for repository
-    implementation("com.github.javafaker:javafaker:$javaFakerVersion")
+    implementation(libs.java.faker)
 
     //Room
-    implementation("androidx.room:room-runtime:$roomVersion")
-    kapt("androidx.room:room-compiler:$roomVersion")
-    implementation("androidx.room:room-ktx:$roomVersion")
+    implementation(libs.room.ktx)
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
 
     //Shimmer
-    implementation("com.facebook.shimmer:shimmer:$shimmerVersion")
+    implementation(libs.shimmer)
 
     //Tests
-    testImplementation("junit:junit:$junitVersion")
-    androidTestImplementation("androidx.test.ext:junit:$junitExtVersion")
-    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoVersion")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit.ext)
+    androidTestImplementation(libs.androidx.espresso.core)
 }

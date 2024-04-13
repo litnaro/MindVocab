@@ -10,6 +10,9 @@
     <string name="dismiss">Dismiss</string>
     <string name="confirm">Confirm</string>
 
+    <string name="no_required_args_error" translatable="false">No required arguments</string>
+    <string name="no_required_specific_args_error" translatable="false">Could not find %1$s in %2$s to fill label %3$s</string>
+
     <string name="select_category_content_description">Select category icon</string>
     <string name="confirm_categories_content_description">Confirm categories icon</string>
     <string name="notifications_content_description">Notifications icon</string>

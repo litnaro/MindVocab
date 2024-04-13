@@ -81,8 +81,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isSignedIn(): Boolean {
-        //TODO set string res
-        val bundle = intent.extras ?: throw IllegalStateException("No required arguments")
+        val bundle = intent.extras ?: throw IllegalStateException(getString(R.string.no_required_args_error))
         val args = MainActivityArgs.fromBundle(bundle)
         return args.isSignedIn
     }
@@ -99,8 +98,7 @@ class MainActivity : AppCompatActivity() {
                 title.append(arguments.getString(argName))
             } else {
                 throw IllegalArgumentException(
-                    //TODO set string res
-                    "Could not find $argName in $arguments to fill label $label"
+                    getString(R.string.no_required_specific_args_error, argName, arguments, label)
                 )
             }
         }

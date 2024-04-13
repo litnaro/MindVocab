@@ -35,7 +35,6 @@ MindVocab is developed using modern technologies and approaches:
 
 <p float="left">
   <img alt="Learning pending" src="images/learning_pending.png" width="250">
-  <img alt="Learning daily" src="images/learning_words_daily.png" width="250">
   <img alt="Learning empty" src="images/learning_empty.png" width="250">
 </p>
 
