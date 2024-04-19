@@ -41,7 +41,7 @@ class RepeatWordFragment : BaseFragment() {
 
         viewModel.wordToRepeat.observe(viewLifecycleOwner) {
             with(binding) {
-                repeatingContainer.visibility = View.INVISIBLE
+                repeatingContainer.visibility = View.GONE
                 repeatingExceptionContainer.visibility = View.GONE
                 pendingShimmer.visibility = View.GONE
                 pendingShimmer.stopShimmer()
@@ -53,7 +53,6 @@ class RepeatWordFragment : BaseFragment() {
                     }
                     is Result.ErrorResult -> {
                         val context = root.context
-                        repeatingContainer.visibility = View.INVISIBLE
                         repeatingExceptionContainer.visibility = View.VISIBLE
 
                         when(it.exception) {
@@ -166,7 +165,7 @@ class RepeatWordFragment : BaseFragment() {
 
         binding.wordGrammarCheckField.doOnTextChanged { text, _, _, _ ->
             if (text.toString().lowercase() == word.word.lowercase()) {
-                binding.wordGrammarCheckFieldContainer.helperText = "Correct!"
+                binding.wordGrammarCheckFieldContainer.helperText = binding.root.context.getString(R.string.correct_answer)
             } else {
                 binding.wordGrammarCheckFieldContainer.helperText = null
             }
@@ -174,16 +173,16 @@ class RepeatWordFragment : BaseFragment() {
 
         binding.leftActionButton.setOnClickListener {
             viewModel.onWordRemember(word)
-            resetUiElemets()
+            resetUiElements()
         }
 
         binding.rightActionButton.setOnClickListener {
             viewModel.onWordForgot(word)
-            resetUiElemets()
+            resetUiElements()
         }
     }
 
-    private fun resetUiElemets() {
+    private fun resetUiElements() {
         binding.wordAnswer.visibility = View.GONE
 
         binding.wordGrammarCheckField.setText("")

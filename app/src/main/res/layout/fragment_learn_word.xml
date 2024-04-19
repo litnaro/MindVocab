@@ -290,58 +290,64 @@
             </LinearLayout>
         </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/learnEmptyWordSetsBlock"
+        <ScrollView
+            android:id="@+id/learnEmptyWordSetsScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            tools:visibility="visible"
-            android:orientation="vertical">
+            tools:visibility="visible">
 
-            <ImageView
-                android:id="@+id/emptyWordToLearnImage"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
-                tools:src="@drawable/ic_selection_list"
-                app:tint="?attr/colorOnPrimaryContainer"
-                app:layout_constraintVertical_bias="0.25"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:contentDescription="@string/exception_image_content_description" />
-            
-            <TextView
-                android:id="@+id/emptyWordToLearnTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                tools:text="@string/no_learning_words_exception_text_title"
-                android:textSize="@dimen/secondary_heading_size"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:elevation="2dp"
-                android:textColor="?attr/colorOnPrimaryContainer"
-                app:layout_constraintTop_toBottomOf="@+id/emptyWordToLearnImage"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/learnEmptyWordSetsBlock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/emptyWordToLearnText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginHorizontal="10dp"
-                tools:text="@string/no_learning_words_exception_text"
-                android:textSize="@dimen/simple_text_size"
-                android:elevation="2dp"
-                android:textAlignment="center"
-                android:textColor="?attr/colorOnPrimaryContainer"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/emptyWordToLearnTitle"/>
+                <ImageView
+                    android:id="@+id/emptyWordToLearnImage"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    tools:src="@drawable/ic_selection_list"
+                    app:tint="?attr/colorOnPrimaryContainer"
+                    app:layout_constraintVertical_bias="0.25"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:contentDescription="@string/exception_image_content_description" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/emptyWordToLearnTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    tools:text="@string/no_learning_words_exception_text_title"
+                    android:textSize="@dimen/secondary_heading_size"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:elevation="2dp"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    app:layout_constraintTop_toBottomOf="@+id/emptyWordToLearnImage"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/emptyWordToLearnText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="10dp"
+                    tools:text="@string/no_learning_words_exception_text"
+                    android:textSize="@dimen/simple_text_size"
+                    android:elevation="2dp"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/emptyWordToLearnTitle"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
 
     </androidx.cardview.widget.CardView>
 

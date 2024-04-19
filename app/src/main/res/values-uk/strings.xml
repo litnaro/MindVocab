@@ -188,4 +188,5 @@
     <string name="started_day_marker_content_description">Позначка розпочато</string>
     <string name="your_answer_hint">Ваша відповідь</string>
     <string name="completed_sets_empty_list_text">Продовжуйте навчання, щоб тут з\'явилися пройдені категорії слів.</string>
+    <string name="correct_answer">Правильно!</string>
 </resources>

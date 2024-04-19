@@ -42,7 +42,7 @@ class LearnWordFragment : BaseFragment() {
             with(binding) {
                 learnWordContainer.visibility = View.GONE
 
-                learnEmptyWordSetsBlock.visibility = View.GONE
+                learnEmptyWordSetsScroll.visibility = View.GONE
                 learnWordBlock.visibility = View.GONE
                 pendingShimmer.visibility = View.GONE
                 pendingShimmer.stopShimmer()
@@ -56,7 +56,7 @@ class LearnWordFragment : BaseFragment() {
                 when(it) {
                     is Result.ErrorResult -> {
                         learnWordContainer.visibility = View.VISIBLE
-                        learnEmptyWordSetsBlock.visibility = View.VISIBLE
+                        learnEmptyWordSetsScroll.visibility = View.VISIBLE
                         val context = root.context
                         if (it.exception is NoWordsToLearnException) {
                             emptyWordToLearnImage.setImageResource(R.drawable.ic_selection_list)

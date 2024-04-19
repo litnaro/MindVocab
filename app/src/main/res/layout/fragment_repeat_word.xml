@@ -21,194 +21,207 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/repeatingContainer"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/wordToRepeat"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:paddingHorizontal="10dp"
-                tools:text="Game"
-                android:textAlignment="center"
-                android:textColor="?attr/colorOnPrimaryContainer"
-                android:textSize="@dimen/main_heading_size"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listenWordButton" />
-
-            <TextView
-                android:id="@+id/wordAnswer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textAlignment="center"
-                android:textColor="?attr/colorOnPrimaryContainer"
-                android:textSize="@dimen/simple_text_size"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/wordToRepeat"
-                tools:text="Translation"
-                tools:visibility="visible" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/wordGrammarCheckFieldContainer"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginHorizontal="20dp"
-                android:hint="@string/your_answer_hint"
-                android:visibility="gone"
-                app:helperTextEnabled="true"
-                style="@style/InputTextContainer"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/wordAnswer">
+                android:orientation="vertical">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/wordGrammarCheckField"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/repeatingContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/wordToRepeat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:paddingHorizontal="10dp"
+                        tools:text="Game"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnPrimaryContainer"
+                        android:textSize="@dimen/main_heading_size"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/listenWordButton" />
+
+                    <TextView
+                        android:id="@+id/wordAnswer"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnPrimaryContainer"
+                        android:textSize="@dimen/simple_text_size"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/wordToRepeat"
+                        tools:text="Translation"
+                        tools:visibility="visible" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/wordGrammarCheckFieldContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:hint="@string/your_answer_hint"
+                        android:visibility="gone"
+                        app:helperTextEnabled="true"
+                        style="@style/InputTextContainer"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/wordAnswer">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/wordGrammarCheckField"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/listenWordButton"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        app:cardBackgroundColor="?attr/colorOnPrimaryContainer"
+                        app:cardCornerRadius="12dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_play"
+                            app:tint="?attr/colorPrimaryContainer"
+                            android:contentDescription="@string/listen_the_word_content_description" />
+                    </androidx.cardview.widget.CardView>
+
+                    <View
+                        android:id="@+id/actionButtonsDivider"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="30dp"
+                        android:background="?attr/colorOnPrimaryContainer"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/wordGrammarCheckFieldContainer" />
+
+                    <TextView
+                        android:id="@+id/leftActionButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="20dp"
+                        android:text="@string/word_remember"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnPrimaryContainer"
+                        android:textSize="@dimen/simple_text_size"
+                        app:layout_constraintEnd_toStartOf="@+id/flipCardButton"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/actionButtonsDivider" />
+
+                    <ImageView
+                        android:id="@+id/flipCardButton"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_flip"
+                        app:tint="?attr/colorOnPrimaryContainer"
+                        app:layout_constraintEnd_toStartOf="@+id/rightActionButton"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/leftActionButton"
+                        app:layout_constraintTop_toTopOf="@+id/leftActionButton"
+                        android:contentDescription="@string/return_to_previous_repeat_word__content_description" />
+
+
+                    <TextView
+                        android:id="@+id/rightActionButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="20dp"
+                        android:text="@string/word_forgot"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnPrimaryContainer"
+                        android:textSize="@dimen/simple_text_size"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/flipCardButton"
+                        app:layout_constraintTop_toTopOf="@+id/leftActionButton" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/repeatingExceptionContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:padding="10dp"
+                    android:orientation="vertical"
+                    tools:visibility="gone"
+                    android:layout_gravity="center_horizontal">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/listenWordButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                app:cardBackgroundColor="?attr/colorOnPrimaryContainer"
-                app:cardCornerRadius="12dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                    <ImageView
+                        android:id="@+id/repeatingExceptionImage"
+                        android:layout_width="100dp"
+                        android:layout_height="150dp"
+                        tools:src="@drawable/ic_remember"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="10dp"
+                        app:tint="?attr/colorOnPrimaryContainer"
+                        android:contentDescription="@string/exception_image_content_description" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_play"
-                    app:tint="?attr/colorPrimaryContainer"
-                    android:contentDescription="@string/listen_the_word_content_description" />
-            </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/repeatingExceptionText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginHorizontal="10dp"
+                        tools:text="No words to repeat"
+                        android:textSize="@dimen/third_heading_size"
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+                        android:elevation="2dp"
+                        android:textColor="?attr/colorOnPrimaryContainer"/>
 
-            <View
-                android:id="@+id/actionButtonsDivider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="30dp"
-                android:background="?attr/colorOnPrimaryContainer"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/wordGrammarCheckFieldContainer" />
+                    <TextView
+                        android:id="@+id/repeatingExceptionSubtext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginHorizontal="10dp"
+                        tools:text="Additional text"
+                        android:textSize="@dimen/simple_text_size"
+                        android:elevation="2dp"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnPrimaryContainer"/>
 
-            <TextView
-                android:id="@+id/leftActionButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:paddingVertical="20dp"
-                android:text="@string/word_remember"
-                android:textAlignment="center"
-                android:textColor="?attr/colorOnPrimaryContainer"
-                android:textSize="@dimen/simple_text_size"
-                app:layout_constraintEnd_toStartOf="@+id/flipCardButton"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/actionButtonsDivider" />
+                </LinearLayout>
 
-            <ImageView
-                android:id="@+id/flipCardButton"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:padding="10dp"
-                android:src="@drawable/ic_flip"
-                app:tint="?attr/colorOnPrimaryContainer"
-                app:layout_constraintEnd_toStartOf="@+id/rightActionButton"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/leftActionButton"
-                app:layout_constraintTop_toTopOf="@+id/leftActionButton"
-                android:contentDescription="@string/return_to_previous_repeat_word__content_description" />
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/pendingShimmer"
+                    tools:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
+                    <include layout="@layout/fragment_repeat_word_placeholder"/>
 
-            <TextView
-                android:id="@+id/rightActionButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:paddingVertical="20dp"
-                android:text="@string/word_forgot"
-                android:textAlignment="center"
-                android:textColor="?attr/colorOnPrimaryContainer"
-                android:textSize="@dimen/simple_text_size"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/flipCardButton"
-                app:layout_constraintTop_toTopOf="@+id/leftActionButton" />
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/repeatingExceptionContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical"
-            tools:visibility="gone"
-            android:layout_gravity="center_horizontal">
-
-            <ImageView
-                android:id="@+id/repeatingExceptionImage"
-                android:layout_width="100dp"
-                android:layout_height="150dp"
-                tools:src="@drawable/ic_remember"
-                android:scaleType="centerCrop"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="10dp"
-                app:tint="?attr/colorOnPrimaryContainer"
-                android:contentDescription="@string/exception_image_content_description" />
-
-            <TextView
-                android:id="@+id/repeatingExceptionText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginHorizontal="10dp"
-                tools:text="No words to repeat"
-                android:textSize="@dimen/third_heading_size"
-                android:textAlignment="center"
-                android:textStyle="bold"
-                android:elevation="2dp"
-                android:textColor="?attr/colorOnPrimaryContainer"/>
-
-            <TextView
-                android:id="@+id/repeatingExceptionSubtext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginHorizontal="10dp"
-                tools:text="Additional text"
-                android:textSize="@dimen/simple_text_size"
-                android:elevation="2dp"
-                android:textAlignment="center"
-                android:textColor="?attr/colorOnPrimaryContainer"/>
-
-        </LinearLayout>
-
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/pendingShimmer"
-            tools:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <include layout="@layout/fragment_repeat_word_placeholder"/>
-
-        </com.facebook.shimmer.ShimmerFrameLayout>
+        </ScrollView>
 
     </androidx.cardview.widget.CardView>
 

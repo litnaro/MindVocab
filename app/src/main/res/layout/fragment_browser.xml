@@ -1,35 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".screens.browser.BrowserFragment">
 
-    <ImageView
-        android:id="@+id/browserNotAvailable"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/ic_build_circle"
-        app:tint="?attr/colorOnPrimary"
-        android:layout_marginTop="100dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/browser_not_available_image_content_description" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/browser_not_available_text"
-        android:textSize="@dimen/main_heading_size"
-        android:textColor="?attr/colorOnPrimary"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="20dp"
-        android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/browserNotAvailable"/>
+        <ImageView
+            android:id="@+id/browserNotAvailable"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/ic_build_circle"
+            app:tint="?attr/colorOnPrimary"
+            android:layout_marginTop="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/browser_not_available_image_content_description" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/browser_not_available_text"
+            android:textSize="@dimen/main_heading_size"
+            android:textColor="?attr/colorOnPrimary"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="20dp"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/browserNotAvailable"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

@@ -96,6 +96,8 @@
     <string name="return_to_previous_repeat_word__content_description">Return to previous word</string>
     <string name="word_forgot">Forgot</string>
 
+    <string name="correct_answer">Correct!</string>
+
     <string name="your_answer_hint">Your answer</string>
 
     <string name="no_words_to_repeat_exception_title">No words to repeat</string>
