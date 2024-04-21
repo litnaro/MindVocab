@@ -98,14 +98,14 @@ class WordSetsFragment : BaseFragment() {
             binding.wordSetsRv.visibility = View.GONE
 
             when(it) {
-                is Result.PendingResult -> {
+                is Result.Pending -> {
                     binding.pendingShimmer.visibility = View.VISIBLE
                     binding.pendingShimmer.startShimmer()
                 }
-                is Result.ErrorResult -> {
+                is Result.Error -> {
                     // TODO create view for error result
                 }
-                is Result.SuccessResult -> {
+                is Result.Success -> {
                     wordSetAdapter.submitList(it.data)
                     binding.wordSetsRv.visibility = View.VISIBLE
                 }

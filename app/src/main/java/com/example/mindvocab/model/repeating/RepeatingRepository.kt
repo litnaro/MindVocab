@@ -14,7 +14,7 @@ interface RepeatingRepository : Repository {
      * Not auto-updated. Updates only after calling getWordsToRepeat() method.
      * @return All base word fields and how many times account has already repeated this word.
      */
-    suspend fun listenWordToRepeat() : Flow<WordToRepeat>
+    fun listenWordToRepeat() : Flow<WordToRepeat>
 
     /**
      * Emits new value to all listenWordToRepeat() flow subscribers.
@@ -35,7 +35,7 @@ interface RepeatingRepository : Repository {
      * @throws StorageException
      * @return Flow of words with progress metadata and details.
      */
-    suspend fun getWordsToRepeat() : Flow<List<WordToRepeatDetail>>
+    fun getWordsToRepeat() : Flow<List<WordToRepeatDetail>>
 
     /**
      * Updates word progress by increasing its progress.

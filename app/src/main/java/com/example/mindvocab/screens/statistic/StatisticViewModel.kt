@@ -18,7 +18,7 @@ class StatisticViewModel @Inject constructor(
     private val achievementsRepository: AchievementsRepository
 ) : BaseViewModel() {
 
-    private val _achievements = MutableLiveData<Result<List<Achievement>>>(Result.PendingResult())
+    private val _achievements = MutableLiveData<Result<List<Achievement>>>(Result.Pending)
     val achievements: LiveData<Result<List<Achievement>>> = _achievements
 
     init {
@@ -36,10 +36,10 @@ class StatisticViewModel @Inject constructor(
             delay(1500)
             try {
                 achievementsRepository.getAchievementsListWithAccountProgress().collect {
-                    _achievements.value = Result.SuccessResult(it)
+                    _achievements.value = Result.Success(it)
                 }
             } catch (e: AppException) {
-                _achievements.value = Result.ErrorResult(e)
+                _achievements.value = Result.Error(e)
             }
         }
     }

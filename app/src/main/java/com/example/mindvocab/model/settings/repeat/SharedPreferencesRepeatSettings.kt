@@ -2,6 +2,9 @@ package com.example.mindvocab.model.settings.repeat
 
 import android.content.Context
 import com.example.mindvocab.model.settings.AppSettings
+import com.example.mindvocab.model.settings.repeat.options.AnsweringVariantSetting
+import com.example.mindvocab.model.settings.repeat.options.CardAnimationSetting
+import com.example.mindvocab.model.settings.repeat.options.QuestionVariantSetting
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
@@ -10,11 +13,15 @@ class SharedPreferencesRepeatSettings @Inject constructor(
     @ApplicationContext appContext: Context
 ) : RepeatSettings, AppSettings(appContext) {
 
-    // Answering variants settings
-
     override val answeringVariantSetting = MutableStateFlow(getAnsweringVariantSetting())
 
-    override suspend fun setAnsweringVariantSetting(setting: RepeatSettings.AnsweringVariantSetting) {
+    override val questionVariantSetting = MutableStateFlow(getQuestionVariantSetting())
+
+    override val cardAnimationSetting = MutableStateFlow(getCardAnimationSetting())
+
+    // Answering variants settings
+
+    override suspend fun setAnsweringVariantSetting(setting: AnsweringVariantSetting) {
         if (getAnsweringVariantSetting() == setting) return
 
         sharedPreferences.edit()
@@ -23,31 +30,29 @@ class SharedPreferencesRepeatSettings @Inject constructor(
         answeringVariantSetting.emit(getAnsweringVariantSetting())
 
         when(setting) {
-            RepeatSettings.AnsweringVariantSetting.TRANSLATION -> {
+            AnsweringVariantSetting.TRANSLATION -> {
                 sharedPreferences.edit()
-                    .putInt(PREF_CURRENT_QUESTION_VARIANT_SETTING, RepeatSettings.QuestionVariantSetting.WORD.value)
+                    .putInt(PREF_CURRENT_QUESTION_VARIANT_SETTING, QuestionVariantSetting.WORD.value)
                     .apply()
             }
-            RepeatSettings.AnsweringVariantSetting.GRAMMAR -> {
+            AnsweringVariantSetting.GRAMMAR -> {
                 sharedPreferences.edit()
-                    .putInt(PREF_CURRENT_QUESTION_VARIANT_SETTING, RepeatSettings.QuestionVariantSetting.TRANSLATION.value)
+                    .putInt(PREF_CURRENT_QUESTION_VARIANT_SETTING, QuestionVariantSetting.TRANSLATION.value)
                     .apply()
             }
         }
         questionVariantSetting.emit(getQuestionVariantSetting())
     }
 
-    private fun getAnsweringVariantSetting() : RepeatSettings.AnsweringVariantSetting {
-        return RepeatSettings.AnsweringVariantSetting.fromValue(
-            sharedPreferences.getInt(PREF_CURRENT_ANSWERING_VARIANT_SETTING, RepeatSettings.AnsweringVariantSetting.TRANSLATION.value)
+    private fun getAnsweringVariantSetting() : AnsweringVariantSetting {
+        return AnsweringVariantSetting.fromValue(
+            sharedPreferences.getInt(PREF_CURRENT_ANSWERING_VARIANT_SETTING, AnsweringVariantSetting.TRANSLATION.value)
         )
     }
 
     // Question variant settings
 
-    override val questionVariantSetting = MutableStateFlow(getQuestionVariantSetting())
-
-    override suspend fun setQuestionVariantSetting(setting: RepeatSettings.QuestionVariantSetting) {
+    override suspend fun setQuestionVariantSetting(setting: QuestionVariantSetting) {
         if (getQuestionVariantSetting() == setting) return
 
         sharedPreferences.edit()
@@ -56,31 +61,29 @@ class SharedPreferencesRepeatSettings @Inject constructor(
         questionVariantSetting.emit(getQuestionVariantSetting())
 
         when(setting) {
-            RepeatSettings.QuestionVariantSetting.WORD -> {
+            QuestionVariantSetting.WORD -> {
                 sharedPreferences.edit()
-                    .putInt(PREF_CURRENT_ANSWERING_VARIANT_SETTING, RepeatSettings.AnsweringVariantSetting.TRANSLATION.value)
+                    .putInt(PREF_CURRENT_ANSWERING_VARIANT_SETTING, AnsweringVariantSetting.TRANSLATION.value)
                     .apply()
             }
-            RepeatSettings.QuestionVariantSetting.TRANSLATION -> {
+            QuestionVariantSetting.TRANSLATION -> {
                 sharedPreferences.edit()
-                    .putInt(PREF_CURRENT_ANSWERING_VARIANT_SETTING, RepeatSettings.AnsweringVariantSetting.GRAMMAR.value)
+                    .putInt(PREF_CURRENT_ANSWERING_VARIANT_SETTING, AnsweringVariantSetting.GRAMMAR.value)
                     .apply()
             }
         }
         answeringVariantSetting.emit(getAnsweringVariantSetting())
     }
 
-    private fun getQuestionVariantSetting() : RepeatSettings.QuestionVariantSetting {
-        return RepeatSettings.QuestionVariantSetting.fromValue(
-            sharedPreferences.getInt(PREF_CURRENT_QUESTION_VARIANT_SETTING, RepeatSettings.QuestionVariantSetting.WORD.value)
+    private fun getQuestionVariantSetting() : QuestionVariantSetting {
+        return QuestionVariantSetting.fromValue(
+            sharedPreferences.getInt(PREF_CURRENT_QUESTION_VARIANT_SETTING, QuestionVariantSetting.WORD.value)
         )
     }
 
     // Card animation settings
 
-    override val cardAnimationSetting = MutableStateFlow(getCardAnimationSetting())
-
-    override suspend fun setCardAnimationSetting(setting: RepeatSettings.CardAnimationSetting) {
+    override suspend fun setCardAnimationSetting(setting: CardAnimationSetting) {
         if (getCardAnimationSetting() == setting) return
         sharedPreferences.edit()
             .putInt(PREF_CURRENT_CARD_ANIMATION_SETTING, setting.value)
@@ -88,9 +91,9 @@ class SharedPreferencesRepeatSettings @Inject constructor(
         cardAnimationSetting.emit(getCardAnimationSetting())
     }
 
-    private fun getCardAnimationSetting() : RepeatSettings.CardAnimationSetting {
-        return RepeatSettings.CardAnimationSetting.fromValue(
-            sharedPreferences.getInt(PREF_CURRENT_CARD_ANIMATION_SETTING, RepeatSettings.CardAnimationSetting.FLIP.value)
+    private fun getCardAnimationSetting() : CardAnimationSetting {
+        return CardAnimationSetting.fromValue(
+            sharedPreferences.getInt(PREF_CURRENT_CARD_ANIMATION_SETTING, CardAnimationSetting.FLIP.value)
         )
     }
 

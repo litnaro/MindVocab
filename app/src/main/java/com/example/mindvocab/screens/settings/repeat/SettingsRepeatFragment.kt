@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.mindvocab.R
 import com.example.mindvocab.databinding.FragmentSettingsRepeatBinding
-import com.example.mindvocab.model.settings.repeat.RepeatSettings
+import com.example.mindvocab.model.settings.repeat.options.AnsweringVariantSetting
+import com.example.mindvocab.model.settings.repeat.options.CardAnimationSetting
+import com.example.mindvocab.model.settings.repeat.options.QuestionVariantSetting
 import com.example.mindvocab.screens.settings.BaseSettingsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,7 +31,7 @@ class SettingsRepeatFragment : BaseSettingsFragment() {
                     title = requireContext().getString(R.string.repeating_variant_settings),
                     subtitle = requireContext().getString(R.string.repeating_variant_settings_helping_text),
                     setting = it,
-                    settingClass = RepeatSettings.AnsweringVariantSetting::class.java
+                    settingClass = AnsweringVariantSetting::class.java
                 ) { selectedSetting ->
                     viewModel.setAnsweringVariantSetting(selectedSetting)
                 }
@@ -43,7 +45,7 @@ class SettingsRepeatFragment : BaseSettingsFragment() {
                     title = requireContext().getString(R.string.first_show_settings),
                     subtitle = requireContext().getString(R.string.first_show_settings_helping_text),
                     setting = it,
-                    settingClass = RepeatSettings.QuestionVariantSetting::class.java
+                    settingClass = QuestionVariantSetting::class.java
                 ) { selectedSetting ->
                     viewModel.setQuestionVariantSetting(selectedSetting)
                 }
@@ -57,7 +59,7 @@ class SettingsRepeatFragment : BaseSettingsFragment() {
                     title = requireContext().getString(R.string.turning_animation_settings),
                     subtitle = requireContext().getString(R.string.turning_animation_settings_helping_text),
                     setting = it,
-                    settingClass = RepeatSettings.CardAnimationSetting::class.java
+                    settingClass = CardAnimationSetting::class.java
                 ) { selectedSetting ->
                     viewModel.setCardAnimationSetting(selectedSetting)
                 }

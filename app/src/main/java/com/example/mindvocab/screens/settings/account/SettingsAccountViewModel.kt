@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.model.account.AccountsRepository
-import com.example.mindvocab.model.account.etities.Account
+import com.example.mindvocab.model.account.entities.Account
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,7 +23,7 @@ class SettingsAccountViewModel @Inject constructor(
         viewModelScope.launch {
             accountsRepository.getAccount().collect {
                 if (it != null) {
-                    _account.value = Result.SuccessResult(it)
+                    _account.value = Result.Success(it)
                 }
             }
         }

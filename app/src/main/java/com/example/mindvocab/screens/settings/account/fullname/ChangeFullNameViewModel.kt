@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.model.account.AccountsRepository
-import com.example.mindvocab.model.account.etities.FullName
+import com.example.mindvocab.model.account.entities.FullName
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,7 +29,7 @@ class ChangeFullNameViewModel @Inject constructor(
     fun changeFullName(fullName: FullName) {
         viewModelScope.launch {
             accountsRepository.updateFullName(fullName)
-            _changeFullNameResult.value = Result.SuccessResult(true)
+            _changeFullNameResult.value = Result.Success(true)
         }
     }
 

@@ -18,14 +18,14 @@ class WordsViewModel @Inject constructor(
 ) : BaseViewModel() {
 
 
-    private val _wordsList = MutableLiveData<Result<List<WordStatistic>>>(Result.PendingResult())
+    private val _wordsList = MutableLiveData<Result<List<WordStatistic>>>(Result.Pending)
     val wordsList: LiveData<Result<List<WordStatistic>>> = _wordsList
 
     fun getWordsByWordSetId(wordSetId: Long) {
         viewModelScope.launch {
             delay(1500)
             wordsRepository.getWordsByWordSetId(wordSetId).collect {
-                _wordsList.value = Result.SuccessResult(it)
+                _wordsList.value = Result.Success(it)
             }
         }
     }

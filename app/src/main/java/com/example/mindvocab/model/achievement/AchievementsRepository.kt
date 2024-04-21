@@ -55,7 +55,7 @@ interface AchievementsRepository : Repository {
      * @throws AuthException
      * @return Flow of achievements with all available data.
      */
-    suspend fun getAchievementsListWithAccountProgress() : Flow<List<Achievement>>
+    fun getAchievementsListWithAccountProgress() : Flow<List<Achievement>>
 
     /**
      * Gets count of unchecked achievements to notify
@@ -64,7 +64,7 @@ interface AchievementsRepository : Repository {
      * @throws StorageException
      * @return Flow of new achievements count.
      */
-    suspend fun getRecentAchievementsCount() : Flow<Int>
+    fun getRecentAchievementsCount() : Flow<Int>
 
     /**
      * Shows that user has seen that specific [achievement]

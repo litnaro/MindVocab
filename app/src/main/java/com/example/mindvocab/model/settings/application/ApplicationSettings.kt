@@ -1,62 +1,21 @@
 package com.example.mindvocab.model.settings.application
 
-import com.example.mindvocab.model.settings.AppSettingsEnum
-import kotlinx.coroutines.flow.Flow
+import com.example.mindvocab.model.settings.application.options.ApplicationLanguage
+import com.example.mindvocab.model.settings.application.options.ApplicationTheme
+import com.example.mindvocab.model.settings.application.options.NativeLanguage
 import kotlinx.coroutines.flow.MutableStateFlow
 
 interface ApplicationSettings {
 
-    // Application theme
-    enum class ApplicationTheme(val value: Int) : AppSettingsEnum {
-        DEFAULT(0),
-        LIGHT(1),
-        DARK(2);
-
-        companion object {
-            fun fromValue(value: Int): ApplicationTheme {
-                return entries.firstOrNull { it.value == value } ?: DEFAULT
-            }
-        }
-    }
-
     val applicationTheme: MutableStateFlow<ApplicationTheme>
-
-    suspend fun setApplicationTheme(theme: ApplicationTheme)
-
-    // Application  interface language
-    enum class ApplicationLanguage(val value: Int) : AppSettingsEnum {
-        DEFAULT(0),
-        ENGLISH(1),
-        UKRAINIAN(2),
-        RUSSIAN(3);
-
-        companion object {
-            fun fromValue(value: Int): ApplicationLanguage {
-                return entries.firstOrNull { it.value == value } ?: DEFAULT
-            }
-        }
-    }
 
     val applicationLanguage: MutableStateFlow<ApplicationLanguage>
 
+    val nativeLanguage: MutableStateFlow<NativeLanguage>
+
+    suspend fun setApplicationTheme(theme: ApplicationTheme)
+
     suspend fun setApplicationLanguage(language: ApplicationLanguage)
-
-    // User native language for learning purposes
-    enum class NativeLanguage(val value: Int) : AppSettingsEnum {
-        ENGLISH(0),
-        UKRAINIAN(1),
-        RUSSIAN(2);
-
-        companion object {
-            fun fromValue(value: Int): NativeLanguage {
-                return entries.firstOrNull { it.value == value } ?: UKRAINIAN
-            }
-        }
-    }
-
-    fun listenApplicationNativeLanguage(): Flow<NativeLanguage>
-
-    suspend fun getApplicationNativeLanguage() : NativeLanguage
 
     suspend fun setApplicationNativeLanguage(language: NativeLanguage)
 }

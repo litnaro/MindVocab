@@ -17,5 +17,6 @@
     <fragment
         android:id="@+id/repeatingWordsFragment"
         android:name="com.example.mindvocab.screens.repeat.words.RepeatingWordsFragment"
-        android:label="@string/repeating_words_title" />
+        android:label="@string/repeating_words_title"
+        tools:layout="@layout/fragment_repeating_words"/>
 </navigation>

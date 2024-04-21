@@ -5,6 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.model.settings.learn.LearningSettings
+import com.example.mindvocab.model.settings.learn.options.SwipeActionsSetting
+import com.example.mindvocab.model.settings.learn.options.WordsADaySetting
+import com.example.mindvocab.model.settings.learn.options.WordsOrderSetting
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,17 +20,17 @@ class SettingsLearnViewModel @Inject constructor(
     private val _listenAfterAppearanceSetting = MutableLiveData<Boolean>()
     val listenAfterAppearanceSetting: LiveData<Boolean> = _listenAfterAppearanceSetting
 
-    private val _wordsADaySetting = MutableLiveData<LearningSettings.WordsADaySetting>()
-    val wordsADaySetting: LiveData<LearningSettings.WordsADaySetting> = _wordsADaySetting
+    private val _wordsADaySetting = MutableLiveData<WordsADaySetting>()
+    val wordsADaySetting: LiveData<WordsADaySetting> = _wordsADaySetting
 
-    private val _leftSwipeAction = MutableLiveData<LearningSettings.SwipeActionsSetting>()
-    val leftSwipeAction: LiveData<LearningSettings.SwipeActionsSetting> = _leftSwipeAction
+    private val _leftSwipeAction = MutableLiveData<SwipeActionsSetting>()
+    val leftSwipeAction: LiveData<SwipeActionsSetting> = _leftSwipeAction
 
-    private val _rightSwipeAction = MutableLiveData<LearningSettings.SwipeActionsSetting>()
-    val rightSwipeAction: LiveData<LearningSettings.SwipeActionsSetting> = _rightSwipeAction
+    private val _rightSwipeAction = MutableLiveData<SwipeActionsSetting>()
+    val rightSwipeAction: LiveData<SwipeActionsSetting> = _rightSwipeAction
 
-    private val _wordsOrderSetting = MutableLiveData<LearningSettings.WordsOrderSetting>()
-    val wordsOrderSetting: LiveData<LearningSettings.WordsOrderSetting> = _wordsOrderSetting
+    private val _wordsOrderSetting = MutableLiveData<WordsOrderSetting>()
+    val wordsOrderSetting: LiveData<WordsOrderSetting> = _wordsOrderSetting
 
     init {
         getListenAfterAppearanceSetting()
@@ -59,7 +62,7 @@ class SettingsLearnViewModel @Inject constructor(
         }
     }
 
-    fun setWordsADaySetting(setting: LearningSettings.WordsADaySetting) {
+    fun setWordsADaySetting(setting: WordsADaySetting) {
         viewModelScope.launch {
             learningSettings.setWordsADay(setting)
         }
@@ -73,7 +76,7 @@ class SettingsLearnViewModel @Inject constructor(
         }
     }
 
-    fun setLeftSwipeAction(settings: LearningSettings.SwipeActionsSetting) {
+    fun setLeftSwipeAction(settings: SwipeActionsSetting) {
         viewModelScope.launch {
             learningSettings.setLeftSwipeAction(settings)
         }
@@ -87,7 +90,7 @@ class SettingsLearnViewModel @Inject constructor(
         }
     }
 
-    fun setRightSwipeAction(settings: LearningSettings.SwipeActionsSetting) {
+    fun setRightSwipeAction(settings: SwipeActionsSetting) {
         viewModelScope.launch {
             learningSettings.setRightSwipeAction(settings)
         }
@@ -101,7 +104,7 @@ class SettingsLearnViewModel @Inject constructor(
         }
     }
 
-    fun setWordsOrderSetting(settings: LearningSettings.WordsOrderSetting) {
+    fun setWordsOrderSetting(settings: WordsOrderSetting) {
         viewModelScope.launch {
             learningSettings.setWordsOrderSetting(settings)
         }

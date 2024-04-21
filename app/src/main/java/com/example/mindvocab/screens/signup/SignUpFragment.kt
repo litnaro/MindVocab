@@ -15,7 +15,7 @@ import com.example.mindvocab.model.AppException
 import com.example.mindvocab.model.account.EmptyFieldException
 import com.example.mindvocab.model.account.Field
 import com.example.mindvocab.model.account.PasswordMismatchException
-import com.example.mindvocab.model.account.etities.SignUpData
+import com.example.mindvocab.model.account.entities.SignUpData
 import com.example.mindvocab.model.account.security.toCharArray
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -51,11 +51,11 @@ class SignUpFragment : BaseFragment() {
 
         viewModel.signUpResult.observe(viewLifecycleOwner) {
             when(it) {
-                is Result.PendingResult -> {}
-                is Result.ErrorResult -> {
+                is Result.Pending -> {}
+                is Result.Error -> {
                     handleSignUpErrors(it.exception)
                 }
-                is Result.SuccessResult -> {
+                is Result.Success -> {
                     findNavController().popBackStack()
                 }
             }

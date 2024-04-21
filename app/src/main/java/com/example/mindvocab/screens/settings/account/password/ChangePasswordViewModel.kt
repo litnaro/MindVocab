@@ -7,7 +7,7 @@ import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.model.AppException
 import com.example.mindvocab.model.account.AccountsRepository
-import com.example.mindvocab.model.account.etities.ChangePasswordData
+import com.example.mindvocab.model.account.entities.ChangePasswordData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,9 +24,9 @@ class ChangePasswordViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 accountsRepository.changePassword(changePasswordData)
-                _changePasswordResult.value = Result.SuccessResult(true)
+                _changePasswordResult.value = Result.Success(true)
             } catch (e: AppException) {
-                _changePasswordResult.value = Result.ErrorResult(e)
+                _changePasswordResult.value = Result.Error(e)
             }
         }
     }

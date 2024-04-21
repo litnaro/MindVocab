@@ -5,6 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.model.settings.application.ApplicationSettings
+import com.example.mindvocab.model.settings.application.options.ApplicationLanguage
+import com.example.mindvocab.model.settings.application.options.ApplicationTheme
+import com.example.mindvocab.model.settings.application.options.NativeLanguage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,14 +17,14 @@ class SettingsApplicationViewModel @Inject constructor(
     private val applicationSettings: ApplicationSettings
 ) : BaseViewModel() {
 
-    private val _themeSetting = MutableLiveData<ApplicationSettings.ApplicationTheme>()
-    val themeSetting: LiveData<ApplicationSettings.ApplicationTheme> get() = _themeSetting
+    private val _themeSetting = MutableLiveData<ApplicationTheme>()
+    val themeSetting: LiveData<ApplicationTheme> get() = _themeSetting
 
-    private val _languageSetting = MutableLiveData<ApplicationSettings.ApplicationLanguage>()
-    val languageSetting: LiveData<ApplicationSettings.ApplicationLanguage> get() = _languageSetting
+    private val _languageSetting = MutableLiveData<ApplicationLanguage>()
+    val languageSetting: LiveData<ApplicationLanguage> get() = _languageSetting
 
-    private val _nativeLanguageSetting = MutableLiveData<ApplicationSettings.NativeLanguage>()
-    val nativeLanguageSetting: LiveData<ApplicationSettings.NativeLanguage> get() = _nativeLanguageSetting
+    private val _nativeLanguageSetting = MutableLiveData<NativeLanguage>()
+    val nativeLanguageSetting: LiveData<NativeLanguage> get() = _nativeLanguageSetting
 
     init {
         getTheme()
@@ -37,7 +40,7 @@ class SettingsApplicationViewModel @Inject constructor(
         }
     }
 
-    fun setTheme(theme: ApplicationSettings.ApplicationTheme) {
+    fun setTheme(theme: ApplicationTheme) {
         viewModelScope.launch {
             applicationSettings.setApplicationTheme(theme)
         }
@@ -51,7 +54,7 @@ class SettingsApplicationViewModel @Inject constructor(
         }
     }
 
-    fun setLanguage(language: ApplicationSettings.ApplicationLanguage) {
+    fun setLanguage(language: ApplicationLanguage) {
         viewModelScope.launch {
             applicationSettings.setApplicationLanguage(language)
         }
@@ -59,16 +62,13 @@ class SettingsApplicationViewModel @Inject constructor(
 
     private fun getNativeLanguage() {
         viewModelScope.launch {
-            applicationSettings.listenApplicationNativeLanguage().collect {
+            applicationSettings.nativeLanguage.collect {
                 _nativeLanguageSetting.value = it
             }
         }
-        viewModelScope.launch {
-            applicationSettings.getApplicationNativeLanguage()
-        }
     }
 
-    fun setNativeLanguage(language: ApplicationSettings.NativeLanguage) {
+    fun setNativeLanguage(language: NativeLanguage) {
         viewModelScope.launch {
             applicationSettings.setApplicationNativeLanguage(language)
         }

@@ -19,7 +19,8 @@ import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentRepeatWordBinding
 import com.example.mindvocab.model.repeating.NoWordsToRepeatException
 import com.example.mindvocab.model.repeating.WordsToRepeatCurrentlyInTimeout
-import com.example.mindvocab.model.settings.repeat.RepeatSettings
+import com.example.mindvocab.model.settings.repeat.options.AnsweringVariantSetting
+import com.example.mindvocab.model.settings.repeat.options.QuestionVariantSetting
 import com.example.mindvocab.model.word.entities.WordToRepeat
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -47,11 +48,11 @@ class RepeatWordFragment : BaseFragment() {
                 pendingShimmer.stopShimmer()
 
                 when(it) {
-                    is Result.PendingResult -> {
+                    is Result.Pending -> {
                         binding.pendingShimmer.visibility = View.VISIBLE
                         pendingShimmer.startShimmer()
                     }
-                    is Result.ErrorResult -> {
+                    is Result.Error -> {
                         val context = root.context
                         repeatingExceptionContainer.visibility = View.VISIBLE
 
@@ -68,7 +69,7 @@ class RepeatWordFragment : BaseFragment() {
                             }
                         }
                     }
-                    is Result.SuccessResult -> {
+                    is Result.Success -> {
                         repeatingContainer.visibility = View.VISIBLE
                         setWordData(it.data)
                     }
@@ -117,14 +118,14 @@ class RepeatWordFragment : BaseFragment() {
     private fun setWordData(word: WordToRepeat) {
         viewModel.questionVariantSetting.observe(viewLifecycleOwner) {
             when(it) {
-                RepeatSettings.QuestionVariantSetting.WORD -> {
+                QuestionVariantSetting.WORD -> {
                     binding.wordToRepeat.text = word.word
 
                     binding.wordAnswer.text = word.translation.ifBlank {
                         word.explanation
                     }
                 }
-                RepeatSettings.QuestionVariantSetting.TRANSLATION -> {
+                QuestionVariantSetting.TRANSLATION -> {
                     binding.wordToRepeat.text = word.translation.ifBlank {
                         word.explanation
                     }
@@ -142,14 +143,14 @@ class RepeatWordFragment : BaseFragment() {
 
         viewModel.answeringVariantSetting.observe(viewLifecycleOwner) {
             when(it) {
-                RepeatSettings.AnsweringVariantSetting.TRANSLATION -> {
+                AnsweringVariantSetting.TRANSLATION -> {
                     if (binding.wordAnswer.visibility == View.GONE) {
                         binding.wordAnswer.visibility = View.GONE
                     } else {
                         binding.wordAnswer.visibility = View.VISIBLE
                     }
                 }
-                RepeatSettings.AnsweringVariantSetting.GRAMMAR -> {
+                AnsweringVariantSetting.GRAMMAR -> {
                     binding.wordAnswer.visibility = View.GONE
                     binding.wordGrammarCheckFieldContainer.visibility = View.VISIBLE
                 }

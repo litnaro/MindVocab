@@ -15,7 +15,7 @@ import com.example.mindvocab.model.account.EmptyFieldException
 import com.example.mindvocab.model.account.Field
 import com.example.mindvocab.model.account.PasswordMismatchException
 import com.example.mindvocab.model.account.SameDataModificationException
-import com.example.mindvocab.model.account.etities.ChangePasswordData
+import com.example.mindvocab.model.account.entities.ChangePasswordData
 import com.example.mindvocab.model.account.security.toCharArray
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,9 +35,9 @@ class ChangePasswordFragment : BaseFragment() {
 
         viewModel.changePasswordResult.observe(viewLifecycleOwner) {
             when(it) {
-                is Result.PendingResult -> {}
-                is Result.ErrorResult -> handleSignUpErrors(it.exception)
-                is Result.SuccessResult -> {
+                is Result.Pending -> {}
+                is Result.Error -> handleSignUpErrors(it.exception)
+                is Result.Success -> {
                     clearInputFields()
                     binding.oldPasswordFieldContainer.helperText = requireContext().getString(R.string.password_successfully_changed)
                 }

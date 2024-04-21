@@ -7,10 +7,10 @@ import com.example.mindvocab.model.account.EmptyFieldException
 import com.example.mindvocab.model.account.Field
 import com.example.mindvocab.model.account.SameDataModificationException
 import com.example.mindvocab.model.account.AccountsRepository
-import com.example.mindvocab.model.account.etities.Account
-import com.example.mindvocab.model.account.etities.ChangePasswordData
-import com.example.mindvocab.model.account.etities.FullName
-import com.example.mindvocab.model.account.etities.SignUpData
+import com.example.mindvocab.model.account.entities.Account
+import com.example.mindvocab.model.account.entities.ChangePasswordData
+import com.example.mindvocab.model.account.entities.FullName
+import com.example.mindvocab.model.account.entities.SignUpData
 import com.example.mindvocab.model.account.room.entities.AccountDbEntity
 import com.example.mindvocab.model.account.room.entities.AccountUpdateFullNameTuple
 import com.example.mindvocab.model.account.room.entities.AccountUpdatePasswordTuple
@@ -20,7 +20,6 @@ import com.example.mindvocab.model.room.wrapSQLiteException
 import com.example.mindvocab.model.settings.account.AccountSettings
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
@@ -32,8 +31,6 @@ class RoomAccountsRepository @Inject constructor(
     private val accountSettings: AccountSettings,
     private val ioDispatcher: CoroutineDispatcher
 ) : AccountsRepository {
-
-    private val currentAccountIdFlow = MutableStateFlow(AccountId(accountSettings.getCurrentAccountId()))
 
     override suspend fun isSignedIn(): Boolean {
         return accountSettings.getCurrentAccountId() != AccountSettings.NO_ACCOUNT_ID
@@ -50,7 +47,6 @@ class RoomAccountsRepository @Inject constructor(
         }
 
         accountSettings.setCurrentAccountId(accountId)
-        currentAccountIdFlow.emit(AccountId(accountId))
 
         return accountId
     }
@@ -62,7 +58,6 @@ class RoomAccountsRepository @Inject constructor(
 
     override suspend fun logout() {
         accountSettings.setCurrentAccountId(AccountSettings.NO_ACCOUNT_ID)
-        currentAccountIdFlow.emit(AccountId(AccountSettings.NO_ACCOUNT_ID))
     }
 
     override suspend fun getAccountUsername(): String {
@@ -91,10 +86,11 @@ class RoomAccountsRepository @Inject constructor(
     override suspend fun updateFullName(fullName: FullName) = wrapSQLiteException(ioDispatcher) {
         val (name, surname) = fullName
 
-        val account = getAccount().first() ?: throw AuthException()
+        val accountId = accountSettings.getCurrentAccountId()
+        if (accountId == AccountSettings.NO_ACCOUNT_ID) throw AuthException()
 
         accountsDao.updateFullName(
-            AccountUpdateFullNameTuple(account.id, name, surname)
+            AccountUpdateFullNameTuple(accountId, name, surname)
         )
     }
 
@@ -128,7 +124,7 @@ class RoomAccountsRepository @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAccount(): Flow<Account?> {
+    override fun getAccount(): Flow<Account?> {
         return getAccountById(accountSettings.getCurrentAccountId())
     }
 
@@ -166,8 +162,5 @@ class RoomAccountsRepository @Inject constructor(
     private fun getAccountById(accountId: Long): Flow<Account?> {
         return accountsDao.getAccountById(accountId).map { it?.toAccount() }
     }
-
-    @Suppress("unused")
-    private class AccountId(val value: Long)
 
 }

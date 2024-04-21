@@ -7,7 +7,7 @@ import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.model.AppException
 import com.example.mindvocab.model.account.AccountsRepository
-import com.example.mindvocab.model.account.etities.SignUpData
+import com.example.mindvocab.model.account.entities.SignUpData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,16 +17,16 @@ class SignUpViewModel @Inject constructor(
     private val accountsRepository: AccountsRepository
 ) : BaseViewModel() {
 
-    private val _signUpResult = MutableLiveData<Result<Boolean>>(Result.PendingResult())
+    private val _signUpResult = MutableLiveData<Result<Boolean>>(Result.Pending)
     val signUpResult: LiveData<Result<Boolean>> = _signUpResult
 
     fun signUp(signUpData: SignUpData) {
         viewModelScope.launch {
             try {
                 accountsRepository.signUp(signUpData)
-                _signUpResult.value = Result.SuccessResult(true)
+                _signUpResult.value = Result.Success(true)
             } catch (e: AppException) {
-                _signUpResult.value = Result.ErrorResult(e)
+                _signUpResult.value = Result.Error(e)
             }
         }
     }

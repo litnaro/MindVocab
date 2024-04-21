@@ -1,6 +1,6 @@
 package com.example.mindvocab.model
 
-open class AppException : RuntimeException()
+abstract class AppException : RuntimeException()
 
 /**
  * If unable to execute SQL query.

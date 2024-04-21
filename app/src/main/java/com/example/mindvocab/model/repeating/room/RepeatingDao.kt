@@ -10,6 +10,7 @@ import com.example.mindvocab.model.repeating.room.entities.UpdateWordProgressAsF
 import com.example.mindvocab.model.repeating.room.entities.UpdateWordProgressAsRememberedTuple
 import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
 import com.example.mindvocab.model.word.room.entities.WordRepeatLogDbEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RepeatingDao {
@@ -34,7 +35,7 @@ interface RepeatingDao {
             "    word_sets ON word_sets.id = words.word_set_id\n" +
             "WHERE\n" +
             "    accounts_words_progress.times_repeated < :timesRepeatedToLearn AND accounts_words_progress.started_at != 0;")
-    suspend fun getAllWordsForRepeating(accountId: Long, timesRepeatedToLearn: Int, translationId: Long) : List<RepeatingWordDetailTuple>?
+    fun getAllWordsForRepeating(accountId: Long, timesRepeatedToLearn: Int, translationId: Long) : Flow<List<RepeatingWordDetailTuple>?>
 
     @Query("SELECT\n" +
             "    words.id,\n" +

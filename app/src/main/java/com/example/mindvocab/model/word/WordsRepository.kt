@@ -16,6 +16,6 @@ interface WordsRepository : Repository {
      * @throws StorageException
      * @return List of words statistic as flow.
      */
-    suspend fun getWordsByWordSetId(wordSetId: Long): Flow<List<WordStatistic>>
+    fun getWordsByWordSetId(wordSetId: Long): Flow<List<WordStatistic>>
 
 }

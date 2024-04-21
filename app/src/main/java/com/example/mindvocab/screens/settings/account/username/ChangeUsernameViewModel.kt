@@ -30,9 +30,9 @@ class ChangeUsernameViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 accountsRepository.updateUsername(username)
-                _changePasswordResult.value = Result.SuccessResult(true)
+                _changePasswordResult.value = Result.Success(true)
             } catch (e: AppException) {
-                _changePasswordResult.value = Result.ErrorResult(e)
+                _changePasswordResult.value = Result.Error(e)
             }
         }
     }

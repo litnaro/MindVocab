@@ -34,9 +34,9 @@ class StatisticMonthlyFragment : BaseFragment() {
 
         viewModel.monthStatistic.observe(viewLifecycleOwner) { result ->
             when(result) {
-                is Result.ErrorResult -> {}
-                is Result.PendingResult -> {}
-                is Result.SuccessResult -> {
+                is Result.Error -> {}
+                is Result.Pending -> {}
+                is Result.Success -> {
                     binding.calendar.setCalendarDays(
                         result.data.map {
                             CalendarDay(it.day).apply {

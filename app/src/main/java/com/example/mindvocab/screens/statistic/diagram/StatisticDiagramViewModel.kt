@@ -17,7 +17,7 @@ class StatisticDiagramViewModel @Inject constructor(
     private val statisticRepository: StatisticRepository
 ) : BaseViewModel() {
 
-    private val _statistic = MutableLiveData<Result<WordsStatisticPercentage>>(Result.PendingResult())
+    private val _statistic = MutableLiveData<Result<WordsStatisticPercentage>>(Result.Pending)
     val statistic: LiveData<Result<WordsStatisticPercentage>> = _statistic
 
     init {
@@ -28,10 +28,10 @@ class StatisticDiagramViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 statisticRepository.getWordsStatisticPercentage().collect {
-                    _statistic.value = Result.SuccessResult(it)
+                    _statistic.value = Result.Success(it)
                 }
             } catch (e: AppException) {
-                _statistic.value = Result.ErrorResult(e)
+                _statistic.value = Result.Error(e)
             }
         }
     }

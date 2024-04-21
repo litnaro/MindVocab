@@ -11,7 +11,7 @@ import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentSettingsAccountPreviewBinding
-import com.example.mindvocab.model.account.etities.Account
+import com.example.mindvocab.model.account.entities.Account
 import com.example.mindvocab.screens.settings.SettingsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,13 +31,13 @@ class SettingsAccountFragment : BaseFragment() {
 
         viewModel.account.observe(viewLifecycleOwner) {
             when(it) {
-                is Result.PendingResult -> {
+                is Result.Pending -> {
 
                 }
-                is Result.ErrorResult -> {
+                is Result.Error -> {
 
                 }
-                is Result.SuccessResult -> {
+                is Result.Success -> {
                     setAccountData(it.data)
                 }
             }

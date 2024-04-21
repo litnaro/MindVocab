@@ -63,15 +63,13 @@ dependencies {
     //Core
     implementation(libs.androidx.ktx)
 
-    implementation(libs.legacy)
-
     implementation(libs.appcompat)
     implementation(libs.fragments)
 
     //MVVM
-    implementation(libs.lifecicle.livedata)
-    implementation(libs.lifecicle.view.model)
-    implementation(libs.lifecicle.runtime)
+    implementation(libs.lifecycle.livedata)
+    implementation(libs.lifecycle.view.model)
+    implementation(libs.lifecycle.runtime)
 
     //View
     implementation(libs.material.design)
@@ -94,7 +92,7 @@ dependencies {
     implementation(libs.coroutines)
 
     //Generate data for repository
-    implementation(libs.java.faker)
+    debugImplementation(libs.java.faker)
 
     //Room
     implementation(libs.room.ktx)

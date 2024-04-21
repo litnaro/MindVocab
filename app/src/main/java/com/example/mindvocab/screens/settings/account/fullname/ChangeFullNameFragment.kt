@@ -9,7 +9,7 @@ import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentSettingsChangeFullNameBinding
-import com.example.mindvocab.model.account.etities.FullName
+import com.example.mindvocab.model.account.entities.FullName
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,9 +30,9 @@ class ChangeFullNameFragment : BaseFragment() {
 
         viewModel.changeFullNameResult.observe(viewLifecycleOwner) {
             when(it) {
-                is Result.PendingResult -> {}
-                is Result.ErrorResult -> {}
-                is Result.SuccessResult -> {
+                is Result.Pending -> {}
+                is Result.Error -> {}
+                is Result.Success -> {
                     binding.accountNameFieldContainer.helperText = requireContext().getString(R.string.full_name_successfully_changed)
                 }
             }

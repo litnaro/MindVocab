@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.mindvocab.R
 import com.example.mindvocab.databinding.FragmentSettingsLearnBinding
-import com.example.mindvocab.model.settings.learn.LearningSettings
+import com.example.mindvocab.model.settings.learn.options.SwipeActionsSetting
+import com.example.mindvocab.model.settings.learn.options.WordsADaySetting
+import com.example.mindvocab.model.settings.learn.options.WordsOrderSetting
 import com.example.mindvocab.screens.settings.BaseSettingsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,7 +40,7 @@ class SettingsLearnFragment : BaseSettingsFragment() {
                     title = requireContext().getString(R.string.words_a_day_settings),
                     subtitle = requireContext().getString(R.string.words_a_day_settings_helping_text),
                     setting = it,
-                    settingClass = LearningSettings.WordsADaySetting::class.java,
+                    settingClass = WordsADaySetting::class.java,
                 ) { selectedSetting ->
                     viewModel.setWordsADaySetting(selectedSetting)
                 }
@@ -52,7 +54,7 @@ class SettingsLearnFragment : BaseSettingsFragment() {
                     title = requireContext().getString(R.string.left_swipe_settings),
                     subtitle = requireContext().getString(R.string.left_swipe_settings_helping_text),
                     setting = it,
-                    settingClass = LearningSettings.SwipeActionsSetting::class.java,
+                    settingClass = SwipeActionsSetting::class.java,
                 ) { selectedSetting ->
                     viewModel.setLeftSwipeAction(selectedSetting)
                 }
@@ -66,7 +68,7 @@ class SettingsLearnFragment : BaseSettingsFragment() {
                     title = requireContext().getString(R.string.right_swipe_setting),
                     subtitle = requireContext().getString(R.string.right_swipe_setting_helping_text),
                     setting = it,
-                    settingClass = LearningSettings.SwipeActionsSetting::class.java,
+                    settingClass = SwipeActionsSetting::class.java,
                 ) { selectedSetting ->
                     viewModel.setRightSwipeAction(selectedSetting)
                 }
@@ -80,7 +82,7 @@ class SettingsLearnFragment : BaseSettingsFragment() {
                     title = requireContext().getString(R.string.word_order_settings),
                     subtitle = requireContext().getString(R.string.word_order_settings_helping_text),
                     setting = it,
-                    settingClass = LearningSettings.WordsOrderSetting::class.java,
+                    settingClass = WordsOrderSetting::class.java,
                 ) { selectedSetting ->
                     viewModel.setWordsOrderSetting(selectedSetting)
                 }

@@ -4,8 +4,6 @@ kotlin = "1.8.0"
 
 ktx = "1.9.0"
 
-legacyVersion = "1.0.0"
-
 appCompatVersion = "1.6.1"
 fragmentsVersion = "1.6.1"
 androidLifecycleVersion = "2.6.1"
@@ -38,8 +36,6 @@ espressoVersion = "3.5.1"
 [libraries]
 androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
 
-legacy = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacyVersion" }
-
 material-design = { group = "com.google.android.material", name = "material", version.ref = "materialDesignVersion" }
 
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appCompatVersion" }
@@ -51,9 +47,9 @@ view-pager-indicator = { group = "com.tbuonomo", name = "dotsindicator", version
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glideVersion" }
 calendar = { group = "com.applandeo", name = "material-calendar-view", version.ref = "calendarView" }
 
-lifecicle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidLifecycleVersion" }
-lifecicle-view-model = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidLifecycleVersion" }
-lifecicle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidLifecycleVersion" }
+lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidLifecycleVersion" }
+lifecycle-view-model = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidLifecycleVersion" }
+lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidLifecycleVersion" }
 
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationVersion" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationVersion" }

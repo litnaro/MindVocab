@@ -13,14 +13,14 @@ interface LearningRepository : Repository {
      * Not auto-updated. Updates only after calling getWordToLearn() method.
      * @return Flow of all possible information about word for learning.
      */
-    suspend fun listenWordToLearn() : Flow<Word>
+    fun listenWordToLearn() : Flow<Word>
 
     /**
      *  Subscribe on is return action available.
      *  Not auto-updated.
      *  @return Flow of is there previous words in the stack or not.
      */
-    suspend fun listenIsReturnPreviousWordEnabled() : Flow<Boolean>
+    fun listenIsReturnPreviousWordEnabled() : Flow<Boolean>
 
     /**
      * Get all information about word to learn.
@@ -66,7 +66,7 @@ interface LearningRepository : Repository {
      * @throws StorageException
      * @return Flow of how many words were learned today.
      */
-    suspend fun getTodayStartedWordsCount() : Flow<Int>
+    fun getTodayStartedWordsCount() : Flow<Int>
 
     /**
      * Return previous word.

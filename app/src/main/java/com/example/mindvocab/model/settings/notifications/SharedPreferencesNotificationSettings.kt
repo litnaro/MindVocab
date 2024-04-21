@@ -10,9 +10,11 @@ class SharedPreferencesNotificationSettings @Inject constructor(
     @ApplicationContext appContext: Context
 ) : NotificationSettings, AppSettings(appContext) {
 
-    // General notifications
-
     override val isNotificationsEnabledSetting = MutableStateFlow(getIsNotificationsEnabled())
+
+    override val isReminderEnabledSetting = MutableStateFlow(getIsReminderEnabled())
+
+    // General notifications
 
     override suspend fun setIsNotificationsEnabled(setting: Boolean) {
         if (getIsNotificationsEnabled() == setting) return
@@ -27,8 +29,6 @@ class SharedPreferencesNotificationSettings @Inject constructor(
     }
 
     // Reminder
-
-    override val isReminderEnabledSetting = MutableStateFlow(getIsReminderEnabled())
 
     override suspend fun setIsReminderEnabled(setting: Boolean) {
         if (getIsReminderEnabled() == setting) return

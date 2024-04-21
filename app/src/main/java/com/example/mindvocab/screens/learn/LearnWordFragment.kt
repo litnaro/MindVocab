@@ -54,7 +54,7 @@ class LearnWordFragment : BaseFragment() {
                 startedTodayWordsCount.visibility = View.GONE
 
                 when(it) {
-                    is Result.ErrorResult -> {
+                    is Result.Error -> {
                         learnWordContainer.visibility = View.VISIBLE
                         learnEmptyWordSetsScroll.visibility = View.VISIBLE
                         val context = root.context
@@ -74,11 +74,11 @@ class LearnWordFragment : BaseFragment() {
                             emptyWordToLearnText.text = context.getString(R.string.learning_words_timeout_exception_text)
                         }
                     }
-                    is Result.PendingResult -> {
+                    is Result.Pending -> {
                         pendingShimmer.visibility = View.VISIBLE
                         pendingShimmer.startShimmer()
                     }
-                    is Result.SuccessResult -> {
+                    is Result.Success -> {
                         setWordData(it.data)
 
                         learnWordContainer.visibility = View.VISIBLE

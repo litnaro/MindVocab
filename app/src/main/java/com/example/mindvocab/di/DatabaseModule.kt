@@ -24,7 +24,6 @@ import javax.inject.Singleton
 class DatabaseModule {
 
     @Provides
-    @Singleton
     fun provideIoDispatcher() : CoroutineDispatcher {
         return Dispatchers.IO
     }
@@ -38,43 +37,36 @@ class DatabaseModule {
     }
 
     @Provides
-    @Singleton
     fun provideAccountsDao(database: AppDataBase) : AccountsDao {
         return database.getAccountsDao()
     }
 
     @Provides
-    @Singleton
     fun provideWordsDao(database: AppDataBase) : WordsDao {
         return database.getWordsDao()
     }
 
     @Provides
-    @Singleton
     fun provideAchievementsDao(database: AppDataBase) : AchievementsDao {
         return database.getAchievementsDao()
     }
 
     @Provides
-    @Singleton
     fun provideLearningDao(database: AppDataBase) : LearningDao {
         return database.getLearningDao()
     }
 
     @Provides
-    @Singleton
     fun provideRepeatingDao(database: AppDataBase) : RepeatingDao {
         return database.getRepeatingDao()
     }
 
     @Provides
-    @Singleton
     fun provideWordSetsDao(database: AppDataBase) : WordSetsDao {
         return database.getWordSetsDao()
     }
 
     @Provides
-    @Singleton
     fun provideStatisticDao(database: AppDataBase) : StatisticDao {
         return database.getStatisticDao()
     }

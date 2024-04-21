@@ -16,15 +16,15 @@ class SignInViewModel @Inject constructor(
     private val accountsRepository: AccountsRepository
 ) : BaseViewModel() {
 
-    private val _signInResult = MutableLiveData<Result<Long>>(Result.PendingResult())
+    private val _signInResult = MutableLiveData<Result<Long>>(Result.Pending)
     val signInResult: LiveData<Result<Long>> = _signInResult
 
     fun signIn(login: String, password: CharArray) {
         viewModelScope.launch {
             try {
-                _signInResult.value = Result.SuccessResult(accountsRepository.signIn(login, password))
+                _signInResult.value = Result.Success(accountsRepository.signIn(login, password))
             } catch (e: AppException) {
-                _signInResult.value = Result.ErrorResult(e)
+                _signInResult.value = Result.Error(e)
             }
         }
     }

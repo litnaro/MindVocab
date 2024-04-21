@@ -1,4 +1,4 @@
-package com.example.mindvocab.model.account.etities
+package com.example.mindvocab.model.account.entities
 
 import com.example.mindvocab.model.account.EmptyFieldException
 import com.example.mindvocab.model.account.Field

@@ -9,6 +9,8 @@ import com.example.mindvocab.model.repeating.NoWordsToRepeatException
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.model.repeating.RepeatingRepository
 import com.example.mindvocab.model.settings.repeat.RepeatSettings
+import com.example.mindvocab.model.settings.repeat.options.AnsweringVariantSetting
+import com.example.mindvocab.model.settings.repeat.options.QuestionVariantSetting
 import com.example.mindvocab.model.word.entities.WordToRepeat
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -21,14 +23,14 @@ class RepeatWordViewModel @Inject constructor(
     private val repeatSettings: RepeatSettings
 ) : BaseViewModel() {
 
-    private val _wordToRepeat = MutableLiveData<Result<WordToRepeat>>(Result.PendingResult())
+    private val _wordToRepeat = MutableLiveData<Result<WordToRepeat>>(Result.Pending)
     val wordToRepeat: LiveData<Result<WordToRepeat>> = _wordToRepeat
 
-    private val _questionVariantSetting = MutableLiveData<RepeatSettings.QuestionVariantSetting>()
-    val questionVariantSetting: LiveData<RepeatSettings.QuestionVariantSetting> = _questionVariantSetting
+    private val _questionVariantSetting = MutableLiveData<QuestionVariantSetting>()
+    val questionVariantSetting: LiveData<QuestionVariantSetting> = _questionVariantSetting
 
-    private val _answeringVariantSetting = MutableLiveData<RepeatSettings.AnsweringVariantSetting>()
-    val answeringVariantSetting: LiveData<RepeatSettings.AnsweringVariantSetting> = _answeringVariantSetting
+    private val _answeringVariantSetting = MutableLiveData<AnsweringVariantSetting>()
+    val answeringVariantSetting: LiveData<AnsweringVariantSetting> = _answeringVariantSetting
 
     init {
         listenWordToRepeat()
@@ -43,7 +45,7 @@ class RepeatWordViewModel @Inject constructor(
             try {
                 repeatingRepository.getWordToRepeat()
             } catch (e: AppException) {
-                _wordToRepeat.value = Result.ErrorResult(e)
+                _wordToRepeat.value = Result.Error(e)
             }
         }
     }
@@ -53,7 +55,7 @@ class RepeatWordViewModel @Inject constructor(
             try {
                 repeatingRepository.onWordRemember(word)
             } catch (e: AppException) {
-                _wordToRepeat.value = Result.ErrorResult(e)
+                _wordToRepeat.value = Result.Error(e)
             }
         }
     }
@@ -63,7 +65,7 @@ class RepeatWordViewModel @Inject constructor(
             try {
                 repeatingRepository.onWordForgot(word)
             } catch (e: NoWordsToRepeatException) {
-                _wordToRepeat.value = Result.ErrorResult(e)
+                _wordToRepeat.value = Result.Error(e)
             }
         }
     }
@@ -71,7 +73,7 @@ class RepeatWordViewModel @Inject constructor(
     private fun listenWordToRepeat() {
         viewModelScope.launch {
             repeatingRepository.listenWordToRepeat().collect {
-                _wordToRepeat.value = Result.SuccessResult(it)
+                _wordToRepeat.value = Result.Success(it)
             }
         }
     }

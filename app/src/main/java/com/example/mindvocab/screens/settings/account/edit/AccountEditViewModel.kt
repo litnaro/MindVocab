@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.model.account.AccountsRepository
-import com.example.mindvocab.model.account.etities.Account
+import com.example.mindvocab.model.account.entities.Account
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,14 +16,14 @@ class AccountEditViewModel @Inject constructor(
     private val accountsRepository: AccountsRepository
 ) : BaseViewModel() {
 
-    private val _account = MutableLiveData<Result<Account>>(Result.PendingResult())
+    private val _account = MutableLiveData<Result<Account>>(Result.Pending)
     val account: LiveData<Result<Account>> get() = _account
 
     init {
         viewModelScope.launch {
             accountsRepository.getAccount().collect {
                 if (it != null) {
-                    _account.value = Result.SuccessResult(it)
+                    _account.value = Result.Success(it)
                 }
             }
         }

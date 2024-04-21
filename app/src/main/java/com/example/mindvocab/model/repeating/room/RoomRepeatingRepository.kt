@@ -8,6 +8,7 @@ import com.example.mindvocab.model.repeating.RepeatingRepository
 import com.example.mindvocab.model.repeating.room.entities.UpdateWordProgressAsForgottenTuple
 import com.example.mindvocab.model.repeating.room.entities.UpdateWordProgressAsRememberedTuple
 import com.example.mindvocab.model.room.wrapSQLiteException
+import com.example.mindvocab.model.settings.account.AccountSettings
 import com.example.mindvocab.model.settings.application.ApplicationSettings
 import com.example.mindvocab.model.word.TimeCalculations
 import com.example.mindvocab.model.word.WordsCalculations
@@ -18,13 +19,15 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class RoomRepeatingRepository @Inject constructor(
     private val repeatingDao: RepeatingDao,
     private val accountsRepository: AccountsRepository,
+    private val accountSettings: AccountSettings,
     private val applicationSettings: ApplicationSettings,
     private val achievementsRepository: AchievementsRepository,
     private val ioDispatcher: CoroutineDispatcher
@@ -36,25 +39,33 @@ class RoomRepeatingRepository @Inject constructor(
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    override suspend fun listenWordToRepeat(): Flow<WordToRepeat> {
+    override fun listenWordToRepeat(): Flow<WordToRepeat> {
         return currentWordToRepeat
     }
 
-    override suspend fun getWordsToRepeat(): Flow<List<WordToRepeatDetail>> = wrapSQLiteException(ioDispatcher){
-        val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        val translation = applicationSettings.getApplicationNativeLanguage()
+    override fun getWordsToRepeat(): Flow<List<WordToRepeatDetail>> {
+        val accountId = accountSettings.getCurrentAccountId()
+        if (accountId == AccountSettings.NO_ACCOUNT_ID) throw AuthException()
+
+        val translation = applicationSettings.nativeLanguage.asStateFlow()
         val listOfRepeatingWords = repeatingDao.getAllWordsForRepeating(
-                accountId = account.id,
+                accountId = accountId,
                 timesRepeatedToLearn = WordsCalculations.TIMES_REPEATED_TO_LEARN,
-                translationId = translation.value.toLong()
-        ) ?: throw NoWordsToRepeatException()
-        flowOf(listOfRepeatingWords.map { it.toRepeatingWordDetail() })
+                translationId = translation.value.value.toLong()
+        )
+
+        return listOfRepeatingWords.map {  entities ->
+            if (entities == null) throw NoWordsToRepeatException()
+            entities.map {
+                it.toRepeatingWordDetail()
+            }
+        }
     }
 
     override suspend fun getWordToRepeat() = wrapSQLiteException(ioDispatcher) {
         accountsRepository.getAccount().collect { account ->
             if (account == null) throw AuthException()
-            val translation = applicationSettings.getApplicationNativeLanguage()
+            val translation = applicationSettings.nativeLanguage.first()
             val wordToRepeat = repeatingDao.getWordForRepeating(
                     accountId = account.id,
                     timesRepeatedToLearn = WordsCalculations.TIMES_REPEATED_TO_LEARN,

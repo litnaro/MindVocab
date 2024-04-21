@@ -32,11 +32,11 @@ class StatisticDiagramFragment : BaseFragment() {
             binding.pendingProgressBar.visibility = View.GONE
 
             when(it) {
-                is Result.PendingResult -> {
+                is Result.Pending -> {
                     binding.pendingProgressBar.visibility = View.VISIBLE
                 }
-                is Result.ErrorResult -> {}
-                is Result.SuccessResult -> {
+                is Result.Error -> {}
+                is Result.Success -> {
                     binding.diagramContainer.visibility = View.VISIBLE
                     updateDiagram(it.data)
                 }

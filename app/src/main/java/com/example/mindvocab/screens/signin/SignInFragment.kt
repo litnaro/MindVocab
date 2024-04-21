@@ -45,9 +45,9 @@ class SignInFragment : BaseFragment() {
 
         viewModel.signInResult.observe(viewLifecycleOwner) {
             when(it) {
-                is Result.PendingResult -> {}
-                is Result.ErrorResult -> handleSignInErrors(it.exception)
-                is Result.SuccessResult -> {
+                is Result.Pending -> {}
+                is Result.Error -> handleSignInErrors(it.exception)
+                is Result.Success -> {
                     findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToTabsFragment())
                 }
             }

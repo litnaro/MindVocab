@@ -3,6 +3,7 @@ package com.example.mindvocab.model.statistic.room
 import com.example.mindvocab.model.AuthException
 import com.example.mindvocab.model.account.AccountsRepository
 import com.example.mindvocab.model.room.wrapSQLiteException
+import com.example.mindvocab.model.settings.account.AccountSettings
 import com.example.mindvocab.model.statistic.StatisticRepository
 import com.example.mindvocab.model.statistic.entities.AchievementsStatistic
 import com.example.mindvocab.model.statistic.entities.CalendarDayStatistic
@@ -21,12 +22,15 @@ import javax.inject.Inject
 class RoomStatisticRepository @Inject constructor(
     private val statisticDao: StatisticDao,
     private val accountsRepository: AccountsRepository,
+    private val accountSettings: AccountSettings,
     private val ioDispatcher: CoroutineDispatcher
 ) : StatisticRepository {
 
-    override suspend fun getWordsStatistic(): Flow<WordsStatistic> = wrapSQLiteException(ioDispatcher) {
-        val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        statisticDao.getAccountApplicationStatistic(accountId = account.id, WordsCalculations.TIMES_REPEATED_TO_LEARN).map {
+    override fun getWordsStatistic(): Flow<WordsStatistic> {
+        val accountId = accountSettings.getCurrentAccountId()
+        if (accountId == AccountSettings.NO_ACCOUNT_ID) throw AuthException()
+
+        return statisticDao.getAccountApplicationStatistic(accountId = accountId, WordsCalculations.TIMES_REPEATED_TO_LEARN).map {
             WordsStatistic(
                 allWordsCount = it.allWordsCount,
                 learnedWords = it.learnedWordsCount,
@@ -36,15 +40,19 @@ class RoomStatisticRepository @Inject constructor(
         }
     }
 
-    override suspend fun getWordsStatisticPercentage(): Flow<WordsStatisticPercentage> = wrapSQLiteException(ioDispatcher) {
-        val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        statisticDao.getAccountApplicationStatistic(accountId = account.id, WordsCalculations.TIMES_REPEATED_TO_LEARN)
+    override fun getWordsStatisticPercentage(): Flow<WordsStatisticPercentage> {
+        val accountId = accountSettings.getCurrentAccountId()
+        if (accountId == AccountSettings.NO_ACCOUNT_ID) throw AuthException()
+
+        return statisticDao.getAccountApplicationStatistic(accountId = accountId, WordsCalculations.TIMES_REPEATED_TO_LEARN)
             .map { getPercentageByStatistic(it) }
     }
 
-    override suspend fun getAchievementStatistic(): Flow<AchievementsStatistic> = wrapSQLiteException(ioDispatcher) {
-        val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        statisticDao.getAccountAchievementsStatistic(account.id).map {
+    override fun getAchievementStatistic(): Flow<AchievementsStatistic> {
+        val accountId = accountSettings.getCurrentAccountId()
+        if (accountId == AccountSettings.NO_ACCOUNT_ID) throw AuthException()
+
+        return statisticDao.getAccountAchievementsStatistic(accountId).map {
             AchievementsStatistic(
                 achievementsCount = it.achievementsCount,
                 achievementsCompleted = it.achievementsCompleted
@@ -52,10 +60,11 @@ class RoomStatisticRepository @Inject constructor(
         }
     }
 
-    override suspend fun getWordSetsStatistic(): Flow<List<String>> = wrapSQLiteException(ioDispatcher){
-        // TODO maybe also return id to see word set or its statistic
-        val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        statisticDao.getAccountCompletedWordSets(account.id, WordsCalculations.TIMES_REPEATED_TO_LEARN).map { entities ->
+    override fun getWordSetsStatistic(): Flow<List<String>> {
+        val accountId = accountSettings.getCurrentAccountId()
+        if (accountId == AccountSettings.NO_ACCOUNT_ID) throw AuthException()
+
+        return statisticDao.getAccountCompletedWordSets(accountId, WordsCalculations.TIMES_REPEATED_TO_LEARN).map { entities ->
             entities.map { it.name }
         }
     }

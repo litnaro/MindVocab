@@ -14,7 +14,7 @@ import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.DialogDangerousActionBinding
 import com.example.mindvocab.databinding.FragmentSettingsAccountBinding
-import com.example.mindvocab.model.account.etities.Account
+import com.example.mindvocab.model.account.entities.Account
 import com.example.mindvocab.screens.initial.InitialActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,9 +34,9 @@ class AccountEditFragment : BaseFragment() {
 
         viewModel.account.observe(viewLifecycleOwner) {
             when(it) {
-                is Result.PendingResult -> {}
-                is Result.ErrorResult -> {}
-                is Result.SuccessResult -> {
+                is Result.Pending -> {}
+                is Result.Error -> {}
+                is Result.Success -> {
                     setAccountData(it.data)
                 }
             }

@@ -17,7 +17,7 @@ class RepeatingWordsViewModel @Inject constructor(
     private val repeatingRepository: RepeatingRepository
 ) : BaseViewModel() {
 
-    private val _repeatingWords = MutableLiveData<Result<List<WordToRepeatDetail>>>(Result.PendingResult())
+    private val _repeatingWords = MutableLiveData<Result<List<WordToRepeatDetail>>>(Result.Pending)
     val repeatingWords: LiveData<Result<List<WordToRepeatDetail>>> = _repeatingWords
 
     init {
@@ -28,7 +28,7 @@ class RepeatingWordsViewModel @Inject constructor(
         viewModelScope.launch {
             delay(1500)
             repeatingRepository.getWordsToRepeat().collect {
-                _repeatingWords.value = Result.SuccessResult(it)
+                _repeatingWords.value = Result.Success(it)
             }
         }
     }

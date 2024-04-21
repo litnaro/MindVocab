@@ -5,6 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mindvocab.core.BaseViewModel
 import com.example.mindvocab.model.settings.repeat.RepeatSettings
+import com.example.mindvocab.model.settings.repeat.options.AnsweringVariantSetting
+import com.example.mindvocab.model.settings.repeat.options.CardAnimationSetting
+import com.example.mindvocab.model.settings.repeat.options.QuestionVariantSetting
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,14 +17,14 @@ class SettingsRepeatViewModel @Inject constructor(
     private val repeatSettings: RepeatSettings
 ) : BaseViewModel() {
 
-    private val _answeringVariantSetting = MutableLiveData<RepeatSettings.AnsweringVariantSetting>()
-    val answeringVariantSetting: LiveData<RepeatSettings.AnsweringVariantSetting> get() = _answeringVariantSetting
+    private val _answeringVariantSetting = MutableLiveData<AnsweringVariantSetting>()
+    val answeringVariantSetting: LiveData<AnsweringVariantSetting> get() = _answeringVariantSetting
 
-    private val _questionVariantSetting = MutableLiveData<RepeatSettings.QuestionVariantSetting>()
-    val questionVariantSetting: LiveData<RepeatSettings.QuestionVariantSetting> get() = _questionVariantSetting
+    private val _questionVariantSetting = MutableLiveData<QuestionVariantSetting>()
+    val questionVariantSetting: LiveData<QuestionVariantSetting> get() = _questionVariantSetting
 
-    private val _cardAnimationSetting = MutableLiveData<RepeatSettings.CardAnimationSetting>()
-    val cardAnimationSetting: LiveData<RepeatSettings.CardAnimationSetting> get() = _cardAnimationSetting
+    private val _cardAnimationSetting = MutableLiveData<CardAnimationSetting>()
+    val cardAnimationSetting: LiveData<CardAnimationSetting> get() = _cardAnimationSetting
 
     init {
         getAnsweringVariantSetting()
@@ -29,19 +32,19 @@ class SettingsRepeatViewModel @Inject constructor(
         getCardAnimationSetting()
     }
 
-    fun setAnsweringVariantSetting(setting: RepeatSettings.AnsweringVariantSetting) {
+    fun setAnsweringVariantSetting(setting: AnsweringVariantSetting) {
         viewModelScope.launch {
             repeatSettings.setAnsweringVariantSetting(setting)
         }
     }
 
-    fun setQuestionVariantSetting(setting: RepeatSettings.QuestionVariantSetting) {
+    fun setQuestionVariantSetting(setting: QuestionVariantSetting) {
         viewModelScope.launch {
             repeatSettings.setQuestionVariantSetting(setting)
         }
     }
 
-    fun setCardAnimationSetting(setting: RepeatSettings.CardAnimationSetting) {
+    fun setCardAnimationSetting(setting: CardAnimationSetting) {
         viewModelScope.launch {
             repeatSettings.setCardAnimationSetting(setting)
         }

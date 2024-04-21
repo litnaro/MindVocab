@@ -7,7 +7,8 @@
     <fragment
         android:id="@+id/learnWordFragment"
         android:name="com.example.mindvocab.screens.learn.LearnWordFragment"
-        android:label="@string/learn_title" >
+        android:label="@string/learn_title"
+        tools:layout="@layout/fragment_learn_word">
         <action
             android:id="@+id/action_learnWordFragment_to_wordSetsFragment"
             app:destination="@id/wordSetsFragment" />
@@ -25,7 +26,8 @@
     <fragment
         android:id="@+id/wordsFragment"
         android:name="com.example.mindvocab.screens.learn.wordset.words.WordsFragment"
-        android:label="@string/words_title" >
+        android:label="@string/words_title"
+        tools:layout="@layout/fragment_words">
         <argument
             android:name="wordSetId"
             app:argType="long" />

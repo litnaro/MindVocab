@@ -32,13 +32,13 @@ class ChangeUsernameFragment : BaseFragment() {
 
         viewModel.changePasswordResult.observe(viewLifecycleOwner) {
             when(it) {
-                is Result.PendingResult -> {}
-                is Result.ErrorResult -> {
+                is Result.Pending -> {}
+                is Result.Error -> {
                     if (it.exception is SameDataModificationException) {
                         binding.accountUsernameFieldContainer.error = requireContext().getString(R.string.new_username_equals_old_one_error_text)
                     }
                 }
-                is Result.SuccessResult -> {
+                is Result.Success -> {
                     binding.accountUsernameFieldContainer.helperText = requireContext().getString(R.string.username_successfully_changed)
                 }
             }

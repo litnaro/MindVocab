@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.example.mindvocab.model.account.etities.Account
-import com.example.mindvocab.model.account.etities.SignUpData
+import com.example.mindvocab.model.account.entities.Account
+import com.example.mindvocab.model.account.entities.SignUpData
 import com.example.mindvocab.model.account.security.SecurityUtils
 
 @Entity(

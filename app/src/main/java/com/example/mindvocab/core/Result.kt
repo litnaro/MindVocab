@@ -4,21 +4,21 @@ import com.example.mindvocab.model.AppException
 
 typealias Mapper<Input, Output> = (Input) -> Output
 
-sealed class Result<T> {
+sealed class Result<out T> {
 
-    class PendingResult<T> : Result<T>()
+    data object Pending : Result<Nothing>()
 
-    class SuccessResult<T>(val data: T) : Result<T>()
+    class Success<T>(val data: T) : Result<T>()
 
-    class ErrorResult<T>(val exception: AppException) : Result<T>()
+    class Error<T>(val exception: AppException) : Result<T>()
 
     fun <R> map(mapper: Mapper<T, R>? = null) : Result<R> {
         return when(this) {
-            is PendingResult -> PendingResult()
-            is ErrorResult -> ErrorResult(this.exception)
-            is SuccessResult -> {
+            is Pending -> Pending
+            is Error -> Error(exception)
+            is Success -> {
                 if (mapper == null) throw IllegalArgumentException("Mapper should not be null for success result")
-                SuccessResult(mapper(this.data))
+                Success(mapper(this.data))
             }
         }
     }
@@ -26,7 +26,7 @@ sealed class Result<T> {
 
 @Suppress("unused", "UNREACHABLE_CODE")
 fun <T> Result<T>?.successResult() : T? {
-    return if (this is Result.SuccessResult) {
+    return if (this is Result.Success) {
         return this.data
     } else {
         return null

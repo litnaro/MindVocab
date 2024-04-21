@@ -16,12 +16,12 @@ class StatisticMonthlyViewModel @Inject constructor(
     private val statisticRepository: StatisticRepository
 ) : BaseViewModel() {
 
-    private val _monthStatistic = MutableLiveData<Result<List<CalendarDayStatistic>>>(Result.PendingResult())
+    private val _monthStatistic = MutableLiveData<Result<List<CalendarDayStatistic>>>(Result.Pending)
     val monthStatistic: LiveData<Result<List<CalendarDayStatistic>>> = _monthStatistic
 
     fun getMonthStatistic(selectedMonth: Int) {
         viewModelScope.launch {
-            _monthStatistic.value = Result.SuccessResult(
+            _monthStatistic.value = Result.Success(
                 statisticRepository.getStatisticForMonthCalendar(selectedMonth)
             )
         }

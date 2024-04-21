@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.mindvocab.R
 import com.example.mindvocab.databinding.FragmentSettingsApplicationBinding
-import com.example.mindvocab.model.settings.application.ApplicationSettings
+import com.example.mindvocab.model.settings.application.options.ApplicationLanguage
+import com.example.mindvocab.model.settings.application.options.ApplicationTheme
+import com.example.mindvocab.model.settings.application.options.NativeLanguage
 import com.example.mindvocab.screens.settings.BaseSettingsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,7 +31,7 @@ class SettingsApplicationFragment : BaseSettingsFragment() {
                     title = requireContext().getString(R.string.application_theme_settings),
                     subtitle = requireContext().getString(R.string.application_theme_settings_helping_text),
                     setting = it,
-                    settingClass = ApplicationSettings.ApplicationTheme::class.java,
+                    settingClass = ApplicationTheme::class.java,
                 ) { selectedSetting ->
                     viewModel.setTheme(selectedSetting)
                 }
@@ -43,7 +45,7 @@ class SettingsApplicationFragment : BaseSettingsFragment() {
                     title = requireContext().getString(R.string.interface_language_settings),
                     subtitle = requireContext().getString(R.string.application_language_settings_helping_text),
                     setting = it,
-                    settingClass = ApplicationSettings.ApplicationLanguage::class.java
+                    settingClass = ApplicationLanguage::class.java
                 ) { onSelectSettings ->
                     viewModel.setLanguage(onSelectSettings)
                 }
@@ -57,7 +59,7 @@ class SettingsApplicationFragment : BaseSettingsFragment() {
                     title = requireContext().getString(R.string.interface_native_language_settings),
                     subtitle = requireContext().getString(R.string.application_native_language_settings_helping_text),
                     setting = it,
-                    settingClass = ApplicationSettings.NativeLanguage::class.java
+                    settingClass = NativeLanguage::class.java
                 ) { onSelectSettings ->
                     viewModel.setNativeLanguage(onSelectSettings)
                 }

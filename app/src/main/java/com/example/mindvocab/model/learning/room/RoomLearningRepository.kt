@@ -8,6 +8,7 @@ import com.example.mindvocab.model.achievement.AchievementsRepository
 import com.example.mindvocab.model.learning.LearningRepository
 import com.example.mindvocab.model.learning.room.entities.UpdateWordProgressAsLearningTuple
 import com.example.mindvocab.model.room.wrapSQLiteException
+import com.example.mindvocab.model.settings.account.AccountSettings
 import com.example.mindvocab.model.settings.application.ApplicationSettings
 import com.example.mindvocab.model.settings.learn.LearningSettings
 import com.example.mindvocab.model.word.TimeCalculations
@@ -26,6 +27,7 @@ import javax.inject.Inject
 class RoomLearningRepository @Inject constructor(
     private val learningDao: LearningDao,
     private val accountsRepository: AccountsRepository,
+    private val accountSettings: AccountSettings,
     private val applicationSettings: ApplicationSettings,
     private val learningSettings: LearningSettings,
     private val achievementsRepository: AchievementsRepository,
@@ -37,7 +39,7 @@ class RoomLearningRepository @Inject constructor(
         extraBufferCapacity = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
-    override suspend fun listenWordToLearn(): Flow<Word> {
+    override fun listenWordToLearn(): Flow<Word> {
         return currentWordToLearn
     }
 
@@ -47,7 +49,7 @@ class RoomLearningRepository @Inject constructor(
         extraBufferCapacity = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
-    override suspend fun listenIsReturnPreviousWordEnabled(): Flow<Boolean> {
+    override fun listenIsReturnPreviousWordEnabled(): Flow<Boolean> {
         return isPreviousWordAvailable
     }
 
@@ -56,7 +58,7 @@ class RoomLearningRepository @Inject constructor(
             if (account == null) throw AuthException()
             if (getTodayStartedWordsCount().first() >= learningSettings.wordsADaySetting.first().value) throw NoMoreWordsToLearnForTodayException()
             val wordTuple = learningDao.getWordToLearn(account.id) ?: throw NoWordsToLearnException()
-            val languageSetting = applicationSettings.getApplicationNativeLanguage()
+            val languageSetting = applicationSettings.nativeLanguage.first()
             currentWordToLearn.emit(wordTuple.toWord(languageSetting))
             updateIsPreviousWordAvailable()
         }
@@ -99,10 +101,12 @@ class RoomLearningRepository @Inject constructor(
         }
     }
 
-    override suspend fun getTodayStartedWordsCount(): Flow<Int> = wrapSQLiteException(ioDispatcher){
-        val account = accountsRepository.getAccount().first() ?: throw AuthException()
-        learningDao.getStartedWordsCount(
-            accountId = account.id,
+    override fun getTodayStartedWordsCount(): Flow<Int> {
+        val accountId = accountSettings.getCurrentAccountId()
+        if (accountId == AccountSettings.NO_ACCOUNT_ID) throw AuthException()
+
+        return learningDao.getStartedWordsCount(
+            accountId = accountId,
             timesRepeatedToLearn = WordsCalculations.TIMES_REPEATED_TO_LEARN,
             todayInMillis = TimeCalculations.getStartOfTodayInMillis()
         ).map {
@@ -112,11 +116,13 @@ class RoomLearningRepository @Inject constructor(
 
     override suspend fun returnPreviousWord() = wrapSQLiteException(ioDispatcher) {
         if (previousWordsDequeue.isNotEmpty()) {
-            val account = accountsRepository.getAccount().first() ?: throw AuthException()
+            val accountId = accountSettings.getCurrentAccountId()
+            if (accountId == AccountSettings.NO_ACCOUNT_ID) throw AuthException()
+
             val word = previousWordsDequeue.removeLast()
             learningDao.resetWordProgress(
                 AccountWordProgressDbEntity(
-                    accountId = account.id,
+                    accountId = accountId,
                     wordId = word.id,
                     lastRepeatedAt = 0,
                     startedAt = 0,

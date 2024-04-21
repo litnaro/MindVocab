@@ -38,14 +38,14 @@ class WordsFragment : BaseFragment() {
                 wordRv.visibility = View.GONE
 
                 when(it) {
-                    is Result.PendingResult -> {
+                    is Result.Pending -> {
                         pendingShimmer.visibility = View.VISIBLE
                         pendingShimmer.startShimmer()
                     }
-                    is Result.ErrorResult -> {
+                    is Result.Error -> {
 
                     }
-                    is Result.SuccessResult -> {
+                    is Result.Success -> {
                         wordRv.visibility = View.VISIBLE
                         wordAdapter.submitList(it.data)
                     }

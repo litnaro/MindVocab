@@ -61,12 +61,12 @@ class StatisticFragment : BaseFragment() {
                 pendingShimmer.stopShimmer()
 
                 when(it) {
-                    is Result.PendingResult -> {
+                    is Result.Pending -> {
                         pendingShimmer.visibility = View.VISIBLE
                         pendingShimmer.startShimmer()
                     }
-                    is Result.ErrorResult -> {}
-                    is Result.SuccessResult -> {
+                    is Result.Error -> {}
+                    is Result.Success -> {
                         achievementsAdapter.submitList(it.data)
                         achievementsRv.visibility = View.VISIBLE
                     }

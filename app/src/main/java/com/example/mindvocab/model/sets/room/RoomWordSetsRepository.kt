@@ -7,6 +7,7 @@ import com.example.mindvocab.model.sets.WordSetFilter
 import com.example.mindvocab.model.sets.WordSetsRepository
 import com.example.mindvocab.model.sets.entity.WordSet
 import com.example.mindvocab.model.sets.room.entity.AccountWordSetDbEntity
+import com.example.mindvocab.model.settings.account.AccountSettings
 import com.example.mindvocab.model.word.WordsCalculations
 import com.example.mindvocab.model.word.room.WordsDao
 import com.example.mindvocab.model.word.room.entities.AccountWordProgressDbEntity
@@ -23,14 +24,17 @@ class RoomWordSetsRepository @Inject constructor(
     private val wordSetsDao: WordSetsDao,
     private val wordsDao: WordsDao,
     private val accountsRepository: AccountsRepository,
+    private val accountSettings: AccountSettings,
     private val ioDispatcher: CoroutineDispatcher
 ) : WordSetsRepository {
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override suspend fun getWordSets(searchQuery: String, filter: WordSetFilter): Flow<List<WordSet>> = wrapSQLiteException(ioDispatcher) {
-        val account = accountsRepository.getAccount().first() ?: throw AuthException()
+    override fun getWordSets(searchQuery: String, filter: WordSetFilter): Flow<List<WordSet>> {
+        val accountId = accountSettings.getCurrentAccountId()
+        if (accountId == AccountSettings.NO_ACCOUNT_ID) throw AuthException()
+
         if (searchQuery.isBlank()) {
-            queryWordSets(account.id).mapLatest { wordSets ->
+            return queryWordSets(accountId).mapLatest { wordSets ->
                 when(filter) {
                     WordSetFilter.ALL -> {
                         wordSets
@@ -44,7 +48,7 @@ class RoomWordSetsRepository @Inject constructor(
                 }
             }
         } else {
-            queryWordSets(account.id, searchQuery)
+            return queryWordSets(accountId, searchQuery)
         }
     }
 

@@ -3,7 +3,7 @@ package com.example.mindvocab.model.learning.room.entities
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.example.mindvocab.model.settings.application.ApplicationSettings
+import com.example.mindvocab.model.settings.application.options.NativeLanguage
 import com.example.mindvocab.model.word.entities.Word
 import com.example.mindvocab.model.word.room.entities.ExampleDbEntity
 import com.example.mindvocab.model.word.room.entities.TranslationDbEntity
@@ -24,7 +24,7 @@ data class WordForLearningTuple(
     )
     val translation: List<TranslationDbEntity>,
 ) {
-    fun toWord(languageSetting: ApplicationSettings.NativeLanguage) = Word(
+    fun toWord(languageSetting: NativeLanguage) = Word(
         id = word.id,
         word = word.word,
         audio = word.audio,
@@ -32,7 +32,7 @@ data class WordForLearningTuple(
         exampleList = example.map { it.sentence },
         explanation = word.explanation,
         transcription = word.transcription,
-        translation = if (languageSetting != ApplicationSettings.NativeLanguage.ENGLISH) {
+        translation = if (languageSetting != NativeLanguage.ENGLISH) {
             try {
                 translation.first { it.languageId.toInt() == languageSetting.value }.translation
             } catch (e: NoSuchElementException) {

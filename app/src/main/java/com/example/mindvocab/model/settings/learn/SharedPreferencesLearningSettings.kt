@@ -2,6 +2,9 @@ package com.example.mindvocab.model.settings.learn
 
 import android.content.Context
 import com.example.mindvocab.model.settings.AppSettings
+import com.example.mindvocab.model.settings.learn.options.SwipeActionsSetting
+import com.example.mindvocab.model.settings.learn.options.WordsADaySetting
+import com.example.mindvocab.model.settings.learn.options.WordsOrderSetting
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
@@ -10,9 +13,17 @@ class SharedPreferencesLearningSettings @Inject constructor(
     @ApplicationContext appContext: Context
 ) : LearningSettings, AppSettings(appContext) {
 
-    // Listen after appearance
-
     override val listenAfterAppearanceSetting = MutableStateFlow(getListenAfterAppearanceSetting())
+
+    override val wordsADaySetting = MutableStateFlow(getWordsADaySetting())
+
+    override val leftSwipeAction = MutableStateFlow(getLeftSwipeAction())
+
+    override val rightSwipeAction = MutableStateFlow(getRightSwipeAction())
+
+    override val wordsOrderSetting = MutableStateFlow(getWordsOrderSetting())
+
+    // Listen after appearance
 
     override suspend fun setListenAfterAppearanceSetting(setting: Boolean) {
         if (getListenAfterAppearanceSetting() == setting) return
@@ -28,9 +39,7 @@ class SharedPreferencesLearningSettings @Inject constructor(
 
     // Words a day
 
-    override val wordsADaySetting = MutableStateFlow(getWordsADaySetting())
-
-    override suspend fun setWordsADay(setting: LearningSettings.WordsADaySetting) {
+    override suspend fun setWordsADay(setting: WordsADaySetting) {
         if (getWordsADaySetting() == setting) return
         sharedPreferences.edit()
             .putInt(PREF_CURRENT_WORDS_A_DAY_SETTING, setting.value)
@@ -38,53 +47,49 @@ class SharedPreferencesLearningSettings @Inject constructor(
         wordsADaySetting.emit(setting)
     }
 
-    private fun getWordsADaySetting() : LearningSettings.WordsADaySetting {
-        return LearningSettings.WordsADaySetting.fromValue(
-            sharedPreferences.getInt(PREF_CURRENT_WORDS_A_DAY_SETTING, LearningSettings.WordsADaySetting.MEDIUM.value)
+    private fun getWordsADaySetting() : WordsADaySetting {
+        return WordsADaySetting.fromValue(
+            sharedPreferences.getInt(PREF_CURRENT_WORDS_A_DAY_SETTING, WordsADaySetting.MEDIUM.value)
         )
     }
 
     //Swipe action settings
 
-    override val leftSwipeAction = MutableStateFlow(getLeftSwipeAction())
-
-    override suspend fun setLeftSwipeAction(setting: LearningSettings.SwipeActionsSetting) {
+    override suspend fun setLeftSwipeAction(setting: SwipeActionsSetting) {
         when(setting) {
-            LearningSettings.SwipeActionsSetting.LEARN -> {
-                setSwipeActions(setting, LearningSettings.SwipeActionsSetting.KNOW)
+            SwipeActionsSetting.LEARN -> {
+                setSwipeActions(setting, SwipeActionsSetting.KNOW)
             }
-            LearningSettings.SwipeActionsSetting.KNOW -> {
-                setSwipeActions(setting, LearningSettings.SwipeActionsSetting.LEARN)
+            SwipeActionsSetting.KNOW -> {
+                setSwipeActions(setting, SwipeActionsSetting.LEARN)
             }
         }
     }
 
-    private fun getLeftSwipeAction() : LearningSettings.SwipeActionsSetting {
-        return LearningSettings.SwipeActionsSetting.fromValue(
-            sharedPreferences.getInt(PREF_CURRENT_LEFT_SWIPE_ACTION, LearningSettings.SwipeActionsSetting.LEARN.value)
+    private fun getLeftSwipeAction() : SwipeActionsSetting {
+        return SwipeActionsSetting.fromValue(
+            sharedPreferences.getInt(PREF_CURRENT_LEFT_SWIPE_ACTION, SwipeActionsSetting.LEARN.value)
         )
     }
 
-    override val rightSwipeAction = MutableStateFlow(getRightSwipeAction())
-
-    override suspend fun setRightSwipeAction(setting: LearningSettings.SwipeActionsSetting) {
+    override suspend fun setRightSwipeAction(setting: SwipeActionsSetting) {
         when(setting) {
-            LearningSettings.SwipeActionsSetting.LEARN -> {
-                setSwipeActions(LearningSettings.SwipeActionsSetting.KNOW ,setting)
+            SwipeActionsSetting.LEARN -> {
+                setSwipeActions(SwipeActionsSetting.KNOW ,setting)
             }
-            LearningSettings.SwipeActionsSetting.KNOW -> {
-                setSwipeActions(LearningSettings.SwipeActionsSetting.LEARN ,setting)
+            SwipeActionsSetting.KNOW -> {
+                setSwipeActions(SwipeActionsSetting.LEARN ,setting)
             }
         }
     }
 
-    private fun getRightSwipeAction() : LearningSettings.SwipeActionsSetting {
-        return LearningSettings.SwipeActionsSetting.fromValue(
-            sharedPreferences.getInt(PREF_CURRENT_RIGHT_SWIPE_ACTION, LearningSettings.SwipeActionsSetting.KNOW.value)
+    private fun getRightSwipeAction() : SwipeActionsSetting {
+        return SwipeActionsSetting.fromValue(
+            sharedPreferences.getInt(PREF_CURRENT_RIGHT_SWIPE_ACTION, SwipeActionsSetting.KNOW.value)
         )
     }
 
-    private suspend fun setSwipeActions(leftAction: LearningSettings.SwipeActionsSetting, rightAction: LearningSettings.SwipeActionsSetting) {
+    private suspend fun setSwipeActions(leftAction: SwipeActionsSetting, rightAction: SwipeActionsSetting) {
         if (getLeftSwipeAction() == leftAction || getRightSwipeAction() == rightAction) return
 
         sharedPreferences.edit()
@@ -100,9 +105,7 @@ class SharedPreferencesLearningSettings @Inject constructor(
 
     // Words order
 
-    override val wordsOrderSetting = MutableStateFlow(getWordsOrderSetting())
-
-    override suspend fun setWordsOrderSetting(setting: LearningSettings.WordsOrderSetting) {
+    override suspend fun setWordsOrderSetting(setting: WordsOrderSetting) {
         if (getWordsOrderSetting() == setting) return
         sharedPreferences.edit()
             .putInt(PREF_CURRENT_WORDS_ORDER_SETTING, setting.value)
@@ -110,9 +113,9 @@ class SharedPreferencesLearningSettings @Inject constructor(
         wordsOrderSetting.emit(setting)
     }
 
-    private fun getWordsOrderSetting() : LearningSettings.WordsOrderSetting {
-        return LearningSettings.WordsOrderSetting.fromValue(
-            sharedPreferences.getInt(PREF_CURRENT_WORDS_ORDER_SETTING, LearningSettings.WordsOrderSetting.SMART.value)
+    private fun getWordsOrderSetting() : WordsOrderSetting {
+        return WordsOrderSetting.fromValue(
+            sharedPreferences.getInt(PREF_CURRENT_WORDS_ORDER_SETTING, WordsOrderSetting.SMART.value)
         )
     }
 

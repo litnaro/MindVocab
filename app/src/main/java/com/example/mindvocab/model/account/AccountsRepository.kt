@@ -1,12 +1,12 @@
 package com.example.mindvocab.model.account
 
 import com.example.mindvocab.model.Repository
-import com.example.mindvocab.model.account.etities.Account
-import com.example.mindvocab.model.account.etities.SignUpData
+import com.example.mindvocab.model.account.entities.Account
+import com.example.mindvocab.model.account.entities.SignUpData
 import com.example.mindvocab.model.AuthException
 import com.example.mindvocab.model.StorageException
-import com.example.mindvocab.model.account.etities.ChangePasswordData
-import com.example.mindvocab.model.account.etities.FullName
+import com.example.mindvocab.model.account.entities.ChangePasswordData
+import com.example.mindvocab.model.account.entities.FullName
 import kotlinx.coroutines.flow.Flow
 
 interface AccountsRepository : Repository {
@@ -14,7 +14,7 @@ interface AccountsRepository : Repository {
     /**
      * Get the account info of the current signed-in user.
      */
-    suspend fun getAccount() : Flow<Account?>
+    fun getAccount() : Flow<Account?>
 
     /**
      * Whether user is signed-in or not.

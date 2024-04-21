@@ -37,12 +37,12 @@ class RepeatingWordsFragment : BaseFragment() {
                 emptyListContainer.visibility = View.GONE
 
                 when(it) {
-                    is Result.PendingResult -> {
+                    is Result.Pending -> {
                         pendingShimmer.visibility = View.VISIBLE
                         pendingShimmer.startShimmer()
                     }
-                    is Result.ErrorResult -> {}
-                    is Result.SuccessResult -> {
+                    is Result.Error -> {}
+                    is Result.Success -> {
                         if (it.data.isEmpty()) {
                             emptyListContainer.visibility = View.VISIBLE
                         } else {

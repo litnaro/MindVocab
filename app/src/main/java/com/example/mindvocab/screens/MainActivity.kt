@@ -119,6 +119,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val destinationListener = NavController.OnDestinationChangedListener { _, destination, arguments ->
+        // If more then 2 screens will be without toolbar add interface marker
+        // for fragments where we don't need toolbar and check it here
         if (destination.id == R.id.signInFragment || destination.id == R.id.signUpFragment) {
             supportActionBar?.hide()
         } else {

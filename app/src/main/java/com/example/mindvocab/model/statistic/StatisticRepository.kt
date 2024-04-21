@@ -23,7 +23,7 @@ interface StatisticRepository : Repository {
      * @throws StorageException
      * @return Flow of account statistic.
      */
-    suspend fun getWordsStatistic() : Flow<WordsStatistic>
+    fun getWordsStatistic() : Flow<WordsStatistic>
 
     /**
      * Get everything [getWordsStatistic] does plus how many days account learn words.
@@ -32,7 +32,7 @@ interface StatisticRepository : Repository {
      * @throws StorageException
      * @return Flow of account statistic.
      */
-    suspend fun getWordsStatisticPercentage() : Flow<WordsStatisticPercentage>
+    fun getWordsStatisticPercentage() : Flow<WordsStatisticPercentage>
 
     /**
      * Get amount of application achievements and amount of achievements which finished by account.
@@ -40,7 +40,7 @@ interface StatisticRepository : Repository {
      * @throws StorageException
      * @return Flow of achievement statistic.
      */
-    suspend fun getAchievementStatistic() : Flow<AchievementsStatistic>
+    fun getAchievementStatistic() : Flow<AchievementsStatistic>
 
     /**
      * Get list of finished word sets names.
@@ -48,7 +48,7 @@ interface StatisticRepository : Repository {
      * @throws StorageException
      * @return Flow of completed word sets names.
      */
-    suspend fun getWordSetsStatistic() : Flow<List<String>>
+    fun getWordSetsStatistic() : Flow<List<String>>
 
     /**
      * Calculates start and end of the [selectedMonth].
