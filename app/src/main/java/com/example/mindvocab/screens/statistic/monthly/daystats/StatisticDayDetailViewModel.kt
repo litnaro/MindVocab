@@ -15,21 +15,21 @@ class StatisticDayDetailViewModel @Inject constructor(
     private val statisticRepository: StatisticRepository
 ) : BaseViewModel() {
 
-    private val _startedWords = MutableLiveData<List<WordDayStatistic>>()
-    val startedWords: LiveData<List<WordDayStatistic>> = _startedWords
+    private val _startedWordsLiveData = MutableLiveData<List<WordDayStatistic>>()
+    val startedWordsLiveData: LiveData<List<WordDayStatistic>> = _startedWordsLiveData
 
-    private val _repeatedWords = MutableLiveData<List<WordDayStatistic>>()
-    val repeatedWords: LiveData<List<WordDayStatistic>> = _repeatedWords
+    private val _repeatedWordsLiveData = MutableLiveData<List<WordDayStatistic>>()
+    val repeatedWordsLiveData: LiveData<List<WordDayStatistic>> = _repeatedWordsLiveData
 
     fun getStartedWords(date: Long) {
         viewModelScope.launch {
-            _startedWords.value = statisticRepository.getStartedWordsDetailForDay(date)
+            _startedWordsLiveData.value = statisticRepository.getStartedWordsDetailForDay(date)
         }
     }
 
     fun getRepeatedWords(date: Long) {
         viewModelScope.launch {
-            _repeatedWords.value = statisticRepository.getRepeatedWordsDetailForDay(date)
+            _repeatedWordsLiveData.value = statisticRepository.getRepeatedWordsDetailForDay(date)
         }
     }
 

@@ -17,16 +17,16 @@ class ChangePasswordViewModel @Inject constructor(
     private val accountsRepository: AccountsRepository
 ) : BaseViewModel() {
 
-    private val _changePasswordResult = MutableLiveData<Result<Boolean>>()
-    val changePasswordResult: LiveData<Result<Boolean>> = _changePasswordResult
+    private val _changePasswordLiveDataResult = MutableLiveData<Result<Boolean>>()
+    val changePasswordLiveDataResult: LiveData<Result<Boolean>> = _changePasswordLiveDataResult
 
     fun changePassword(changePasswordData: ChangePasswordData) {
         viewModelScope.launch {
             try {
                 accountsRepository.changePassword(changePasswordData)
-                _changePasswordResult.value = Result.Success(true)
+                _changePasswordLiveDataResult.value = Result.Success(true)
             } catch (e: AppException) {
-                _changePasswordResult.value = Result.Error(e)
+                _changePasswordLiveDataResult.value = Result.Error(e)
             }
         }
     }

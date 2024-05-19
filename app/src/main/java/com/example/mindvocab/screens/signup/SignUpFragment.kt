@@ -49,16 +49,12 @@ class SignUpFragment : BaseFragment() {
             findNavController().popBackStack()
         }
 
-        viewModel.signUpResult.observe(viewLifecycleOwner) {
-            when(it) {
-                is Result.Pending -> {}
-                is Result.Error -> {
-                    handleSignUpErrors(it.exception)
-                }
-                is Result.Success -> {
-                    findNavController().popBackStack()
-                }
-            }
+        viewModel.signUpLiveDataResult.observe(viewLifecycleOwner) {
+            observeSideEffects(
+                result = it,
+                onError = ::signUpErrorResult,
+                onSuccess = ::signUpSuccessResult
+            )
         }
 
         return binding.root
@@ -69,7 +65,12 @@ class SignUpFragment : BaseFragment() {
         _binding = null
     }
 
-    private fun handleSignUpErrors(exception: AppException) {
+    @Suppress("UNUSED_PARAMETER")
+    private fun <T> signUpSuccessResult(result: Result.Success<T>) {
+        findNavController().popBackStack()
+    }
+
+    private fun signUpErrorResult(exception: AppException) {
         when(exception) {
             is EmptyFieldException -> {
                 when(exception.field) {

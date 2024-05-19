@@ -5,13 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.core.BaseViewModel
-import com.example.mindvocab.model.AppException
 import com.example.mindvocab.model.learning.LearningRepository
 import com.example.mindvocab.model.settings.learn.LearningSettings
 import com.example.mindvocab.model.settings.learn.options.WordsADaySetting
 import com.example.mindvocab.model.word.entities.Word
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,17 +19,17 @@ class LearnWordViewModel @Inject constructor(
     private val learningSettings: LearningSettings
 ) : BaseViewModel() {
 
-    private val _word = MutableLiveData<Result<Word>>(Result.Pending)
-    val word: LiveData<Result<Word>> = _word
+    private val _wordLiveDataResult = MutableLiveData<Result<Word>>(Result.Pending)
+    val wordLiveDataResult: LiveData<Result<Word>> = _wordLiveDataResult
 
-    private val _maxWordsForToday = MutableLiveData<WordsADaySetting>()
-    val maxWordsForToday: LiveData<WordsADaySetting> = _maxWordsForToday
+    private val _maxWordsForTodayLiveData = MutableLiveData<WordsADaySetting>()
+    val maxWordsForTodayLiveData: LiveData<WordsADaySetting> = _maxWordsForTodayLiveData
 
-    private val _startedTodayWordsCount = MutableLiveData<Int>()
-    val startedTodayWordsCount: LiveData<Int> = _startedTodayWordsCount
+    private val _startedTodayWordsCountLiveData = MutableLiveData<Int>()
+    val startedTodayWordsCountLiveData: LiveData<Int> = _startedTodayWordsCountLiveData
 
-    private val _isPreviousWordAvailable = MutableLiveData<Boolean>()
-    val isPreviousWordAvailable: LiveData<Boolean> = _isPreviousWordAvailable
+    private val _isPreviousWordAvailableLiveData = MutableLiveData<Boolean>()
+    val isPreviousWordAvailableLiveData: LiveData<Boolean> = _isPreviousWordAvailableLiveData
 
     init {
         listenIsReturnPreviousWordEnabled()
@@ -41,36 +39,16 @@ class LearnWordViewModel @Inject constructor(
         getWordToLearn()
     }
 
-    fun getWordToLearn() {
-        viewModelScope.launch {
-            _word.value = Result.Pending
-            delay(1500)
-            try {
-                learningRepository.getWordToLearn()
-            } catch (e: AppException) {
-                _word.value = Result.Error(e)
-            }
-        }
+    fun getWordToLearn() = _wordLiveDataResult.trackActionExecutionNoResult {
+        learningRepository.getWordToLearn()
     }
 
-    fun onWordKnown(word: Word) {
-        viewModelScope.launch {
-            try {
-                learningRepository.onWordKnown(word)
-            } catch (e: AppException) {
-                _word.value = Result.Error(e)
-            }
-        }
+    fun onWordKnown(word: Word) = _wordLiveDataResult.trackActionExecutionNoResult {
+        learningRepository.onWordKnown(word)
     }
 
-    fun onWordToLearn(word: Word) {
-        viewModelScope.launch {
-            try {
-                learningRepository.onWordToLearn(word)
-            } catch (e: AppException) {
-                _word.value = Result.Error(e)
-            }
-        }
+    fun onWordToLearn(word: Word) = _wordLiveDataResult.trackActionExecutionNoResult {
+        learningRepository.onWordToLearn(word)
     }
 
     fun onWordReturnPrevious() {
@@ -79,18 +57,14 @@ class LearnWordViewModel @Inject constructor(
         }
     }
 
-    private fun listenWordToLearn() {
-        viewModelScope.launch {
-            learningRepository.listenWordToLearn().collect {
-                _word.value = Result.Success(it)
-            }
-        }
+    private fun listenWordToLearn() = _wordLiveDataResult.trackActionExecutionWithFlowResult {
+        learningRepository.listenWordToLearn()
     }
 
     private fun listenWordADaySettings() {
         viewModelScope.launch {
             learningSettings.wordsADaySetting.collect {
-                _maxWordsForToday.value = it
+                _maxWordsForTodayLiveData.value = it
             }
         }
     }
@@ -98,7 +72,7 @@ class LearnWordViewModel @Inject constructor(
     private fun listenTodayStartedWords() {
         viewModelScope.launch {
             learningRepository.getTodayStartedWordsCount().collect {
-                _startedTodayWordsCount.value = it
+                _startedTodayWordsCountLiveData.value = it
             }
         }
     }
@@ -106,7 +80,7 @@ class LearnWordViewModel @Inject constructor(
     private fun listenIsReturnPreviousWordEnabled() {
         viewModelScope.launch {
             learningRepository.listenIsReturnPreviousWordEnabled().collect {
-                _isPreviousWordAvailable.value = it
+                _isPreviousWordAvailableLiveData.value = it
             }
         }
     }

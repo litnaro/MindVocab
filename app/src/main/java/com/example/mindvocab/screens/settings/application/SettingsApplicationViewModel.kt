@@ -17,14 +17,14 @@ class SettingsApplicationViewModel @Inject constructor(
     private val applicationSettings: ApplicationSettings
 ) : BaseViewModel() {
 
-    private val _themeSetting = MutableLiveData<ApplicationTheme>()
-    val themeSetting: LiveData<ApplicationTheme> get() = _themeSetting
+    private val _themeSettingLiveData = MutableLiveData<ApplicationTheme>()
+    val themeSettingLiveData: LiveData<ApplicationTheme> get() = _themeSettingLiveData
 
-    private val _languageSetting = MutableLiveData<ApplicationLanguage>()
-    val languageSetting: LiveData<ApplicationLanguage> get() = _languageSetting
+    private val _languageSettingLiveData = MutableLiveData<ApplicationLanguage>()
+    val languageSettingLiveData: LiveData<ApplicationLanguage> get() = _languageSettingLiveData
 
-    private val _nativeLanguageSetting = MutableLiveData<NativeLanguage>()
-    val nativeLanguageSetting: LiveData<NativeLanguage> get() = _nativeLanguageSetting
+    private val _nativeLanguageSettingLiveData = MutableLiveData<NativeLanguage>()
+    val nativeLanguageSettingLiveData: LiveData<NativeLanguage> get() = _nativeLanguageSettingLiveData
 
     init {
         getTheme()
@@ -35,7 +35,7 @@ class SettingsApplicationViewModel @Inject constructor(
     private fun getTheme() {
         viewModelScope.launch {
             applicationSettings.applicationTheme.collect {
-                _themeSetting.value = it
+                _themeSettingLiveData.value = it
             }
         }
     }
@@ -49,7 +49,7 @@ class SettingsApplicationViewModel @Inject constructor(
     private fun getLanguage() {
         viewModelScope.launch {
             applicationSettings.applicationLanguage.collect {
-                _languageSetting.value = it
+                _languageSettingLiveData.value = it
             }
         }
     }
@@ -63,7 +63,7 @@ class SettingsApplicationViewModel @Inject constructor(
     private fun getNativeLanguage() {
         viewModelScope.launch {
             applicationSettings.nativeLanguage.collect {
-                _nativeLanguageSetting.value = it
+                _nativeLanguageSettingLiveData.value = it
             }
         }
     }

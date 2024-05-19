@@ -17,25 +17,36 @@ class ChangeFullNameFragment : BaseFragment() {
 
     override val viewModel by viewModels<ChangeFullNameViewModel>()
 
+    private var _binding: FragmentSettingsChangeFullNameBinding? = null
+    val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentSettingsChangeFullNameBinding.inflate(inflater, container, false)
+        _binding = FragmentSettingsChangeFullNameBinding.inflate(inflater, container, false)
 
-        viewModel.accountFullName.observe(viewLifecycleOwner) {
+        initialBinding()
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initialBinding() {
+        viewModel.accountFullNameLiveData.observe(viewLifecycleOwner) {
             binding.accountNameField.setText(it.name)
             binding.accountSurnameField.setText(it.surname)
         }
 
-        viewModel.changeFullNameResult.observe(viewLifecycleOwner) {
-            when(it) {
-                is Result.Pending -> {}
-                is Result.Error -> {}
-                is Result.Success -> {
-                    binding.accountNameFieldContainer.helperText = requireContext().getString(R.string.full_name_successfully_changed)
-                }
-            }
+        viewModel.changeFullNameLiveDataResult.observe(viewLifecycleOwner) {
+            observeSideEffects(
+                result = it,
+                onSuccess = ::accountNameSuccessResult
+            )
         }
 
         binding.changeFullNameButton.setOnClickListener {
@@ -46,7 +57,10 @@ class ChangeFullNameFragment : BaseFragment() {
                 )
             )
         }
+    }
 
-        return binding.root
+    @Suppress("UNUSED_PARAMETER")
+    private fun <T> accountNameSuccessResult(result: Result.Success<T>) {
+        binding.accountNameFieldContainer.helperText = requireContext().getString(R.string.full_name_successfully_changed)
     }
 }

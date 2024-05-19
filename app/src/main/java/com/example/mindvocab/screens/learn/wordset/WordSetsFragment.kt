@@ -43,7 +43,7 @@ class WordSetsFragment : BaseFragment() {
             }
         })
 
-        viewModel.wordSetFilter.observe(viewLifecycleOwner) {
+        viewModel.wordSetFilterLiveData.observe(viewLifecycleOwner) {
             when(it) {
                 WordSetFilter.ALL -> {
                     binding.chipAll.isChecked = true
@@ -92,7 +92,7 @@ class WordSetsFragment : BaseFragment() {
             itemAnimator.supportsChangeAnimations = false
         }
 
-        viewModel.wordSetList.observe(viewLifecycleOwner) {
+        viewModel.wordSetListLiveData.observe(viewLifecycleOwner) {
             binding.pendingShimmer.visibility = View.GONE
             binding.pendingShimmer.stopShimmer()
             binding.wordSetsRv.visibility = View.GONE

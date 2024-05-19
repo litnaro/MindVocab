@@ -14,13 +14,27 @@ class SettingsNotificationsFragment : BaseFragment() {
 
     override val viewModel by viewModels<SettingsNotificationsViewModel>()
 
+    private var _binding: FragmentSettingsNotificationsBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentSettingsNotificationsBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentSettingsNotificationsBinding.inflate(layoutInflater, container, false)
 
-        viewModel.isNotificationsEnabled.observe(viewLifecycleOwner) {
+        initialBinding()
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initialBinding() {
+        viewModel.isNotificationsEnabledLiveData.observe(viewLifecycleOwner) {
             binding.notificationsSwitch.isChecked = it
         }
 
@@ -29,7 +43,7 @@ class SettingsNotificationsFragment : BaseFragment() {
             viewModel.setNotifications(state)
         }
 
-        viewModel.isReminderEnabled.observe(viewLifecycleOwner) {
+        viewModel.isReminderEnabledLiveData.observe(viewLifecycleOwner) {
             binding.reminderSwitch.isChecked = it
         }
 
@@ -37,8 +51,6 @@ class SettingsNotificationsFragment : BaseFragment() {
                 _, state ->
             viewModel.setReminder(state)
         }
-
-        return binding.root
     }
 
 }

@@ -16,14 +16,14 @@ class StatisticMetricViewModel @Inject constructor(
     private val statisticRepository: StatisticRepository
 ): BaseViewModel() {
 
-    private val _wordsStatistic = MutableLiveData<WordsStatistic>()
-    val wordsStatistic: LiveData<WordsStatistic> = _wordsStatistic
+    private val _wordsStatisticLiveData = MutableLiveData<WordsStatistic>()
+    val wordsStatisticLiveData: LiveData<WordsStatistic> = _wordsStatisticLiveData
 
-    private val _achievementsStatistic = MutableLiveData<AchievementsStatistic>()
-    val achievementsStatistic: LiveData<AchievementsStatistic> = _achievementsStatistic
+    private val _achievementsStatisticLiveData = MutableLiveData<AchievementsStatistic>()
+    val achievementsStatisticLiveData: LiveData<AchievementsStatistic> = _achievementsStatisticLiveData
 
-    private val _wordSetsStatistic = MutableLiveData<List<String>>()
-    val wordSetsStatistic: LiveData<List<String>> = _wordSetsStatistic
+    private val _wordSetsStatisticLiveData = MutableLiveData<List<String>>()
+    val wordSetsStatisticLiveData: LiveData<List<String>> = _wordSetsStatisticLiveData
 
     init {
         getWordsStatistic()
@@ -31,11 +31,10 @@ class StatisticMetricViewModel @Inject constructor(
         getWordSetsStatistic()
     }
 
-
     private fun getWordsStatistic() {
         viewModelScope.launch {
             statisticRepository.getWordsStatistic().collect {
-                _wordsStatistic.value = it
+                _wordsStatisticLiveData.value = it
             }
         }
     }
@@ -43,7 +42,7 @@ class StatisticMetricViewModel @Inject constructor(
     private fun getAchievementsStatistic() {
         viewModelScope.launch {
             statisticRepository.getAchievementStatistic().collect {
-                _achievementsStatistic.value = it
+                _achievementsStatisticLiveData.value = it
             }
         }
     }
@@ -51,7 +50,7 @@ class StatisticMetricViewModel @Inject constructor(
     private fun getWordSetsStatistic() {
         viewModelScope.launch {
             statisticRepository.getWordSetsStatistic().collect {
-                _wordSetsStatistic.value = it
+                _wordSetsStatisticLiveData.value = it
             }
         }
     }

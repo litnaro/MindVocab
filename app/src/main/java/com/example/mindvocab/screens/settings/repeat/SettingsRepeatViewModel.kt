@@ -17,14 +17,14 @@ class SettingsRepeatViewModel @Inject constructor(
     private val repeatSettings: RepeatSettings
 ) : BaseViewModel() {
 
-    private val _answeringVariantSetting = MutableLiveData<AnsweringVariantSetting>()
-    val answeringVariantSetting: LiveData<AnsweringVariantSetting> get() = _answeringVariantSetting
+    private val _answeringVariantSettingLiveData = MutableLiveData<AnsweringVariantSetting>()
+    val answeringVariantSettingLiveData: LiveData<AnsweringVariantSetting> get() = _answeringVariantSettingLiveData
 
-    private val _questionVariantSetting = MutableLiveData<QuestionVariantSetting>()
-    val questionVariantSetting: LiveData<QuestionVariantSetting> get() = _questionVariantSetting
+    private val _questionVariantSettingLiveData = MutableLiveData<QuestionVariantSetting>()
+    val questionVariantSettingLiveData: LiveData<QuestionVariantSetting> get() = _questionVariantSettingLiveData
 
-    private val _cardAnimationSetting = MutableLiveData<CardAnimationSetting>()
-    val cardAnimationSetting: LiveData<CardAnimationSetting> get() = _cardAnimationSetting
+    private val _cardAnimationSettingLiveData = MutableLiveData<CardAnimationSetting>()
+    val cardAnimationSettingLiveData: LiveData<CardAnimationSetting> get() = _cardAnimationSettingLiveData
 
     init {
         getAnsweringVariantSetting()
@@ -53,7 +53,7 @@ class SettingsRepeatViewModel @Inject constructor(
     private fun getAnsweringVariantSetting() {
         viewModelScope.launch {
             repeatSettings.answeringVariantSetting.collect {
-                _answeringVariantSetting.value = it
+                _answeringVariantSettingLiveData.value = it
             }
         }
     }
@@ -61,7 +61,7 @@ class SettingsRepeatViewModel @Inject constructor(
     private fun getQuestionVariantSetting() {
         viewModelScope.launch {
             repeatSettings.questionVariantSetting.collect {
-                _questionVariantSetting.value = it
+                _questionVariantSettingLiveData.value = it
             }
         }
     }
@@ -69,7 +69,7 @@ class SettingsRepeatViewModel @Inject constructor(
     private fun getCardAnimationSetting() {
         viewModelScope.launch {
             repeatSettings.cardAnimationSetting.collect {
-                _cardAnimationSetting.value = it
+                _cardAnimationSettingLiveData.value = it
             }
         }
     }

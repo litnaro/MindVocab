@@ -18,13 +18,27 @@ class SettingsRepeatFragment : BaseSettingsFragment() {
 
     override val viewModel by viewModels<SettingsRepeatViewModel>()
 
+    private var _binding: FragmentSettingsRepeatBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentSettingsRepeatBinding.inflate(inflater, container, false)
+        _binding = FragmentSettingsRepeatBinding.inflate(inflater, container, false)
 
-        viewModel.answeringVariantSetting.observe(viewLifecycleOwner) {
+        initialBinding()
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initialBinding() {
+        viewModel.answeringVariantSettingLiveData.observe(viewLifecycleOwner) {
             binding.answeringVariantSettingValue.text = it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
             binding.answeringVariantSettingContainer.setOnClickListener { _ ->
                 showMultipleChoiceSettingsDialog(
@@ -38,7 +52,7 @@ class SettingsRepeatFragment : BaseSettingsFragment() {
             }
         }
 
-        viewModel.questionVariantSetting.observe(viewLifecycleOwner) {
+        viewModel.questionVariantSettingLiveData.observe(viewLifecycleOwner) {
             binding.questionVariantSettingValue.text = it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
             binding.questionVariantSettingContainer.setOnClickListener { _ ->
                 showMultipleChoiceSettingsDialog(
@@ -52,7 +66,7 @@ class SettingsRepeatFragment : BaseSettingsFragment() {
             }
         }
 
-        viewModel.cardAnimationSetting.observe(viewLifecycleOwner) {
+        viewModel.cardAnimationSettingLiveData.observe(viewLifecycleOwner) {
             binding.cardAnimationSettingValue.text = it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
             binding.cardAnimationSettingContainer.setOnClickListener { _ ->
                 showMultipleChoiceSettingsDialog(
@@ -65,8 +79,6 @@ class SettingsRepeatFragment : BaseSettingsFragment() {
                 }
             }
         }
-
-        return binding.root
     }
 
 }

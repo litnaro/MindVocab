@@ -14,11 +14,11 @@ class SettingsNotificationsViewModel @Inject constructor(
     private val notificationSettings: NotificationSettings
 ) : BaseViewModel() {
 
-    private val _isNotificationsEnabled = MutableLiveData<Boolean>()
-    val isNotificationsEnabled: LiveData<Boolean> get() = _isNotificationsEnabled
+    private val _isNotificationsEnabledLiveData = MutableLiveData<Boolean>()
+    val isNotificationsEnabledLiveData: LiveData<Boolean> get() = _isNotificationsEnabledLiveData
 
-    private val _isReminderEnabled = MutableLiveData<Boolean>()
-    val isReminderEnabled: LiveData<Boolean> get() = _isReminderEnabled
+    private val _isReminderEnabledLiveData = MutableLiveData<Boolean>()
+    val isReminderEnabledLiveData: LiveData<Boolean> get() = _isReminderEnabledLiveData
 
     init {
         getNotifications()
@@ -28,7 +28,7 @@ class SettingsNotificationsViewModel @Inject constructor(
     private fun getNotifications() {
         viewModelScope.launch {
             notificationSettings.isNotificationsEnabledSetting.collect {
-                _isNotificationsEnabled.value = it
+                _isNotificationsEnabledLiveData.value = it
             }
         }
     }
@@ -42,7 +42,7 @@ class SettingsNotificationsViewModel @Inject constructor(
     private fun getReminder() {
         viewModelScope.launch {
             notificationSettings.isReminderEnabledSetting.collect {
-                _isReminderEnabled.value = it
+                _isReminderEnabledLiveData.value = it
             }
         }
     }

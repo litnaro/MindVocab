@@ -31,6 +31,17 @@ class SignInFragment : BaseFragment() {
     ): View {
         _binding = FragmentSignInBinding.inflate(inflater, container, false)
 
+        initialBinding()
+
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    private fun initialBinding() {
         binding.createAccountButton.setOnClickListener {
             findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
         }
@@ -43,25 +54,21 @@ class SignInFragment : BaseFragment() {
             )
         }
 
-        viewModel.signInResult.observe(viewLifecycleOwner) {
-            when(it) {
-                is Result.Pending -> {}
-                is Result.Error -> handleSignInErrors(it.exception)
-                is Result.Success -> {
-                    findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToTabsFragment())
-                }
-            }
+        viewModel.signInLiveDataResult.observe(viewLifecycleOwner) {
+            observeSideEffects(
+                result = it,
+                onError = ::signInErrorResult,
+                onSuccess = ::signInSuccessResult
+            )
         }
-
-        return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+    @Suppress("UNUSED_PARAMETER")
+    private fun <T> signInSuccessResult(result: Result.Success<T>) {
+        findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToTabsFragment())
     }
 
-    private fun handleSignInErrors(exception: AppException) {
+    private fun signInErrorResult(exception: AppException) {
         when(exception) {
             is EmptyFieldException -> {
                 when(exception.field) {

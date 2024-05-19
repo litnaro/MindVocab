@@ -17,16 +17,16 @@ class SignUpViewModel @Inject constructor(
     private val accountsRepository: AccountsRepository
 ) : BaseViewModel() {
 
-    private val _signUpResult = MutableLiveData<Result<Boolean>>(Result.Pending)
-    val signUpResult: LiveData<Result<Boolean>> = _signUpResult
+    private val _signUpLiveDataResult = MutableLiveData<Result<Boolean>>(Result.Pending)
+    val signUpLiveDataResult: LiveData<Result<Boolean>> = _signUpLiveDataResult
 
     fun signUp(signUpData: SignUpData) {
         viewModelScope.launch {
             try {
                 accountsRepository.signUp(signUpData)
-                _signUpResult.value = Result.Success(true)
+                _signUpLiveDataResult.value = Result.Success(true)
             } catch (e: AppException) {
-                _signUpResult.value = Result.Error(e)
+                _signUpLiveDataResult.value = Result.Error(e)
             }
         }
     }

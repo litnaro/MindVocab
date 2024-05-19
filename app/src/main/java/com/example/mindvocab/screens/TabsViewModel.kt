@@ -14,13 +14,13 @@ class TabsViewModel @Inject constructor(
     private val achievementsRepository: AchievementsRepository
 ) : BaseViewModel() {
 
-    private val _recentAchievementsCount = MutableLiveData(0)
-    val recentAchievementsCount: LiveData<Int> = _recentAchievementsCount
+    private val _recentAchievementsCountLiveData = MutableLiveData(0)
+    val recentAchievementsCount: LiveData<Int> = _recentAchievementsCountLiveData
 
     init {
         viewModelScope.launch {
             achievementsRepository.getRecentAchievementsCount().collect {
-                _recentAchievementsCount.value = it
+                _recentAchievementsCountLiveData.value = it
             }
         }
     }

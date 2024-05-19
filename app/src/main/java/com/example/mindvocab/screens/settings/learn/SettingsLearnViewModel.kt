@@ -17,20 +17,20 @@ class SettingsLearnViewModel @Inject constructor(
     private val learningSettings: LearningSettings
 ) : BaseViewModel() {
 
-    private val _listenAfterAppearanceSetting = MutableLiveData<Boolean>()
-    val listenAfterAppearanceSetting: LiveData<Boolean> = _listenAfterAppearanceSetting
+    private val _listenAfterAppearanceSettingLiveData = MutableLiveData<Boolean>()
+    val listenAfterAppearanceSettingLiveData: LiveData<Boolean> = _listenAfterAppearanceSettingLiveData
 
-    private val _wordsADaySetting = MutableLiveData<WordsADaySetting>()
-    val wordsADaySetting: LiveData<WordsADaySetting> = _wordsADaySetting
+    private val _wordsADaySettingLiveData = MutableLiveData<WordsADaySetting>()
+    val wordsADaySettingLiveData: LiveData<WordsADaySetting> = _wordsADaySettingLiveData
 
-    private val _leftSwipeAction = MutableLiveData<SwipeActionsSetting>()
-    val leftSwipeAction: LiveData<SwipeActionsSetting> = _leftSwipeAction
+    private val _leftSwipeActionLiveData = MutableLiveData<SwipeActionsSetting>()
+    val leftSwipeActionLiveData: LiveData<SwipeActionsSetting> = _leftSwipeActionLiveData
 
-    private val _rightSwipeAction = MutableLiveData<SwipeActionsSetting>()
-    val rightSwipeAction: LiveData<SwipeActionsSetting> = _rightSwipeAction
+    private val _rightSwipeActionLiveData = MutableLiveData<SwipeActionsSetting>()
+    val rightSwipeActionLiveData: LiveData<SwipeActionsSetting> = _rightSwipeActionLiveData
 
-    private val _wordsOrderSetting = MutableLiveData<WordsOrderSetting>()
-    val wordsOrderSetting: LiveData<WordsOrderSetting> = _wordsOrderSetting
+    private val _wordsOrderSettingLiveData = MutableLiveData<WordsOrderSetting>()
+    val wordsOrderSettingLiveData: LiveData<WordsOrderSetting> = _wordsOrderSettingLiveData
 
     init {
         getListenAfterAppearanceSetting()
@@ -43,7 +43,7 @@ class SettingsLearnViewModel @Inject constructor(
     private fun getListenAfterAppearanceSetting() {
         viewModelScope.launch {
             learningSettings.listenAfterAppearanceSetting.collect {
-                _listenAfterAppearanceSetting.value = it
+                _listenAfterAppearanceSettingLiveData.value = it
             }
         }
     }
@@ -57,7 +57,7 @@ class SettingsLearnViewModel @Inject constructor(
     private fun getWordsADaySetting() {
         viewModelScope.launch {
             learningSettings.wordsADaySetting.collect {
-                _wordsADaySetting.value = it
+                _wordsADaySettingLiveData.value = it
             }
         }
     }
@@ -71,7 +71,7 @@ class SettingsLearnViewModel @Inject constructor(
     private fun getLeftSwipeAction() {
         viewModelScope.launch {
             learningSettings.leftSwipeAction.collect {
-                _leftSwipeAction.value = it
+                _leftSwipeActionLiveData.value = it
             }
         }
     }
@@ -85,7 +85,7 @@ class SettingsLearnViewModel @Inject constructor(
     private fun getRightSwipeAction() {
         viewModelScope.launch {
             learningSettings.rightSwipeAction.collect {
-                _rightSwipeAction.value = it
+                _rightSwipeActionLiveData.value = it
             }
         }
     }
@@ -99,7 +99,7 @@ class SettingsLearnViewModel @Inject constructor(
     private fun getWordsOrderSetting() {
         viewModelScope.launch {
             learningSettings.wordsOrderSetting.collect {
-                _wordsOrderSetting.value = it
+                _wordsOrderSettingLiveData.value = it
             }
         }
     }

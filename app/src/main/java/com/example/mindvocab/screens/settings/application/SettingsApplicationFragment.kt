@@ -18,13 +18,27 @@ class SettingsApplicationFragment : BaseSettingsFragment() {
 
     override val viewModel by viewModels<SettingsApplicationViewModel>()
 
+    private var _binding: FragmentSettingsApplicationBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentSettingsApplicationBinding.inflate(inflater, container, false)
+        _binding = FragmentSettingsApplicationBinding.inflate(inflater, container, false)
 
-        viewModel.themeSetting.observe(viewLifecycleOwner) {
+        initialBinding()
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initialBinding() {
+        viewModel.themeSettingLiveData.observe(viewLifecycleOwner) {
             binding.themeSettingValue.text = it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
             binding.themeSettingsContainer.setOnClickListener { _ ->
                 showMultipleChoiceSettingsDialog(
@@ -38,7 +52,7 @@ class SettingsApplicationFragment : BaseSettingsFragment() {
             }
         }
 
-        viewModel.languageSetting.observe(viewLifecycleOwner) {
+        viewModel.languageSettingLiveData.observe(viewLifecycleOwner) {
             binding.languageSettingValue.text = it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
             binding.languageSettingsContainer.setOnClickListener { _ ->
                 showMultipleChoiceSettingsDialog(
@@ -52,7 +66,7 @@ class SettingsApplicationFragment : BaseSettingsFragment() {
             }
         }
 
-        viewModel.nativeLanguageSetting.observe(viewLifecycleOwner) {
+        viewModel.nativeLanguageSettingLiveData.observe(viewLifecycleOwner) {
             binding.nativeLanguageSettingValue.text = it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
             binding.nativeLanguageSettingsContainer.setOnClickListener { _ ->
                 showMultipleChoiceSettingsDialog(
@@ -65,8 +79,6 @@ class SettingsApplicationFragment : BaseSettingsFragment() {
                 }
             }
         }
-
-        return binding.root
     }
 
 }

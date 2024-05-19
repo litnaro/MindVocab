@@ -18,22 +18,36 @@ class SettingsLearnFragment : BaseSettingsFragment() {
 
     override val viewModel by viewModels<SettingsLearnViewModel>()
 
+    private var _binding: FragmentSettingsLearnBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentSettingsLearnBinding.inflate(inflater, container, false)
+        _binding = FragmentSettingsLearnBinding.inflate(inflater, container, false)
 
-        viewModel.listenAfterAppearanceSetting.observe(viewLifecycleOwner) {
+        initialBinding()
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initialBinding() {
+        viewModel.listenAfterAppearanceSettingLiveData.observe(viewLifecycleOwner) {
             binding.listenAfterAppearanceSettingSwitch.isChecked = it
         }
 
         binding.listenAfterAppearanceSettingSwitch.setOnCheckedChangeListener {
-            _, state ->
+                _, state ->
             viewModel.setListenAfterAppearanceSetting(state)
         }
 
-        viewModel.wordsADaySetting.observe(viewLifecycleOwner) {
+        viewModel.wordsADaySettingLiveData.observe(viewLifecycleOwner) {
             binding.wordsADaySettingsValue.text = it.value.toString()
             binding.wordsADaySettingsContainer.setOnClickListener {  _ ->
                 showMultipleChoiceSettingsDialog(
@@ -47,7 +61,7 @@ class SettingsLearnFragment : BaseSettingsFragment() {
             }
         }
 
-        viewModel.leftSwipeAction.observe(viewLifecycleOwner) {
+        viewModel.leftSwipeActionLiveData.observe(viewLifecycleOwner) {
             binding.leftActionSettingsValue.text = it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
             binding.leftActionSettingsContainer.setOnClickListener {  _ ->
                 showMultipleChoiceSettingsDialog(
@@ -61,7 +75,7 @@ class SettingsLearnFragment : BaseSettingsFragment() {
             }
         }
 
-        viewModel.rightSwipeAction.observe(viewLifecycleOwner) {
+        viewModel.rightSwipeActionLiveData.observe(viewLifecycleOwner) {
             binding.rightActionSettingsValue.text = it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
             binding.rightActionSettingsContainer.setOnClickListener {  _ ->
                 showMultipleChoiceSettingsDialog(
@@ -75,7 +89,7 @@ class SettingsLearnFragment : BaseSettingsFragment() {
             }
         }
 
-        viewModel.wordsOrderSetting.observe(viewLifecycleOwner) {
+        viewModel.wordsOrderSettingLiveData.observe(viewLifecycleOwner) {
             binding.wordsOrderSettingsValue.text = it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
             binding.wordsOrderSettingsContainer.setOnClickListener {  _ ->
                 showMultipleChoiceSettingsDialog(
@@ -88,7 +102,5 @@ class SettingsLearnFragment : BaseSettingsFragment() {
                 }
             }
         }
-
-        return binding.root
     }
 }

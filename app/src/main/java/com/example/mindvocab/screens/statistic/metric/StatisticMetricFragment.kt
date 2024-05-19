@@ -29,15 +29,26 @@ class StatisticMetricFragment : BaseFragment() {
     ): View {
         _binding = FragmentStatisticMetricBinding.inflate(inflater, container, false)
 
-        viewModel.wordsStatistic.observe(viewLifecycleOwner) {
+        initialBinding()
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initialBinding() {
+        viewModel.wordsStatisticLiveData.observe(viewLifecycleOwner) {
             setWordsStatistic(it)
         }
 
-        viewModel.achievementsStatistic.observe(viewLifecycleOwner) {
+        viewModel.achievementsStatisticLiveData.observe(viewLifecycleOwner) {
             setAchievementsStatistic(it)
         }
 
-        viewModel.wordSetsStatistic.observe(viewLifecycleOwner) {
+        viewModel.wordSetsStatisticLiveData.observe(viewLifecycleOwner) {
             binding.wordSetsStatisticChipGroup.visibility = View.GONE
             binding.wordSetsStatisticEmptyList.visibility = View.GONE
 
@@ -48,8 +59,6 @@ class StatisticMetricFragment : BaseFragment() {
                 binding.wordSetsStatisticEmptyList.visibility = View.VISIBLE
             }
         }
-
-        return binding.root
     }
 
     private fun setWordsStatistic(wordsStatistic: WordsStatistic) {
@@ -86,8 +95,4 @@ class StatisticMetricFragment : BaseFragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

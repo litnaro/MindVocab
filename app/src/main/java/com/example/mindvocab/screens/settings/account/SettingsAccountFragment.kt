@@ -29,25 +29,31 @@ class SettingsAccountFragment : BaseFragment() {
     ): View {
         _binding = FragmentSettingsAccountPreviewBinding.inflate(inflater, container, false)
 
-        viewModel.account.observe(viewLifecycleOwner) {
-            when(it) {
-                is Result.Pending -> {
+        initialBinding()
 
-                }
-                is Result.Error -> {
+        return binding.root
+    }
 
-                }
-                is Result.Success -> {
-                    setAccountData(it.data)
-                }
-            }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initialBinding() {
+        viewModel.accountLiveDataResult.observe(viewLifecycleOwner) {
+            observeSideEffects(
+                result = it,
+                onSuccess = ::accountSuccessResult
+            )
         }
 
         binding.accountEditButton.setOnClickListener {
             findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToAccountEditFragment())
         }
+    }
 
-        return binding.root
+    private fun <T> accountSuccessResult(result: Result.Success<T>) {
+        setAccountData(result.data as Account)
     }
 
     private fun setAccountData(account: Account) {
@@ -64,11 +70,6 @@ class SettingsAccountFragment : BaseFragment() {
             .placeholder(R.drawable.ic_face)
             .error(R.drawable.ic_face)
             .into(binding.accountPhoto)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
 }

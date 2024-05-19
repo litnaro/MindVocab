@@ -17,11 +17,11 @@ class WordSetsViewModel @Inject constructor(
     private val wordSetsRepository: WordSetsRepository
 ) : BaseViewModel() {
 
-    private val _wordSetFilter = MutableLiveData(WordSetFilter.ALL)
-    val wordSetFilter: LiveData<WordSetFilter> = _wordSetFilter
+    private val _wordSetFilterLiveData = MutableLiveData(WordSetFilter.ALL)
+    val wordSetFilterLiveData: LiveData<WordSetFilter> = _wordSetFilterLiveData
 
-    private val _wordSetList = MutableLiveData<Result<List<WordSet>>>(Result.Pending)
-    val wordSetList: LiveData<Result<List<WordSet>>> = _wordSetList
+    private val _wordSetListLiveData = MutableLiveData<Result<List<WordSet>>>(Result.Pending)
+    val wordSetListLiveData: LiveData<Result<List<WordSet>>> = _wordSetListLiveData
 
     init {
         getWordSets()
@@ -29,9 +29,9 @@ class WordSetsViewModel @Inject constructor(
 
     fun getWordSets(searchQuery: String = "", filter: WordSetFilter = WordSetFilter.ALL) {
         viewModelScope.launch {
-            if (searchQuery.isNotBlank()) _wordSetFilter.value = WordSetFilter.ALL
+            if (searchQuery.isNotBlank()) _wordSetFilterLiveData.value = WordSetFilter.ALL
             wordSetsRepository.getWordSets(searchQuery, filter).collect {
-                _wordSetList.value = Result.Success(it)
+                _wordSetListLiveData.value = Result.Success(it)
             }
         }
     }

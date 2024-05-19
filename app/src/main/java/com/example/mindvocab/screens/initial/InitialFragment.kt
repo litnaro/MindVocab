@@ -23,7 +23,7 @@ class InitialFragment : BaseFragment() {
     ): View {
         val binding = FragmentInitialBinding.inflate(inflater, container, false)
 
-        viewModel.isSignedIn.observe(viewLifecycleOwner) {
+        viewModel.isSignedInLiveData.observe(viewLifecycleOwner) {
             launchMainScreen(it)
         }
         return binding.root

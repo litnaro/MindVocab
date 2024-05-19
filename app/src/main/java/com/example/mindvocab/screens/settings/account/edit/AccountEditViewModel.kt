@@ -16,14 +16,14 @@ class AccountEditViewModel @Inject constructor(
     private val accountsRepository: AccountsRepository
 ) : BaseViewModel() {
 
-    private val _account = MutableLiveData<Result<Account>>(Result.Pending)
-    val account: LiveData<Result<Account>> get() = _account
+    private val _accountLiveDataResult = MutableLiveData<Result<Account>>(Result.Pending)
+    val accountLiveDataResult: LiveData<Result<Account>> get() = _accountLiveDataResult
 
     init {
         viewModelScope.launch {
             accountsRepository.getAccount().collect {
                 if (it != null) {
-                    _account.value = Result.Success(it)
+                    _accountLiveDataResult.value = Result.Success(it)
                 }
             }
         }

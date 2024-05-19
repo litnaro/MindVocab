@@ -14,12 +14,12 @@ class InitialViewModel @Inject constructor(
     private val accountsRepository: AccountsRepository
 ) : BaseViewModel() {
 
-    private val _isSignedIn = MutableLiveData<Boolean>()
-    val isSignedIn: LiveData<Boolean> = _isSignedIn
+    private val _isSignedInLiveData = MutableLiveData<Boolean>()
+    val isSignedInLiveData: LiveData<Boolean> = _isSignedInLiveData
 
     init {
         viewModelScope.launch {
-            _isSignedIn.value = accountsRepository.isSignedIn()
+            _isSignedInLiveData.value = accountsRepository.isSignedIn()
         }
     }
 }

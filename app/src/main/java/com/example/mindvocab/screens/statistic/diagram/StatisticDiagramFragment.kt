@@ -27,20 +27,13 @@ class StatisticDiagramFragment : BaseFragment() {
     ): View {
         _binding = FragmentStatisticDiagramBinding.inflate(inflater, container, false)
 
-        viewModel.statistic.observe(viewLifecycleOwner) {
-            binding.diagramContainer.visibility = View.GONE
-            binding.pendingProgressBar.visibility = View.GONE
-
-            when(it) {
-                is Result.Pending -> {
-                    binding.pendingProgressBar.visibility = View.VISIBLE
-                }
-                is Result.Error -> {}
-                is Result.Success -> {
-                    binding.diagramContainer.visibility = View.VISIBLE
-                    updateDiagram(it.data)
-                }
-            }
+        viewModel.statisticLiveDataResult.observe(viewLifecycleOwner) {
+            observeSideEffects(
+                result = it,
+                onReset = ::statisticResetResult,
+                onPending = ::statisticPendingResult,
+                onSuccess = ::statisticSuccessResult
+            )
         }
 
         return binding.root
@@ -49,6 +42,20 @@ class StatisticDiagramFragment : BaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun statisticResetResult() {
+        binding.diagramContainer.visibility = View.GONE
+        binding.pendingProgressBar.visibility = View.GONE
+    }
+
+    private fun statisticPendingResult() {
+        binding.pendingProgressBar.visibility = View.VISIBLE
+    }
+
+    private fun <T> statisticSuccessResult(result: Result.Success<T>) {
+        binding.diagramContainer.visibility = View.VISIBLE
+        updateDiagram(result.data as WordsStatisticPercentage)
     }
 
     private fun updateDiagram(statistic: WordsStatisticPercentage) {

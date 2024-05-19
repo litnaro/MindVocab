@@ -32,14 +32,22 @@ class AccountEditFragment : BaseFragment() {
     ): View {
         _binding = FragmentSettingsAccountBinding.inflate(inflater, container, false)
 
-        viewModel.account.observe(viewLifecycleOwner) {
-            when(it) {
-                is Result.Pending -> {}
-                is Result.Error -> {}
-                is Result.Success -> {
-                    setAccountData(it.data)
-                }
-            }
+        initialBinding()
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initialBinding() {
+        viewModel.accountLiveDataResult.observe(viewLifecycleOwner) {
+            observeSideEffects(
+                result = it,
+                onSuccess = ::accountSuccessResult
+            )
         }
 
         binding.changePasswordContainer.setOnClickListener {
@@ -69,7 +77,10 @@ class AccountEditFragment : BaseFragment() {
             }
         }
 
-        return binding.root
+    }
+
+    private fun <T> accountSuccessResult(result: Result.Success<T>) {
+        setAccountData(result.data as Account)
     }
 
     private fun openDangerousActionDialog(title: String, onConfirm: () -> Unit) {
@@ -108,11 +119,6 @@ class AccountEditFragment : BaseFragment() {
                 .error(R.drawable.ic_face)
                 .into(accountPhoto)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
 }

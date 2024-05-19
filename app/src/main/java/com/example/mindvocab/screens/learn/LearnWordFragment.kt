@@ -20,6 +20,7 @@ import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentLearnWordBinding
+import com.example.mindvocab.model.AppException
 import com.example.mindvocab.model.learning.NoMoreWordsToLearnForTodayException
 import com.example.mindvocab.model.learning.NoWordsToLearnException
 import com.example.mindvocab.model.word.entities.Word
@@ -37,68 +38,38 @@ class LearnWordFragment : BaseFragment() {
         _binding = FragmentLearnWordBinding.inflate(inflater, container, false)
 
         setupMenu()
+        initialBinding()
 
-        viewModel.word.observe(viewLifecycleOwner) {
-            with(binding) {
-                learnWordContainer.visibility = View.GONE
+        return binding.root
+    }
 
-                learnEmptyWordSetsScroll.visibility = View.GONE
-                learnWordBlock.visibility = View.GONE
-                pendingShimmer.visibility = View.GONE
-                pendingShimmer.stopShimmer()
+    override fun onResume() {
+        super.onResume()
+        viewModel.getWordToLearn()
+    }
 
-                accountLearningProgress.visibility = View.GONE
-                accountLearningProgressCheckImage.visibility = View.GONE
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
-                maxWordsForToday.visibility = View.GONE
-                startedTodayWordsCount.visibility = View.GONE
-
-                when(it) {
-                    is Result.Error -> {
-                        learnWordContainer.visibility = View.VISIBLE
-                        learnEmptyWordSetsScroll.visibility = View.VISIBLE
-                        val context = root.context
-                        if (it.exception is NoWordsToLearnException) {
-                            emptyWordToLearnImage.setImageResource(R.drawable.ic_selection_list)
-                            emptyWordToLearnTitle.text = context.getString(R.string.no_learning_words_exception_text_title)
-                            emptyWordToLearnText.text = context.getString(R.string.no_learning_words_exception_text)
-                        } else if (it.exception is NoMoreWordsToLearnForTodayException) {
-                            maxWordsForToday.visibility = View.VISIBLE
-                            startedTodayWordsCount.visibility = View.VISIBLE
-
-                            accountLearningProgressCheckImage.visibility = View.VISIBLE
-                            accountLearningProgress.visibility = View.VISIBLE
-
-                            emptyWordToLearnImage.setImageResource(R.drawable.ic_timer)
-                            emptyWordToLearnTitle.text = context.getString(R.string.learning_words_timeout_exception_text_title)
-                            emptyWordToLearnText.text = context.getString(R.string.learning_words_timeout_exception_text)
-                        }
-                    }
-                    is Result.Pending -> {
-                        pendingShimmer.visibility = View.VISIBLE
-                        pendingShimmer.startShimmer()
-                    }
-                    is Result.Success -> {
-                        setWordData(it.data)
-
-                        learnWordContainer.visibility = View.VISIBLE
-
-                        learnWordBlock.visibility = View.VISIBLE
-                        accountLearningProgress.visibility = View.VISIBLE
-
-                        maxWordsForToday.visibility = View.VISIBLE
-                        startedTodayWordsCount.visibility = View.VISIBLE
-                    }
-                }
-            }
+    private fun initialBinding() {
+        viewModel.wordLiveDataResult.observe(viewLifecycleOwner) {
+            observeSideEffects(
+                result = it,
+                onReset = ::wordResetResult,
+                onPending = ::wordPendingResult,
+                onError = ::wordErrorResult,
+                onSuccess = ::wordSuccessResult
+            )
         }
 
-        viewModel.maxWordsForToday.observe(viewLifecycleOwner) {
+        viewModel.maxWordsForTodayLiveData.observe(viewLifecycleOwner) {
             binding.maxWordsForToday.text = binding.root.context.getString(R.string.max_amount_of_words_started, it.value)
             binding.accountLearningProgress.max = it.value
         }
 
-        viewModel.startedTodayWordsCount.observe(viewLifecycleOwner) {
+        viewModel.startedTodayWordsCountLiveData.observe(viewLifecycleOwner) {
             binding.startedTodayWordsCount.text = it.toString()
             binding.accountLearningProgress.progress = it
         }
@@ -107,8 +78,7 @@ class LearnWordFragment : BaseFragment() {
             //TODO listen word
         }
 
-        viewModel.isPreviousWordAvailable.observe(viewLifecycleOwner) {
-            //TODO replace with dimens
+        viewModel.isPreviousWordAvailableLiveData.observe(viewLifecycleOwner) {
             if (it) {
                 binding.returnPreviousWordButton.alpha = 1f
             } else {
@@ -120,13 +90,6 @@ class LearnWordFragment : BaseFragment() {
         binding.returnPreviousWordButton.setOnClickListener {
             viewModel.onWordReturnPrevious()
         }
-
-        return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getWordToLearn()
     }
 
     private fun setupMenu() {
@@ -147,6 +110,67 @@ class LearnWordFragment : BaseFragment() {
             }
 
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun <T> wordSuccessResult(result: Result.Success<T>) {
+        with(binding) {
+            setWordData(result.data as Word)
+
+            learnWordContainer.visibility = View.VISIBLE
+
+            learnWordBlock.visibility = View.VISIBLE
+            accountLearningProgress.visibility = View.VISIBLE
+
+            maxWordsForToday.visibility = View.VISIBLE
+            startedTodayWordsCount.visibility = View.VISIBLE
+        }
+    }
+
+    private fun wordResetResult() {
+        with(binding) {
+            learnWordContainer.visibility = View.GONE
+
+            learnEmptyWordSetsScroll.visibility = View.GONE
+            learnWordBlock.visibility = View.GONE
+            pendingShimmer.visibility = View.GONE
+            pendingShimmer.stopShimmer()
+
+            accountLearningProgress.visibility = View.GONE
+            accountLearningProgressCheckImage.visibility = View.GONE
+
+            maxWordsForToday.visibility = View.GONE
+            startedTodayWordsCount.visibility = View.GONE
+        }
+    }
+
+    private fun wordErrorResult(exception: AppException) {
+        with(binding) {
+            learnWordContainer.visibility = View.VISIBLE
+            learnEmptyWordSetsScroll.visibility = View.VISIBLE
+            val context = root.context
+            if (exception is NoWordsToLearnException) {
+                emptyWordToLearnImage.setImageResource(R.drawable.ic_selection_list)
+                emptyWordToLearnTitle.text = context.getString(R.string.no_learning_words_exception_text_title)
+                emptyWordToLearnText.text = context.getString(R.string.no_learning_words_exception_text)
+            } else if (exception is NoMoreWordsToLearnForTodayException) {
+                maxWordsForToday.visibility = View.VISIBLE
+                startedTodayWordsCount.visibility = View.VISIBLE
+
+                accountLearningProgressCheckImage.visibility = View.VISIBLE
+                accountLearningProgress.visibility = View.VISIBLE
+
+                emptyWordToLearnImage.setImageResource(R.drawable.ic_timer)
+                emptyWordToLearnTitle.text = context.getString(R.string.learning_words_timeout_exception_text_title)
+                emptyWordToLearnText.text = context.getString(R.string.learning_words_timeout_exception_text)
+            }
+        }
+    }
+
+    private fun wordPendingResult() {
+        with(binding) {
+            pendingShimmer.visibility = View.VISIBLE
+            pendingShimmer.startShimmer()
+        }
     }
 
     private fun setWordData(word: Word) {
@@ -194,11 +218,6 @@ class LearnWordFragment : BaseFragment() {
                 viewModel.onWordToLearn(word)
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
 }

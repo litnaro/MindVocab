@@ -9,6 +9,7 @@ import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentSettingsChangeUsernameBinding
+import com.example.mindvocab.model.AppException
 import com.example.mindvocab.model.account.SameDataModificationException
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,22 +27,27 @@ class ChangeUsernameFragment : BaseFragment() {
     ): View {
         _binding = FragmentSettingsChangeUsernameBinding.inflate(inflater, container, false)
 
-        viewModel.accountUsername.observe(viewLifecycleOwner) {
+        initialBinding()
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initialBinding() {
+        viewModel.accountUsernameLiveData.observe(viewLifecycleOwner) {
             binding.accountUsernameField.setText(it)
         }
 
-        viewModel.changePasswordResult.observe(viewLifecycleOwner) {
-            when(it) {
-                is Result.Pending -> {}
-                is Result.Error -> {
-                    if (it.exception is SameDataModificationException) {
-                        binding.accountUsernameFieldContainer.error = requireContext().getString(R.string.new_username_equals_old_one_error_text)
-                    }
-                }
-                is Result.Success -> {
-                    binding.accountUsernameFieldContainer.helperText = requireContext().getString(R.string.username_successfully_changed)
-                }
-            }
+        viewModel.changePasswordLiveDataResult.observe(viewLifecycleOwner) {
+            observeSideEffects(
+                result = it,
+                onError = ::changePasswordErrorResult,
+                onSuccess = ::changePasswordSuccessResult
+            )
         }
 
         binding.changeUsernameButton.setOnClickListener {
@@ -50,13 +56,17 @@ class ChangeUsernameFragment : BaseFragment() {
                 binding.accountUsernameField.text.toString()
             )
         }
-
-        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun changePasswordErrorResult(exception: AppException) {
+        if (exception is SameDataModificationException) {
+            binding.accountUsernameFieldContainer.error = requireContext().getString(R.string.new_username_equals_old_one_error_text)
+        }
+    }
+
+    @Suppress("UNUSED_PARAMETER")
+    private fun <T> changePasswordSuccessResult(result: Result.Success<T>) {
+        binding.accountUsernameFieldContainer.helperText = requireContext().getString(R.string.username_successfully_changed)
     }
 
 }

@@ -30,15 +30,46 @@ class StatisticFragment : BaseFragment() {
 
     override val viewModel by viewModels<StatisticViewModel>()
 
+    private var _binding: FragmentStatisticBinding? = null
+    private val binding get() = _binding!!
+
+    private var achievementsAdapter: AchievementAdapter? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentStatisticBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentStatisticBinding.inflate(layoutInflater, container, false)
 
         setupMenu()
+        initialBinding()
 
-        val achievementsAdapter = AchievementAdapter(object : AchievementAdapter.Listener {
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initialBinding() {
+        createAdapter()
+
+        binding.statisticViewPager.adapter = StatisticPagerAdapter(this)
+        binding.statisticViewPagerIndicator.attachTo(binding.statisticViewPager)
+
+        viewModel.achievementsLiveDataResult.observe(viewLifecycleOwner) {
+            observeSideEffects(
+                result = it,
+                onReset = ::achievementsResetResult,
+                onPending = ::achievementsPendingResult,
+                onSuccess = ::achievementsSuccessResult
+            )
+        }
+    }
+
+    private fun createAdapter() {
+        achievementsAdapter = AchievementAdapter(object : AchievementAdapter.Listener {
             override fun onAchievementDetail(achievement: Achievement) {
                 if (!achievement.isChecked) {
                     viewModel.setAchievementAsChecked(achievement)
@@ -50,30 +81,23 @@ class StatisticFragment : BaseFragment() {
             adapter = achievementsAdapter
             layoutManager = GridLayoutManager(requireContext(), 3)
         }
+    }
 
-        binding.statisticViewPager.adapter = StatisticPagerAdapter(this)
-        binding.statisticViewPagerIndicator.attachTo(binding.statisticViewPager)
+    @Suppress("UNCHECKED_CAST")
+    private fun <T> achievementsSuccessResult(result: Result.Success<T>) {
+        achievementsAdapter?.submitList(result.data as List<Achievement>)
+        binding.achievementsRv.visibility = View.VISIBLE
+    }
 
-        viewModel.achievements.observe(viewLifecycleOwner) {
-            with(binding) {
-                achievementsRv.visibility = View.GONE
-                pendingShimmer.visibility = View.GONE
-                pendingShimmer.stopShimmer()
+    private fun achievementsResetResult() {
+        binding.achievementsRv.visibility = View.GONE
+        binding.pendingShimmer.visibility = View.GONE
+        binding.pendingShimmer.stopShimmer()
+    }
 
-                when(it) {
-                    is Result.Pending -> {
-                        pendingShimmer.visibility = View.VISIBLE
-                        pendingShimmer.startShimmer()
-                    }
-                    is Result.Error -> {}
-                    is Result.Success -> {
-                        achievementsAdapter.submitList(it.data)
-                        achievementsRv.visibility = View.VISIBLE
-                    }
-                }
-            }
-        }
-        return binding.root
+    private fun achievementsPendingResult() {
+        binding.pendingShimmer.visibility = View.VISIBLE
+        binding.pendingShimmer.startShimmer()
     }
 
     private fun setupMenu() {

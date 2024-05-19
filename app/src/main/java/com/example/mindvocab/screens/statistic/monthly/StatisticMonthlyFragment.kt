@@ -14,6 +14,7 @@ import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentStatisticMonthlyBinding
+import com.example.mindvocab.model.statistic.entities.CalendarDayStatistic
 import com.example.mindvocab.screens.statistic.StatisticFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
@@ -32,42 +33,9 @@ class StatisticMonthlyFragment : BaseFragment() {
     ): View {
         _binding = FragmentStatisticMonthlyBinding.inflate(inflater, container, false)
 
-        viewModel.monthStatistic.observe(viewLifecycleOwner) { result ->
-            when(result) {
-                is Result.Error -> {}
-                is Result.Pending -> {}
-                is Result.Success -> {
-                    binding.calendar.setCalendarDays(
-                        result.data.map {
-                            CalendarDay(it.day).apply {
-                                if (it.isRepeatedOldWords && it.isStartedNewWords) {
-                                    imageDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_only_repeated_and_started_dot)
-                                } else if (it.isRepeatedOldWords) {
-                                    imageDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_only_repeated_dot)
-                                } else if (it.isStartedNewWords) {
-                                    imageDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_only_started_dot)
-                                }
-                            }
-                        }
-                    )
-                }
-            }
-        }
-
-        binding.calendar.setOnCalendarDayClickListener(object : OnCalendarDayClickListener {
-            override fun onClick(calendarDay: CalendarDay) {
-                if (calendarDay.imageDrawable != null) {
-                    findNavController().navigate(StatisticFragmentDirections.actionStatisticFragmentToStatisticDayDialogFragment(calendarDay.calendar.timeInMillis))
-                }
-            }
-        })
+        initialBinding()
 
         return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getMonthStatistic(binding.calendar.currentPageDate.get(Calendar.MONTH))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -85,12 +53,51 @@ class StatisticMonthlyFragment : BaseFragment() {
 
         binding.calendar.setOnPreviousPageChangeListener(monthChangeListener)
         binding.calendar.setOnForwardPageChangeListener(monthChangeListener)
+    }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getMonthStatistic(binding.calendar.currentPageDate.get(Calendar.MONTH))
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun initialBinding() {
+        viewModel.monthStatisticLiveDataResult.observe(viewLifecycleOwner) {
+            observeSideEffects(
+                result = it,
+                onSuccess = ::monthStatisticSuccessResult
+            )
+        }
+
+        binding.calendar.setOnCalendarDayClickListener(object : OnCalendarDayClickListener {
+            override fun onClick(calendarDay: CalendarDay) {
+                if (calendarDay.imageDrawable != null) {
+                    findNavController().navigate(StatisticFragmentDirections.actionStatisticFragmentToStatisticDayDialogFragment(calendarDay.calendar.timeInMillis))
+                }
+            }
+        })
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun <T> monthStatisticSuccessResult(result: Result.Success<T>) {
+        val data = result.data as List<CalendarDayStatistic>
+        binding.calendar.setCalendarDays(
+            data.map {
+                CalendarDay(it.day).apply {
+                    if (it.isRepeatedOldWords && it.isStartedNewWords) {
+                        imageDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_only_repeated_and_started_dot)
+                    } else if (it.isRepeatedOldWords) {
+                        imageDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_only_repeated_dot)
+                    } else if (it.isStartedNewWords) {
+                        imageDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_only_started_dot)
+                    }
+                }
+            }
+        )
     }
 
 }

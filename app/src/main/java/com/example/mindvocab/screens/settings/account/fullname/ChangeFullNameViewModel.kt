@@ -16,11 +16,11 @@ class ChangeFullNameViewModel @Inject constructor(
     private val accountsRepository: AccountsRepository
 ) : BaseViewModel() {
 
-    private val _changeFullNameResult = MutableLiveData<Result<Boolean>>()
-    val changeFullNameResult: LiveData<Result<Boolean>> = _changeFullNameResult
+    private val _changeFullNameLiveDataResult = MutableLiveData<Result<Boolean>>()
+    val changeFullNameLiveDataResult: LiveData<Result<Boolean>> = _changeFullNameLiveDataResult
 
-    private val _accountFullName = MutableLiveData<FullName>()
-    val accountFullName: LiveData<FullName> = _accountFullName
+    private val _accountFullNameLiveData = MutableLiveData<FullName>()
+    val accountFullNameLiveData: LiveData<FullName> = _accountFullNameLiveData
 
     init {
         getFullName()
@@ -29,13 +29,13 @@ class ChangeFullNameViewModel @Inject constructor(
     fun changeFullName(fullName: FullName) {
         viewModelScope.launch {
             accountsRepository.updateFullName(fullName)
-            _changeFullNameResult.value = Result.Success(true)
+            _changeFullNameLiveDataResult.value = Result.Success(true)
         }
     }
 
     private fun getFullName() {
         viewModelScope.launch {
-            _accountFullName.value = accountsRepository.getAccountFullName()
+            _accountFullNameLiveData.value = accountsRepository.getAccountFullName()
         }
     }
 

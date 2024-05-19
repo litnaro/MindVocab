@@ -16,11 +16,11 @@ class ChangeUsernameViewModel @Inject constructor(
     private val accountsRepository: AccountsRepository
 ) : BaseViewModel() {
 
-    private val _changePasswordResult = MutableLiveData<Result<Boolean>>()
-    val changePasswordResult: LiveData<Result<Boolean>> = _changePasswordResult
+    private val _changePasswordLiveDataResult = MutableLiveData<Result<Boolean>>()
+    val changePasswordLiveDataResult: LiveData<Result<Boolean>> = _changePasswordLiveDataResult
 
-    private val _accountUsername = MutableLiveData<String>()
-    val accountUsername: LiveData<String> = _accountUsername
+    private val _accountUsernameLiveData = MutableLiveData<String>()
+    val accountUsernameLiveData: LiveData<String> = _accountUsernameLiveData
 
     init {
         getCurrentUsername()
@@ -30,16 +30,16 @@ class ChangeUsernameViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 accountsRepository.updateUsername(username)
-                _changePasswordResult.value = Result.Success(true)
+                _changePasswordLiveDataResult.value = Result.Success(true)
             } catch (e: AppException) {
-                _changePasswordResult.value = Result.Error(e)
+                _changePasswordLiveDataResult.value = Result.Error(e)
             }
         }
     }
 
     private fun getCurrentUsername() {
         viewModelScope.launch {
-            _accountUsername.value = accountsRepository.getAccountUsername()
+            _accountUsernameLiveData.value = accountsRepository.getAccountUsername()
         }
     }
 }

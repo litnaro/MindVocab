@@ -33,15 +33,23 @@ class ChangePasswordFragment : BaseFragment() {
     ): View {
         _binding = FragmentSettingsChangePasswordBinding.inflate(inflater, container, false)
 
-        viewModel.changePasswordResult.observe(viewLifecycleOwner) {
-            when(it) {
-                is Result.Pending -> {}
-                is Result.Error -> handleSignUpErrors(it.exception)
-                is Result.Success -> {
-                    clearInputFields()
-                    binding.oldPasswordFieldContainer.helperText = requireContext().getString(R.string.password_successfully_changed)
-                }
-            }
+        initialBinding()
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initialBinding() {
+        viewModel.changePasswordLiveDataResult.observe(viewLifecycleOwner) {
+            observeSideEffects(
+                result = it,
+                onError = ::changePasswordErrorResult,
+                onSuccess = ::changePasswordSuccessResult
+            )
         }
 
         binding.changePasswordButton.setOnClickListener {
@@ -54,16 +62,9 @@ class ChangePasswordFragment : BaseFragment() {
                 )
             )
         }
-
-        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun handleSignUpErrors(exception: AppException) {
+    private fun changePasswordErrorResult(exception: AppException) {
         with(binding) {
             when(exception) {
                 is EmptyFieldException -> {
@@ -96,6 +97,12 @@ class ChangePasswordFragment : BaseFragment() {
                 }
             }
         }
+    }
+
+    @Suppress("UNUSED_PARAMETER")
+    private fun <T> changePasswordSuccessResult(result: Result.Success<T>) {
+        clearInputFields()
+        binding.oldPasswordFieldContainer.helperText = requireContext().getString(R.string.password_successfully_changed)
     }
 
     private fun clearInputFields() {

@@ -17,6 +17,7 @@ import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
 import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentRepeatWordBinding
+import com.example.mindvocab.model.AppException
 import com.example.mindvocab.model.repeating.NoWordsToRepeatException
 import com.example.mindvocab.model.repeating.WordsToRepeatCurrentlyInTimeout
 import com.example.mindvocab.model.settings.repeat.options.AnsweringVariantSetting
@@ -39,48 +40,7 @@ class RepeatWordFragment : BaseFragment() {
         _binding = FragmentRepeatWordBinding.inflate(inflater, container, false)
 
         setupMenu()
-
-        viewModel.wordToRepeat.observe(viewLifecycleOwner) {
-            with(binding) {
-                repeatingContainer.visibility = View.GONE
-                repeatingExceptionContainer.visibility = View.GONE
-                pendingShimmer.visibility = View.GONE
-                pendingShimmer.stopShimmer()
-
-                when(it) {
-                    is Result.Pending -> {
-                        binding.pendingShimmer.visibility = View.VISIBLE
-                        pendingShimmer.startShimmer()
-                    }
-                    is Result.Error -> {
-                        val context = root.context
-                        repeatingExceptionContainer.visibility = View.VISIBLE
-
-                        when(it.exception) {
-                            is NoWordsToRepeatException -> {
-                                repeatingExceptionImage.setImageResource(R.drawable.ic_remember)
-                                repeatingExceptionText.text = context.getString(R.string.no_words_to_repeat_exception_title)
-                                repeatingExceptionSubtext.text = context.getString(R.string.no_words_to_repeat_exception_subtitle)
-                            }
-                            is WordsToRepeatCurrentlyInTimeout -> {
-                                repeatingExceptionImage.setImageResource(R.drawable.ic_timeout)
-                                repeatingExceptionText.text = context.getString(R.string.words_to_repeat_in_timeout_exception_title)
-                                repeatingExceptionSubtext.text = context.getString(R.string.words_to_repeat_in_timeout_exception_subtitle)
-                            }
-                        }
-                    }
-                    is Result.Success -> {
-                        repeatingContainer.visibility = View.VISIBLE
-                        setWordData(it.data)
-                    }
-                }
-
-            }
-        }
-
-        binding.flipCardButton.setOnClickListener {
-            binding.wordAnswer.visibility = View.VISIBLE
-        }
+        initialBinding()
 
         return binding.root
     }
@@ -93,6 +53,63 @@ class RepeatWordFragment : BaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun initialBinding() {
+        viewModel.wordToRepeatLiveDataResult.observe(viewLifecycleOwner) {
+            observeSideEffects(
+                result = it,
+                onReset = ::wordResetResult,
+                onPending = ::wordPendingResult,
+                onError = ::wordErrorResult,
+                onSuccess = ::wordSuccessResult
+            )
+        }
+
+        binding.flipCardButton.setOnClickListener {
+            binding.wordAnswer.visibility = View.VISIBLE
+        }
+    }
+
+    private fun wordResetResult() {
+        with(binding) {
+            repeatingContainer.visibility = View.GONE
+            repeatingExceptionContainer.visibility = View.GONE
+            pendingShimmer.visibility = View.GONE
+            pendingShimmer.stopShimmer()
+        }
+    }
+
+    private fun wordErrorResult(exception: AppException) {
+        with(binding) {
+            val context = root.context
+            repeatingExceptionContainer.visibility = View.VISIBLE
+
+            when(exception) {
+                is NoWordsToRepeatException -> {
+                    repeatingExceptionImage.setImageResource(R.drawable.ic_remember)
+                    repeatingExceptionText.text = context.getString(R.string.no_words_to_repeat_exception_title)
+                    repeatingExceptionSubtext.text = context.getString(R.string.no_words_to_repeat_exception_subtitle)
+                }
+                is WordsToRepeatCurrentlyInTimeout -> {
+                    repeatingExceptionImage.setImageResource(R.drawable.ic_timeout)
+                    repeatingExceptionText.text = context.getString(R.string.words_to_repeat_in_timeout_exception_title)
+                    repeatingExceptionSubtext.text = context.getString(R.string.words_to_repeat_in_timeout_exception_subtitle)
+                }
+            }
+        }
+    }
+
+    private fun wordPendingResult() {
+        with(binding) {
+            pendingShimmer.visibility = View.VISIBLE
+            pendingShimmer.startShimmer()
+        }
+    }
+
+    private fun <T> wordSuccessResult(result: Result.Success<T>) {
+        binding.repeatingContainer.visibility = View.VISIBLE
+        setWordData(result.data as WordToRepeat)
     }
 
     private fun setupMenu() {
@@ -116,7 +133,7 @@ class RepeatWordFragment : BaseFragment() {
     }
 
     private fun setWordData(word: WordToRepeat) {
-        viewModel.questionVariantSetting.observe(viewLifecycleOwner) {
+        viewModel.questionVariantSettingLiveData.observe(viewLifecycleOwner) {
             when(it) {
                 QuestionVariantSetting.WORD -> {
                     binding.wordToRepeat.text = word.word
@@ -141,7 +158,7 @@ class RepeatWordFragment : BaseFragment() {
             }
         }
 
-        viewModel.answeringVariantSetting.observe(viewLifecycleOwner) {
+        viewModel.answeringVariantSettingLiveData.observe(viewLifecycleOwner) {
             when(it) {
                 AnsweringVariantSetting.TRANSLATION -> {
                     if (binding.wordAnswer.visibility == View.GONE) {
@@ -174,16 +191,16 @@ class RepeatWordFragment : BaseFragment() {
 
         binding.leftActionButton.setOnClickListener {
             viewModel.onWordRemember(word)
-            resetUiElements()
+            clearFields()
         }
 
         binding.rightActionButton.setOnClickListener {
             viewModel.onWordForgot(word)
-            resetUiElements()
+            clearFields()
         }
     }
 
-    private fun resetUiElements() {
+    private fun clearFields() {
         binding.wordAnswer.visibility = View.GONE
 
         binding.wordGrammarCheckField.setText("")

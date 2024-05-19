@@ -53,7 +53,7 @@ class StatisticDayDetailFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
 
-        viewModel.startedWords.observe(viewLifecycleOwner) {
+        viewModel.startedWordsLiveData.observe(viewLifecycleOwner) {
             binding.startedWordsTitle.visibility = View.GONE
             binding.startedWords.visibility = View.GONE
             if (it.isNotEmpty()) {
@@ -73,7 +73,7 @@ class StatisticDayDetailFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
 
-        viewModel.repeatedWords.observe(viewLifecycleOwner) {
+        viewModel.repeatedWordsLiveData.observe(viewLifecycleOwner) {
             binding.repeatedWordsTitle.visibility = View.GONE
             binding.repeatedWords.visibility = View.GONE
             if (it.isNotEmpty()) {
