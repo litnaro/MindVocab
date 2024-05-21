@@ -12,7 +12,7 @@ abstract class BaseFragment : Fragment() {
         onReset: () -> Unit = {},
         onPending: () -> Unit = {},
         onError: (AppException) -> Unit = {},
-        onSuccess: (Result.Success<T>) -> Unit
+        onSuccess: (Result.Success<T>) -> Unit = {}
     ) {
         onReset()
         when(result) {

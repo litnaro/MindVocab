@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
-import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentSignUpBinding
 import com.example.mindvocab.model.account.AccountAlreadyExistsException
 import com.example.mindvocab.model.AppException
@@ -18,6 +18,7 @@ import com.example.mindvocab.model.account.PasswordMismatchException
 import com.example.mindvocab.model.account.entities.SignUpData
 import com.example.mindvocab.model.account.security.toCharArray
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SignUpFragment : BaseFragment() {
@@ -52,22 +53,22 @@ class SignUpFragment : BaseFragment() {
         viewModel.signUpLiveDataResult.observe(viewLifecycleOwner) {
             observeSideEffects(
                 result = it,
-                onError = ::signUpErrorResult,
-                onSuccess = ::signUpSuccessResult
+                onError = ::signUpErrorResult
             )
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.navigateAfterSuccessFlow.collect {
+                findNavController().popBackStack()
+            }
         }
 
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
-    }
-
-    @Suppress("UNUSED_PARAMETER")
-    private fun <T> signUpSuccessResult(result: Result.Success<T>) {
-        findNavController().popBackStack()
     }
 
     private fun signUpErrorResult(exception: AppException) {

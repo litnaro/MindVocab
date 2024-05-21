@@ -1,6 +1,8 @@
 package com.example.mindvocab.screens.repeat
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -24,6 +26,7 @@ import com.example.mindvocab.model.settings.repeat.options.AnsweringVariantSetti
 import com.example.mindvocab.model.settings.repeat.options.QuestionVariantSetting
 import com.example.mindvocab.model.word.entities.WordToRepeat
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 @AndroidEntryPoint
 class RepeatWordFragment : BaseFragment() {
@@ -32,6 +35,18 @@ class RepeatWordFragment : BaseFragment() {
 
     private var _binding: FragmentRepeatWordBinding? = null
     private val binding get() = _binding!!
+
+    private var textToSpeech: TextToSpeech? = null
+    private val textToSpeechListener = TextToSpeech.OnInitListener { status ->
+        if (status == TextToSpeech.SUCCESS) {
+            val result = textToSpeech?.setLanguage(Locale.US)
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS", "Language not supported")
+            }
+        } else {
+            Log.e("TTS", "Initialization failed")
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,9 +68,14 @@ class RepeatWordFragment : BaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        textToSpeech?.stop()
+        textToSpeech?.shutdown()
+        textToSpeech = null
     }
 
     private fun initialBinding() {
+        textToSpeech = TextToSpeech(requireContext(), textToSpeechListener)
+
         viewModel.wordToRepeatLiveDataResult.observe(viewLifecycleOwner) {
             observeSideEffects(
                 result = it,
@@ -69,6 +89,10 @@ class RepeatWordFragment : BaseFragment() {
         binding.flipCardButton.setOnClickListener {
             binding.wordAnswer.visibility = View.VISIBLE
         }
+    }
+
+    private fun speak(text: String) {
+        textToSpeech?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
     private fun wordResetResult() {
@@ -197,6 +221,10 @@ class RepeatWordFragment : BaseFragment() {
         binding.rightActionButton.setOnClickListener {
             viewModel.onWordForgot(word)
             clearFields()
+        }
+
+        binding.listenWordButton.setOnClickListener {
+            speak(word.word)
         }
     }
 

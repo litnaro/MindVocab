@@ -15,7 +15,7 @@ class AchievementAdapter (
     private val listener: Listener
 ) : ListAdapter<Achievement, AchievementAdapter.ViewHolder>(ItemCallback), View.OnClickListener {
 
-    interface Listener {
+    fun interface Listener {
         fun onAchievementDetail(achievement: Achievement)
     }
 
@@ -56,7 +56,7 @@ class AchievementAdapter (
 
     class ViewHolder(val binding: ItemAchievementBinding) : RecyclerView.ViewHolder(binding.root)
 
-    object ItemCallback: DiffUtil.ItemCallback<Achievement>() {
+    object ItemCallback : DiffUtil.ItemCallback<Achievement>() {
         override fun areItemsTheSame(oldItem: Achievement, newItem: Achievement): Boolean {
             return oldItem.id == newItem.id
         }

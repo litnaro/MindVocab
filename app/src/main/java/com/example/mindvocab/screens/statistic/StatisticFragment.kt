@@ -69,14 +69,12 @@ class StatisticFragment : BaseFragment() {
     }
 
     private fun createAdapter() {
-        achievementsAdapter = AchievementAdapter(object : AchievementAdapter.Listener {
-            override fun onAchievementDetail(achievement: Achievement) {
-                if (!achievement.isChecked) {
-                    viewModel.setAchievementAsChecked(achievement)
-                }
-                showAchievementDetailDialog(achievement)
+        achievementsAdapter = AchievementAdapter { achievement ->
+            if (!achievement.isChecked) {
+                viewModel.setAchievementAsChecked(achievement)
             }
-        })
+            showAchievementDetailDialog(achievement)
+        }
         binding.achievementsRv.apply {
             adapter = achievementsAdapter
             layoutManager = GridLayoutManager(requireContext(), 3)

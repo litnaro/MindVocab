@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.mindvocab.R
 import com.example.mindvocab.core.BaseFragment
-import com.example.mindvocab.core.Result
 import com.example.mindvocab.databinding.FragmentSignInBinding
 import com.example.mindvocab.model.AppException
 import com.example.mindvocab.model.AuthException
@@ -16,6 +16,7 @@ import com.example.mindvocab.model.account.EmptyFieldException
 import com.example.mindvocab.model.account.Field
 import com.example.mindvocab.model.account.security.toCharArray
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SignInFragment : BaseFragment() {
@@ -36,8 +37,8 @@ class SignInFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 
@@ -57,15 +58,15 @@ class SignInFragment : BaseFragment() {
         viewModel.signInLiveDataResult.observe(viewLifecycleOwner) {
             observeSideEffects(
                 result = it,
-                onError = ::signInErrorResult,
-                onSuccess = ::signInSuccessResult
+                onError = ::signInErrorResult
             )
         }
-    }
 
-    @Suppress("UNUSED_PARAMETER")
-    private fun <T> signInSuccessResult(result: Result.Success<T>) {
-        findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToTabsFragment())
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.navigateAfterSuccessFlow.collect {
+                findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToTabsFragment())
+            }
+         }
     }
 
     private fun signInErrorResult(exception: AppException) {

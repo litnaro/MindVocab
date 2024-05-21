@@ -3,6 +3,8 @@ package com.example.mindvocab.screens.learn
 import android.graphics.text.LineBreaker
 import android.os.Build
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -25,6 +27,7 @@ import com.example.mindvocab.model.learning.NoMoreWordsToLearnForTodayException
 import com.example.mindvocab.model.learning.NoWordsToLearnException
 import com.example.mindvocab.model.word.entities.Word
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 @AndroidEntryPoint
 class LearnWordFragment : BaseFragment() {
@@ -33,6 +36,18 @@ class LearnWordFragment : BaseFragment() {
 
     private var _binding: FragmentLearnWordBinding? = null
     private val binding get() = _binding!!
+
+    private var textToSpeech: TextToSpeech? = null
+    private val textToSpeechListener = TextToSpeech.OnInitListener { status ->
+        if (status == TextToSpeech.SUCCESS) {
+            val result = textToSpeech?.setLanguage(Locale.US)
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS", "Language not supported")
+            }
+        } else {
+            Log.e("TTS", "Initialization failed")
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLearnWordBinding.inflate(inflater, container, false)
@@ -51,9 +66,18 @@ class LearnWordFragment : BaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        textToSpeech?.stop()
+        textToSpeech?.shutdown()
+        textToSpeech = null
+    }
+
+    private fun speak(text: String) {
+        textToSpeech?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
     private fun initialBinding() {
+        textToSpeech = TextToSpeech(requireContext(), textToSpeechListener)
+
         viewModel.wordLiveDataResult.observe(viewLifecycleOwner) {
             observeSideEffects(
                 result = it,
@@ -72,10 +96,6 @@ class LearnWordFragment : BaseFragment() {
         viewModel.startedTodayWordsCountLiveData.observe(viewLifecycleOwner) {
             binding.startedTodayWordsCount.text = it.toString()
             binding.accountLearningProgress.progress = it
-        }
-
-        binding.listenWordButton.setOnClickListener {
-            //TODO listen word
         }
 
         viewModel.isPreviousWordAvailableLiveData.observe(viewLifecycleOwner) {
@@ -114,7 +134,8 @@ class LearnWordFragment : BaseFragment() {
 
     private fun <T> wordSuccessResult(result: Result.Success<T>) {
         with(binding) {
-            setWordData(result.data as Word)
+            val word = result.data as Word
+            setWordData(word)
 
             learnWordContainer.visibility = View.VISIBLE
 
@@ -204,7 +225,7 @@ class LearnWordFragment : BaseFragment() {
             examplesRv.apply {
                 adapter = ExampleAdapter(word.exampleList, object : ExampleAdapter.Listener {
                     override fun onSentenceListen(sentence: String) {
-                        //TODO listen sentence
+                        speak(sentence)
                     }
                 })
                 layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -216,6 +237,10 @@ class LearnWordFragment : BaseFragment() {
 
             binding.wordToLearnButton.setOnClickListener {
                 viewModel.onWordToLearn(word)
+            }
+
+            binding.listenWordButton.setOnClickListener {
+                speak(word.word)
             }
         }
     }
